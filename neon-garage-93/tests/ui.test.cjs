@@ -17,7 +17,14 @@ w.HTMLDialogElement.prototype.showModal = function () {
 w.HTMLDialogElement.prototype.close = function () {
   this.open = false;
 };
-for (const name of ["cars", "economy", "legacy-language", "state", "ui"])
+for (const name of [
+  "cars",
+  "scene",
+  "economy",
+  "legacy-language",
+  "state",
+  "ui",
+])
   w.eval(fs.readFileSync(path.join(root, "js/" + name + ".js"), "utf8"));
 const click = (selector) => {
   const b = d.querySelector(selector);
@@ -32,8 +39,10 @@ const click = (selector) => {
 };
 assert.equal(d.documentElement.lang, "en");
 const saved = () => JSON.parse(w.localStorage.getItem(w.NG.saveKey));
-assert.match(d.querySelector("h1").textContent, /Every deal/);
-click('[data-view="market"]');
+assert.match(d.querySelector("h1").textContent, /NEON GARAGE/);
+assert.equal(d.querySelectorAll(".empty-bay").length, 2);
+click(".computer");
+assert(d.querySelector(".desk-window"));
 assert.equal(d.querySelectorAll(".car-card").length, 9);
 click(".car-card");
 assert(d.querySelector("#details").open);
@@ -42,6 +51,10 @@ assert.equal(saved().cash, 4910);
 assert(saved().market[0].inspected);
 click('[data-action="buy"]');
 assert.equal(saved().inventory.length, 1);
+assert(!d.querySelector("#details").open);
+assert(!d.querySelector(".desk-window"));
+assert(d.querySelector(".parked-car.arriving"));
+click(".parked-car");
 assert.match(d.querySelector("#details").textContent, /Sell your car/);
 click('[data-action="repair"][data-part="cosmetic"]');
 assert.equal(saved().inventory[0].readyDay, 1);
@@ -59,6 +72,7 @@ click(".car-card");
 assert.equal(d.querySelectorAll(".offer").length, 1);
 click('.offer [data-action="sell"]');
 assert.equal(saved().inventory.length, 0);
+assert.equal(d.querySelectorAll(".parked-car").length, 0);
 assert.equal(saved().sold, 1);
 assert(!d.querySelector("#details").open);
 click('[data-view="finances"]');
@@ -79,7 +93,14 @@ w.HTMLDialogElement.prototype.close = function () {
   this.open = false;
 };
 w.localStorage.setItem("neon-garage-93-v1", JSON.stringify(snap));
-for (const name of ["cars", "economy", "legacy-language", "state", "ui"])
+for (const name of [
+  "cars",
+  "scene",
+  "economy",
+  "legacy-language",
+  "state",
+  "ui",
+])
   w.eval(fs.readFileSync(path.join(root, "js/" + name + ".js"), "utf8"));
 assert.deepEqual(saved(), snap);
 assert.match(d.querySelector(".stats").textContent, /1 completed sale/);

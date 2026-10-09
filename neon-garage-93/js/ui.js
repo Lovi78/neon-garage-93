@@ -3,7 +3,8 @@
     view = "garage",
     selected = null,
     filter = "all",
-    sort = "default";
+    sort = "default",
+    arrival = null;
   const app = document.querySelector("#app"),
     dialog = document.querySelector("#details");
   const esc = (s) =>
@@ -28,26 +29,16 @@
   const card = (c, owned = false) =>
     `<button class="car-card" data-action="detail" data-id="${c.id}"><div class="car-image"><span class="car-number">${c.year} / ${NG.model(c).segment === "japan" ? "JPN" : NG.model(c).segment === "europe" ? "EUR" : "USA"}</span>${NG.carArt(c)}<span class="image-caption">${NG.model(c).trim}</span>${owned ? tag(c) : c.inspected ? '<span class="tag teal">INSPECTED</span>' : ""}</div><div class="card-content"><div class="card-top"><h3>${NG.model(c).name}</h3><span class="arrow">↗</span></div><p>${c.mileage.toLocaleString("en-US")} miles <span>·</span> ${c.inspected || owned ? NG.condition(c) + "% condition" : c.claim + "% claimed condition"}</p><div class="card-bottom"><strong>${NG.money(owned ? NG.cost(c) : c.ask)}</strong><span>${owned ? "total invested" : "asking price"}</span></div></div></button>`;
   function render() {
-    const offers = state.inventory.reduce((n, c) => n + c.offers.length, 0);
-    app.innerHTML = `<aside class="sidebar"><a class="brand" href="#" data-action="view" data-view="garage"><span class="brand-icon">N<span>G</span></span><span>NEON GARAGE<small>EST. 1993 / WEST COAST</small></span></a><div class="nav-label">YOUR DEALERSHIP</div><nav>${[
-      ["garage", "◈", "Garage"],
-      ["market", "▤", "Car Market"],
-      ["inventory", "▱", "My Inventory"],
-      ["finances", "▥", "Finances"],
-    ]
-      .map(
-        ([id, icon, label]) =>
-          `<button class="nav-item ${view === id ? "active" : ""}" data-action="view" data-view="${id}"><span class="nav-icon">${icon}</span>${label}${id === "inventory" && offers ? `<b class="nav-count">${offers}</b>` : ""}</button>`,
-      )
-      .join(
-        "",
-      )}</nav><div class="sidebar-bottom"><div class="open-sign">OPEN <span>FOR BUSINESS</span></div><p>SILVER PALMS, CA<br>SMALL LOT. BIG PLANS.</p><button class="reset" data-action="reset">↺ New Game</button><small>FIRST PLAYABLE / v0.1</small></div></aside><main><header class="topbar"><span class="top-location"><i></i> SILVER PALMS AUTO DISTRICT</span><div class="day-control"><span>${NG.date(state.day)}<small>Day ${state.day + 1}</small></span><button class="primary" data-action="next">Next Day <span>→</span></button></div></header><div class="content"><div class="page-heading"><div><div class="eyebrow">${view === "market" ? "CLASSIFIEDS / TODAY’S LISTINGS" : view === "finances" ? "BOOKKEEPING / BUSINESS LEDGER" : view === "inventory" ? "YOUR COLLECTION / INVENTORY" : "WELCOME TO THE GOOD LIFE"}</div><h1>${{ garage: "Every deal is a fresh start.", market: "Find your next great deal.", inventory: "The keys are in your hands.", finances: "The numbers tell the story." }[view]}</h1><p>${{ garage: "Buy low. Repair smart. Sell for a profit.", market: "Fresh listings. Hidden problems. Real opportunities.", inventory: "Inspect, repair, and find new owners for your cars.", finances: "Every dollar has a story. Track your dealership’s performance." }[view]}</p></div><span class="year-stamp">19<span>93</span></span></div><section class="stats"><div><span>CASH</span><strong>${NG.money(state.cash)}</strong><small>Available to spend</small></div><div><span>GARAGE</span><strong>${state.inventory.length}<em> / ${state.capacity}</em></strong><small>${state.capacity - state.inventory.length} available spaces</small></div><div><span>REPUTATION</span><strong>${state.reputation}<em> points</em></strong><small>${state.reputation < 10 ? "New face in town" : "Making a name for yourself"}</small></div><div><span>REALIZED PROFIT</span><strong class="${state.profit >= 0 ? "positive" : "negative"}">${signed(state.profit)}</strong><small>${state.sold} completed sales</small></div></section>${NG.storageError ? '<div class="storage-warning">Your browser is blocking saves. Enable local storage; until then, your progress only lasts in this window.</div>' : ""}${view === "garage" ? garage() : view === "market" ? market() : view === "inventory" ? inventory() : finances()}<footer><span>NEON GARAGE '93 <b> / </b> MAKE YOUR OWN WAY.</span><span>${NG.storageError ? "Saving unavailable" : "● Auto-saved locally"}</span></footer></div></main>`;
+    const names = {
+      market: "CAR MARKET",
+      inventory: "MY INVENTORY",
+      finances: "FINANCES",
+    };
+    app.innerHTML = `<div class="game-shell"><header class="game-hud"><div class="game-logo"><span class="logo-mark">NG</span><div><h1>NEON GARAGE <b>'93</b></h1><small>SMALL LOT. BIG PLANS.</small></div></div><section class="stats" aria-label="Dealership status"><div><span>CASH</span><strong>${NG.money(state.cash)}</strong></div><div><span>GARAGE</span><strong>${state.inventory.length}<em> / ${state.capacity}</em></strong></div><div><span>REPUTATION</span><strong>${state.reputation}<em> REP</em></strong></div><div><span>PROFIT</span><strong class="${state.profit >= 0 ? "positive" : "negative"}">${signed(state.profit)}</strong><small>${state.sold} completed sales</small></div></section><div class="hud-day"><span>${NG.date(state.day)}<small>DAY ${state.day + 1}</small></span><button class="primary" data-action="next">NEXT DAY &gt;</button></div></header>${NG.storageError ? '<div class="storage-warning">Your browser is blocking saves. Enable local storage to keep your progress.</div>' : ""}<main class="world-frame">${NG.garageScene(state, arrival)}${view !== "garage" ? `<section class="desk-window" aria-label="${names[view]}"><header class="window-title"><span><i></i> ${view === "market" ? "CLASSIFIEDS.EXE" : view === "inventory" ? "WORKSHOP.EXE" : "LEDGER.EXE"}</span><button data-action="view" data-view="garage" aria-label="Back to garage">&times;</button></header><div class="window-body"><div class="section-heading"><div><span class="eyebrow">NEON GARAGE / ${names[view]}</span><h2>${view === "market" ? "Find your next great deal." : view === "inventory" ? "The keys are in your hands." : "The numbers tell the story."}</h2></div><button class="text-button" data-action="view" data-view="garage">&lt; BACK TO GARAGE</button></div>${view === "market" ? market() : view === "inventory" ? inventory() : finances()}</div></section>` : ""}</main><footer class="game-footer"><div class="radio-news"><span>PALMS FM / 93.0</span><strong>${esc(state.event.title)}</strong><p>${esc(state.event.text)}</p></div><div class="footer-controls"><span>${NG.storageError ? "SAVING UNAVAILABLE" : "AUTO-SAVED"}</span><button data-action="reset">NEW GAME</button><small>v0.2 / PIXEL GARAGE</small></div></footer></div>`;
+    arrival = null;
   }
   function event() {
     return `<section class="event"><div class="event-icon">↗</div><div><span class="eyebrow">AROUND TOWN TODAY / ${state.event.kind === "start" ? "JUNE 1" : "MARKET NEWS"}</span><h3>${state.event.title}</h3><p>${state.event.text}</p></div><span class="event-frequency">THE DAILY<br><b>PALMS</b></span></section>`;
-  }
-  function garage() {
-    return `<section class="hero"><div class="hero-copy"><span class="eyebrow">YOUR LITTLE LOT ON THE EDGE OF TOWN</span><h2>Small garage.<br><span>Big possibilities.</span></h2><p>Good deals don’t come easy.<br>But your next one is waiting in today’s classifieds.</p><button class="primary" data-action="view" data-view="market">Browse the car market ↗</button></div><div class="garage-scene"><div class="sun"></div><div class="city">▥ ▥ ▥ ▥ ▥ ▥</div><div class="building"><div class="neon-sign">NEON <span>GARAGE</span><small>USED CARS · GOOD DEALS</small></div><div class="shutters"><div></div><div></div></div></div><div class="scene-car">${NG.carArt({ id: "hero", model: "crx", color: "#68b9b0" }, true)}</div><div class="road-lines"></div></div><span class="hero-label">SILVER PALMS, CALIFORNIA / 1993</span></section>${event()}<div class="section-heading"><h2>Your garage <span>${state.inventory.length}/${state.capacity}</span></h2><button class="text-button" data-action="view" data-view="inventory">My Inventory →</button></div><div class="car-grid slots">${state.inventory.map((c) => card(c, true)).join("")}${Array.from({ length: state.capacity - state.inventory.length }, () => `<button class="empty-slot" data-action="view" data-view="market"><span>+</span><h3>Room for your next great deal.</h3><p>Pick up a car at the market.</p><b>EXPLORE THE MARKET ↗</b></button>`).join("")}</div><section class="starter-tip"><span>01 / DEALER’S HANDBOOK</span><p>A cheap car isn’t always a good deal. A $90 inspection reveals hidden problems. Keep some cash for repairs, too.</p></section>`;
   }
   function market() {
     let cars = state.market.filter(
@@ -181,6 +172,10 @@
       }
       if (action === "buy") {
         NG.buy(state, id);
+        arrival = id;
+        view = "garage";
+        dialog.close();
+        selected = null;
         message = "Your car has arrived in the garage.";
       }
       if (action === "repair") message = NG.repair(state, id, part);
