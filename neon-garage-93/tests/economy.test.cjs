@@ -11,6 +11,7 @@ global.localStorage = {
 for (const file of [
   "cars",
   "economy",
+  "progression",
   "negotiation",
   "legacy-language",
   "state",

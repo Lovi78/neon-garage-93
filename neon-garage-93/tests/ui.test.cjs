@@ -21,12 +21,21 @@ for (const name of [
   "cars",
   "scene",
   "economy",
+  "progression",
   "negotiation",
   "legacy-language",
   "state",
   "ui",
-])
+]) {
   w.eval(fs.readFileSync(path.join(root, "js/" + name + ".js"), "utf8"));
+  if (name === "state") {
+    const fixture = w.NG.newState();
+    fixture.progress.level = 3;
+    fixture.progress.xp = 150;
+    fixture.progress.points = 2;
+    w.NG.save(fixture);
+  }
+}
 const click = (selector) => {
   const b = d.querySelector(selector);
   assert(b, "Hiányzó elem: " + selector);
@@ -62,14 +71,36 @@ assert.equal(saved().inventory.length, 1);
 assert(!d.querySelector("#details").open);
 assert(!d.querySelector(".desk-window"));
 assert(d.querySelector(".parked-car.arriving"));
+assert.equal(saved().progress.level, 4);
+assert.equal(saved().progress.points, 3);
+click(".dealer-folder");
+assert.match(
+  d.querySelector(".desk-window").textContent,
+  /Personal development/,
+);
+click('[data-action="train-negotiation"]');
+click('[data-action="train-negotiation"]');
+click('[data-action="unlock-perk"]');
+assert(saved().progress.oneMoreShot);
+assert.equal(saved().progress.points, 0);
+for (const id of ["tools", "supplier", "advertising"])
+  click('[data-action="upgrade"][data-upgrade="' + id + '"]');
+assert(d.querySelector(".installed-tools"));
+assert(d.querySelector(".parts-crate"));
+assert(d.querySelector(".ad-poster"));
+click('[data-action="toggle-ad"]');
+assert(saved().business.adActive);
+click('[data-action="view"][data-view="garage"]');
 click(".parked-car");
 assert.match(d.querySelector("#details").textContent, /Sell your car/);
 click('[data-action="repair"][data-part="cosmetic"]');
 assert.equal(saved().inventory[0].readyDay, 1);
+const beforeDay = saved().cash;
 assert(d.querySelector('[data-action="sell"]').disabled);
 click('[data-action="close"]');
 click('[data-action="next"]');
 assert.equal(saved().day, 1);
+assert.equal(saved().cash, beforeDay - 20);
 click('[data-view="inventory"]');
 click(".car-card");
 click('[data-action="list"]');
@@ -109,6 +140,7 @@ for (const name of [
   "cars",
   "scene",
   "economy",
+  "progression",
   "negotiation",
   "legacy-language",
   "state",
@@ -122,6 +154,8 @@ click('[data-action="close-reset"]');
 assert.deepEqual(saved(), snap);
 click('[data-action="reset"]');
 click('[data-action="confirm-reset"]');
+assert.equal(saved().progress.xp, 0);
+assert(!saved().business.tools);
 assert.equal(saved().cash, 5000);
 assert.equal(saved().day, 0);
 assert.equal(saved().inventory.length, 0);

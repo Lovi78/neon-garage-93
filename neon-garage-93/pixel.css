@@ -1,4 +1,256 @@
 /* The garage is the navigation. Windows are tools opened from objects in the scene. */
+.progress-strip {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 2px 13px;
+  font-size: 9px;
+  color: #a8b4a5;
+}
+.progress-strip button {
+  font-size: 9px;
+  padding: 7px 10px;
+  background: #293b34;
+  color: #dccd9f;
+  border-color: #6a7e69;
+}
+.dealer-folder {
+  left: 25%;
+  top: 37%;
+  width: 6%;
+  height: 11%;
+}
+.folder-art {
+  position: absolute;
+  width: 70%;
+  height: 40%;
+  left: 15%;
+  top: 30%;
+  background: #bb985f;
+  border: 3px solid #e0b66e;
+  box-shadow: 3px 3px #594132;
+  transform: rotate(-8deg);
+}
+.folder-art:before {
+  content: "";
+  position: absolute;
+  left: -3px;
+  top: -8px;
+  width: 45%;
+  height: 8px;
+  background: #e0b66e;
+}
+.folder-art:after {
+  content: "";
+  position: absolute;
+  left: 15%;
+  top: 30%;
+  width: 50%;
+  height: 3px;
+  background: #70563d;
+  box-shadow: 0 6px #70563d;
+}
+.installed-tools {
+  position: absolute;
+  left: 39.7%;
+  top: 31%;
+  height: 9%;
+  width: 4%;
+  display: flex;
+  gap: 7px;
+  pointer-events: none;
+}
+.installed-tools i {
+  display: block;
+  background: #c2d1c1;
+  width: 4px;
+  height: 70%;
+  border-top: 7px solid #bfd8cc;
+  box-shadow: 2px 2px #273c3e;
+  transform: rotate(-8deg);
+}
+.parts-crate {
+  position: absolute;
+  left: 58%;
+  top: 51%;
+  width: 6%;
+  height: 7%;
+  background: repeating-linear-gradient(0deg, #756047 0 6px, #4f4739 6px 8px);
+  border: 3px solid #a18860;
+  box-shadow: 4px 4px #162329;
+  display: grid;
+  place-items: center;
+  color: #f0d3a1;
+  font-size: 8px;
+  font-weight: bold;
+  pointer-events: none;
+}
+.ad-poster {
+  position: absolute;
+  left: 26.3%;
+  top: 23%;
+  width: 4.5%;
+  height: 12%;
+  background: #dbbe88;
+  border: 3px solid #84533d;
+  color: #683e32;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1.3;
+  text-align: center;
+  padding-top: 6px;
+  pointer-events: none;
+}
+.ad-poster small {
+  display: block;
+  font-size: 5px;
+  margin-top: 4px;
+}
+.growth-summary {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+.growth-summary > div {
+  background: #27392f;
+  border: 1px solid #688169;
+  padding: 15px;
+}
+.growth-summary span {
+  display: block;
+  font-size: 8px;
+  color: #b4c3a7;
+  margin-bottom: 9px;
+}
+.growth-summary strong {
+  font-size: 20px;
+  color: #e4d9ae;
+}
+.xp-meter {
+  background: #19272c;
+  height: 7px;
+  margin-top: 12px;
+}
+.xp-meter i {
+  display: block;
+  background: #a7d6aa;
+  height: 100%;
+}
+.growth-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+.growth-card {
+  background: #263139;
+  border: 1px solid #526568;
+  padding: 18px;
+  margin-bottom: 15px;
+}
+.growth-card h3 {
+  font-size: 17px;
+  margin: 10px 0;
+}
+.growth-card p {
+  font-size: 11px;
+  line-height: 1.8;
+  color: #b3c0b5;
+}
+.growth-card button {
+  font-size: 10px;
+}
+.growth-card .fine-print {
+  font-size: 9px;
+}
+.campaign {
+  border-top: 1px solid #526568;
+  margin-top: 15px;
+  padding-top: 15px;
+}
+.campaign span {
+  display: block;
+  font-size: 8px;
+  margin-bottom: 12px;
+}
+.rep-panel {
+  background: #28332f;
+  border: 1px solid #76856c;
+  padding: 20px;
+  margin-top: 15px;
+}
+.rep-panel h3 {
+  font-size: 22px;
+  margin: 13px 0;
+}
+.rep-panel p {
+  font-size: 11px;
+  line-height: 1.8;
+}
+.rep-milestones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+.rep-milestones > span {
+  flex: 1;
+  min-width: 110px;
+  border: 1px solid #58645b;
+  background: #1c292b;
+  padding: 12px;
+  font-size: 9px;
+  color: #829087;
+}
+.rep-milestones b {
+  display: block;
+  font-size: 10px;
+  margin: 8px 0;
+}
+.rep-milestones small {
+  font-size: 8px;
+}
+.rep-milestones .reached {
+  color: #c4dbb0;
+  border-color: #a7bc8b;
+}
+@media (max-width: 800px) {
+  .growth-columns {
+    grid-template-columns: 1fr;
+  }
+  .growth-summary {
+    gap: 8px;
+  }
+  .growth-summary > div {
+    padding: 10px;
+  }
+  .growth-summary strong {
+    font-size: 15px;
+  }
+  .progress-strip {
+    gap: 12px;
+    font-size: 8px;
+  }
+  .ad-poster {
+    font-size: 7px;
+    padding-top: 2px;
+    border-width: 1px;
+  }
+  .ad-poster small {
+    font-size: 3px;
+  }
+  .parts-crate {
+    font-size: 4px;
+    border-width: 1px;
+  }
+  .installed-tools {
+    gap: 3px;
+  }
+  .installed-tools i {
+    width: 2px;
+    border-top-width: 3px;
+  }
+}
 .negotiation-dialogue {
   background: #13251f;
   border: 1px solid #678c77;

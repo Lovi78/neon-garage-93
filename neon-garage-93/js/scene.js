@@ -23,6 +23,10 @@ NG.garageScene = (state, arrival = null) => {
     <div class="ambient-light" aria-hidden="true"></div>
     <button class="scene-object computer" data-action="view" data-view="market" aria-label="Computer: open car market"><span class="object-marker">▸</span><span class="object-label">COMPUTER <small>CAR MARKET</small></span></button>
     <button class="scene-object ledger-object" data-action="view" data-view="finances" aria-label="Ledger: open finances"><span class="object-marker">▸</span><span class="object-label">LEDGER <small>FINANCES</small></span></button>
+    <button class="scene-object dealer-folder" data-action="view" data-view="upgrades" aria-label="Office folder: open skills and business upgrades"><span class="folder-art" aria-hidden="true"></span><span class="object-label">DEALER FILE <small>SKILLS &amp; UPGRADES</small></span></button>
+    ${state.business?.tools ? '<span class="installed-tools" aria-label="Better tools installed"><i></i><i></i><i></i></span>' : ""}
+    ${state.business?.supplier ? '<span class="parts-crate" aria-label="Parts supplier deal installed">PARTS</span>' : ""}
+    ${state.business?.advertising ? '<span class="ad-poster" aria-label="Local newspaper advertising installed">USED<br>CARS<small>GOOD DEALS</small></span>' : ""}
     <button class="scene-object workbench" data-action="view" data-view="inventory" aria-label="Workbench: open inventory"><span class="object-marker">▸</span><span class="object-label">WORKBENCH <small>MY INVENTORY${offers ? " / " + offers + " OFFER" + (offers === 1 ? "" : "S") : ""}</small></span></button>
     <button class="scene-object wall-clock" data-action="next" aria-label="Clock: advance to next day"><span class="object-marker">▸</span><span class="object-label">CLOSE UP <small>NEXT DAY</small></span></button>
     ${Array.from({ length: state.capacity }, (_, i) => {

@@ -23,7 +23,7 @@ NG.newState = () => {
     },
   };
   s.market = NG.market(s);
-  return s;
+  return NG.ensureProgression(s);
 };
 NG.save = (s) => {
   try {
@@ -68,7 +68,7 @@ NG.load = () => {
       for (const flaw of car.flaws)
         flaw.label = NG.translateSavedText(flaw.label);
     }
-    return s;
+    return NG.ensureProgression(s);
   } catch (e) {
     NG.loadError = true;
     return NG.newState();

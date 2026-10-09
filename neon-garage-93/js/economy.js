@@ -35,11 +35,20 @@ NG.estimate = (state, car) =>
   );
 NG.cost = (car) =>
   (car.purchasePrice || 0) + (car.inspectionCost || 0) + (car.repairCost || 0);
-NG.repairQuote = (car, part) =>
-  Math.ceil((95 - car.parts[part]) * NG.parts[part].rate) +
-  car.flaws
-    .filter((f) => f.part === part && !f.fixed && f.revealed)
-    .reduce((a, f) => a + f.cost, 0);
+NG.repairQuote = (car, part, state) => {
+  const base = Math.ceil((95 - car.parts[part]) * NG.parts[part].rate);
+  const labor = Math.ceil(base * 0.65);
+  const parts =
+    base -
+    labor +
+    car.flaws
+      .filter((f) => f.part === part && !f.fixed && f.revealed)
+      .reduce((n, f) => n + f.cost, 0);
+  return (
+    Math.round(labor * (state?.business?.tools ? 0.85 : 1)) +
+    Math.round(parts * (state?.business?.supplier ? 0.8 : 1))
+  );
+};
 NG.busy = (state, car) => car.readyDay > state.day;
 NG.generateCar = (state, modelIndex, rng = Math.random) => {
   const m = NG.catalog[modelIndex],
@@ -113,6 +122,7 @@ NG.buy = (s, id) => {
   s.inventory.push(car);
   s.market = s.market.filter((c) => c.id !== id);
   NG.record(s, "purchase", -price, NG.model(car).name + " - purchase");
+  NG.awardDealXP(s, car, "purchase", car.negotiation ? car.ask - price : 0);
 };
 NG.repair = (s, id, part, rng = Math.random) => {
   const car = s.inventory.find((c) => c.id === id);
@@ -135,7 +145,7 @@ NG.repair = (s, id, part, rng = Math.random) => {
       ". The updated repair quote includes this issue. No money has been charged yet."
     );
   }
-  const cost = NG.repairQuote(car, part);
+  const cost = NG.repairQuote(car, part, s);
   if (s.cash < cost)
     throw Error("You do not have enough cash for this repair.");
   s.cash -= cost;
@@ -178,6 +188,11 @@ NG.sell = (s, id, offerId) => {
     price = offer.price;
   }
   const profit = price - NG.cost(c);
+  const negotiatedOffer = c.offers.find((o) => o.id === offerId);
+  const gain =
+    negotiatedOffer?.negotiation?.openingPrice != null
+      ? price - negotiatedOffer.negotiation.openingPrice
+      : 0;
   s.cash += price;
   s.profit += profit;
   s.sold++;
@@ -191,10 +206,12 @@ NG.sell = (s, id, offerId) => {
   });
   NG.record(s, "sale", price, NG.model(c).name + " - sale");
   s.inventory = s.inventory.filter((x) => x.id !== id);
+  NG.awardDealXP(s, c, "sale", gain);
   return profit;
 };
 NG.nextDay = (s, rng = Math.random) => {
   s.day++;
+  NG.advertisingDay(s);
   s.demand = { japan: 1, europe: 1, america: 1 };
   s.event = {
     title: "A quiet day in town",
@@ -243,7 +260,7 @@ NG.nextDay = (s, rng = Math.random) => {
       chance = NG.clamp(
         1.25 -
           ratio * 0.65 +
-          s.reputation * 0.004 +
+          NG.interestBonus(s) +
           (s.event.kind === "rush" ? 0.3 : 0),
         0.02,
         0.95,

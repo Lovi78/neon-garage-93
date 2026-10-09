@@ -1,7 +1,7 @@
 # Neon Garage '93 - fejlesztési roadmap
 
 Rögzítve: 2026. október 9.
-Jelenlegi játékverzió: v0.3 / Negotiation.
+Jelenlegi játékverzió: v0.4 / Progression.
 
 Ez a dokumentum őrzi a megbeszélt termékirányt, funkciókat, fejlesztési sorrendet és nyitott döntéseket. A játék felülete angol; a fejlesztési egyeztetés és a dokumentáció magyar.
 
@@ -53,6 +53,24 @@ A v0.3 fejlesztésekor 16 gazdasági teszt és a teljes, vételi és eladási al
 
 A valódi böngészős vizuális ellenőrzés külön nyitott tétel. A beépített böngésző helyi fájlokra vonatkozó korlátozása miatt az elrendezést, az animáció megjelenését és a kattintási területeket a tényleges játékban még ellenőrizni kell. A sikeres működésteszt ezt nem helyettesíti.
 
+## v0.4 - az első fejlődési kör állapota
+
+A későbbi egyeztetésben elfogadott, szűkebb kör elkészült: a Negotiation az első működő skillág, One More Shot az első perk; Better Tools, Parts Supplier Deal és Local Newspaper Ad az első három business upgrade. Az eredeti három skillág / három perk / négy upgrade javaslat fennmaradó része tervezett későbbi bővítés, nem törölt ötlet.
+
+- [x] Lezárt, árelőnyt hozó vételi és eladási alkukért egyszeri XP; 20 alap + minden $100 után 1, maximum 40.
+- [x] Első szintküszöb 80 XP, majd szintenként +40; szintlépésenként 1 skillpont.
+- [x] Negotiation 0-3: rangonként 1 skillpont és új tárgyalásokban 1% árkorlát-javítás.
+- [x] One More Shot: Negotiation 2 után 1 pontért; négy eladói kör, lezárt tárgyalás újranyitása nélkül.
+- [x] Better Tools $600: -15% munkadíj. Parts Supplier Deal $900: -20% alkatrészköltség.
+- [x] Local Newspaper Ad $450: kapcsolható kampány, napi $20 és +15 százalékpont érdeklődés; pénzhiánynál leáll.
+- [x] Reputációs célok 0 / 5 / 15 / 30 / 50 pontnál; érdeklődési bónusz 0 / 3 / 7 / 12 / 18 százalékpont.
+- [x] Dealer File irodai mappa; angol fejlődési ablak; megvett szerszámok, alkatrészes láda és reklámplakát a garázsban.
+- [x] Régi mentés kiegészítése a fejlődés alapértékeivel; korábbi tranzakciókra nincs becsült XP.
+- [x] 16 korábbi gazdasági és 8 új fejlődési teszt; teljes DOM-működésteszt a fejlődési és vásárlási útvonalra is.
+- [ ] Tényleges böngészős vizuális ellenőrzés továbbra is nyitott.
+
+A részletes működési szabályok a README-ben vannak. Gyűjtői megkeresések, reklamáció, Mechanical Knowledge, Market Knowledge, Sharp Eye, Trend Spotter és további business upgrade-ek még nincsenek megvalósítva.
+
 ## 3. Reputáció - érezhető bizalom és új lehetőségek
 
 **Felhasználói igény:** legyen világos, mire jó a reputáció, és legyen érezhető üzleti következménye.
@@ -92,11 +110,11 @@ A valódi böngészős vizuális ellenőrzés külön nyitott tétel. A beépít
 
 ### Három javasolt skillág
 
-| Skillág | Hatás | Javasolt perk |
-| --- | --- | --- |
-| Negotiation | Tárgyalópartnerek jobb felismerése és nagyobb alkumozgástér | One More Shot: még egy tárgyalási kör |
-| Mechanical Knowledge | Pontosabb állapotbecslés és jobb hibafelismerés | Sharp Eye: vizsgálat előtt észrevehető egy gyanús jel |
-| Market Knowledge | Piaci érték, kereslet és ritkaság jobb felismerése | Trend Spotter: egy keresleti hullám előrejelzése |
+| Skillág              | Hatás                                                       | Javasolt perk                                         |
+| -------------------- | ----------------------------------------------------------- | ----------------------------------------------------- |
+| Negotiation          | Tárgyalópartnerek jobb felismerése és nagyobb alkumozgástér | One More Shot: még egy tárgyalási kör                 |
+| Mechanical Knowledge | Pontosabb állapotbecslés és jobb hibafelismerés             | Sharp Eye: vizsgálat előtt észrevehető egy gyanús jel |
+| Market Knowledge     | Piaci érték, kereslet és ritkaság jobb felismerése          | Trend Spotter: egy keresleti hullám előrejelzése      |
 
 A három ág és a perknevek tervezési javaslatok. A konkrét szintek és hatások még véglegesítendők. A One More Shot esetén külön el kell dönteni, hogy az eladóval, a vevővel vagy mindkettővel használható-e.
 
@@ -108,14 +126,14 @@ A három ág és a perknevek tervezési javaslatok. A konkrét szintek és hatá
 
 A vállalkozás fejlesztése pénzbe kerüljön. A játékos mérlegelje: új autót vásárol, vagy a későbbi üzleteket javító fejlesztésre költ. A fontos fejlesztések látszódjanak a pixel garázson is.
 
-| Fejlesztési lehetőség | Tervezett üzleti hatás | Vizuális változás |
-| --- | --- | --- |
-| Better Tools | Bizonyos javítások olcsóbbak | Új szerszámok, emelő |
-| Diagnostic Equipment | Megbízhatóbb vizsgálat, kevesebb javítás közbeni meglepetés | Diagnosztikai műszer |
-| Parts Supplier Deal | Olcsóbb alkatrészek; lehetséges szállítási várakozás | Alkatrészes polcok |
-| Detailing Station | Jobb kozmetikai felújítás, vonzóbb hirdetés | Mosó- és polírozóállomás |
-| Local Advertising | Több érdeklődő, rendszeres kiadás mellett | Újsághirdetés, plakát |
-| Showroom Presentation | Jobb első benyomás és vevői bizalom | Világítás, rendezett tér, új cégtábla |
+| Fejlesztési lehetőség | Tervezett üzleti hatás                                      | Vizuális változás                     |
+| --------------------- | ----------------------------------------------------------- | ------------------------------------- |
+| Better Tools          | Bizonyos javítások olcsóbbak                                | Új szerszámok, emelő                  |
+| Diagnostic Equipment  | Megbízhatóbb vizsgálat, kevesebb javítás közbeni meglepetés | Diagnosztikai műszer                  |
+| Parts Supplier Deal   | Olcsóbb alkatrészek; lehetséges szállítási várakozás        | Alkatrészes polcok                    |
+| Detailing Station     | Jobb kozmetikai felújítás, vonzóbb hirdetés                 | Mosó- és polírozóállomás              |
+| Local Advertising     | Több érdeklődő, rendszeres kiadás mellett                   | Újsághirdetés, plakát                 |
+| Showroom Presentation | Jobb első benyomás és vevői bizalom                         | Világítás, rendezett tér, új cégtábla |
 
 Ezek fejlesztési jelöltek, nem már megvalósított funkciók. A következő körhöz négyet javasolt kiválasztani; a végleges négyes még nincs eldöntve.
 
@@ -209,38 +227,38 @@ Javasolt események:
 
 ## 9. Javasolt fejlesztési sorrend
 
-| Szakasz | Tartalom | Elkészülési feltétel |
-| --- | --- | --- |
-| v0.4 - Progression foundation | Lezárt alkukért XP, szintlépés, skillpontok; három skillág és három kezdő perk; reputációs mérföldkövek; négy business upgrade | A fejlődés mentődik, látszik és ténylegesen módosítja a játékmenetet; nincs jutalomfarmolás |
-| Következő tartalmi szakasz | Autóadat- és sprite-gyártási alap; bővítés 30 modellre; Car Collection alapja | A modellek felismerhetőek, korhűek, gazdaságilag eltérőek és megfelelően jelennek meg |
-| Tycoon mélyítés | Visszatérő vevők, hibafeltüntetés, egyszerű reklamáció, reputációhoz kapcsolódó új üzletek; fejlesztések finomítása | A bizalom és az üzleti döntések következménye érthető és befolyásolható |
-| Élőbb világ | Gazdagabb helyi random események és az első ellenőrzött történelmi hírcsomag | Az események hatása követhető, időben korlátozott és helyesen mentett |
-| Folyamatos tartalombővítés | 60, 150, majd több száz autó; gyűjtési célok, ritkaságok és szükséges piaci szűrők | A mennyiség növekedése mellett megmarad a grafikai minőség, kezelhetőség és gazdasági egyensúly |
+| Szakasz                       | Tartalom                                                                                                                       | Elkészülési feltétel                                                                            |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| v0.4 - Progression foundation | Lezárt alkukért XP, szintlépés, skillpontok; három skillág és három kezdő perk; reputációs mérföldkövek; négy business upgrade | A fejlődés mentődik, látszik és ténylegesen módosítja a játékmenetet; nincs jutalomfarmolás     |
+| Következő tartalmi szakasz    | Autóadat- és sprite-gyártási alap; bővítés 30 modellre; Car Collection alapja                                                  | A modellek felismerhetőek, korhűek, gazdaságilag eltérőek és megfelelően jelennek meg           |
+| Tycoon mélyítés               | Visszatérő vevők, hibafeltüntetés, egyszerű reklamáció, reputációhoz kapcsolódó új üzletek; fejlesztések finomítása            | A bizalom és az üzleti döntések következménye érthető és befolyásolható                         |
+| Élőbb világ                   | Gazdagabb helyi random események és az első ellenőrzött történelmi hírcsomag                                                   | Az események hatása követhető, időben korlátozott és helyesen mentett                           |
+| Folyamatos tartalombővítés    | 60, 150, majd több száz autó; gyűjtési célok, ritkaságok és szükséges piaci szűrők                                             | A mennyiség növekedése mellett megmarad a grafikai minőség, kezelhetőség és gazdasági egyensúly |
 
 A történelmi idővonal tervezése és az autólista előkészítése korábban is elkezdhető. A funkciók játékba építésének javasolt sorrendje a fenti; a felhasználó később módosíthatja.
 
 ## 10. A következő kör végrehajtható kerete
 
-A v0.4 megvalósítása előtt a kevés, valóban játékélményt befolyásoló döntést kell véglegesíteni:
+Az eredeti teljes fejlődési javaslat következő bővítéséhez a fennmaradó döntések:
 
-- [ ] XP-jutalom és szintlépési ütem.
+- [x] Az első XP-jutalom és szintlépési ütem - v0.4-ben megvalósítva.
 - [ ] A három kezdő perk pontos hatása és feloldása.
 - [ ] Az első négy business upgrade kiválasztása, ára és hatása.
-- [ ] Reputációs skála, kezdeti mérföldkövek és bónuszkorlátok.
+- [x] Kezdeti reputációs mérföldkövek és bónuszkorlátok - v0.4-ben megvalósítva.
 
 Elfogadási feltételek:
 
-- [ ] Vételi és eladási alku lezárásakor helyes, egyszeri XP-jutalom.
-- [ ] Fejlődésre költhető skillpont és működő perk.
-- [ ] Megvásárolható, ténylegesen ható vállalkozásfejlesztések.
-- [ ] Látható reputációs előnyök és következő cél.
-- [ ] Régi v0.3-mentés adatvesztés nélkül betölthető; a hiányzó fejlődési adatok megfelelő alapértéket kapnak.
-- [ ] Az üzlet eredménye, a pénzmozgások és az új költségek egyeznek.
-- [ ] Az angol pixel garázs marad a játék fő felülete; az új fejlődési funkciók is a világba illeszkednek.
+- [x] Vételi és eladási alku lezárásakor helyes, egyszeri XP-jutalom.
+- [x] Fejlődésre költhető skillpont és működő perk.
+- [x] Megvásárolható, ténylegesen ható vállalkozásfejlesztések.
+- [x] Látható reputációs előnyök és következő cél.
+- [x] Régi v0.3-mentés adatvesztés nélkül betölthető; a hiányzó fejlődési adatok megfelelő alapértéket kapnak.
+- [x] Az üzlet eredménye, a pénzmozgások és az új költségek egyeznek.
+- [x] Az angol pixel garázs marad a játék fő felülete; az új fejlődési funkciók is a világba illeszkednek.
 - [ ] Gazdasági és mentési működéstesztek, valamint tényleges böngészős vizuális ellenőrzés.
 
 ## 11. A roadmap használata
 
 Új döntést ide kell rögzíteni, megkülönböztetve az ötletet, a véglegesített szabályt és a megvalósult funkciót. Egy tétel csak ellenőrzött megvalósítás után jelölhető késznek. A [README](README.md) a jelenlegi játék indítását és működését írja le; ez a roadmap a jövőbeli fejlesztés közös hivatkozási pontja.
 
-A roadmap létrehozása dokumentációs munka. Önmagában nem valósítja meg és nem véglegesíti a még nyitott játékszabályokat.
+A még nyitott tételek továbbra is tervek. A v0.4 fent részletezett szabályai már működnek; a későbbi bővítések előtt az új döntéseket külön kell rögzíteni.

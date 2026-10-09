@@ -32,6 +32,7 @@ NG.hagglePurchase = (s, id, bid, rng = Math.random) => {
               0.83 +
                 rng() * 0.1 -
                 Math.min(s.reputation, 20) * 0.001 -
+                (s.progress?.negotiation || 0) * 0.01 -
                 (car.inspected && car.flaws.some((f) => !f.fixed) ? 0.025 : 0),
               0.78,
               0.95,
@@ -54,7 +55,7 @@ NG.hagglePurchase = (s, id, bid, rng = Math.random) => {
       deal.minimum,
       Math.round(current - (current - bid) * 0.45),
     );
-    if (deal.rounds >= 3) {
+    if (deal.rounds >= NG.sellerRounds(s)) {
       deal.closed = true;
       deal.message =
         "Seller: “" +
@@ -85,11 +86,15 @@ NG.haggleSale = (s, id, offerId, price, rng = Math.random) => {
     (offer.negotiation = {
       rounds: 0,
       closed: false,
+      openingPrice: offer.price,
       budget: Math.min(
         car.listPrice,
         Math.round(
           offer.price *
-            (1.025 + rng() * 0.095 + Math.min(s.reputation, 20) * 0.001),
+            (1.025 +
+              rng() * 0.095 +
+              Math.min(s.reputation, 20) * 0.001 +
+              (s.progress?.negotiation || 0) * 0.01),
         ),
       ),
     });

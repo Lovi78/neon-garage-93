@@ -1,4 +1,4 @@
-# Neon Garage '93 - v0.3 / Negotiation
+# Neon Garage '93 - v0.4 / Progression
 
 Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, fiktív kaliforniai város, 1993. június 1., $5,000 kezdőtőke, két férőhely.
 
@@ -34,8 +34,28 @@ A beérkező vevői ajánlatnál a **Your counteroffer** mezőben kérhetsz maga
 
 Az alku közben nincs pénzmozgás. A kialkudott vételár és eladási ár szerepel a profitban és a pénzmozgások között. A tárgyalás mentődik, újranyitással nem kap új árkorlátot vagy köröket. Napváltáskor a hirdetések és ajánlatok szokás szerint lecserélődnek.
 
+## Fejlődés és vállalkozásfejlesztések
+
+Kattints a garázsban a **Dealer File** irodai mappára, vagy a felső fejlődési sávra.
+
+- Lezárt, sikeres vételi és eladási alkuért 20 XP + minden $100 árelőny után 1 XP jár, legfeljebb 40 XP. Vételnél az eredeti hirdetési árhoz, eladásnál a vevő első ajánlatához képest számítjuk az előnyt. XP csak a tényleges tranzakciókor jár, egyszer; elutasításért és azonnali kereskedői eladásért nem.
+- Az első szintlépéshez 80 XP kell, utána szintenként 40-nel nő az igény. A szintlépés 1 skillpontot ad, a többlet-XP megmarad.
+- **Negotiation**: három rang, rangonként 1 skillpont. Új tárgyalásban rangonként a hirdetési ár 1%-ával alacsonyabb eladói minimum és a nyitó ajánlat 1%-ával magasabb vevői alkukeret. A már folyó tárgyalások korlátai változatlanok.
+- **One More Shot**: Negotiation 2 után 1 skillpontért. Négy eladói alkukör a korábbi három helyett. A lezárt tárgyalást és a távozó eladót nem nyitja újra; magánvevői tárgyalásban nem ad új kört.
+- **Better Tools**: $600, a javítás munkadíja 15%-kal alacsonyabb.
+- **Parts Supplier Deal**: $900, a javítás alkatrészrésze és a feltárt hibák alkatrészköltsége 20%-kal alacsonyabb. Az alapjavítás munkadíj/alkatrész bontása 65/35; a kijelzett és levont ár a kedvezményeket tartalmazza.
+- **Local Newspaper Ad**: $450 egyszeri befektetés. Ezután bekapcsolható és szüneteltethető a kampány: napi $20, +15 százalékpont érdeklődési esély. A napi díj napváltáskor jelentkezik, és pénzhiánynál automatikusan leáll a kampány. Nem keletkezik tartozás.
+
+Reputációs mérföldkövek: 0 **Unknown Dealer**, 5 **Familiar Face**, 15 **Trusted Dealer**, 30 **Established Business**, 50 **Local Legend**. Az érdeklődés bónusza sorrendben 0, 3, 7, 12 és 18 százalékpont. A hirdetési ár továbbra is befolyásolja az érdeklődést; ajánlat nincs garantálva. A reputáció új tárgyalásokban továbbra is segít, legfeljebb 2% árkorlát-bónusszal. A **Dealer File** mutatja a következő célhoz hiányzó pontokat.
+
+A régi v0.3-mentések megtartják a készpénzt, autókat és tárgyalásokat. Az új fejlődési adatok 1. szinttel, 0 XP-vel és fejlesztés nélkül indulnak. A korábbi üzletekre nincs utólag kitalált XP-jutalom.
+
+A business upgrade és a reklám általános kiadásként szerepel a pénzügyekben; nem kerül automatikusan egyetlen autó profitjába. Az autóprofit továbbra is eladás mínusz vétel, vizsgálat és javítás.
+
 ## Működő rendszerek
 
+- XP, szintlépés, Negotiation skill, One More Shot perk és három vállalkozásfejlesztés.
+- Látható reputációs mérföldkövek és érezhető érdeklődési bónuszok.
 - Tíz, 1993-ban vagy korábban létező modell; naponta kilenc hirdetés.
 - Évjárat, mérföldben megadott futás, eladói állítás, valós állapot és rejtett hibák.
 - Vásárlás, átvizsgálás, ötféle javítás, hirdetés, vevői ajánlat és azonnali eladás.
@@ -54,6 +74,7 @@ Az alku közben nincs pénzmozgás. A kialkudott vételár és eladási ár szer
 - `js/economy.js`: árak, vásárlás, javítás, eladás, napok és események.
 - `js/negotiation.js`: vételi és eladási alku, mentett árkorlátok és körök.
 - `js/state.js`: új játék, dátum, helyi mentés és visszatöltés.
+- `js/progression.js`: XP, szintek, skill, perk, vállalkozásfejlesztések, marketing és reputációs mérföldkövek.
 - `js/ui.js`: ablakok, adatlapok és gombok.
 - `js/scene.js`: interaktív garázs, sprite-kiosztás és beállók.
 - `pixel.css`: jelenet, pixel felület és animációk.
@@ -64,16 +85,16 @@ A játék keretrendszer, külső betűkészlet és csomagtelepítés nélkül fu
 
 ## Ellenőrzés
 
-A gazdasági tesztek futtatása, ha van Node.js: `node tests/economy.test.cjs`.
+A gazdasági tesztek futtatása, ha van Node.js: `npm test` (16 eredeti gazdasági + 8 fejlődési teszt).
 
 Ellenőrzött: indulás és elérhető belépőmodellek 500 új kínálatban, kapacitás és készpénzkorlát, dupla műveletek tiltása, vizsgálati díj, rejtett hiba, javítás ideje és ára, napi kereslet, ajánlatok érvényessége, profitképlet és mentési adatok visszatöltése. További 1000 szimulált üzlet ellenőrzi a pénzmozgások egyezőségét és a nyereség/veszteség lehetőségét.
 
 A pixel garázs felületi működéstesztje ellenőrizte a számítógépről megnyíló piacot, az érkező autó animációs állapotát és a garázsból megnyíló autóadatlapot. Emellett végigment a piac, adatlap, vizsgálat, vétel, javítás, napváltás, hirdetés, ajánlat, eladás és pénzügyek útvonalán. Külön ellenőrizte az új oldalpéldányba történő mentés-visszatöltést, az újrakezdés megszakítását és az új játékot. Ez DOM-alapú szerkezet- és interakcióteszt, nem valódi böngészős képi ellenőrzés. Fejlesztőknek: `npm install`, majd `npm run test:ui`. A játék futtatásához ezek nem szükségesek.
 
-Az alku külön tesztjei ellenőrizték az elfogadást, ellenajánlatot, végső árat, visszalépést, hibás összegeket, körkorlátot, mentés-visszatöltést és a kialkudott árhoz tartozó profitot. A teljes felületi útvonalon vételi és eladási alku is szerepel.
+Az alku külön tesztjei ellenőrizték az elfogadást, ellenajánlatot, végső árat, visszalépést, hibás összegeket, körkorlátot, mentés-visszatöltést és a kialkudott árhoz tartozó profitot. A teljes felületi útvonalon vételi és eladási alku, XP és szintlépés, skillpontköltés, perkfeloldás, mindhárom vállalkozásfejlesztés és reklámaktiválás is szerepel. A teszt ellenőrzi a fejlesztések jeleneten megjelenő elemeit, a napi díjat, a mentést és az új játékot is. Ez továbbra is működésteszt, nem valódi böngészős vizuális ellenőrzés.
 
 ## Korlátok és következő lépések
 
-A v0.3-ban nincs garázsbővítés, személyzet vagy több telephely. Nincs automatikus csődvége: ha kifogysz a pénzből, eladhatod a készleted vagy újrakezdhetsz. A mentés a böngészőhöz kötődik. A beépített böngésző helyi fájlokat tiltó szabálya miatt valódi böngészőben a vizuális elrendezés nem volt ellenőrizhető ebben a fejlesztési körben.
+A v0.4-ben nincs garázsbővítés, személyzet vagy több telephely. Nincs automatikus csődvége: ha kifogysz a pénzből, eladhatod a készleted vagy újrakezdhetsz. A mentés a böngészőhöz kötődik. A beépített böngésző helyi fájlokat tiltó szabálya miatt valódi böngészőben a vizuális elrendezés nem volt ellenőrizhető ebben a fejlesztési körben.
 
-A következő javasolt kör az XP, a személyes skillek és perkek, az érezhető reputációs előnyök, valamint a szerelést és marketinget javító vállalkozásfejlesztések. A több beálló későbbi lehetőség. A nagy autóállomány, a helyi események és a történelmi hírek részletes sorrendjét a [roadmap](ROADMAP.md) tartalmazza.
+Az első fejlődési kör elkészült. A következő javasolt lépés az autóadat- és sprite-gyártási folyamat és a kínálat 30 modellre bővítése. A további skillágak, perkek és vállalkozásfejlesztések a roadmapben maradnak. A több beálló későbbi lehetőség. A nagy autóállomány, a helyi események és a történelmi hírek részletes sorrendjét a [roadmap](ROADMAP.md) tartalmazza.
