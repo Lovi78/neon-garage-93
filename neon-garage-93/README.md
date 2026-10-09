@@ -1,6 +1,8 @@
 # Neon Garage '93 - v0.1
 
-Játszható, körökre osztott autókereskedő-játék. Magyar felület, fiktív kaliforniai város, 1993. június 1., $5,000 kezdőtőke, két férőhely.
+Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, fiktív kaliforniai város, 1993. június 1., $5,000 kezdőtőke, két férőhely.
+
+A teljes játékfelület angol. A korábbi mentések eseményei, hibaleírásai és pénzügyi bejegyzései betöltéskor angolra váltanak, a játékállás megtartásával.
 
 ## Indítás
 
@@ -12,12 +14,12 @@ A játék minden változtatás után a böngésző helyi tárhelyére ment. Ugya
 
 ## Az első üzleted
 
-1. Nyisd meg az **Autópiacot**. A Golf GTI, Volvo 240 és Honda CRX a kezdőtőkéhez igazodó belépőmodellek.
+1. Nyisd meg az **Car Market** képernyőt. A Golf GTI, Volvo 240 és Honda CRX a kezdőtőkéhez igazodó belépőmodellek.
 2. Kattints egy autóra. Az eladó állapotleírása és az abból készült értékbecslés tévedhet.
 3. A **$90-os átvizsgálás** megmutatja az alkatrészek állapotát és a rejtett hibákat. A díjat akkor is kifizetted, ha végül nem veszed meg az autót.
 4. Vásárolj. A készpénz és a két férőhely valódi korlát. Maradjon pénz a javításokra.
-5. A **Saját autók** adatlapján választhatsz javítást. Minden műhelymunka egy napot vesz igénybe. A javítás 95%-ra emeli az adott alkatrész állapotát; a hibajavítás külön költsége előre látszik. Újonnan felfedezett hiba esetén először új árat kapsz, automatikus pluszlevonás nincs.
-6. Állíts be hirdetési árat, majd lépj a **Következő napra**. Az érdeklődő ajánlatát elfogadhatod vagy elutasíthatod. Magas árnál ritkább az érdeklődés.
+5. A **My Inventory** adatlapján választhatsz javítást. Minden műhelymunka egy napot vesz igénybe. A javítás 95%-ra emeli az adott alkatrész állapotát; a hibajavítás külön költsége előre látszik. Újonnan felfedezett hiba esetén először új árat kapsz, automatikus pluszlevonás nincs.
+6. Állíts be hirdetési árat, majd lépj a **Next Day** gombra. Az érdeklődő ajánlatát elfogadhatod vagy elutasíthatod. Magas árnál ritkább az érdeklődés.
 7. Azonnali pénzhez a kereskedőnek is eladhatsz, a valós napi piaci érték 72%-áért. Javítás alatt nem lehet eladni.
 
 Nincs időnyomás vagy automatikus napváltás. A következő nap lecseréli a piaci hirdetéseket és a korábbi ajánlatokat. Javítás előtt vedd le a hirdetést.

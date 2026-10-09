@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="hu">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="styles.css" />
     <script defer src="js/cars.js"></script>
     <script defer src="js/economy.js"></script>
+    <script defer src="js/legacy-language.js"></script>
     <script defer src="js/state.js"></script>
     <script defer src="js/ui.js"></script>
   </head>
@@ -17,18 +18,18 @@
     <dialog id="details"></dialog>
     <dialog id="reset-dialog">
       <div class="modal-head">
-        <span class="eyebrow">ÚJ KEZDET</span
-        ><button data-action="close-reset" aria-label="Bezárás">×</button>
+        <span class="eyebrow">A FRESH START</span
+        ><button data-action="close-reset" aria-label="Close">×</button>
       </div>
-      <h2>Újrakezded a kereskedést?</h2>
+      <h2>Start a new dealership?</h2>
       <p>
-        A jelenlegi játékállás és az üzleti előzmények törlődnek. Újra $5,000 és
-        két üres férőhely vár.
+        Your current progress and transaction history will be lost. Start fresh
+        with $5,000 and two empty garage spaces.
       </p>
       <div class="actions">
-        <button data-action="close-reset">Mégsem</button
+        <button data-action="close-reset">Cancel</button
         ><button class="danger" data-action="confirm-reset">
-          Új játék indítása
+          Start new game
         </button>
       </div>
     </dialog>

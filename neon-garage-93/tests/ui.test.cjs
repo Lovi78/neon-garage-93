@@ -17,16 +17,22 @@ w.HTMLDialogElement.prototype.showModal = function () {
 w.HTMLDialogElement.prototype.close = function () {
   this.open = false;
 };
-for (const name of ["cars", "economy", "state", "ui"])
+for (const name of ["cars", "economy", "legacy-language", "state", "ui"])
   w.eval(fs.readFileSync(path.join(root, "js/" + name + ".js"), "utf8"));
 const click = (selector) => {
   const b = d.querySelector(selector);
   assert(b, "Hiányzó elem: " + selector);
   assert(!b.disabled, "Tiltott elem: " + selector);
   b.click();
+  assert.doesNotMatch(
+    d.body.textContent,
+    /[áéíóöőúüűÁÉÍÓÖŐÚÜŰ]/,
+    "A játékfelület teljesen angol",
+  );
 };
+assert.equal(d.documentElement.lang, "en");
 const saved = () => JSON.parse(w.localStorage.getItem(w.NG.saveKey));
-assert.match(d.querySelector("h1").textContent, /Minden üzlet/);
+assert.match(d.querySelector("h1").textContent, /Every deal/);
 click('[data-view="market"]');
 assert.equal(d.querySelectorAll(".car-card").length, 9);
 click(".car-card");
@@ -36,7 +42,7 @@ assert.equal(saved().cash, 4910);
 assert(saved().market[0].inspected);
 click('[data-action="buy"]');
 assert.equal(saved().inventory.length, 1);
-assert.match(d.querySelector("#details").textContent, /Értékesítés/);
+assert.match(d.querySelector("#details").textContent, /Sell your car/);
 click('[data-action="repair"][data-part="cosmetic"]');
 assert.equal(saved().inventory[0].readyDay, 1);
 assert(d.querySelector('[data-action="sell"]').disabled);
@@ -73,10 +79,10 @@ w.HTMLDialogElement.prototype.close = function () {
   this.open = false;
 };
 w.localStorage.setItem("neon-garage-93-v1", JSON.stringify(snap));
-for (const name of ["cars", "economy", "state", "ui"])
+for (const name of ["cars", "economy", "legacy-language", "state", "ui"])
   w.eval(fs.readFileSync(path.join(root, "js/" + name + ".js"), "utf8"));
 assert.deepEqual(saved(), snap);
-assert.match(d.querySelector(".stats").textContent, /1 lezárt eladás/);
+assert.match(d.querySelector(".stats").textContent, /1 completed sale/);
 click('[data-action="reset"]');
 click('[data-action="close-reset"]');
 assert.deepEqual(saved(), snap);

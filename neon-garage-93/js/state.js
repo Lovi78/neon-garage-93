@@ -17,8 +17,8 @@ NG.newState = () => {
     sold: 0,
     demand: { japan: 1, europe: 1, america: 1 },
     event: {
-      title: "A kulcs a tiéd. A többi rajtad múlik.",
-      text: "Két férőhely, ötezer dollár és egy új kezdet. Keress egy jó vételt a mai hirdetések között.",
+      title: "The keys are yours. The rest is up to you.",
+      text: "Two garage spaces, five thousand dollars, and a fresh start. Find your first deal in today’s listings.",
       kind: "start",
     },
   };
@@ -58,6 +58,16 @@ NG.load = () => {
       )
     )
       throw Error("Invalid save");
+    for (const event of [s.event, ...s.history]) {
+      event.title = NG.translateSavedText(event.title);
+      event.text = NG.translateSavedText(event.text);
+    }
+    for (const entry of s.ledger)
+      entry.description = NG.translateSavedText(entry.description);
+    for (const car of [...s.inventory, ...s.market]) {
+      for (const flaw of car.flaws)
+        flaw.label = NG.translateSavedText(flaw.label);
+    }
     return s;
   } catch (e) {
     NG.loadError = true;
@@ -65,7 +75,7 @@ NG.load = () => {
   }
 };
 NG.date = (day) =>
-  new Date(Date.UTC(1993, 5, 1 + day)).toLocaleDateString("hu-HU", {
+  new Date(Date.UTC(1993, 5, 1 + day)).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",

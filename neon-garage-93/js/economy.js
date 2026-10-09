@@ -90,50 +90,52 @@ NG.record = (s, type, amount, description) => {
 };
 NG.inspect = (s, id) => {
   const car = [...s.market, ...s.inventory].find((c) => c.id === id);
-  if (!car) throw Error("Az autó már nincs a kínálatban.");
-  if (car.inspected) throw Error("Ezt az autót már átvizsgáltad.");
-  if (s.cash < 90) throw Error("Az átvizsgáláshoz $90 szükséges.");
+  if (!car) throw Error("This car is no longer available.");
+  if (car.inspected) throw Error("This car has already been inspected.");
+  if (s.cash < 90) throw Error("You need $90 for an inspection.");
   s.cash -= 90;
   car.inspectionCost += 90;
   car.inspected = true;
   car.flaws.forEach((f) => (f.revealed = true));
-  NG.record(s, "inspection", -90, NG.model(car).name + " - átvizsgálás");
+  NG.record(s, "inspection", -90, NG.model(car).name + " - inspection");
 };
 NG.buy = (s, id) => {
   const car = s.market.find((c) => c.id === id);
-  if (!car) throw Error("Ez a hirdetés már nem elérhető.");
+  if (!car) throw Error("This listing is no longer available.");
   if (s.inventory.length >= s.capacity)
-    throw Error("A garázs megtelt. Előbb adj el egy autót.");
-  if (s.cash < car.ask) throw Error("Nincs elég készpénzed erre az autóra.");
+    throw Error("Your garage is full. Sell a car first.");
+  if (s.cash < car.ask)
+    throw Error("You do not have enough cash for this car.");
   s.cash -= car.ask;
   car.purchasePrice = car.ask;
   s.inventory.push(car);
   s.market = s.market.filter((c) => c.id !== id);
-  NG.record(s, "purchase", -car.ask, NG.model(car).name + " - vásárlás");
+  NG.record(s, "purchase", -car.ask, NG.model(car).name + " - purchase");
 };
 NG.repair = (s, id, part, rng = Math.random) => {
   const car = s.inventory.find((c) => c.id === id);
-  if (!car || !NG.parts[part]) throw Error("Érvénytelen javítás.");
-  if (NG.busy(s, car)) throw Error("Az autó még a műhelyben van.");
-  if (car.listed) throw Error("Javítás előtt vedd le a hirdetést.");
+  if (!car || !NG.parts[part]) throw Error("Invalid repair.");
+  if (NG.busy(s, car)) throw Error("This car is still in the workshop.");
+  if (car.listed) throw Error("Remove the listing before making repairs.");
   if (
     car.parts[part] >= 95 &&
     !car.flaws.some((f) => f.part === part && !f.fixed && f.revealed)
   )
-    throw Error("Ez az alkatrész már rendben van.");
+    throw Error("This part is already in good condition.");
   const hidden = car.flaws.find(
     (f) => f.part === part && !f.fixed && !f.revealed,
   );
   if (hidden) {
     hidden.revealed = true;
     return (
-      "A műhely új hibát talált: " +
+      "The workshop found another issue: " +
       hidden.label +
-      ". Az új javítási ár már tartalmazza ezt. Még nem vontunk le pénzt."
+      ". The updated repair quote includes this issue. No money has been charged yet."
     );
   }
   const cost = NG.repairQuote(car, part);
-  if (s.cash < cost) throw Error("Nincs elég pénzed a javításra.");
+  if (s.cash < cost)
+    throw Error("You do not have enough cash for this repair.");
   s.cash -= cost;
   car.repairCost += cost;
   car.parts[part] = 95;
@@ -148,27 +150,28 @@ NG.repair = (s, id, part, rng = Math.random) => {
     -cost,
     NG.model(car).name + " - " + NG.parts[part].label,
   );
-  return "Javítás elindítva. Az autó holnapra elkészül.";
+  return "Repair started. Your car will be ready tomorrow.";
 };
 NG.list = (s, id, price) => {
   const c = s.inventory.find((c) => c.id === id);
-  if (!c) throw Error("Az autó nem található.");
-  if (NG.busy(s, c)) throw Error("Előbb várd meg a javítás végét.");
+  if (!c) throw Error("Car not found.");
+  if (NG.busy(s, c)) throw Error("Wait for the repair to finish first.");
   if (!Number.isFinite(price) || price < 100 || price > 100000)
-    throw Error("Az ár $100 és $100,000 között lehet.");
+    throw Error("The price must be between $100 and $100,000.");
   c.listed = true;
   c.listPrice = Math.round(price);
   c.offers = [];
 };
 NG.sell = (s, id, offerId) => {
   const c = s.inventory.find((c) => c.id === id);
-  if (!c) throw Error("Ezt az autót már eladtad.");
-  if (NG.busy(s, c)) throw Error("Javítás alatt nem adható el.");
+  if (!c) throw Error("This car has already been sold.");
+  if (NG.busy(s, c))
+    throw Error("You cannot sell a car while it is being repaired.");
   let price;
   if (offerId === "dealer") price = Math.round(NG.value(s, c) * 0.72);
   else {
     const offer = c.offers.find((o) => o.id === offerId);
-    if (!c.listed || !offer) throw Error("Ez az ajánlat már nem érvényes.");
+    if (!c.listed || !offer) throw Error("This offer is no longer valid.");
     price = offer.price;
   }
   const profit = price - NG.cost(c);
@@ -183,7 +186,7 @@ NG.sell = (s, id, offerId) => {
     cost: NG.cost(c),
     profit,
   });
-  NG.record(s, "sale", price, NG.model(c).name + " - eladás");
+  NG.record(s, "sale", price, NG.model(c).name + " - sale");
   s.inventory = s.inventory.filter((x) => x.id !== id);
   return profit;
 };
@@ -191,8 +194,8 @@ NG.nextDay = (s, rng = Math.random) => {
   s.day++;
   s.demand = { japan: 1, europe: 1, america: 1 };
   s.event = {
-    title: "Csendes nap a városban",
-    text: "A piac kiegyensúlyozott. Friss hirdetések és új lehetőségek várnak.",
+    title: "A quiet day in town",
+    text: "The market is steady. Fresh listings and new opportunities await.",
     kind: "normal",
   };
   const r = rng();
@@ -200,26 +203,26 @@ NG.nextDay = (s, rng = Math.random) => {
     s.demand.japan = 1.2;
     s.event = {
       title: "Tokyo fever",
-      text: "A japán autók kereslete ma 20%-kal magasabb. Az értékük és a vevői ajánlatok is emelkednek.",
+      text: "Demand for Japanese cars is up 20% today. Their values and buyer offers are rising.",
       kind: "japan",
     };
   } else if (r < 0.36) {
     s.demand.america = 0.82;
     s.event = {
-      title: "Drágul a benzin",
-      text: "Ma 18%-kal esik az amerikai autók értéke. A piac holnap újra változik.",
+      title: "Gas prices are climbing",
+      text: "American car values are down 18% today. The market will change again tomorrow.",
       kind: "america",
     };
   } else if (r < 0.52) {
     s.event = {
-      title: "Fizetésnap a városban",
-      text: "Egy sürgős vevő ma piaci ár felett is ajánlhat. Meghirdetett autóid nagyobb eséllyel kapnak ajánlatot.",
+      title: "Payday in town",
+      text: "A buyer in a hurry may offer above market value today. Your listed cars are more likely to attract offers.",
       kind: "rush",
     };
   } else if (r < 0.65) {
     s.event = {
-      title: "Ritka fogás a hirdetések között",
-      text: "Egy Nissan 300ZX került a piacra 20% hirdetési kedvezménnyel. A műszaki állapota még kérdéses.",
+      title: "A rare find in the classifieds",
+      text: "A Nissan 300ZX has hit the market with a 20% asking-price discount. Its mechanical condition is still a mystery.",
       kind: "rare",
     };
   }

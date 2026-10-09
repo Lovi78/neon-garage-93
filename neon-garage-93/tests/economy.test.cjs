@@ -8,7 +8,7 @@ global.localStorage = {
   setItem: (k, v) => storage.set(k, v),
   getItem: (k) => storage.get(k) || null,
 };
-for (const file of ["cars", "economy", "state"])
+for (const file of ["cars", "economy", "legacy-language", "state"])
   vm.runInThisContext(
     fs.readFileSync(path.join(__dirname, "../js/" + file + ".js"), "utf8"),
   );
@@ -28,7 +28,7 @@ test("Kezdőtőke, kapacitás, dátum és korhű kínálat", () => {
   const s = NG.newState();
   assert.equal(s.cash, 5000);
   assert.equal(s.capacity, 2);
-  assert.equal(NG.date(0), "1993. június 1.");
+  assert.equal(NG.date(0), "June 1, 1993");
   assert.equal(s.market.length, 9);
   for (let i = 0; i < 500; i++) {
     const x = NG.newState();
@@ -49,7 +49,7 @@ test("Vizsgálat egyszer fizethető, vásárlás és kapacitás", () => {
   assert.throws(() => NG.buy(s, c.id));
   s.cash = 50000;
   NG.buy(s, s.market[0].id);
-  assert.throws(() => NG.buy(s, s.market[0].id), /megtelt/);
+  assert.throws(() => NG.buy(s, s.market[0].id), /garage is full/);
 });
 test("Nincs hitel, nincs ingyenes javítás vagy ismételt eladás", () => {
   const s = NG.newState(),
@@ -61,9 +61,9 @@ test("Nincs hitel, nincs ingyenes javítás vagy ismételt eladás", () => {
   NG.buy(s, c.id);
   NG.inspect(s, c.id);
   NG.repair(s, c.id, "engine");
-  assert.throws(() => NG.sell(s, c.id, "dealer"), /Javítás/);
+  assert.throws(() => NG.sell(s, c.id, "dealer"), /being repaired/);
   NG.nextDay(s, rng(15));
-  assert.throws(() => NG.repair(s, c.id, "engine"), /rendben/);
+  assert.throws(() => NG.repair(s, c.id, "engine"), /good condition/);
   NG.sell(s, c.id, "dealer");
   assert.throws(() => NG.sell(s, c.id, "dealer"));
 });
@@ -165,5 +165,41 @@ test("1000 üzlet: pénzmegmaradás, nyereség és veszteség", () => {
   console.log(
     "Üzletek: " + profitWins + " nyereséges, " + profitLosses + " veszteséges.",
   );
+});
+test("A korábbi magyar mentés angolra vált, a játékállás megmarad", () => {
+  const s = NG.newState();
+  NG.buy(s, s.market[0].id);
+  s.event.title = "Fizetésnap a városban";
+  s.event.text =
+    "A piac kiegyensúlyozott. Friss hirdetések és új lehetőségek várnak.";
+  s.ledger[0].description = "Volkswagen Golf GTI - vásárlás";
+  s.inventory[0].flaws = [
+    {
+      ...NG.flaws[0],
+      label: "Hengerfejtömítés szivárog",
+      revealed: true,
+      fixed: false,
+    },
+  ];
+  s.history = [
+    {
+      day: 0,
+      kind: "normal",
+      title: "Csendes nap a városban",
+      text: s.event.text,
+    },
+  ];
+  const expected = JSON.parse(JSON.stringify(s));
+  expected.event.title = "Payday in town";
+  expected.event.text =
+    "The market is steady. Fresh listings and new opportunities await.";
+  expected.ledger[0].description = "Volkswagen Golf GTI - purchase";
+  expected.inventory[0].flaws[0].label = "Leaking head gasket";
+  expected.history[0].title = "A quiet day in town";
+  expected.history[0].text = expected.event.text;
+  NG.save(s);
+  assert.deepEqual(NG.load(), expected);
+  NG.save(expected);
+  assert.deepEqual(NG.load(), expected);
 });
 console.log(count + " teszt sikeres.");

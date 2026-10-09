@@ -103,17 +103,17 @@ NG.catalog = [
   },
 ];
 NG.parts = {
-  engine: { label: "Motor", rate: 18 },
-  transmission: { label: "Váltó", rate: 14 },
-  suspension: { label: "Futómű", rate: 8 },
-  body: { label: "Karosszéria", rate: 10 },
-  cosmetic: { label: "Kozmetika", rate: 4 },
+  engine: { label: "Engine", rate: 18 },
+  transmission: { label: "Transmission", rate: 14 },
+  suspension: { label: "Suspension", rate: 8 },
+  body: { label: "Bodywork", rate: 10 },
+  cosmetic: { label: "Detailing", rate: 4 },
 };
 NG.flaws = [
-  { part: "engine", label: "Hengerfejtömítés szivárog", cost: 420 },
-  { part: "transmission", label: "Kopott váltószinkron", cost: 330 },
-  { part: "suspension", label: "Repedt lengőkar", cost: 180 },
-  { part: "body", label: "Rozsda a küszöb alatt", cost: 260 },
+  { part: "engine", label: "Leaking head gasket", cost: 420 },
+  { part: "transmission", label: "Worn transmission synchro", cost: 330 },
+  { part: "suspension", label: "Cracked control arm", cost: 180 },
+  { part: "body", label: "Rust under the rocker panels", cost: 260 },
 ];
 NG.model = (car) => NG.catalog.find((m) => m.id === car.model);
 NG.carArt = (car, large = false) => {
@@ -129,7 +129,7 @@ NG.carArt = (car, large = false) => {
       : road
         ? "113,96 154,65 204,65 227,96"
         : "106,96 159,61 222,64 265,96";
-  return `<svg class="car-art ${large ? "large" : ""}" viewBox="0 0 400 180" role="img" aria-label="${m.name} illusztráció"><defs><linearGradient id="paint-${car.id}" x2="0" y2="1"><stop stop-color="${color}"/><stop offset="1" stop-color="${color}" stop-opacity=".6"/></linearGradient></defs><ellipse cx="203" cy="145" rx="161" ry="10" fill="#000" opacity=".4"/><path d="M31 113 L63 100 L${roof.split(" ")[0]} ${roof
+  return `<svg class="car-art ${large ? "large" : ""}" viewBox="0 0 400 180" role="img" aria-label="${m.name} illustration"><defs><linearGradient id="paint-${car.id}" x2="0" y2="1"><stop stop-color="${color}"/><stop offset="1" stop-color="${color}" stop-opacity=".6"/></linearGradient></defs><ellipse cx="203" cy="145" rx="161" ry="10" fill="#000" opacity=".4"/><path d="M31 113 L63 100 L${roof.split(" ")[0]} ${roof
     .split(" ")
     .slice(1)
     .map((p) => "L" + p)
