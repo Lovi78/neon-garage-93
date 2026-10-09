@@ -8,7 +8,13 @@ global.localStorage = {
   setItem: (k, v) => storage.set(k, v),
   getItem: (k) => storage.get(k) || null,
 };
-for (const file of ["cars", "economy", "legacy-language", "state"])
+for (const file of [
+  "cars",
+  "economy",
+  "negotiation",
+  "legacy-language",
+  "state",
+])
   vm.runInThisContext(
     fs.readFileSync(path.join(__dirname, "../js/" + file + ".js"), "utf8"),
   );
@@ -202,4 +208,104 @@ test("A korábbi magyar mentés angolra vált, a játékállás megmarad", () =>
   NG.save(expected);
   assert.deepEqual(NG.load(), expected);
 });
+test("Vételi alku: elfogadás, pontos ár és profit", () => {
+  const s = NG.newState(),
+    c = s.market[0],
+    bid = Math.floor(c.ask * 0.95),
+    before = s.cash;
+  NG.inspect(s, c.id);
+  NG.hagglePurchase(s, c.id, bid, () => 0.2);
+  assert.equal(s.cash, before - 90);
+  assert.equal(c.negotiation.price, bid);
+  assert(c.negotiation.closed);
+  NG.buy(s, c.id);
+  assert.equal(c.purchasePrice, bid);
+  assert.equal(s.cash, before - 90 - bid);
+  assert.equal(s.ledger[0].amount, -bid);
+  const sale = Math.round(NG.value(s, c) * 0.72);
+  assert.equal(NG.sell(s, c.id, "dealer"), sale - bid - 90);
+});
+test("Vételi alku: ellenajánlat és három kör után végső ár", () => {
+  const s = NG.newState(),
+    c = s.market[0];
+  c.ask = 1000;
+  NG.hagglePurchase(s, c.id, 700, () => 1);
+  assert.equal(c.negotiation.price, 930);
+  assert(!c.negotiation.closed);
+  NG.hagglePurchase(s, c.id, 800, () => 0);
+  NG.hagglePurchase(s, c.id, 900, () => 0);
+  assert(c.negotiation.closed);
+  assert.equal(c.negotiation.rounds, 3);
+  assert.throws(() => NG.hagglePurchase(s, c.id, 920));
+  NG.buy(s, c.id);
+  assert.equal(c.purchasePrice, 930);
+});
+test("Az eladó visszaléphet, hibás ajánlat nem használ el kört", () => {
+  const s = NG.newState(),
+    c = s.market[0];
+  c.ask = 1000;
+  for (const bid of [NaN, Infinity, 99, 1000, 900.5])
+    assert.throws(() => NG.hagglePurchase(s, c.id, bid));
+  assert.equal(c.negotiation, undefined);
+  NG.hagglePurchase(s, c.id, 500, () => 0.4);
+  assert(c.negotiation.walked);
+  assert.throws(() => NG.buy(s, c.id));
+  assert.throws(() => NG.hagglePurchase(s, c.id, 950));
+  assert.equal(s.cash, 5000);
+});
+test("Eladási alku: elfogadott ellenajánlat nem automatikus eladás", () => {
+  const s = NG.newState(),
+    c = s.market[0];
+  NG.buy(s, c.id);
+  NG.list(s, c.id, 3000);
+  c.offers = [{ id: "counter", buyer: "Alex", price: 2000 }];
+  const before = s.cash;
+  NG.haggleSale(s, c.id, "counter", 2100, () => 0.9);
+  assert.equal(c.offers[0].price, 2100);
+  assert.equal(s.cash, before);
+  assert.equal(s.inventory.length, 1);
+  NG.sell(s, c.id, "counter");
+  assert.equal(s.cash, before + 2100);
+  assert.equal(s.sales[0].price, 2100);
+});
+test("Eladási alku: végső ár, vevő távozása és érvénytelen ajánlat", () => {
+  const s = NG.newState(),
+    c = s.market[0];
+  NG.buy(s, c.id);
+  NG.list(s, c.id, 4000);
+  c.offers = [
+    { id: "final", buyer: "Alex", price: 2000 },
+    { id: "walk", buyer: "Jamie", price: 2000 },
+  ];
+  NG.haggleSale(s, c.id, "final", 2150, () => 0);
+  assert.equal(c.offers[0].price, 2050);
+  assert(c.offers[0].negotiation.closed);
+  assert.throws(() => NG.haggleSale(s, c.id, "final", 2200));
+  NG.haggleSale(s, c.id, "walk", 4000, () => 0);
+  assert.equal(c.offers.length, 1);
+  assert.throws(() => NG.sell(s, c.id, "walk"));
+  assert.match(c.buyerMessage, /keep looking/);
+  NG.nextDay(s, () => 0.8);
+  assert.equal(c.buyerMessage, null);
+  assert.throws(() => NG.haggleSale(s, c.id, "final", 2200));
+});
+test("Alku mentése: újranyitás nem sorsol új korlátokat", () => {
+  const s = NG.newState(),
+    c = s.market[0];
+  c.ask = 1000;
+  NG.hagglePurchase(s, c.id, 700, () => 0.8);
+  NG.save(s);
+  const loaded = NG.load();
+  assert.deepEqual(loaded, s);
+  NG.hagglePurchase(loaded, c.id, 800, () => 0);
+  assert.equal(loaded.market[0].negotiation.minimum, c.negotiation.minimum);
+  NG.buy(loaded, c.id);
+  const owned = loaded.inventory[0];
+  NG.list(loaded, c.id, 4000);
+  owned.offers = [{ id: "saved", buyer: "Alex", price: 2000 }];
+  NG.haggleSale(loaded, c.id, "saved", 2100, () => 0.4);
+  NG.save(loaded);
+  assert.deepEqual(NG.load(), loaded);
+});
+
 console.log(count + " teszt sikeres.");

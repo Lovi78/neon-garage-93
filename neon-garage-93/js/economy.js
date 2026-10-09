@@ -102,15 +102,17 @@ NG.inspect = (s, id) => {
 NG.buy = (s, id) => {
   const car = s.market.find((c) => c.id === id);
   if (!car) throw Error("This listing is no longer available.");
+  if (car.negotiation?.walked)
+    throw Error("The seller has walked away. This deal is off.");
   if (s.inventory.length >= s.capacity)
     throw Error("Your garage is full. Sell a car first.");
-  if (s.cash < car.ask)
-    throw Error("You do not have enough cash for this car.");
-  s.cash -= car.ask;
-  car.purchasePrice = car.ask;
+  const price = car.negotiation?.price ?? car.ask;
+  if (s.cash < price) throw Error("You do not have enough cash for this car.");
+  s.cash -= price;
+  car.purchasePrice = price;
   s.inventory.push(car);
   s.market = s.market.filter((c) => c.id !== id);
-  NG.record(s, "purchase", -car.ask, NG.model(car).name + " - purchase");
+  NG.record(s, "purchase", -price, NG.model(car).name + " - purchase");
 };
 NG.repair = (s, id, part, rng = Math.random) => {
   const car = s.inventory.find((c) => c.id === id);
@@ -161,6 +163,7 @@ NG.list = (s, id, price) => {
   c.listed = true;
   c.listPrice = Math.round(price);
   c.offers = [];
+  c.buyerMessage = null;
 };
 NG.sell = (s, id, offerId) => {
   const c = s.inventory.find((c) => c.id === id);
@@ -233,6 +236,7 @@ NG.nextDay = (s, rng = Math.random) => {
   }
   s.inventory.forEach((c) => {
     c.offers = [];
+    c.buyerMessage = null;
     if (!c.listed || NG.busy(s, c)) return;
     const value = NG.value(s, c),
       ratio = c.listPrice / value,

@@ -1,4 +1,4 @@
-# Neon Garage '93 - v0.2 / Pixel Garage
+# Neon Garage '93 - v0.3 / Negotiation
 
 Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, fiktív kaliforniai város, 1993. június 1., $5,000 kezdőtőke, két férőhely.
 
@@ -24,6 +24,14 @@ A játék minden változtatás után a böngésző helyi tárhelyére ment. Ugya
 
 Nincs időnyomás vagy automatikus napváltás. A következő nap lecseréli a piaci hirdetéseket és a korábbi ajánlatokat. Javítás előtt vedd le a hirdetést.
 
+## Alku vásárlásnál és eladásnál
+
+Az autó piaci adatlapján a **Your offer** mezőbe írj egy összeget, majd kattints a **Make offer** gombra. Az eladó elfogadhatja, ellenajánlatot adhat, vagy sértően alacsony ajánlatnál végleg visszaléphet az aznapi üzlettől. Legfeljebb három kör van; újabb körben emelned kell a saját ajánlatodat. Az **Accept & buy** gombbal a látható kialkudott áron vásárolsz. Az eredeti áron továbbra is vásárolhatsz alku nélkül.
+
+A beérkező vevői ajánlatnál a **Your counteroffer** mezőben kérhetsz magasabb árat, legfeljebb a meghirdetett összegig. A **Counteroffer** gombra a vevő elfogadhatja az árat, adhat egy végső ajánlatot, vagy távozhat. Az **Accept** gomb zárja le az eladást a válaszban szereplő áron. A kereskedő azonnali ára fix; alkudni a magánvevőkkel lehet.
+
+Az alku közben nincs pénzmozgás. A kialkudott vételár és eladási ár szerepel a profitban és a pénzmozgások között. A tárgyalás mentődik, újranyitással nem kap új árkorlátot vagy köröket. Napváltáskor a hirdetések és ajánlatok szokás szerint lecserélődnek.
+
 ## Működő rendszerek
 
 - Tíz, 1993-ban vagy korábban létező modell; naponta kilenc hirdetés.
@@ -42,6 +50,7 @@ Nincs időnyomás vagy automatikus napváltás. A következő nap lecseréli a p
 
 - `js/cars.js`: modelladatok, alkatrészek, hibák, autóillusztrációk.
 - `js/economy.js`: árak, vásárlás, javítás, eladás, napok és események.
+- `js/negotiation.js`: vételi és eladási alku, mentett árkorlátok és körök.
 - `js/state.js`: új játék, dátum, helyi mentés és visszatöltés.
 - `js/ui.js`: ablakok, adatlapok és gombok.
 - `js/scene.js`: interaktív garázs, sprite-kiosztás és beállók.
@@ -59,12 +68,14 @@ Ellenőrzött: indulás és elérhető belépőmodellek 500 új kínálatban, ka
 
 A pixel garázs felületi működéstesztje ellenőrizte a számítógépről megnyíló piacot, az érkező autó animációs állapotát és a garázsból megnyíló autóadatlapot. Emellett végigment a piac, adatlap, vizsgálat, vétel, javítás, napváltás, hirdetés, ajánlat, eladás és pénzügyek útvonalán. Külön ellenőrizte az új oldalpéldányba történő mentés-visszatöltést, az újrakezdés megszakítását és az új játékot. Ez DOM-alapú szerkezet- és interakcióteszt, nem valódi böngészős képi ellenőrzés. Fejlesztőknek: `npm install`, majd `npm run test:ui`. A játék futtatásához ezek nem szükségesek.
 
+Az alku külön tesztjei ellenőrizték az elfogadást, ellenajánlatot, végső árat, visszalépést, hibás összegeket, körkorlátot, mentés-visszatöltést és a kialkudott árhoz tartozó profitot. A teljes felületi útvonalon vételi és eladási alku is szerepel.
+
 ## Korlátok és következő lépések
 
-A v0.2-ben nincs garázsbővítés, alkudozás, személyzet vagy több telephely. Nincs automatikus csődvége: ha kifogysz a pénzből, eladhatod a készleted vagy újrakezdhetsz. A mentés a böngészőhöz kötődik. A beépített böngésző helyi fájlokat tiltó szabálya miatt valódi böngészőben a vizuális elrendezés nem volt ellenőrizhető ebben a fejlesztési körben.
+A v0.3-ban nincs garázsbővítés, személyzet vagy több telephely. Nincs automatikus csődvége: ha kifogysz a pénzből, eladhatod a készleted vagy újrakezdhetsz. A mentés a böngészőhöz kötődik. A beépített böngésző helyi fájlokat tiltó szabálya miatt valódi böngészőben a vizuális elrendezés nem volt ellenőrizhető ebben a fejlesztési körben.
 
 Javasolt sorrend:
 
 1. Garázsbővítés és üzleti fejlődés, a megszerzett hírnévhez kötve.
-2. Alkudozás és eltérő vevőtípusok, konkrét igényekkel.
+2. Eltérő vevőtípusok és alkustílusok, konkrét igényekkel.
 3. Tartós piaci trendek és javítás előtti várható megtérülés.

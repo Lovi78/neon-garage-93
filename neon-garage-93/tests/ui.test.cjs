@@ -21,6 +21,7 @@ for (const name of [
   "cars",
   "scene",
   "economy",
+  "negotiation",
   "legacy-language",
   "state",
   "ui",
@@ -49,7 +50,14 @@ assert(d.querySelector("#details").open);
 click('[data-action="inspect"]');
 assert.equal(saved().cash, 4910);
 assert(saved().market[0].inspected);
+const originalAsk = saved().market[0].ask;
+const bid = Number(d.querySelector("#purchase-bid").value);
+click('[data-action="haggle-buy"]');
+assert.equal(saved().cash, 4910);
+assert(saved().market[0].negotiation.closed);
+assert(bid < originalAsk);
 click('[data-action="buy"]');
+assert.equal(saved().inventory[0].purchasePrice, bid);
 assert.equal(saved().inventory.length, 1);
 assert(!d.querySelector("#details").open);
 assert(!d.querySelector(".desk-window"));
@@ -70,6 +78,10 @@ click('[data-action="close"]');
 click('[data-action="next"]');
 click(".car-card");
 assert.equal(d.querySelectorAll(".offer").length, 1);
+const originalOffer = saved().inventory[0].offers[0].price;
+click('[data-action="haggle-sell"]');
+assert(saved().inventory[0].offers[0].price > originalOffer);
+assert(d.querySelector(".negotiation-dialogue"));
 click('.offer [data-action="sell"]');
 assert.equal(saved().inventory.length, 0);
 assert.equal(d.querySelectorAll(".parked-car").length, 0);
@@ -97,6 +109,7 @@ for (const name of [
   "cars",
   "scene",
   "economy",
+  "negotiation",
   "legacy-language",
   "state",
   "ui",
