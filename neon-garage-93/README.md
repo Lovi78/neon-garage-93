@@ -4,6 +4,8 @@ Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, f
 
 A teljes játékfelület angol. A korábbi mentések eseményei, hibaleírásai és pénzügyi bejegyzései betöltéskor angolra váltanak, a játékállás megtartásával.
 
+A teljes fejlesztési irány, a következő szakaszok és a nyitott döntések a [ROADMAP.md](ROADMAP.md) dokumentumban vannak rögzítve.
+
 ## Indítás
 
 Nyisd meg az `index.html` fájlt Chrome-ban, Edge-ben, Firefoxban vagy Safariban. Nincs szükség telepítésre, regisztrációra, adatbázisra vagy játékszerverre.
@@ -74,8 +76,4 @@ Az alku külön tesztjei ellenőrizték az elfogadást, ellenajánlatot, végső
 
 A v0.3-ban nincs garázsbővítés, személyzet vagy több telephely. Nincs automatikus csődvége: ha kifogysz a pénzből, eladhatod a készleted vagy újrakezdhetsz. A mentés a böngészőhöz kötődik. A beépített böngésző helyi fájlokat tiltó szabálya miatt valódi böngészőben a vizuális elrendezés nem volt ellenőrizhető ebben a fejlesztési körben.
 
-Javasolt sorrend:
-
-1. Garázsbővítés és üzleti fejlődés, a megszerzett hírnévhez kötve.
-2. Eltérő vevőtípusok és alkustílusok, konkrét igényekkel.
-3. Tartós piaci trendek és javítás előtti várható megtérülés.
+A következő javasolt kör az XP, a személyes skillek és perkek, az érezhető reputációs előnyök, valamint a szerelést és marketinget javító vállalkozásfejlesztések. A több beálló későbbi lehetőség. A nagy autóállomány, a helyi események és a történelmi hírek részletes sorrendjét a [roadmap](ROADMAP.md) tartalmazza.
