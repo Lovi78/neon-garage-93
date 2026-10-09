@@ -77,6 +77,11 @@ NG.spriteDrop = {
   stealth: 11,
   cherokee: 10.1,
 };
+for (const [id, sprite] of Object.entries(NG.extraSprites || {})) {
+  NG.spriteFrames[id] = sprite.frame;
+  NG.spriteSheets[id] = sprite.sheet;
+  NG.spriteDrop[id] = sprite.drop;
+}
 NG.carArt = (car, large = false) => {
   const frame = NG.spriteFrames[car.model];
   return `<span class="car-art pixel-car ${large ? "large" : ""}" role="img" aria-label="${NG.model(car).name} pixel art" style="--sprite-sheet:url('assets/${NG.spriteSheets[car.model]}');--sprite-x:${(frame % 5) * 25}%;--sprite-y:${Math.floor(frame / 5) * 100}%;--sprite-drop:${NG.spriteDrop[car.model] ?? (frame >= 5 ? 16 : 0)}%"></span>`;
@@ -93,6 +98,7 @@ NG.garageScene = (state, arrival = null) => {
     ${state.business?.supplier ? '<span class="parts-crate" aria-label="Parts supplier deal installed">PARTS</span>' : ""}
     ${state.business?.advertising ? '<span class="ad-poster" aria-label="Local newspaper advertising installed">USED<br>CARS<small>GOOD DEALS</small></span>' : ""}
     <button class="scene-object workbench" data-action="view" data-view="inventory" aria-label="Workbench: open inventory"><span class="object-marker">▸</span><span class="object-label">WORKBENCH <small>MY INVENTORY${offers ? " / " + offers + " OFFER" + (offers === 1 ? "" : "S") : ""}</small></span></button>
+    <button class="scene-object collection-album" data-action="view" data-view="collection" aria-label="Car album: open collection"><span class="album-art" aria-hidden="true">93</span><span class="object-label">CAR ALBUM <small>YOUR COLLECTION</small></span></button>
     <button class="scene-object wall-clock" data-action="next" aria-label="Clock: advance to next day"><span class="object-marker">▸</span><span class="object-label">CLOSE UP <small>NEXT DAY</small></span></button>
     ${Array.from({ length: state.capacity }, (_, i) => {
       const car = state.inventory[i];

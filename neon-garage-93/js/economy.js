@@ -126,6 +126,7 @@ NG.buy = (s, id) => {
   if (s.cash < price) throw Error("You do not have enough cash for this car.");
   s.cash -= price;
   car.purchasePrice = price;
+  NG.trackCollection(s, car, "purchased");
   s.inventory.push(car);
   s.market = s.market.filter((c) => c.id !== id);
   NG.record(s, "purchase", -price, NG.model(car).name + " - purchase");
@@ -162,6 +163,7 @@ NG.repair = (s, id, part, rng = Math.random) => {
     .filter((f) => f.part === part && f.revealed)
     .forEach((f) => (f.fixed = true));
   car.readyDay = s.day + 1;
+  car.pendingCollectionRepair = true;
   car.offers = [];
   NG.record(
     s,
@@ -205,6 +207,9 @@ NG.sell = (s, id, offerId) => {
   s.sold++;
   s.reputation += offerId === "dealer" ? 0 : NG.condition(c) >= 65 ? 2 : 1;
   s.sales.unshift({
+    model: c.model,
+    carId: c.id,
+    repairCost: c.repairCost,
     day: s.day,
     name: NG.model(c).name,
     price,
@@ -213,6 +218,8 @@ NG.sell = (s, id, offerId) => {
   });
   NG.record(s, "sale", price, NG.model(c).name + " - sale");
   s.inventory = s.inventory.filter((x) => x.id !== id);
+  NG.trackCollection(s, c, "sold");
+  NG.collectionEntry(s, c.model).profit += profit;
   NG.awardDealXP(s, c, "sale", gain);
   return profit;
 };
@@ -259,6 +266,10 @@ NG.nextDay = (s, rng = Math.random) => {
     s.market[8].ask = Math.round(s.market[8].ask * 0.8);
   }
   s.inventory.forEach((c) => {
+    if (c.pendingCollectionRepair && !NG.busy(s, c)) {
+      NG.trackCollection(s, c, "repaired");
+      c.pendingCollectionRepair = false;
+    }
     c.offers = [];
     c.buyerMessage = null;
     if (!c.listed || NG.busy(s, c)) return;

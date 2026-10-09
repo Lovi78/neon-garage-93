@@ -4,7 +4,10 @@
     selected = null,
     filter = "all",
     sort = "default",
-    arrival = null;
+    arrival = null,
+    albumSearch = "",
+    albumStatus = "all",
+    albumSegment = "all";
   const app = document.querySelector("#app"),
     dialog = document.querySelector("#details");
   const esc = (s) =>
@@ -34,8 +37,9 @@
       inventory: "MY INVENTORY",
       finances: "FINANCES",
       upgrades: "DEALER FILE",
+      collection: "CAR COLLECTION",
     };
-    app.innerHTML = `<div class="game-shell"><header class="game-hud"><div class="game-logo"><span class="logo-mark">NG</span><div><h1>NEON GARAGE <b>'93</b></h1><small>SMALL LOT. BIG PLANS.</small></div></div><section class="stats" aria-label="Dealership status"><div><span>CASH</span><strong>${NG.money(state.cash)}</strong></div><div><span>GARAGE</span><strong>${state.inventory.length}<em> / ${state.capacity}</em></strong></div><div><span>REPUTATION</span><strong>${state.reputation}<em> REP</em></strong><small>${NG.repTier(state).name}</small></div><div><span>PROFIT</span><strong class="${state.profit >= 0 ? "positive" : "negative"}">${signed(state.profit)}</strong><small>${state.sold} completed sales</small></div></section><div class="hud-day"><span>${NG.date(state.day)}<small>DAY ${state.day + 1}</small></span><button class="primary" data-action="next">NEXT DAY &gt;</button></div></header><div class="progress-strip"><button data-action="view" data-view="upgrades">DEALER FILE / LEVEL ${state.progress.level}</button>${NG.progressBar("LEVEL " + state.progress.level, state.progress.xp, NG.xpNeeded(state.progress.level), state.progress.xp + " / " + NG.xpNeeded(state.progress.level) + " XP")}${NG.repProgress(state)}<span class="positive">${state.progress.points} SKILL POINT${state.progress.points === 1 ? "" : "S"}</span></div>${NG.storageError ? '<div class="storage-warning">Your browser is blocking saves. Enable local storage to keep your progress.</div>' : ""}<main class="world-frame">${NG.garageScene(state, arrival)}${view !== "garage" ? `<section class="desk-window" aria-label="${names[view]}"><header class="window-title"><span><i></i> ${view === "market" ? "CLASSIFIEDS.EXE" : view === "inventory" ? "WORKSHOP.EXE" : view === "upgrades" ? "DEALER-FILE.EXE" : "LEDGER.EXE"}</span><button data-action="view" data-view="garage" aria-label="Back to garage">&times;</button></header><div class="window-body"><div class="section-heading"><div><span class="eyebrow">NEON GARAGE / ${names[view]}</span><h2>${view === "market" ? "Find your next great deal." : view === "inventory" ? "The keys are in your hands." : view === "upgrades" ? "Build your name. Build your business." : "The numbers tell the story."}</h2></div><button class="text-button" data-action="view" data-view="garage">&lt; BACK TO GARAGE</button></div>${view === "market" ? market() : view === "inventory" ? inventory() : view === "upgrades" ? growth() : finances()}</div></section>` : ""}</main><footer class="game-footer"><div class="radio-news"><span>PALMS FM / 93.0</span><strong>${esc(state.event.title)}</strong><p>${esc(state.event.text)}</p></div><div class="footer-controls"><span>${NG.storageError ? "SAVING UNAVAILABLE" : "AUTO-SAVED"}</span><button data-action="reset">NEW GAME</button><small>v0.5 / SHOWROOM</small></div></footer></div>`;
+    app.innerHTML = `<div class="game-shell"><header class="game-hud"><div class="game-logo"><span class="logo-mark">NG</span><div><h1>NEON GARAGE <b>'93</b></h1><small>SMALL LOT. BIG PLANS.</small></div></div><section class="stats" aria-label="Dealership status"><div><span>CASH</span><strong>${NG.money(state.cash)}</strong></div><div><span>GARAGE</span><strong>${state.inventory.length}<em> / ${state.capacity}</em></strong></div><div><span>REPUTATION</span><strong>${state.reputation}<em> REP</em></strong><small>${NG.repTier(state).name}</small></div><div><span>PROFIT</span><strong class="${state.profit >= 0 ? "positive" : "negative"}">${signed(state.profit)}</strong><small>${state.sold} completed sales</small></div></section><div class="hud-day"><span>${NG.date(state.day)}<small>DAY ${state.day + 1}</small></span><button class="primary" data-action="next">NEXT DAY &gt;</button></div></header><div class="progress-strip"><button data-action="view" data-view="upgrades">DEALER FILE / LEVEL ${state.progress.level}</button>${NG.progressBar("LEVEL " + state.progress.level, state.progress.xp, NG.xpNeeded(state.progress.level), state.progress.xp + " / " + NG.xpNeeded(state.progress.level) + " XP")}${NG.repProgress(state)}<span class="positive">${state.progress.points} SKILL POINT${state.progress.points === 1 ? "" : "S"}</span></div>${NG.storageError ? '<div class="storage-warning">Your browser is blocking saves. Enable local storage to keep your progress.</div>' : ""}<main class="world-frame">${NG.garageScene(state, arrival)}${view !== "garage" ? `<section class="desk-window" aria-label="${names[view]}"><header class="window-title"><span><i></i> ${view === "market" ? "CLASSIFIEDS.EXE" : view === "inventory" ? "WORKSHOP.EXE" : view === "upgrades" ? "DEALER-FILE.EXE" : view === "collection" ? "CAR-ALBUM.EXE" : "LEDGER.EXE"}</span><button data-action="view" data-view="garage" aria-label="Back to garage">&times;</button></header><div class="window-body"><div class="section-heading"><div><span class="eyebrow">NEON GARAGE / ${names[view]}</span><h2>${view === "market" ? "Find your next great deal." : view === "inventory" ? "The keys are in your hands." : view === "upgrades" ? "Build your name. Build your business." : view === "collection" ? "Every car has a story. Collect yours." : "The numbers tell the story."}</h2></div><button class="text-button" data-action="view" data-view="garage">&lt; BACK TO GARAGE</button></div>${view === "market" ? market() : view === "inventory" ? inventory() : view === "upgrades" ? growth() : view === "collection" ? album() : finances()}</div></section>` : ""}</main><footer class="game-footer"><div class="radio-news"><span>PALMS FM / 93.0</span><strong>${esc(state.event.title)}</strong><p>${esc(state.event.text)}</p></div><div class="footer-controls"><span>${NG.storageError ? "SAVING UNAVAILABLE" : "AUTO-SAVED"}</span><button data-action="reset">NEW GAME</button><small>v0.6 / COLLECTION</small></div></footer></div>`;
     arrival = null;
   }
   function event() {
@@ -104,6 +108,69 @@
       )}</section></div><section class="rep-panel"><span class="eyebrow">REPUTATION / ${state.reputation} POINTS</span><h3>${tier.name}</h3>${NG.repProgress(state)}<p>Buyer interest bonus: +${Math.round(tier.interest * 100)} percentage points. ${next ? "Next milestone: " + next.name + " at " + next.at + " reputation (" + (next.at - state.reputation) + " to go)." : "You have reached the highest reputation milestone."}</p><div class="rep-milestones">${NG.repTiers.map((t) => `<span class="${state.reputation >= t.at ? "reached" : ""}">${t.at} REP <b>${t.name}</b><small>+${Math.round(t.interest * 100)} pp interest</small></span>`).join("")}</div><p class="fine-print">Private sales earn +2 reputation at 65% condition or better, otherwise +1. Dealer sales earn none. Reputation also helps new negotiations, capped at a 2% price-limit bonus. Collector requests and complaints are planned for a later version.</p></section><section><div class="section-heading"><h2>Recent experience</h2></div><div class="ledger">${p.log.map((l) => `<div><span>${esc(l.car)} / ${l.phase === "purchase" ? "Purchase negotiation" : "Sale negotiation"}<small>${NG.date(l.day)}</small></span><strong class="positive">+${l.amount} XP</strong></div>`).join("") || '<p class="muted">Your first successful negotiated deal will appear here.</p>'}</div></section>`;
   }
 
+  function album() {
+    const stats = NG.collectionStats(state);
+    const models = NG.catalog.filter((m) => {
+      const entry = state.collection.models[m.id] || {};
+      return (
+        (albumSegment === "all" || m.segment === albumSegment) &&
+        (albumStatus === "all" ||
+          (albumStatus === "missing" && !entry.purchased) ||
+          entry[albumStatus] > 0) &&
+        (m.name + " " + m.trim)
+          .toLowerCase()
+          .includes(albumSearch.toLowerCase())
+      );
+    });
+    const goals = [
+      ["First Five", stats.purchased, 5],
+      ["Hands On", stats.repaired, 5],
+      ["Wide Selection", stats.sold, 15],
+      ["Complete Catalog", stats.purchased, stats.total],
+    ];
+    return `<div class="album-summary">${NG.progressBar("MODELS PURCHASED", stats.purchased, stats.total)}${NG.progressBar("MODELS REPAIRED", stats.repaired, stats.total)}${NG.progressBar("MODELS SOLD", stats.sold, stats.total)}</div><div class="album-goals">${goals.map(([name, n, target]) => `<div class="${n >= target ? "goal-complete" : ""}"><span>${n >= target ? "✓" : "◇"} ${name}</span><small>${Math.min(n, target)} / ${target}${n >= target ? " · COMPLETED" : ""}</small></div>`).join("")}</div><div class="section-heading"><h2>Your model album <span>${models.length} / ${stats.total}</span></h2><div class="filters album-filters"><input id="album-search" type="search" placeholder="Search brand or model" aria-label="Search collection" value="${esc(albumSearch)}"><select id="album-status" aria-label="Collection status">${[
+      ["all", "All models"],
+      ["missing", "Not purchased yet"],
+      ["purchased", "Purchased"],
+      ["repaired", "Repaired"],
+      ["sold", "Sold"],
+    ]
+      .map(
+        ([id, name]) =>
+          `<option value="${id}" ${albumStatus === id ? "selected" : ""}>${name}</option>`,
+      )
+      .join(
+        "",
+      )}</select><select id="album-segment" aria-label="Collection region">${[
+      ["all", "All regions"],
+      ["japan", "Japan"],
+      ["europe", "Europe"],
+      ["america", "America"],
+    ]
+      .map(
+        ([id, name]) =>
+          `<option value="${id}" ${albumSegment === id ? "selected" : ""}>${name}</option>`,
+      )
+      .join("")}</select></div></div><div class="car-grid album-grid">${
+      models
+        .map((m) => {
+          const e = state.collection.models[m.id] || {},
+            tier = NG.collectibleTier(m);
+          return `<button class="car-card album-card ${e.purchased ? "collected" : "uncollected"}" data-action="model-guide" data-model="${m.id}"><div class="car-image"><span class="car-number">${m.years[0]}-${m.years[1]} / ${tier.toUpperCase()}</span>${NG.carArt({ id: "album-" + m.id, model: m.id })}<span class="image-caption">${m.trim}</span></div><div class="card-content"><div class="card-top"><h3>${esc(m.name)}</h3><span class="arrow">↗</span></div><div class="collection-stamps"><span class="${e.purchased ? "stamped" : ""}">${e.purchased ? "✓" : "·"} BOUGHT</span><span class="${e.repaired ? "stamped" : ""}">${e.repaired ? "✓" : "·"} REPAIRED</span><span class="${e.sold ? "stamped" : ""}">${e.sold ? "✓" : "·"} SOLD</span></div></div></button>`;
+        })
+        .join("") ||
+      '<div class="empty-state"><h2>No matching models.</h2><p>Try another search or filter.</p></div>'
+    }</div><p class="fine-print">This album is a model guide, not today’s listings. Purchase a car to stamp its model. Repairs count once the workshop finishes; finding a fault or starting work is not a completed repair. Each vehicle counts once per stage. Album milestones are cosmetic goals, not cash or XP rewards.</p>`;
+  }
+  function modelGuide(id) {
+    const m = NG.catalog.find((m) => m.id === id);
+    if (!m) return;
+    selected = null;
+    const e = state.collection.models[id] || {};
+    dialog.innerHTML = `<div class="modal-head"><span class="eyebrow">CAR COLLECTION / MODEL GUIDE</span><button data-action="close" aria-label="Close">×</button></div><div class="detail-grid"><div class="detail-visual">${NG.carArt({ id: "guide-" + id, model: id }, true)}<span>${m.years[0]}-${m.years[1]} / ${NG.collectibleTier(m).toUpperCase()}</span></div><div><span class="eyebrow">${m.segment.toUpperCase()} / ${esc(m.trim)}</span><h2>${esc(m.name)}</h2><p class="muted">Game years: ${m.years[0]}-${m.years[1]}<br>Service cost index: ${(m.service || 1).toFixed(2)}×</p><div class="detail-prices"><div><span>Reference value</span><strong>${NG.money(m.value)}</strong></div><div><span>Your trading profit</span><strong class="${(e.profit || 0) >= 0 ? "positive" : "negative"}">${signed(e.profit || 0)}</strong></div></div><p class="fine-print">Reference value changes with age, mileage, condition and demand. Collectible tiers are game categories. This page is not an offer to buy.</p></div></div><div class="guide-history"><div><span>Purchased vehicles</span><strong>${e.purchased || 0}</strong></div><div><span>Vehicles repaired</span><strong>${e.repaired || 0}</strong></div><div><span>Vehicles sold</span><strong>${e.sold || 0}</strong></div></div><button class="primary full" data-action="view" data-view="market">Look for one in today’s market</button>`;
+    if (!dialog.open) dialog.showModal();
+  }
+
   function purchasePanel(c) {
     const quote = NG.purchaseQuote(c),
       n = c.negotiation;
@@ -160,9 +227,15 @@
     try {
       let message = "";
       if (action === "view") {
+        dialog.close();
+        selected = null;
         view = b.dataset.view;
         render();
         window.scrollTo(0, 0);
+        return;
+      }
+      if (action === "model-guide") {
+        modelGuide(b.dataset.model);
         return;
       }
       if (action === "detail") {
@@ -255,7 +328,25 @@
       toast(error.message);
     }
   });
+  document.addEventListener("input", (e) => {
+    if (e.target.id === "album-search") {
+      const position = e.target.selectionStart;
+      albumSearch = e.target.value;
+      render();
+      const field = document.querySelector("#album-search");
+      field.focus();
+      field.setSelectionRange(position, position);
+    }
+  });
   document.addEventListener("change", (e) => {
+    if (e.target.id === "album-status") {
+      albumStatus = e.target.value;
+      render();
+    }
+    if (e.target.id === "album-segment") {
+      albumSegment = e.target.value;
+      render();
+    }
     if (e.target.id === "segment-filter") {
       filter = e.target.value;
       render();

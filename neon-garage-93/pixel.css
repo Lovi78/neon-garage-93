@@ -1,4 +1,139 @@
 /* The garage is the navigation. Windows are tools opened from objects in the scene. */
+.collection-album {
+  left: 32%;
+  top: 42%;
+  width: 6%;
+  height: 10%;
+}
+.album-art {
+  position: absolute;
+  width: 65%;
+  height: 55%;
+  top: 15%;
+  left: 15%;
+  background: #576c81;
+  border: 3px solid #8b9eaa;
+  border-left: 7px solid #263d51;
+  color: #dbc98d;
+  font-size: 16px;
+  font-weight: bold;
+  display: grid;
+  place-items: center;
+  transform: rotate(7deg);
+  box-shadow: 4px 4px #101c25;
+}
+.album-summary {
+  display: flex;
+  gap: 20px;
+  background: #26372f;
+  border: 1px solid #5b7769;
+  padding: 12px 16px;
+}
+.album-goals {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 18px 0 25px;
+}
+.album-goals > div {
+  border: 1px solid #516259;
+  padding: 12px;
+  background: #223037;
+}
+.album-goals span {
+  display: block;
+  font-size: 11px;
+  color: #b4bda9;
+}
+.album-goals small {
+  display: block;
+  font-size: 8px;
+  color: #819b8e;
+  margin-top: 7px;
+}
+.album-goals .goal-complete {
+  border-color: #a8cd94;
+  background: #314535;
+}
+.album-goals .goal-complete span {
+  color: #d1dfb1;
+}
+.album-filters {
+  flex-wrap: wrap;
+}
+.album-filters input {
+  width: 185px;
+  font-size: 10px;
+  margin: 0;
+}
+.album-card.uncollected .pixel-car {
+  filter: saturate(0.55) brightness(0.85);
+}
+.collection-stamps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-top: 10px;
+  border-top: 1px solid #4c5b5f;
+}
+.collection-stamps span {
+  font-size: 7px;
+  color: #82958c;
+  padding: 4px;
+  border: 1px solid #41554e;
+}
+.collection-stamps .stamped {
+  background: #314b3b;
+  border-color: #8bab84;
+  color: #d0dfae;
+}
+.guide-history {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 25px 0;
+}
+.guide-history > div {
+  border: 1px solid #587162;
+  background: #263a31;
+  padding: 15px;
+}
+.guide-history span {
+  display: block;
+  font-size: 9px;
+  color: #b5c4ac;
+}
+.guide-history strong {
+  display: block;
+  font-size: 27px;
+  margin-top: 12px;
+}
+@media (max-width: 700px) {
+  .album-summary {
+    flex-direction: column;
+    gap: 0;
+  }
+  .album-goals {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .album-art {
+    font-size: 9px;
+    border-width: 1px;
+    border-left-width: 3px;
+  }
+  .album-filters {
+    width: 100%;
+  }
+  .album-filters input {
+    width: 100%;
+  }
+  .guide-history > div {
+    padding: 10px;
+  }
+  .guide-history span {
+    font-size: 8px;
+  }
+}
 .progress-block {
   min-width: 100px;
   margin: 12px 0;

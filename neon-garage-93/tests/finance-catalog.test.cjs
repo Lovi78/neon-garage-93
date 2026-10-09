@@ -10,10 +10,12 @@ global.localStorage = {
 };
 for (const name of [
   "cars",
+  "catalog-v06",
   "scene",
   "economy",
   "progression",
   "finance",
+  "collection",
   "negotiation",
   "legacy-language",
   "state",
@@ -33,9 +35,9 @@ function rng(seed) {
     return seed / 4294967296;
   };
 }
-test("30 distinct models, valid years, complete sprite coverage and assets", () => {
-  assert.equal(NG.catalog.length, 30);
-  assert.equal(new Set(NG.catalog.map((m) => m.id)).size, 30);
+test("60 distinct models, valid years, complete sprite coverage and assets", () => {
+  assert.equal(NG.catalog.length, 60);
+  assert.equal(new Set(NG.catalog.map((m) => m.id)).size, 60);
   const s = NG.newState();
   for (const [i, m] of NG.catalog.entries()) {
     assert(m.years[0] <= m.years[1] && m.years[1] <= 1993);
@@ -50,7 +52,7 @@ test("30 distinct models, valid years, complete sprite coverage and assets", () 
     assert(!NG.carArt(car).includes("undefined"));
   }
 });
-test("Daily markets can produce all 30 while retaining affordable entry cars", () => {
+test("Daily markets can produce all 60 while retaining affordable entry cars", () => {
   const s = NG.newState(),
     random = rng(1993),
     seen = new Set();
@@ -60,7 +62,7 @@ test("Daily markets can produce all 30 while retaining affordable entry cars", (
     assert(cars.slice(0, 3).every((c) => c.ask + 90 < 5000));
     cars.forEach((c) => seen.add(c.model));
   }
-  assert.equal(seen.size, 30);
+  assert.equal(seen.size, 60);
 });
 test("Different new models have different service costs and upgrades still apply", () => {
   const s = NG.newState(),

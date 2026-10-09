@@ -1,7 +1,7 @@
 # Neon Garage '93 - fejlesztési roadmap
 
 Rögzítve: 2026. október 9.
-Jelenlegi játékverzió: v0.5 / Showroom.
+Jelenlegi játékverzió: v0.6 / Collection.
 
 Ez a dokumentum őrzi a megbeszélt termékirányt, funkciókat, fejlesztési sorrendet és nyitott döntéseket. A játék felülete angol; a fejlesztési egyeztetés és a dokumentáció magyar.
 
@@ -84,10 +84,28 @@ Rögzítve: 2026. október 10.
 - [x] Katalógusdokumentum, gyártói referenciaforrások és elmentett generáló promptok.
 - [x] 31 gazdasági/fejlődési/pénzügyi/katalógusteszt és a bővített felületi működésteszt.
 - [ ] Böngészős vizuális ellenőrzés továbbra is nyitott; a grafikai fájlok külön megtekintése és az automatizált DOM-teszt nem helyettesíti.
-- [ ] Car Collection album még tervezett.
-- [ ] Modellenként külön PNG-fájlokra bontás még tervezett; a 30 sprite jelenleg három atlaszban van.
+- [x] Car Collection album - v0.6-ban elkészült.
+- [ ] Modellenként külön PNG-fájlokra bontás még tervezett; a v0.5-ös harminc sprite három atlaszban van; a v0.6-tal együtt hatvan sprite hat atlaszban.
 
 Vállalkozásérték: készpénz + készlet azonnali kereskedői értéken. A chartban szereplő profit a realizált autóüzleti profit, nem az általános kiadásokkal csökkentett nettó üzleti eredmény. A fejlesztések és a marketing külön költségként látszanak a pénzmozgásokban.
+
+## v0.6 - Car Collection és 60 modell
+
+Rögzítve: 2026. október 10.
+
+- [x] Car Album a garázsban; mind a 60 modell saját grafikával megtekinthető.
+- [x] Vásárlási, befejezett javítási és eladási pecsétek, modell- és járműdarabszámok, rögzített modellprofit.
+- [x] Keresés márka/modell/változat szerint; régió- és gyűjtési állapotszűrő; hiányzó modellek nézete.
+- [x] Modellismertető és átjárás a napi piachoz. Az album nem helyettesíti a tényleges kínálatot.
+- [x] Négy kozmetikai gyűjtési cél; a pecsétek és célok nem termelnek külön pénzt vagy XP-t.
+- [x] Régi mentésekből csak bizonyítható készlet- és eladási előzmények átvétele. Ismeretlen javítási történet nincs visszabecsülve.
+- [x] Bővítés 30-ról 60 modellre, három új átlátszó atlaszban harminc saját sprite-tal, külön bővítési adatfájllal.
+- [x] Swift motorháztető és Thunderbird karosszéria célzott grafikai pontosítása, sprite-talajvonalak összehangolása.
+- [x] 39 gazdasági/fejlődési/pénzügyi/katalógus/albumteszt; kibővített DOM-teszt az album keresésére, szűrésére, ismertetőjére és a teljes kereskedési útvonalra.
+- [ ] Tényleges böngészős vizuális ellenőrzés továbbra is nyitott.
+- [ ] Modellenként külön PNG-fájlokra bontás még tervezett; 60 sprite hat atlaszban van.
+
+A 60 modelles mérföldkő elkészült. A következő javasolt kör a tycoon mélyítése a korábbi terv szerint: visszatérő vevők, hibák feltüntetése, egyszerű reklamáció és ezek reputációs következménye. A 150 és több száz modelles cél megmarad.
 
 ## 3. Reputáció - érezhető bizalom és új lehetőségek
 
@@ -170,7 +188,7 @@ Ezek fejlesztési jelöltek, nem már megvalósított funkciók. A következő k
 
 **Javasolt számszerű cél:** hosszú távon 300-500 külön modell. Ez a fejlesztési javaslat, nem a felhasználó által már jóváhagyott darabszám és nem egy Gran Turismo-játék tényleges autószámára vonatkozó állítás.
 
-**Javasolt bővítési lépcsők:** jelenlegi 10 -> 30 gondosan kidolgozott modell -> 60 -> 150 -> több száz. A minőségellenőrzés minden lépcsőnél szükséges.
+**Bővítési lépcsők:** 10 -> 30 -> 60 (jelenlegi, elkészült állomány) -> 150 -> több száz. Az eredeti javaslat első két bővítése elkészült. A minőségellenőrzés minden lépcsőnél szükséges.
 
 ### Minden modell tartalma
 
@@ -183,7 +201,7 @@ Ezek fejlesztési jelöltek, nem már megvalósított funkciók. A következő k
 
 ### Grafikai és adatgyártási folyamat
 
-- [ ] Modellenként külön grafikai fájl; a jelenlegi közös tízes képlap induló megoldás.
+- [ ] Modellenként külön grafikai fájl; az induló tízes képlap megmaradt, a jelenlegi hatvan sprite hat atlaszban van.
 - [ ] Egységes kameraállás, méretarány, talajvonal, fény és pixelkezelés.
 - [ ] Ellenőrizni kell a modell felismerhetőségét, a sprite széleit, a kerekeket és a beállóba illeszkedést.
 - [ ] Azonos karosszériájú változatok közös grafikai alapból készülhetnek, a különbségeik megtartásával.
@@ -193,13 +211,13 @@ Ezek fejlesztési jelöltek, nem már megvalósított funkciók. A következő k
 
 A bővítés előtt dönteni kell a modell és a felszereltségi/motorváltozat számításáról. A nagyságrend önmagában nem helyettesíti a vizuális és játékmeneti különbségeket.
 
-### Car Collection album - javaslat
+### Car Collection album - v0.6-ban megvalósítva
 
-- [ ] Megmutatja, mely modelleket vetted, javítottad és adtad már el.
-- [ ] Láthatóak a még hiányzó ritkaságok és a gyűjtési előrehaladás.
-- [ ] Tartós célokat ad a profit és a fejlesztések mellett.
+- [x] Megmutatja, mely modelleket vetted, javítottad és adtad már el.
+- [x] Láthatóak a még hiányzó ritkaságok és a gyűjtési előrehaladás.
+- [x] Tartós célokat ad a profit és a fejlesztések mellett.
 
-**Nyitott:** a végleges állományméret, a következő húsz modell listája, a grafikai gyártás tempója és az album részletes jutalmazása.
+**Nyitott:** a végleges állományméret, a következő bővítés modelllistája (az első húsz és az azt követő harminc modell már bekerült), a grafikai gyártás tempója és az album részletes jutalmazása.
 
 ## 7. Véletlen helyi események
 
@@ -245,13 +263,13 @@ Javasolt események:
 
 ## 9. Javasolt fejlesztési sorrend
 
-| Szakasz                       | Tartalom                                                                                                                       | Elkészülési feltétel                                                                            |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
-| v0.4 - Progression foundation | Lezárt alkukért XP, szintlépés, skillpontok; három skillág és három kezdő perk; reputációs mérföldkövek; négy business upgrade | A fejlődés mentődik, látszik és ténylegesen módosítja a játékmenetet; nincs jutalomfarmolás     |
-| Következő tartalmi szakasz    | Autóadat- és sprite-gyártási alap; bővítés 30 modellre; Car Collection alapja                                                  | A modellek felismerhetőek, korhűek, gazdaságilag eltérőek és megfelelően jelennek meg           |
-| Tycoon mélyítés               | Visszatérő vevők, hibafeltüntetés, egyszerű reklamáció, reputációhoz kapcsolódó új üzletek; fejlesztések finomítása            | A bizalom és az üzleti döntések következménye érthető és befolyásolható                         |
-| Élőbb világ                   | Gazdagabb helyi random események és az első ellenőrzött történelmi hírcsomag                                                   | Az események hatása követhető, időben korlátozott és helyesen mentett                           |
-| Folyamatos tartalombővítés    | 60, 150, majd több száz autó; gyűjtési célok, ritkaságok és szükséges piaci szűrők                                             | A mennyiség növekedése mellett megmarad a grafikai minőség, kezelhetőség és gazdasági egyensúly |
+| Szakasz                           | Tartalom                                                                                                                       | Elkészülési feltétel                                                                            |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- |
+| v0.4 - Progression foundation     | Lezárt alkukért XP, szintlépés, skillpontok; három skillág és három kezdő perk; reputációs mérföldkövek; négy business upgrade | A fejlődés mentődik, látszik és ténylegesen módosítja a játékmenetet; nincs jutalomfarmolás     |
+| Tartalmi szakasz - v0.5-v0.6 kész | Autóadat- és sprite-gyártási alap; bővítés 30 modellre; Car Collection alapja                                                  | A modellek felismerhetőek, korhűek, gazdaságilag eltérőek és megfelelően jelennek meg           |
+| Tycoon mélyítés                   | Visszatérő vevők, hibafeltüntetés, egyszerű reklamáció, reputációhoz kapcsolódó új üzletek; fejlesztések finomítása            | A bizalom és az üzleti döntések következménye érthető és befolyásolható                         |
+| Élőbb világ                       | Gazdagabb helyi random események és az első ellenőrzött történelmi hírcsomag                                                   | Az események hatása követhető, időben korlátozott és helyesen mentett                           |
+| Folyamatos tartalombővítés        | 60, 150, majd több száz autó; gyűjtési célok, ritkaságok és szükséges piaci szűrők                                             | A mennyiség növekedése mellett megmarad a grafikai minőség, kezelhetőség és gazdasági egyensúly |
 
 A történelmi idővonal tervezése és az autólista előkészítése korábban is elkezdhető. A funkciók játékba építésének javasolt sorrendje a fenti; a felhasználó később módosíthatja.
 

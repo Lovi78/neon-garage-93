@@ -19,10 +19,12 @@ w.HTMLDialogElement.prototype.close = function () {
 };
 for (const name of [
   "cars",
+  "catalog-v06",
   "scene",
   "economy",
   "progression",
   "finance",
+  "collection",
   "negotiation",
   "legacy-language",
   "state",
@@ -53,10 +55,22 @@ const saved = () => JSON.parse(w.localStorage.getItem(w.NG.saveKey));
 assert.match(d.querySelector("h1").textContent, /NEON GARAGE/);
 assert.equal(d.querySelectorAll(".empty-bay").length, 2);
 assert.equal(d.querySelectorAll('[role="progressbar"]').length, 2);
+click(".collection-album");
+assert.equal(d.querySelectorAll(".album-card").length, 60);
+let searchField = d.querySelector("#album-search");
+searchField.value = "Skyline";
+searchField.dispatchEvent(new w.Event("input", { bubbles: true }));
+assert.equal(d.querySelectorAll(".album-card").length, 1);
+click('[data-action="model-guide"]');
+assert.match(d.querySelector("#details").textContent, /Nissan Skyline/);
+assert(!d.querySelector('#details [data-action="buy"]'));
+click('#details [data-action="view"][data-view="market"]');
+assert(!d.querySelector("#details").open);
+click('[data-action="view"][data-view="garage"]');
 click(".computer");
 assert(d.querySelector(".desk-window"));
 assert.equal(d.querySelectorAll(".car-card").length, 9);
-assert.match(d.querySelector(".desk-window").textContent, /30 models/);
+assert.match(d.querySelector(".desk-window").textContent, /60 models/);
 click(".car-card");
 assert(d.querySelector("#details").open);
 click('[data-action="inspect"]');
@@ -127,6 +141,23 @@ assert(d.querySelector(".history-chart .profit-line"));
 assert(d.querySelector(".history-chart .value-line"));
 assert.equal(d.querySelectorAll(".chart-point").length, 3);
 assert(!d.querySelector(".history-chart").innerHTML.includes("NaN"));
+click('[data-action="view"][data-view="garage"]');
+click(".collection-album");
+searchField = d.querySelector("#album-search");
+searchField.value = "";
+searchField.dispatchEvent(new w.Event("input", { bubbles: true }));
+assert.equal(d.querySelectorAll(".album-card.collected").length, 1);
+const ownedModel = saved().inventory[0]?.model || "golf";
+assert.equal(saved().collection.models[ownedModel].purchased, 1);
+assert.equal(saved().collection.models[ownedModel].repaired, 1);
+assert.equal(saved().collection.models[ownedModel].sold, 1);
+const statusField = d.querySelector("#album-status");
+statusField.value = "missing";
+statusField.dispatchEvent(new w.Event("change", { bubbles: true }));
+searchField = d.querySelector("#album-search");
+searchField.value = "";
+searchField.dispatchEvent(new w.Event("input", { bubbles: true }));
+assert.equal(d.querySelectorAll(".album-card").length, 59);
 const snap = saved();
 w.close();
 dom = new JSDOM(fs.readFileSync(path.join(root, "index.html"), "utf8"), {
@@ -145,10 +176,12 @@ w.HTMLDialogElement.prototype.close = function () {
 w.localStorage.setItem("neon-garage-93-v1", JSON.stringify(snap));
 for (const name of [
   "cars",
+  "catalog-v06",
   "scene",
   "economy",
   "progression",
   "finance",
+  "collection",
   "negotiation",
   "legacy-language",
   "state",
@@ -162,6 +195,7 @@ click('[data-action="close-reset"]');
 assert.deepEqual(saved(), snap);
 click('[data-action="reset"]');
 click('[data-action="confirm-reset"]');
+assert.deepEqual(saved().collection.models, {});
 assert.equal(saved().progress.xp, 0);
 assert(!saved().business.tools);
 assert.equal(saved().cash, 5000);

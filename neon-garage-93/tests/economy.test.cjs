@@ -10,9 +10,11 @@ global.localStorage = {
 };
 for (const file of [
   "cars",
+  "catalog-v06",
   "economy",
   "progression",
   "finance",
+  "collection",
   "negotiation",
   "legacy-language",
   "state",

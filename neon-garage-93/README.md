@@ -1,4 +1,4 @@
-# Neon Garage '93 - v0.5 / Showroom
+# Neon Garage '93 - v0.6 / Collection
 
 Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, fiktív kaliforniai város, 1993. június 1., $5,000 kezdőtőke, két férőhely.
 
@@ -16,7 +16,7 @@ A játék minden változtatás után a böngésző helyi tárhelyére ment. Ugya
 
 ## Az első üzleted
 
-1. Kattints a garázs bal oldalán álló **számítógépre**. Ez nyitja meg a **Car Market** ablakot. A Golf GTI, Volvo 240 és Honda CRX a kezdőtőkéhez igazodó belépőmodellek. A teljes adatbázis 30 modelles; a napi kínálat továbbra is 9 hirdetésből áll. Régi mentésben a húsz új modell a következő napváltástól kerülhet a piacra.
+1. Kattints a garázs bal oldalán álló **számítógépre**. Ez nyitja meg a **Car Market** ablakot. A Golf GTI, Volvo 240 és Honda CRX a kezdőtőkéhez igazodó belépőmodellek. A teljes adatbázis 60 modelles; a napi kínálat továbbra is 9 hirdetésből áll. Régi mentésben az új modellek a következő napváltástól kerülhet a piacra.
 2. Kattints egy autóra. Az eladó állapotleírása és az abból készült értékbecslés tévedhet.
 3. A **$90-os átvizsgálás** megmutatja az alkatrészek állapotát és a rejtett hibákat. A díjat akkor is kifizetted, ha végül nem veszed meg az autót.
 4. Vásárolj. A piac bezáródik, és a megvett autó animációval begurul a garázsba. A készpénz és a két férőhely valódi korlát. Maradjon pénz a javításokra.
@@ -60,25 +60,41 @@ A **Ledger** ablak két vonallal mutatja a **Trading profit** és **Business val
 
 Naponként egy pont van. A mai pont minden művelet után frissül, a korábbi napok megmaradnak. A pontok fölé vitt egér vagy a billentyűzetes fókusz pontos dátumot és összegeket mutat. Új játékban $5,000 érték és $0 profit az indulópont. Korábbi mentésben a grafikon a mostani játéknaptól indul: hiányzó régi készletértékeket nem becslünk vissza.
 
-## A 30 modelles katalógus
+## A 60 modelles katalógus
 
-A [MODEL-CATALOG.md](MODEL-CATALOG.md) listázza mind a 30 modellt és a játékban használt évjáratokat. A húsz új autó között RX-7, Supra, 240SX, AE86, Civic, Integra, Celica, 3000GT, 280ZX, 323 GTX, Porsche 944 és 911, Mercedes 190E, Audi Quattro, Peugeot 205 GTI, Corvette, Firebird, Grand National, Dodge Stealth és Jeep Cherokee szerepel.
+A [MODEL-CATALOG.md](MODEL-CATALOG.md) listázza mind a 60 modellt és a játékban használt évjáratokat. Az első, v0.5-ös bővítés húsz autója között RX-7, Supra, 240SX, AE86, Civic, Integra, Celica, 3000GT, 280ZX, 323 GTX, Porsche 944 és 911, Mercedes 190E, Audi Quattro, Peugeot 205 GTI, Corvette, Firebird, Grand National, Dodge Stealth és Jeep Cherokee szerepel.
 
 Az új modellek szervizszorzója és generáláskor alkalmazott hibakockázata eltér. Ezek játékegyensúlyhoz választott értékek, nem történelmi statisztikák. A szervizszorzó az adatlapon látható, a meglévő javítási kedvezmények továbbra is érvényesek. Az eredeti modellek azonosítói és mentett autói megmaradnak.
 
-A húsz új sprite és a generáló promptok az [EXPANSION-V05.md](assets/EXPANSION-V05.md) szerint vannak tárolva. A képek átlátszó hátterű, helyi atlaszok; a modellenként külön PNG-állomány későbbi feladat marad.
+A v0.5-ös húsz új sprite és a generáló promptok az [EXPANSION-V05.md](assets/EXPANSION-V05.md) szerint vannak tárolva. A képek átlátszó hátterű, helyi atlaszok; a modellenként külön PNG-állomány későbbi feladat marad. A v0.6 további harminc modelljét az album leírása és a teljes modellkatalógus sorolja fel.
+
+## Car Collection album
+
+A garázsban kattints a **Car Album** tárgyra. Az album mind a 60 modellt megmutatja, saját grafikával. Kereshetsz márkára, modellre vagy változatra, és szűrhetsz régióra, megvett/javított/eladott vagy még hiányzó modellekre.
+
+- A vásárlás lezárásakor megjelenik a **BOUGHT** pecsét.
+- A **REPAIRED** pecsét csak a fizetett javítás tényleges befejezésekor jelenik meg, napváltás után. Átvizsgálás és új hiba felfedezése nem számít javításnak.
+- Eladáskor megjelenik a **SOLD** pecsét, és a modell összes autóüzleti profitja frissül.
+- Egy jármű szakaszonként egyszer számít. Több azonos modellű autó emeli a darabszámot, a különböző modellek gyűjtési célját nem duplázza.
+- A kártyára kattintva modellismertető, darabszámok és rögzített kereskedési profit látható. Innen megnyitható a mai piac; az album nem árul automatikusan minden modellt.
+- Célok: First Five (5 modell megvéve), Hands On (5 modell megjavítva), Wide Selection (15 modell eladva), Complete Catalog (mind a 60 modell megvéve). Ezek kozmetikai célok; nem adnak plusz pénzt vagy XP-t.
+- Collectible tier: Regular, Rare és Legendary játékbeli értékkategória; nem történelmi gyártási ritkaság állítása.
+
+A régi mentésekből az aktuális készlet és a névvel vagy modellazonosítóval bizonyítható eladási napló kerül az albumba. Korábbi javítás csak külön meglévő javítási adat alapján igazolható. Nem becslünk vissza ismeretlen javításokat; az átállítás nem ad pénzt vagy XP-t. A folyamatban lévő javítás csak elkészüléskor számít.
+
+A második bővítés harminc új modellje külön adatfájlban van. Többek között Skyline, Silvia, Pulsar, Prelude, Accord, M5, Ferrari 328, Countach, Lancia Delta, Saab 900, Thunderbird, S-10, Chevelle és Charger kerülhet a piacra. A rajzok és generáló promptok az [EXPANSION-V06.md](assets/EXPANSION-V06.md) dokumentumban szerepelnek.
 
 ## Működő rendszerek
 
 - XP, szintlépés, Negotiation skill, One More Shot perk és három vállalkozásfejlesztés.
 - Látható reputációs mérföldkövek és érezhető érdeklődési bónuszok.
-- Harminc, 1993-ban vagy korábban létező modell; naponta kilenc hirdetés.
+- Hatvan, 1993-ban vagy korábban létező modell; naponta kilenc hirdetés.
 - Évjárat, mérföldben megadott futás, eladói állítás, valós állapot és rejtett hibák.
 - Vásárlás, átvizsgálás, ötféle javítás, hirdetés, vevői ajánlat és azonnali eladás.
 - Garázskapacitás, hírnév, változó kereslet és négy gazdasági piaci esemény.
 - Javítás során feltárható rejtett hibák.
 - Pénzmozgások és eladásonkénti profit. Automatikus mentés és megerősítést kérő újrakezdés.
-- Pixel art garázs, harminc külön autósprite, begurulási animáció és javítási szikrák.
+- Pixel art garázs, hatvan külön autósprite, begurulási animáció és javítási szikrák.
 - Tárgyakra épülő kezelés: számítógép = piac, műhelyasztal = készlet, főkönyv = pénzügyek, falióra = napváltás.
 - A grafikák a projektben vannak; nincs külső képszolgáltatás vagy betűkészlet-letöltés.
 
@@ -86,6 +102,8 @@ A húsz új sprite és a generáló promptok az [EXPANSION-V05.md](assets/EXPANS
 
 ## Felépítés
 
+- `js/catalog-v06.js`: a második harminc modell és a hozzájuk tartozó sprite-manifest.
+- `js/collection.js`: vásárlási, javítási és eladási gyűjtési állapot, korábbi mentések bizonyított adatainak átvétele.
 - `js/cars.js`: modelladatok, alkatrészek, hibák, autóillusztrációk.
 - `js/economy.js`: árak, vásárlás, javítás, eladás, napok és események.
 - `js/negotiation.js`: vételi és eladási alku, mentett árkorlátok és körök.
@@ -102,7 +120,7 @@ A játék keretrendszer, külső betűkészlet és csomagtelepítés nélkül fu
 
 ## Ellenőrzés
 
-A gazdasági tesztek futtatása, ha van Node.js: `npm test` (16 eredeti gazdasági + 8 fejlődési + 7 pénzügyi/katalógusteszt).
+A gazdasági tesztek futtatása, ha van Node.js: `npm test` (16 eredeti gazdasági + 8 fejlődési + 7 pénzügyi/katalógus + 8 albumteszt).
 
 Ellenőrzött: indulás és elérhető belépőmodellek 500 új kínálatban, kapacitás és készpénzkorlát, dupla műveletek tiltása, vizsgálati díj, rejtett hiba, javítás ideje és ára, napi kereslet, ajánlatok érvényessége, profitképlet és mentési adatok visszatöltése. További 1000 szimulált üzlet ellenőrzi a pénzmozgások egyezőségét és a nyereség/veszteség lehetőségét.
 
@@ -112,6 +130,6 @@ Az alku külön tesztjei ellenőrizték az elfogadást, ellenajánlatot, végső
 
 ## Korlátok és következő lépések
 
-A v0.5-ben nincs garázsbővítés, személyzet vagy több telephely. Nincs automatikus csődvége: ha kifogysz a pénzből, eladhatod a készleted vagy újrakezdhetsz. A mentés a böngészőhöz kötődik. A beépített böngésző helyi fájlokat tiltó szabálya miatt valódi böngészőben a vizuális elrendezés nem volt ellenőrizhető ebben a fejlesztési körben.
+A v0.6-ban nincs garázsbővítés, személyzet vagy több telephely. Nincs automatikus csődvége: ha kifogysz a pénzből, eladhatod a készleted vagy újrakezdhetsz. A mentés a böngészőhöz kötődik. A beépített böngésző helyi fájlokat tiltó szabálya miatt valódi böngészőben a vizuális elrendezés nem volt ellenőrizhető ebben a fejlesztési körben.
 
-Az első fejlődési kör elkészült. A kínálat 30 modellre bővült, és elkészültek az áttekinthetőséget javító sávok és a pénzügyi grafikon. A következő tartalmi körben a gyűjtőalbum és a további bővítés előkészítése következhet. A további skillágak, perkek és vállalkozásfejlesztések a roadmapben maradnak. A több beálló későbbi lehetőség. A nagy autóállomány, a helyi események és a történelmi hírek részletes sorrendjét a [roadmap](ROADMAP.md) tartalmazza.
+Az első fejlődési kör elkészült. A kínálat 60 modellre bővült, és a gyűjtőalbum elkészült. A következő javasolt kör a tycoon mélyítése: visszatérő vevők, hibafeltüntetés és egyszerű reklamáció. A további autóbővítés a roadmap szerint folytatható. A további skillágak, perkek és vállalkozásfejlesztések a roadmapben maradnak. A több beálló későbbi lehetőség. A nagy autóállomány, a helyi események és a történelmi hírek részletes sorrendjét a [roadmap](ROADMAP.md) tartalmazza.
