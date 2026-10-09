@@ -1,7 +1,7 @@
 # Neon Garage '93 - fejlesztési roadmap
 
 Rögzítve: 2026. október 9.
-Jelenlegi játékverzió: v0.4 / Progression.
+Jelenlegi játékverzió: v0.5 / Showroom.
 
 Ez a dokumentum őrzi a megbeszélt termékirányt, funkciókat, fejlesztési sorrendet és nyitott döntéseket. A játék felülete angol; a fejlesztési egyeztetés és a dokumentáció magyar.
 
@@ -70,6 +70,24 @@ A későbbi egyeztetésben elfogadott, szűkebb kör elkészült: a Negotiation 
 - [ ] Tényleges böngészős vizuális ellenőrzés továbbra is nyitott.
 
 A részletes működési szabályok a README-ben vannak. Gyűjtői megkeresések, reklamáció, Mechanical Knowledge, Market Knowledge, Sharp Eye, Trend Spotter és további business upgrade-ek még nincsenek megvalósítva.
+
+## v0.5 - áttekinthetőség és 30 modell
+
+Rögzítve: 2026. október 10.
+
+- [x] XP- és reputációs sáv a főképernyőn; skillrang-, perkfeltétel- és megfizethetőségi sáv a Dealer File-ban.
+- [x] A Ledgerben napi profitsor és vállalkozásérték-sor, pontos dátumokkal és értékekkel.
+- [x] Napi mentett snapshotok; mai pont frissítése minden művelet után. Régi mentéshez nem készül kitalált történet.
+- [x] Katalógusbővítés 10-ről 30 külön modellre; a napi piac 9 hirdetés marad, belépőmodellekkel.
+- [x] Húsz új átlátszó autósprite, két új atlaszban, modellenként ellenőrzött talajvonal-eltolással.
+- [x] Eltérő szervizszorzó és hibakockázat az új modellekhez; a fejlesztési kedvezmények érvényesek maradnak.
+- [x] Katalógusdokumentum, gyártói referenciaforrások és elmentett generáló promptok.
+- [x] 31 gazdasági/fejlődési/pénzügyi/katalógusteszt és a bővített felületi működésteszt.
+- [ ] Böngészős vizuális ellenőrzés továbbra is nyitott; a grafikai fájlok külön megtekintése és az automatizált DOM-teszt nem helyettesíti.
+- [ ] Car Collection album még tervezett.
+- [ ] Modellenként külön PNG-fájlokra bontás még tervezett; a 30 sprite jelenleg három atlaszban van.
+
+Vállalkozásérték: készpénz + készlet azonnali kereskedői értéken. A chartban szereplő profit a realizált autóüzleti profit, nem az általános kiadásokkal csökkentett nettó üzleti eredmény. A fejlesztések és a marketing külön költségként látszanak a pénzmozgásokban.
 
 ## 3. Reputáció - érezhető bizalom és új lehetőségek
 

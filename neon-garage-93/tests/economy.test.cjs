@@ -12,6 +12,7 @@ for (const file of [
   "cars",
   "economy",
   "progression",
+  "finance",
   "negotiation",
   "legacy-language",
   "state",
@@ -205,6 +206,7 @@ test("A korábbi magyar mentés angolra vált, a játékállás megmarad", () =>
   expected.history[0].title = "A quiet day in town";
   expected.history[0].text = expected.event.text;
   NG.save(s);
+  expected.financialHistory = JSON.parse(JSON.stringify(s.financialHistory));
   assert.deepEqual(NG.load(), expected);
   NG.save(expected);
   assert.deepEqual(NG.load(), expected);

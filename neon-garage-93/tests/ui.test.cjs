@@ -22,6 +22,7 @@ for (const name of [
   "scene",
   "economy",
   "progression",
+  "finance",
   "negotiation",
   "legacy-language",
   "state",
@@ -51,9 +52,11 @@ assert.equal(d.documentElement.lang, "en");
 const saved = () => JSON.parse(w.localStorage.getItem(w.NG.saveKey));
 assert.match(d.querySelector("h1").textContent, /NEON GARAGE/);
 assert.equal(d.querySelectorAll(".empty-bay").length, 2);
+assert.equal(d.querySelectorAll('[role="progressbar"]').length, 2);
 click(".computer");
 assert(d.querySelector(".desk-window"));
 assert.equal(d.querySelectorAll(".car-card").length, 9);
+assert.match(d.querySelector(".desk-window").textContent, /30 models/);
 click(".car-card");
 assert(d.querySelector("#details").open);
 click('[data-action="inspect"]');
@@ -120,6 +123,10 @@ assert.equal(saved().sold, 1);
 assert(!d.querySelector("#details").open);
 click('[data-view="finances"]');
 assert.equal(d.querySelectorAll("tbody tr").length, 1);
+assert(d.querySelector(".history-chart .profit-line"));
+assert(d.querySelector(".history-chart .value-line"));
+assert.equal(d.querySelectorAll(".chart-point").length, 3);
+assert(!d.querySelector(".history-chart").innerHTML.includes("NaN"));
 const snap = saved();
 w.close();
 dom = new JSDOM(fs.readFileSync(path.join(root, "index.html"), "utf8"), {
@@ -141,6 +148,7 @@ for (const name of [
   "scene",
   "economy",
   "progression",
+  "finance",
   "negotiation",
   "legacy-language",
   "state",

@@ -23,10 +23,11 @@ NG.newState = () => {
     },
   };
   s.market = NG.market(s);
-  return NG.ensureProgression(s);
+  return NG.ensureFinance(NG.ensureProgression(s));
 };
 NG.save = (s) => {
   try {
+    NG.snapshotFinance(s);
     localStorage.setItem(NG.saveKey, JSON.stringify(s));
     NG.storageError = false;
   } catch (e) {
@@ -68,7 +69,7 @@ NG.load = () => {
       for (const flaw of car.flaws)
         flaw.label = NG.translateSavedText(flaw.label);
     }
-    return NG.ensureProgression(s);
+    return NG.ensureFinance(NG.ensureProgression(s));
   } catch (e) {
     NG.loadError = true;
     return NG.newState();

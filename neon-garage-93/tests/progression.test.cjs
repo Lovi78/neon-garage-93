@@ -12,6 +12,7 @@ for (const file of [
   "cars",
   "economy",
   "progression",
+  "finance",
   "negotiation",
   "legacy-language",
   "state",

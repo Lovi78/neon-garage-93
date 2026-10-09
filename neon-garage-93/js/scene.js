@@ -12,9 +12,74 @@ NG.spriteFrames = {
   camaro: 8,
   volvo: 9,
 };
+NG.spriteSheets = {};
+for (const id of Object.keys(NG.spriteFrames))
+  NG.spriteSheets[id] = "cars-pixel.png";
+NG.spriteFrames["rx7"] = 0;
+NG.spriteSheets["rx7"] = "cars-japan-pixel.png";
+NG.spriteFrames["supra"] = 1;
+NG.spriteSheets["supra"] = "cars-japan-pixel.png";
+NG.spriteFrames["240sx"] = 2;
+NG.spriteSheets["240sx"] = "cars-japan-pixel.png";
+NG.spriteFrames["ae86"] = 3;
+NG.spriteSheets["ae86"] = "cars-japan-pixel.png";
+NG.spriteFrames["civic"] = 4;
+NG.spriteSheets["civic"] = "cars-japan-pixel.png";
+NG.spriteFrames["integra"] = 5;
+NG.spriteSheets["integra"] = "cars-japan-pixel.png";
+NG.spriteFrames["celica"] = 6;
+NG.spriteSheets["celica"] = "cars-japan-pixel.png";
+NG.spriteFrames["3000gt"] = 7;
+NG.spriteSheets["3000gt"] = "cars-japan-pixel.png";
+NG.spriteFrames["280zx"] = 8;
+NG.spriteSheets["280zx"] = "cars-japan-pixel.png";
+NG.spriteFrames["323gtx"] = 9;
+NG.spriteSheets["323gtx"] = "cars-japan-pixel.png";
+NG.spriteFrames["944"] = 0;
+NG.spriteSheets["944"] = "cars-west-pixel.png";
+NG.spriteFrames["911"] = 1;
+NG.spriteSheets["911"] = "cars-west-pixel.png";
+NG.spriteFrames["190e"] = 2;
+NG.spriteSheets["190e"] = "cars-west-pixel.png";
+NG.spriteFrames["quattro"] = 3;
+NG.spriteSheets["quattro"] = "cars-west-pixel.png";
+NG.spriteFrames["205gti"] = 4;
+NG.spriteSheets["205gti"] = "cars-west-pixel.png";
+NG.spriteFrames["corvette"] = 5;
+NG.spriteSheets["corvette"] = "cars-west-pixel.png";
+NG.spriteFrames["firebird"] = 6;
+NG.spriteSheets["firebird"] = "cars-west-pixel.png";
+NG.spriteFrames["grandnational"] = 7;
+NG.spriteSheets["grandnational"] = "cars-west-pixel.png";
+NG.spriteFrames["stealth"] = 8;
+NG.spriteSheets["stealth"] = "cars-west-pixel.png";
+NG.spriteFrames["cherokee"] = 9;
+NG.spriteSheets["cherokee"] = "cars-west-pixel.png";
+NG.spriteDrop = {
+  rx7: 4.5,
+  supra: 4.8,
+  "240sx": 4.5,
+  ae86: 4,
+  civic: 4,
+  integra: 14,
+  celica: 14.4,
+  "3000gt": 14.4,
+  "280zx": 13.8,
+  "323gtx": 13.8,
+  944: -2,
+  911: -1.5,
+  "190e": -1.8,
+  quattro: -1.8,
+  "205gti": -1.2,
+  corvette: 12,
+  firebird: 12.8,
+  grandnational: 11.5,
+  stealth: 11,
+  cherokee: 10.1,
+};
 NG.carArt = (car, large = false) => {
   const frame = NG.spriteFrames[car.model];
-  return `<span class="car-art pixel-car ${large ? "large" : ""}" role="img" aria-label="${NG.model(car).name} pixel art" style="--sprite-x:${(frame % 5) * 25}%;--sprite-y:${Math.floor(frame / 5) * 100}%;--sprite-drop:${frame >= 5 ? 16 : 0}%"></span>`;
+  return `<span class="car-art pixel-car ${large ? "large" : ""}" role="img" aria-label="${NG.model(car).name} pixel art" style="--sprite-sheet:url('assets/${NG.spriteSheets[car.model]}');--sprite-x:${(frame % 5) * 25}%;--sprite-y:${Math.floor(frame / 5) * 100}%;--sprite-drop:${NG.spriteDrop[car.model] ?? (frame >= 5 ? 16 : 0)}%"></span>`;
 };
 NG.garageScene = (state, arrival = null) => {
   const offers = state.inventory.reduce((n, c) => n + c.offers.length, 0);

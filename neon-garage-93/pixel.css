@@ -1,4 +1,126 @@
 /* The garage is the navigation. Windows are tools opened from objects in the scene. */
+.progress-block {
+  min-width: 100px;
+  margin: 12px 0;
+  flex: 1;
+}
+.progress-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 8px;
+  margin-bottom: 7px;
+  color: #a4b6a6;
+}
+.progress-caption b {
+  font-size: 8px;
+  font-weight: normal;
+  color: #e0d4ad;
+}
+.visual-progress {
+  height: 9px;
+  border: 1px solid #597365;
+  background: #112028;
+  padding: 1px;
+}
+.visual-progress i {
+  display: block;
+  height: 100%;
+  background: repeating-linear-gradient(90deg, #acd5ac 0 8px, #8cba95 8px 10px);
+  transition: width 0.2s;
+}
+.progress-strip .progress-block {
+  max-width: 380px;
+  margin: 0;
+}
+.progress-strip {
+  flex-wrap: wrap;
+}
+.finance-chart {
+  margin: 25px 0;
+  padding: 18px;
+  background: #16262a;
+  border: 1px solid #60736d;
+}
+.history-chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  background: #142126;
+}
+.chart-line {
+  fill: none;
+  stroke-width: 2.5;
+  vector-effect: non-scaling-stroke;
+}
+.profit-line {
+  stroke: #a3d9aa;
+}
+.value-line {
+  stroke: #e4b275;
+}
+.chart-grid {
+  stroke: #3e5355;
+  stroke-width: 0.6;
+  stroke-dasharray: 3 5;
+}
+.chart-axis {
+  fill: #a7b8af;
+  font:
+    10px "Courier New",
+    monospace;
+}
+.chart-hover {
+  stroke: transparent;
+  stroke-width: 14;
+}
+.chart-point:hover .chart-hover,
+.chart-point:focus .chart-hover {
+  stroke: #b9cab422;
+}
+.chart-point:focus {
+  outline: none;
+}
+.value-dot {
+  fill: #e4b275;
+}
+.profit-dot {
+  fill: #a3d9aa;
+}
+.chart-point:hover circle,
+.chart-point:focus circle {
+  r: 5;
+  stroke: #eee5c6;
+  stroke-width: 1.5;
+}
+.chart-legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 8px;
+  flex-wrap: wrap;
+}
+.chart-legend i {
+  display: inline-block;
+  width: 18px;
+  height: 3px;
+}
+.profit-key {
+  background: #a3d9aa;
+}
+.value-key {
+  background: #e4b275;
+}
+@media (max-width: 600px) {
+  .finance-chart {
+    padding: 10px;
+  }
+  .progress-strip .progress-block {
+    flex-basis: 100%;
+    max-width: none;
+  }
+}
 .progress-strip {
   display: flex;
   align-items: center;
@@ -569,7 +691,7 @@ main.world-frame {
 }
 .pixel-car {
   display: block;
-  background-image: url("assets/cars-pixel.png");
+  background-image: var(--sprite-sheet, url("assets/cars-pixel.png"));
   background-size: 500% 200%;
   background-position: var(--sprite-x) var(--sprite-y);
   background-repeat: no-repeat;

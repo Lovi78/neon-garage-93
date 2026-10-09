@@ -36,7 +36,9 @@ NG.estimate = (state, car) =>
 NG.cost = (car) =>
   (car.purchasePrice || 0) + (car.inspectionCost || 0) + (car.repairCost || 0);
 NG.repairQuote = (car, part, state) => {
-  const base = Math.ceil((95 - car.parts[part]) * NG.parts[part].rate);
+  const base = Math.ceil(
+    (95 - car.parts[part]) * NG.parts[part].rate * (NG.model(car).service || 1),
+  );
   const labor = Math.ceil(base * 0.65);
   const parts =
     base -
@@ -71,9 +73,14 @@ NG.generateCar = (state, modelIndex, rng = Math.random) => {
     offers: [],
     readyDay: 0,
   };
-  if (rng() < 0.4) {
+  if (rng() < (m.faultChance ?? 0.4)) {
     const f = NG.flaws[Math.floor(rng() * NG.flaws.length)];
-    car.flaws.push({ ...f, fixed: false, revealed: false });
+    car.flaws.push({
+      ...f,
+      cost: Math.round(f.cost * (m.service || 1)),
+      fixed: false,
+      revealed: false,
+    });
   }
   car.claim = NG.clamp(NG.condition(car) + Math.round(rng() * 20), 30, 95);
   car.ask =
