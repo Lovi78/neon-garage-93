@@ -57,6 +57,7 @@ A felületi működésteszt végigment a piac, adatlap, vizsgálat, vétel, jav�
 A v0.1-ben nincs garázsbővítés, alkudozás, személyzet vagy több telephely. Nincs automatikus csődvége: ha kifogysz a pénzből, eladhatod a készleted vagy újrakezdhetsz. A mentés a böngészőhöz kötődik. A beépített böngésző helyi fájlokat tiltó szabálya miatt valódi böngészőben a vizuális elrendezés nem volt ellenőrizhető ebben a fejlesztési körben.
 
 Javasolt sorrend:
+
 1. Garázsbővítés és üzleti fejlődés, a megszerzett hírnévhez kötve.
 2. Alkudozás és eltérő vevőtípusok, konkrét igényekkel.
 3. Tartós piaci trendek és javítás előtti várható megtérülés.
