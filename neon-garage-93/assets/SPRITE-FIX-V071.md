@@ -1,6 +1,6 @@
 # Sprite-kivágási javítás - v0.7.1
 
-Dátum: 2026. október 10.
+Dátum: 2026. október 10. A javítás a jelenlegi v0.11-ben is érvényes; a megnevezés az elkészülési verziót jelöli.
 
 A generált atlaszok nem pontos 5x2-es rácsra igazodtak. A korábbi százalékos CSS-kivágás ezért a szomszéd autót is megmutathatta, vagy levághatta a kiválasztott jármű szélét. A renderelő most minden modellhez külön SVG-körvonalmaszkot használ, egységes 400x400 nézettel és talajvonallal. A PNG-ket a futó játék nem módosítja.
 

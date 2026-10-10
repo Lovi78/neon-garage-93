@@ -1,11 +1,19 @@
 # Pixel garage assets
 
-Generated with the built-in ImageGen tool on 2026-10-09. Both images are saved with the game and work offline. The garage is the background; cars are independent transparent sprites, not baked into the room. Inspecting the generated artwork is not a browser layout test.
+Documentation updated 2026-10-10 for v0.11. Initial assets were generated with the built-in ImageGen tool on 2026-10-09; later edits and expansions are recorded below and in the linked notes. All assets are saved with the game and work offline. The garage is the background; cars are independent transparent sprites, not baked into the room. Inspecting the generated artwork is not a browser layout test.
 
-- `garage-pixel.png`: 1672 x 941, the empty garage scene.
-- `cars-pixel.png`: 1983 x 793 RGBA, ten vehicles in a 5-column / 2-row atlas. Row two needs a 16% vertical adjustment to match row one's ground line. `js/scene.js` and `pixel.css` apply that adjustment.
+- `garage-pixel-integrated.png`: the current runtime garage background with painted interaction props. `garage-pixel.png` (1672 x 941) is retained as the original scene.
+- `cars-pixel.png`: 1983 x 793 RGBA, ten vehicles in a 5-column / 2-row atlas. The old percentage crop/row adjustment has been superseded by per-model SVG silhouette masks in `js/sprite-clips.js`.
 
-## Garage generation prompt
+## Current car rendering
+
+The 60-model collection uses six transparent atlases plus isolated Delta and Saab repair images. Shared SVG silhouette masks and bounds handle garage, market, inventory and album rendering. Cars remain independent of the room. The current v0.11 capital expansions do not add facility artwork or more car bays.
+
+- [v0.5 expansion and original prompts](EXPANSION-V05.md)
+- [v0.6 expansion and correction prompts](EXPANSION-V06.md)
+- [Current silhouette rendering and sprite repair](SPRITE-FIX-V071.md)
+
+## Original garage generation prompt
 
 Use case: stylized-concept. Asset type: production background for an interactive pixel-art browser game, Neon Garage '93. Create a gorgeous detailed 16-bit pixel art horizontal 16:9 1536x864 scene, STRICT pixel clusters, crisp nearest-neighbor edges, no smooth painting. A lovingly cluttered California used-car garage in 1993 at dusk, cozy nostalgic atmospheric indie game. Wide FRONT CUTAWAY side-on interior, camera almost straight on, shallow perspective floor, walls dark desaturated navy, teal light and warm orange lamplight, small pink neon accents. Left third a small open office nook: desk with beige CRT COMPUTER with lit mint screen at normalized x .15 y .47, chair, paperwork; filing cabinet and ledger/book at x .25 y .53. Back middle wall a metal tool pegboard and red WORKBENCH at x .44 y .43, old car posters, shelves, oil cans, tires, compressor. Far right open large garage door at x .87 revealing purple twilight, palm trees, wet street and distant city, roller door frame. Large roomy concrete floor across bottom half, specifically TWO COMPLETELY EMPTY CAR PARKING SPACES centered x .46 and x .74, both ground baseline y .79 with subtle painted bay lines, absolutely NO CARS ANYWHERE, so actual transparent car sprites can be placed at runtime. Roof trusses, hanging lights, old wall clock at x .63 y .20. Beautiful pixel detailing, 64-ish color palette, 3-4 pixel blocks at final resolution, premium game environment art. No characters. No UI, menus, buttons, text overlays, readable lettering, numbers, logos or watermark. Whole room framed with no foreground objects obscuring the two car spaces. Atmosphere matters, but bright enough to clearly read objects. Output only the artwork.
 

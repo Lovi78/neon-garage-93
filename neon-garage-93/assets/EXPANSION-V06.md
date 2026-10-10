@@ -1,5 +1,7 @@
 # Autóállomány-bővítés - v0.6
 
+**Történeti grafikai gyártási feljegyzés.** A fájlok és promptok megmaradtak. A jelenlegi v0.11 megjelenítés a [v0.7.1-es körvonalmaszkokat](SPRITE-FIX-V071.md) használja; az alább leírt korábbi atlaszkeretek és talajvonal-beállítások a készítéskori állapotot rögzítik.
+
 Dátum: 2026. október 10. Eszköz: beépített ImageGen. Három új 5x2-es, átlátszó atlasz, harminc külön autósprite. Mindhárom a játék assets mappájában van. A talajvonalakat az átlátszó kép látható képpontjainak határa alapján modellenként igazítottuk a `js/catalog-v06.js` manifestjében. Az első harminc sprite megmaradt.
 
 - `cars-v06-japan.png`: Skyline, Silvia, Pulsar, 240Z, Prelude, Accord, Cressida, Starion, Eclipse, Swift.
