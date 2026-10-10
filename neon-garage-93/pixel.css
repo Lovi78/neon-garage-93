@@ -1,4 +1,82 @@
 /* The garage is the navigation. Windows are tools opened from objects in the scene. */
+.trend-board {
+  border: 1px solid #71806b;
+  padding: 16px;
+  background: #263830;
+  margin: 18px 0;
+}
+.trend-board .section-heading {
+  margin: 0 0 15px;
+}
+.trend-board small {
+  font-size: 8px;
+  color: #a6b7a3;
+}
+.trend-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.trend-grid > div {
+  background: #17282a;
+  padding: 14px;
+  border: 1px solid #4f6a5d;
+}
+.trend-grid span {
+  display: block;
+  font-size: 8px;
+}
+.trend-grid strong {
+  display: block;
+  font-size: 25px;
+  margin: 8px 0;
+}
+.trend-grid small {
+  display: block;
+  line-height: 1.7;
+}
+.forecast {
+  background: #34452b;
+  padding: 12px;
+  color: #d9dbae;
+  font-size: 11px;
+  line-height: 1.8;
+}
+#repair-mode {
+  width: 100%;
+  margin: 10px 0 20px;
+  font-size: 10px;
+}
+.operations-board {
+  left: 59%;
+  top: 31%;
+  width: 6%;
+  height: 12%;
+}
+.operations-art {
+  background: #b7b08b;
+  color: #37463e;
+  border: 3px solid #6d785c;
+  position: absolute;
+  top: 0;
+  left: 15%;
+  width: 65%;
+  height: 65%;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: bold;
+  box-shadow: 3px 3px #1b2626;
+}
+@media (max-width: 600px) {
+  .trend-grid {
+    grid-template-columns: 1fr;
+  }
+  .operations-art {
+    font-size: 6px;
+    border-width: 1px;
+  }
+}
 .offer-notification {
   display: flex;
   justify-content: space-between;

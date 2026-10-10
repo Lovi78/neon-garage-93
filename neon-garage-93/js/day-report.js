@@ -81,6 +81,7 @@ NG.finishDayReport = (s, before) => {
         (q) => q.status === "ignored" && before.claims[q.id] !== "ignored",
       )
       .map((q) => q.buyer),
+    operations: s.operations.notice,
     advertising:
       s.adNotice ||
       (s.business.adActive

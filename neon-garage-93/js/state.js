@@ -24,7 +24,9 @@ NG.newState = () => {
   };
   s.market = NG.market(s);
   return NG.ensureCustomers(
-    NG.ensureCollection(NG.ensureFinance(NG.ensureProgression(s))),
+    NG.ensureCollection(
+      NG.ensureFinance(NG.ensureStrategy(NG.ensureProgression(s))),
+    ),
   );
 };
 NG.save = (s) => {
@@ -72,7 +74,9 @@ NG.load = () => {
         flaw.label = NG.translateSavedText(flaw.label);
     }
     return NG.ensureCustomers(
-      NG.ensureCollection(NG.ensureFinance(NG.ensureProgression(s))),
+      NG.ensureCollection(
+        NG.ensureFinance(NG.ensureStrategy(NG.ensureProgression(s))),
+      ),
     );
   } catch (e) {
     NG.loadError = true;

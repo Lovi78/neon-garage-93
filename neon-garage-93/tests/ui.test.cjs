@@ -24,6 +24,7 @@ for (const name of [
   "scene",
   "economy",
   "progression",
+  "strategy",
   "finance",
   "collection",
   "customers",
@@ -133,7 +134,7 @@ assert(d.querySelector('[data-action="sell"]').disabled);
 click('[data-action="close"]');
 click('[data-action="next"]');
 assert.equal(saved().day, 1);
-assert.equal(saved().cash, beforeDay - 20);
+assert.equal(saved().cash, beforeDay - 45);
 click('[data-view="inventory"]');
 click(".car-card");
 click('[data-action="list"]');
@@ -201,6 +202,7 @@ for (const name of [
   "scene",
   "economy",
   "progression",
+  "strategy",
   "finance",
   "collection",
   "customers",
@@ -265,6 +267,7 @@ for (const name of [
   "scene",
   "economy",
   "progression",
+  "strategy",
   "finance",
   "collection",
   "customers",
@@ -340,6 +343,7 @@ for (const name of [
   "scene",
   "economy",
   "progression",
+  "strategy",
   "finance",
   "collection",
   "customers",
@@ -478,6 +482,72 @@ assert.equal(saved().day, 1);
 click('#day-report [data-action="close-day-report"]');
 console.log(
   "PASS UI explicit day confirmation, lossless cancel/Escape, pending-offer warning, stale/double confirm guard, persistent notifications and per-car review.",
+);
+
+// Advanced dealer: skill choices, overdue bills, workshop bottleneck and forecasts.
+const strategyFixture = w.NG.newState();
+strategyFixture.cash = 12000;
+strategyFixture.progress.level = 9;
+strategyFixture.progress.points = 8;
+w.NG.buy(strategyFixture, strategyFixture.market[0].id);
+w.NG.buy(strategyFixture, strategyFixture.market[0].id);
+const [normalJob, rushJob] = strategyFixture.inventory;
+w.NG.inspect(strategyFixture, normalJob.id);
+w.NG.inspect(strategyFixture, rushJob.id);
+w.NG.repair(strategyFixture, normalJob.id, "engine");
+strategyFixture.operations.arrears = 40;
+w.close();
+bootNotificationFixture(strategyFixture);
+click(".operations-board");
+assert.match(d.querySelector(".desk-window").textContent, /Workshop schedule/);
+const cashBeforeBills = saved().cash;
+click('[data-action="pay-bills"]');
+assert.equal(saved().cash, cashBeforeBills - 40);
+assert.equal(saved().operations.arrears, 0);
+click('[data-action="view"][data-view="upgrades"]');
+for (const skill of ["mechanical", "market"]) {
+  click('[data-action="train-skill"][data-skill="' + skill + '"]');
+  click('[data-action="train-skill"][data-skill="' + skill + '"]');
+}
+click('[data-action="specialist-perk"][data-perk="sharpEye"]');
+click('[data-action="specialist-perk"][data-perk="trendSpotter"]');
+assert.equal(saved().progress.points, 2);
+click('[data-action="upgrade"][data-upgrade="diagnostics"]');
+click('[data-action="view"][data-view="garage"]');
+click('.parked-car[data-id="' + rushJob.id + '"]');
+assert(
+  d.querySelector('[data-action="repair"][data-part="cosmetic"]').disabled,
+);
+const mode = d.querySelector("#repair-mode");
+mode.value = "rush";
+mode.dispatchEvent(new w.Event("change", { bubbles: true }));
+const expectedRush = w.NG.repairQuote(
+    saved().inventory[1],
+    "cosmetic",
+    saved(),
+    "rush",
+  ),
+  cashBeforeRush = saved().cash;
+click('[data-action="repair"][data-part="cosmetic"]');
+assert.equal(saved().cash, cashBeforeRush - expectedRush);
+assert.equal(saved().inventory[1].readyDay, 1);
+assert.equal(saved().inventory[0].readyDay, 2);
+click('[data-action="close"]');
+click('[data-action="next"]');
+assert.equal(saved().day, 1);
+assert.equal(saved().dayReport.completedRepairs.length, 1);
+click(".computer");
+assert(d.querySelector(".trend-board"));
+assert(d.querySelector(".forecast"));
+click(".car-card");
+assert.match(d.querySelector("#details").textContent, /SHARP EYE/);
+assert(!saved().market[0].inspected);
+const fee = w.NG.inspectionPrice(saved()),
+  cashBeforeInspection = saved().cash;
+click('[data-action="inspect"]');
+assert.equal(saved().cash, cashBeforeInspection - fee);
+console.log(
+  "PASS UI operating bills, two new skills/perks, diagnostics, workshop contention, paid rush work, completed-job report, forecast and discounted inspection.",
 );
 
 w.close();

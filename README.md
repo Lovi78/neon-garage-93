@@ -1,6 +1,6 @@
 # Neon Garage '93
 
-Pixel art autókereskedős tycoon, angol játékfelülettel. Jelenlegi verzió: v0.7.2 / Offer Alerts.
+Pixel art autókereskedős tycoon, angol játékfelülettel. Jelenlegi verzió: v0.8 / Moving Markets.
 
 A játék fájljai a [`neon-garage-93`](neon-garage-93/) mappában vannak. Indításhoz töltsd le a projektet, majd nyisd meg a mappában található `index.html` fájlt böngészőben. Nincs szükség telepítésre vagy szerverre.
 

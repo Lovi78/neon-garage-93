@@ -13,6 +13,7 @@ for (const name of [
   "catalog-v06",
   "economy",
   "progression",
+  "strategy",
   "finance",
   "collection",
   "customers",
@@ -44,7 +45,7 @@ test("Closing cash flow, trading result and new morning are separate", () => {
   assert.equal(report.closingCash, cash);
   assert.equal(report.cashFlow, price - purchase);
   assert.equal(report.tradingResult, price - purchase);
-  assert.equal(report.overnightCash, 0);
+  assert.equal(report.overnightCash, -20);
   assert.equal(report.marketCount, 9);
   assert.equal(report.read, false);
 });
@@ -58,6 +59,7 @@ test("Completed workshop jobs, expiring offers and incoming offers are reported"
   assert.deepEqual(report.completedRepairs, [NG.model(c).name]);
   NG.list(s, c.id, NG.value(s, c), "honest");
   c.offers = [{ id: "old", price: 1000, buyer: "Old buyer" }];
+  s.marketTrends.next = { segment: "japan", multiplier: 1.15, duration: 2 };
   const next = NG.nextDay(s, () => 0.4);
   assert.equal(next.expiredOffers, 1);
   assert.equal(next.offers.length, 1);
@@ -72,13 +74,13 @@ test("Daily marketing belongs to overnight cash and is saved without replay", ()
   NG.nextDay(s, () => 0.8);
   assert.equal(s.dayReport.closingCash, cash);
   assert.equal(s.dayReport.cashFlow, -450);
-  assert.equal(s.dayReport.overnightCash, -20);
+  assert.equal(s.dayReport.overnightCash, -40);
   NG.save(s);
   assert.deepEqual(NG.load().dayReport, s.dayReport);
   s.dayReport.read = true;
   NG.save(s);
   assert.equal(NG.load().dayReport.read, true);
-  assert.equal(s.cash, cash - 20);
+  assert.equal(s.cash, cash - 40);
 });
 test("Complaint arrivals and ignored cases appear with exact reputation changes", () => {
   const s = NG.newState(),
@@ -111,6 +113,6 @@ test("Contributions for earlier sales count on the day they were paid", () => {
   NG.resolveClaim(s, s.claims[0].id, "refund");
   NG.nextDay(s, () => 0.8);
   assert.equal(s.dayReport.tradingResult, -amount);
-  assert.equal(s.dayReport.cashFlow, -amount);
+  assert.equal(s.dayReport.cashFlow, -amount - 20);
 });
 console.log(count + " daily report tests passed.");

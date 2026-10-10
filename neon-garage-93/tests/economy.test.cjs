@@ -14,6 +14,7 @@ for (const file of [
   "sprite-clips",
   "economy",
   "progression",
+  "strategy",
   "finance",
   "collection",
   "customers",
@@ -76,6 +77,8 @@ test("Nincs hitel, nincs ingyenes javítás vagy ismételt eladás", () => {
   NG.repair(s, c.id, "engine");
   assert.throws(() => NG.sell(s, c.id, "dealer"), /being repaired/);
   NG.nextDay(s, rng(15));
+  assert(NG.busy(s, c));
+  NG.nextDay(s, rng(16));
   assert.throws(() => NG.repair(s, c.id, "engine"), /good condition/);
   NG.sell(s, c.id, "dealer");
   assert.throws(() => NG.sell(s, c.id, "dealer"));
@@ -102,6 +105,7 @@ test("Hirdetés, ajánlat, elutasítás és érvényesség", () => {
   assert.throws(() => NG.list(s, c.id, NaN));
   assert.throws(() => NG.list(s, c.id, 0));
   NG.list(s, c.id, NG.value(s, c));
+  s.marketTrends.next = { segment: "japan", multiplier: 1.2, duration: 2 };
   NG.nextDay(s, () => 0.4);
   assert.equal(c.offers.length, 1);
   assert(c.offers[0].price <= c.listPrice);
@@ -125,17 +129,19 @@ test("Profit = bevétel - vétel - vizsgálat - javítás", () => {
   assert.equal(s.profit, expected);
   assert.equal(s.sales[0].cost, c.ask + 90 + repair);
 });
-test("Napi kereslet tényleges értékváltozást okoz", () => {
+test("Piaci hullám több napig él, és valóban módosítja az értéket", () => {
   const s = NG.newState(),
     c = NG.generateCar(s, 0, rng(3));
   s.inventory = [c];
+  s.marketTrends.next = { segment: "japan", multiplier: 1.2, duration: 2 };
   const before = NG.value(s, c);
-  NG.nextDay(s, () => 0.1);
-  assert.equal(s.demand.japan, 1.2);
+  NG.nextDay(s, () => 0.8);
+  assert(s.demand.japan > 1.18);
   assert(NG.value(s, c) > before);
   NG.nextDay(s, () => 0.8);
-  assert.equal(s.demand.japan, 1);
-  assert.equal(NG.value(s, c), before);
+  assert(s.demand.japan > 1.18);
+  NG.nextDay(s, () => 0.8);
+  assert(s.demand.japan < 1.05);
 });
 test("Mentés és újratöltés adatvesztés nélkül", () => {
   const s = NG.newState(),

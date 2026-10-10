@@ -1,7 +1,7 @@
 # Neon Garage '93 - fejlesztési roadmap
 
 Rögzítve: 2026. október 9.
-Jelenlegi játékverzió: v0.7.2 / Offer Alerts.
+Jelenlegi játékverzió: v0.8 / Moving Markets.
 
 Ez a dokumentum őrzi a megbeszélt termékirányt, funkciókat, fejlesztési sorrendet és nyitott döntéseket. A játék felülete angol; a fejlesztési egyeztetés és a dokumentáció magyar.
 
@@ -157,6 +157,25 @@ Rögzítve: 2026. október 10., a napzárási visszajelzés alapján.
 
 A megerősítés a játékos döntésére vár, nincs valós idejű időnyomás. A katalógus, árképzés és gazdasági szabályok ebben a körben nem változtak.
 
+## v0.8 - stratégiai döntések a repetitív kör helyett
+
+Rögzítve: 2026. október 10. Prioritásváltás a felhasználói visszajelzés alapján: a játék követhető, de lapos; gyorsabb trendváltozás, több skill és nagyobb üzemeltetési kihívás szükséges.
+
+- [x] Naponta új régiós keresleti hullám, 12-30%-os célváltozással, 2-4 napos várható időtartammal; párhuzamos régiós trendek, napi zaj és 70-135%-os szorzókorlát.
+- [x] Aktuális trendpanel, tegnaphoz viszonyított változás és várható lejárat a piacon és az Operations ablakban.
+- [x] Mechanical Knowledge és Market Knowledge 0-3 rang; Sharp Eye és Trend Spotter rank 2-höz kötött perk.
+- [x] Mentett következő piaci hullám; Trend Spotterrel előre megtekinthető, újranyitással nem sorsolható újra.
+- [x] Diagnostic Equipment és tényleges műszaki tudásból származó ár-/időkedvezmények.
+- [x] Napi $20 alapüzemeltetés + $5 autónként; reklám külön költség. Előre kijelzett számla, részleges kifizetés és követhető hátralék.
+- [x] A hátralék csökkenti a vállalkozás értékét és blokkolja a bővítést; meglévő autó eladható és számla rendezhető, nincs negatív készpénz vagy visszamenőleges számlázás.
+- [x] Egy házon belüli műhelymunka; motor/váltó 2 nap, egyéb 1 nap. Mechanical rank 2-től új munkánál 1 nap. Külsős, egynapos gyorsjavítás +25%, minimum $80 felárral.
+- [x] Operations tábla a garázsban, műhelyütemezéssel, számlákkal és trendekkel; a napzáró riport az üzemeltetési költséget is tartalmazza.
+- [x] Régi mentések, skillek, folyamatban lévő javítások és aktuális értékszorzók megőrzése.
+- [x] 62 automatizált teszt és öt felületi működési útvonal; 30 napos gazdasági szimuláció.
+- [ ] Szubjektív játszhatósági egyensúly és teljes böngészős vizuális ellenőrzés még nyitott.
+
+Az eredeti három skillág és három perk most mind megvalósult. A történelmi hírek, gyűjtői megkeresések és további helyi döntéses események megmaradnak a tervben; ezek előtt most a meglévő játékmenet döntési mélysége kapott elsőbbséget. A részletes képletek és költségek a README-ben vannak; ezek játékegyensúlyozási induló értékek, tesztelői visszajelzés alapján finomítandók.
+
 ## 3. Reputáció - érezhető bizalom és új lehetőségek
 
 **Felhasználói igény:** legyen világos, mire jó a reputáció, és legyen érezhető üzleti következménye.
@@ -202,7 +221,7 @@ A megerősítés a játékos döntésére vár, nincs valós idejű időnyomás.
 | Mechanical Knowledge | Pontosabb állapotbecslés és jobb hibafelismerés             | Sharp Eye: vizsgálat előtt észrevehető egy gyanús jel |
 | Market Knowledge     | Piaci érték, kereslet és ritkaság jobb felismerése          | Trend Spotter: egy keresleti hullám előrejelzése      |
 
-A három ág és a perknevek tervezési javaslatok. A konkrét szintek és hatások még véglegesítendők. A One More Shot esetén külön el kell dönteni, hogy az eladóval, a vevővel vagy mindkettővel használható-e.
+A három ág és a perknevek a v0.8-ban megvalósultak; a kezdeti szabályokat a v0.8 szakasz és a README rögzíti. A konkrét szintek és hatások még véglegesítendők. A One More Shot esetén külön el kell dönteni, hogy az eladóval, a vevővel vagy mindkettővel használható-e.
 
 **Alapelv:** a perkek új információt vagy döntési lehetőséget is adjanak. A fejlődés ne csak egymásra rakott százalékos bónuszokból álljon.
 

@@ -15,6 +15,7 @@ for (const name of [
   "scene",
   "economy",
   "progression",
+  "strategy",
   "finance",
   "collection",
   "customers",

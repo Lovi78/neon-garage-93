@@ -14,6 +14,7 @@ for (const name of [
   "sprite-clips",
   "economy",
   "progression",
+  "strategy",
   "finance",
   "collection",
   "customers",
@@ -134,7 +135,7 @@ test("Insufficient cash, rejection and expiry do not charge hidden money", () =>
   for (let i = 0; i < 5; i++) NG.nextDay(f.s, () => 0.8);
   assert.equal(f.s.claims[0].status, "ignored");
   assert.equal(f.s.reputation, 15);
-  assert.equal(f.s.cash, cash);
+  assert.equal(f.s.cash, cash - 100);
   NG.processClaims(f.s);
   assert.equal(f.s.reputation, 15);
 });

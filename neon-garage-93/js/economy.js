@@ -27,15 +27,17 @@ NG.value = (state, car) =>
           .reduce((a, f) => a + f.cost * 0.75, 0),
     ),
   );
-NG.estimate = (state, car) =>
-  Math.round(
+NG.estimate = (state, car) => {
+  const claimed =
     NG.baseValue(car) *
-      (0.3 + (0.7 * car.claim) / 100) *
-      (state.demand[NG.model(car).segment] || 1),
-  );
+    (0.3 + (0.7 * car.claim) / 100) *
+    (state.demand[NG.model(car).segment] || 1);
+  const insight = (state.progress?.market || 0) * 0.25;
+  return Math.round(claimed * (1 - insight) + NG.value(state, car) * insight);
+};
 NG.cost = (car) =>
   (car.purchasePrice || 0) + (car.inspectionCost || 0) + (car.repairCost || 0);
-NG.repairQuote = (car, part, state) => {
+NG.repairQuote = (car, part, state, mode = "standard") => {
   const base = Math.ceil(
     (95 - car.parts[part]) * NG.parts[part].rate * (NG.model(car).service || 1),
   );
@@ -46,10 +48,13 @@ NG.repairQuote = (car, part, state) => {
     car.flaws
       .filter((f) => f.part === part && !f.fixed && f.revealed)
       .reduce((n, f) => n + f.cost, 0);
-  return (
-    Math.round(labor * (state?.business?.tools ? 0.85 : 1)) +
-    Math.round(parts * (state?.business?.supplier ? 0.8 : 1))
-  );
+  const quote =
+    Math.round(
+      labor *
+        (state?.business?.tools ? 0.85 : 1) *
+        (1 - (state?.progress?.mechanical || 0) * 0.05),
+    ) + Math.round(parts * (state?.business?.supplier ? 0.8 : 1));
+  return quote + (mode === "rush" ? Math.max(80, Math.round(quote * 0.25)) : 0);
 };
 NG.busy = (state, car) => car.readyDay > state.day;
 NG.generateCar = (state, modelIndex, rng = Math.random) => {
@@ -108,16 +113,20 @@ NG.inspect = (s, id) => {
   const car = [...s.market, ...s.inventory].find((c) => c.id === id);
   if (!car) throw Error("This car is no longer available.");
   if (car.inspected) throw Error("This car has already been inspected.");
-  if (s.cash < 90) throw Error("You need $90 for an inspection.");
-  s.cash -= 90;
-  car.inspectionCost += 90;
+  const fee = NG.inspectionPrice(s);
+  if (s.cash < fee)
+    throw Error("You need " + NG.money(fee) + " for an inspection.");
+  s.cash -= fee;
+  car.inspectionCost += fee;
   car.inspected = true;
   car.flaws.forEach((f) => (f.revealed = true));
-  NG.record(s, "inspection", -90, NG.model(car).name + " - inspection");
+  NG.record(s, "inspection", -fee, NG.model(car).name + " - inspection");
 };
 NG.buy = (s, id) => {
   const car = s.market.find((c) => c.id === id);
   if (!car) throw Error("This listing is no longer available.");
+  if (s.operations?.arrears > 0)
+    throw Error("Clear overdue operating bills before buying another car.");
   if (car.negotiation?.walked)
     throw Error("The seller has walked away. This deal is off.");
   if (s.inventory.length >= s.capacity)
@@ -132,9 +141,18 @@ NG.buy = (s, id) => {
   NG.record(s, "purchase", -price, NG.model(car).name + " - purchase");
   NG.awardDealXP(s, car, "purchase", car.negotiation ? car.ask - price : 0);
 };
-NG.repair = (s, id, part, rng = Math.random) => {
+NG.repair = (s, id, part, mode = "standard") => {
   const car = s.inventory.find((c) => c.id === id);
   if (!car || !NG.parts[part]) throw Error("Invalid repair.");
+  if (typeof mode === "function") mode = "standard";
+  if (!["standard", "rush"].includes(mode))
+    throw Error("Choose a valid workshop mode.");
+  if (s.operations?.arrears > 0)
+    throw Error("Clear overdue operating bills before booking work.");
+  if (mode === "standard" && NG.workshopBusy(s) >= 1)
+    throw Error(
+      "Your in-house workshop is occupied. Wait or outsource a rush repair.",
+    );
   if (NG.busy(s, car)) throw Error("This car is still in the workshop.");
   if (car.listed) throw Error("Remove the listing before making repairs.");
   if (
@@ -153,7 +171,7 @@ NG.repair = (s, id, part, rng = Math.random) => {
       ". The updated repair quote includes this issue. No money has been charged yet."
     );
   }
-  const cost = NG.repairQuote(car, part, s);
+  const cost = NG.repairQuote(car, part, s, mode);
   if (s.cash < cost)
     throw Error("You do not have enough cash for this repair.");
   s.cash -= cost;
@@ -162,7 +180,9 @@ NG.repair = (s, id, part, rng = Math.random) => {
   car.flaws
     .filter((f) => f.part === part && f.revealed)
     .forEach((f) => (f.fixed = true));
-  car.readyDay = s.day + 1;
+  car.repairMode = mode;
+  const days = NG.repairDuration(s, part, mode);
+  car.readyDay = s.day + days;
   car.pendingCollectionRepair = true;
   car.offers = [];
   NG.record(
@@ -171,7 +191,7 @@ NG.repair = (s, id, part, rng = Math.random) => {
     -cost,
     NG.model(car).name + " - " + NG.parts[part].label,
   );
-  return "Repair started. Your car will be ready tomorrow.";
+  return "Repair started. Ready in " + days + " day(s).";
 };
 NG.list = (s, id, price, mode) => {
   const c = s.inventory.find((c) => c.id === id);
@@ -235,39 +255,25 @@ NG.nextDay = (s, rng = Math.random) => {
   const before = NG.dayReportBefore(s);
   s.day++;
   NG.processClaims(s);
+  NG.operateDay(s);
   NG.advertisingDay(s);
-  s.demand = { japan: 1, europe: 1, america: 1 };
-  s.event = {
-    title: "A quiet day in town",
-    text: "The market is steady. Fresh listings and new opportunities await.",
-    kind: "normal",
-  };
+  NG.advanceMarket(s, rng);
   const r = rng();
   if (r < 0.2) {
-    s.demand.japan = 1.2;
     s.event = {
-      title: "Tokyo fever",
-      text: "Demand for Japanese cars is up 20% today. Their values and buyer offers are rising.",
-      kind: "japan",
-    };
-  } else if (r < 0.36) {
-    s.demand.america = 0.82;
-    s.event = {
-      title: "Gas prices are climbing",
-      text: "American car values are down 18% today. The market will change again tomorrow.",
-      kind: "america",
-    };
-  } else if (r < 0.52) {
-    s.event = {
-      title: "Payday in town",
-      text: "A buyer in a hurry may offer above market value today. Your listed cars are more likely to attract offers.",
       kind: "rush",
+      title: "Payday meets a moving market",
+      text:
+        s.event.text +
+        " Buyers in a hurry are more likely to make offers today.",
     };
-  } else if (r < 0.65) {
+  } else if (r >= 0.52 && r < 0.65) {
     s.event = {
-      title: "A rare find in the classifieds",
-      text: "A Nissan 300ZX has hit the market with a 20% asking-price discount. Its mechanical condition is still a mystery.",
       kind: "rare",
+      title: "A rare listing during a market swing",
+      text:
+        s.event.text +
+        " A Nissan 300ZX appears at a 20% asking-price discount.",
     };
   }
   s.market = NG.market(s, rng);

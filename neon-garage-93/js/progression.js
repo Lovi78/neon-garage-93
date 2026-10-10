@@ -1,5 +1,11 @@
 window.NG = window.NG || {};
 NG.upgrades = {
+  diagnostics: {
+    name: "Diagnostic Equipment",
+    price: 1000,
+    description:
+      "20% lower inspection fees, stacking with Mechanical Knowledge. Minimum inspection fee $30.",
+  },
   tools: {
     name: "Better Tools",
     price: 600,
@@ -31,6 +37,10 @@ NG.ensureProgression = (s) => {
     level: 1,
     points: 0,
     negotiation: 0,
+    mechanical: 0,
+    market: 0,
+    sharpEye: false,
+    trendSpotter: false,
     oneMoreShot: false,
     log: [],
     ...s.progress,
@@ -40,6 +50,7 @@ NG.ensureProgression = (s) => {
     supplier: false,
     advertising: false,
     adActive: false,
+    diagnostics: false,
     ...s.business,
   };
   return s;
@@ -104,6 +115,8 @@ NG.unlockOneMoreShot = (s) => {
 NG.buyUpgrade = (s, id) => {
   NG.ensureProgression(s);
   const item = NG.upgrades[id];
+  if (s.operations?.arrears > 0)
+    throw Error("Clear overdue operating bills first.");
   if (!item) throw Error("Unknown business upgrade.");
   if (s.business[id]) throw Error("You already own this upgrade.");
   if (s.cash < item.price)

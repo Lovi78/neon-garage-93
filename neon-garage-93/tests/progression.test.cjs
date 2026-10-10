@@ -14,6 +14,7 @@ for (const file of [
   "sprite-clips",
   "economy",
   "progression",
+  "strategy",
   "finance",
   "collection",
   "customers",
@@ -133,20 +134,20 @@ test("Business purchases, discounted quotes and actual repair cash agree", () =>
   assert.equal(c.repairCost, both);
   assert.equal(s.cash, 5000 + s.ledger.reduce((n, l) => n + l.amount, 0));
 });
-test("Marketing fee, pause and insufficient funds do not create debt", () => {
+test("Marketing fees and pauses remain separate from operating bills", () => {
   const s = NG.newState();
   NG.buyUpgrade(s, "advertising");
   assert(!s.business.adActive);
   NG.toggleAdvertising(s);
   const before = s.cash;
   NG.nextDay(s, () => 0.8);
-  assert.equal(s.cash, before - 20);
+  assert.equal(s.cash, before - 40);
   assert.equal(s.ledger[0].type, "marketing");
   assert.equal(s.ledger[0].day, 1);
   NG.toggleAdvertising(s);
   NG.nextDay(s, () => 0.8);
-  assert.equal(s.cash, before - 20);
-  s.cash = 20;
+  assert.equal(s.cash, before - 60);
+  s.cash = 40;
   NG.toggleAdvertising(s);
   NG.nextDay(s, () => 0.8);
   assert.equal(s.cash, 0);
@@ -162,6 +163,7 @@ test("Reputation and marketing change real buyer arrival chances", () => {
       c = s.market[0];
     NG.buy(s, c.id);
     s.reputation = rep;
+    s.marketTrends.next = { segment: "america", multiplier: 1.25, duration: 2 };
     s.business.adActive = ads;
     NG.list(s, c.id, NG.value(s, c));
     NG.nextDay(s, () => 0.7);
