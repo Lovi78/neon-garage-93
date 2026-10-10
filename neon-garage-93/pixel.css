@@ -1,4 +1,68 @@
 /* The garage is the navigation. Windows are tools opened from objects in the scene. */
+.offer-notification {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  padding: 13px 16px;
+  margin-bottom: 14px;
+  background: #29483b;
+  border: 2px solid #acc38d;
+  box-shadow: 3px 3px #13211f;
+}
+.offer-notification strong {
+  display: block;
+  font-size: 12px;
+  color: #f1dfae;
+}
+.offer-notification small {
+  display: block;
+  font-size: 9px;
+  line-height: 1.8;
+  color: #c0d3b4;
+  margin-top: 6px;
+}
+.offer-notification button {
+  white-space: nowrap;
+  font-size: 10px;
+}
+#day-confirm {
+  width: min(620px, 94vw);
+}
+#day-confirm > p {
+  font-size: 12px;
+  line-height: 1.8;
+}
+.confirm-offer-warning {
+  background: #49372a;
+  border: 2px solid #c39968;
+  padding: 16px;
+  margin: 20px 0;
+}
+.confirm-offer-warning h3 {
+  color: #efd4a0;
+}
+.confirm-offer-warning li,
+.confirm-offer-warning p {
+  font-size: 11px;
+  line-height: 1.8;
+}
+.confirm-offer-warning ul {
+  padding-left: 18px;
+}
+#day-confirm .actions {
+  flex-wrap: wrap;
+}
+@media (max-width: 600px) {
+  .offer-notification {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .offer-notification button {
+    width: 100%;
+  }
+}
 #day-report {
   width: min(980px, 94vw);
 }
@@ -56,9 +120,21 @@
 #day-report .actions {
   flex-wrap: wrap;
 }
-.report-transactions { margin:15px 0 22px; padding:12px 15px; background:#1c2b2f; border:1px solid #536b60; font-size:11px; line-height:1.8; }
-.report-transactions summary { cursor:pointer; color:#d4d9b9; }
-.report-transactions ul { padding-left:17px; }
+.report-transactions {
+  margin: 15px 0 22px;
+  padding: 12px 15px;
+  background: #1c2b2f;
+  border: 1px solid #536b60;
+  font-size: 11px;
+  line-height: 1.8;
+}
+.report-transactions summary {
+  cursor: pointer;
+  color: #d4d9b9;
+}
+.report-transactions ul {
+  padding-left: 17px;
+}
 @media (max-width: 650px) {
   .report-metrics {
     grid-template-columns: 1fr;

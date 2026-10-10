@@ -1,7 +1,7 @@
 # Neon Garage '93 - fejlesztési roadmap
 
 Rögzítve: 2026. október 9.
-Jelenlegi játékverzió: v0.7.1 / Daily Report.
+Jelenlegi játékverzió: v0.7.2 / Offer Alerts.
 
 Ez a dokumentum őrzi a megbeszélt termékirányt, funkciókat, fejlesztési sorrendet és nyitott döntéseket. A játék felülete angol; a fejlesztési egyeztetés és a dokumentáció magyar.
 
@@ -139,6 +139,23 @@ Rögzítve: 2026. október 10., felhasználói képernyőkép és visszajelzés 
 - [ ] A teljes garázs és modal böngészős vizuális ellenőrzése külön nyitott tétel; a sprite-kimenetek ellenőrzése ezt nem helyettesíti.
 
 A fejlesztési segéd és a kivágási jegyzék is a projektben van, hogy a későbbi autóbővítésnél az oszlopeltolódás ellenőrizhető legyen. A katalógus változatlanul 60 modelles, a mentési kulcs és a meglévő játékállás megmarad.
+
+## v0.7.2 - tudatos napzárás és ajánlatértesítés
+
+Rögzítve: 2026. október 10., a napzárási visszajelzés alapján.
+
+- [x] A Next Day és a falióra először megerősítést kér, nem léptet azonnal napot.
+- [x] Keep playing, bezárás és Escape: nincs idő-, pénz- vagy ajánlatváltozás.
+- [x] Függő ajánlatok tételes felsorolása és kifejezett lejárati figyelmeztetés a napzárási ablakban; közvetlen visszatérés az ajánlatokhoz.
+- [x] Megmaradó LIVE OFFERS értesítés, összeggel és átnézendő darabszámmal; készletkártyás jelzés.
+- [x] Egy autónál közvetlen adatlap, több autónál készletnézet; az átnézés csak a megnyitott autó ajánlataira vonatkozik.
+- [x] Az átnézett, de még el nem fogadott vagy el nem utasított ajánlat értesítése megmarad.
+- [x] Olvasási jelölés mentése, régi mentések kompatibilitása; régi jelöletlen ajánlatok átnézendőként kezelése.
+- [x] Dupla és már bezárt jóváhagyás nem léptet napot; a meglévő napzáró összefoglaló megmarad.
+- [x] 54 automatizált teszt és négy felületi működési útvonal, külön megerősítési/értesítési ellenőrzéssel.
+- [ ] Teljes böngészős vizuális ellenőrzés továbbra is nyitott.
+
+A megerősítés a játékos döntésére vár, nincs valós idejű időnyomás. A katalógus, árképzés és gazdasági szabályok ebben a körben nem változtak.
 
 ## 3. Reputáció - érezhető bizalom és új lehetőségek
 

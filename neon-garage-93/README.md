@@ -1,4 +1,4 @@
-# Neon Garage '93 - v0.7.1 / Daily Report
+# Neon Garage '93 - v0.7.2 / Offer Alerts
 
 Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, fiktív kaliforniai város, 1993. június 1., $5,000 kezdőtőke, két férőhely.
 
@@ -110,7 +110,7 @@ Ez egyszerű, játékbeli customer-care rendszer. Az állapotot a hirdetés tén
 
 ## Napzáró felugró összefoglaló
 
-Minden **Next Day** vagy falióra-kattintás után megnyílik a napi összefoglaló. A lezárt nap és a következő reggel külön szakasz:
+A **Next Day** vagy falióra-kattintás először megerősítést kér. A nap csak a **Yes, close day** (függő ajánlatnál **Close day & expire offers**) gomb után vált, és ekkor nyílik meg a napi összefoglaló. A **Keep playing**, a bezárás és az Escape nem változtatja a napot, a pénzt vagy az ajánlatokat. A lezárt nap és a következő reggel külön szakasz:
 
 - Záró készpénz, napi készpénzmozgás, realizált autóüzleti eredmény, szint, kapott XP és záró reputáció.
 - Lenyitható tételes pénzmozgások a lezárt napról.
@@ -122,6 +122,14 @@ Minden **Next Day** vagy falióra-kattintás után megnyílik a napi összefogla
 A **Continue to garage** bezárja az ablakot. A **View offers** vagy **Customer care** közvetlenül a megfelelő mappát nyitja meg. Amíg az összefoglaló nyitva van, a következő nap nem indítható újra. A legutóbbi összefoglaló a **DAY REPORT** gombbal újranyitható; ez nem lépteti az időt és nem von le újabb költséget. Ha olvasás előtt bezárod a böngészőt, a mentett összefoglaló újranyitáskor megjelenik.
 
 A napi autóüzleti eredmény az aznap lezárt autók eladási ára mínusz bekerülése, levonva az aznap kifizetett vevői hozzájárulásokat. A készpénzmozgás az aznapi beszerzést, javítást és üzleti kiadást is tartalmazza. A következő reggel reklámdíja külön jelenik meg.
+
+## Bejövő ajánlatok értesítése
+
+A garázs és a mappák felett megmaradó **LIVE OFFERS** értesítősáv mutatja az ajánlatok számát, a modelleket és összegeket. A **NEEDS REVIEW** szám azokat jelöli, amelyeket még nem nyitottál meg az autó adatlapján. A készletkártyák is **NEW OFFER** vagy **PENDING OFFER** jelzést kapnak.
+
+A **View offers** egyetlen érintett autónál közvetlenül az adatlapot nyitja, több autónál a készletet. Csak a ténylegesen megnyitott autó ajánlatai lesznek átnézettnek jelölve. Az értesítés ettől még megmarad: az elfogadás, elutasítás vagy a külön megerősített napzárás zárja le az ajánlatokat. A jelölés mentődik; korábbi, jelölés nélküli ajánlatok átnézendőnek számítanak.
+
+Napzárás előtt a megerősítő ablak felsorolja a függő ajánlatokat és figyelmeztet a lejáratukra, akkor is, ha már átnézted őket. A **Review offers first** visszavisz az ajánlatokhoz napváltás nélkül. A nyitott megerősítés újrakattintása, a dupla jóváhagyás vagy egy már bezárt ablak régi gombja nem okoz újabb naplépést. A jóváhagyásra váró megerősítés nem léptet napot a böngésző újranyitásakor sem.
 
 ## Autóképek kivágása
 
@@ -173,10 +181,10 @@ Ellenőrzött: indulás és elérhető belépőmodellek 500 új kínálatban, ka
 
 A pixel garázs felületi működéstesztje ellenőrizte a számítógépről megnyíló piacot, az érkező autó animációs állapotát és a garázsból megnyíló autóadatlapot. Emellett végigment a piac, adatlap, vizsgálat, vétel, javítás, napváltás, hirdetés, ajánlat, eladás és pénzügyek útvonalán. Külön ellenőrizte az új oldalpéldányba történő mentés-visszatöltést, az újrakezdés megszakítását és az új játékot. Ez DOM-alapú szerkezet- és interakcióteszt, nem valódi böngészős képi ellenőrzés. Fejlesztőknek: `npm install`, majd `npm run test:ui`. A játék futtatásához ezek nem szükségesek.
 
-Az alku külön tesztjei ellenőrizték az elfogadást, ellenajánlatot, végső árat, visszalépést, hibás összegeket, körkorlátot, mentés-visszatöltést és a kialkudott árhoz tartozó profitot. A teljes felületi útvonalon vételi és eladási alku, XP és szintlépés, skillpontköltés, perkfeloldás, mindhárom vállalkozásfejlesztés és reklámaktiválás is szerepel. A teszt ellenőrzi a fejlesztések jeleneten megjelenő elemeit, a napi díjat, a mentést és az új játékot is. A második felületi tesztútvonal a hibamentes hirdetéstől az eladáson át a késleltetett reklamációig és a hozzájárulás rendezéséig is végigment, pénzügyi visszaellenőrzéssel. A harmadik útvonal a napi modal megnyitását, a dupla naplépés tiltását, az olvasatlan összefoglaló visszatöltését, nyugtázását és újranyitását is ellenőrzi. A sprite-kimeneteket külön renderelővel is megnéztük. A teljes böngészős elrendezés ellenőrzése továbbra is külön nyitott tétel.
+Az alku külön tesztjei ellenőrizték az elfogadást, ellenajánlatot, végső árat, visszalépést, hibás összegeket, körkorlátot, mentés-visszatöltést és a kialkudott árhoz tartozó profitot. A teljes felületi útvonalon vételi és eladási alku, XP és szintlépés, skillpontköltés, perkfeloldás, mindhárom vállalkozásfejlesztés és reklámaktiválás is szerepel. A teszt ellenőrzi a fejlesztések jeleneten megjelenő elemeit, a napi díjat, a mentést és az új játékot is. A második felületi tesztútvonal a hibamentes hirdetéstől az eladáson át a késleltetett reklamációig és a hozzájárulás rendezéséig is végigment, pénzügyi visszaellenőrzéssel. A harmadik útvonal a megerősítés utáni napi modal megnyitását, a dupla naplépés tiltását, az olvasatlan összefoglaló visszatöltését, nyugtázását és újranyitását is ellenőrzi. A sprite-kimeneteket külön renderelővel is megnéztük. A negyedik útvonal külön ellenőrzi a veszteségmentes visszalépést, az Escape-et, az ajánlatlejárati figyelmeztetést, a több autóhoz tartozó ajánlatok külön átnézését, a mentés utáni értesítést és a dupla vagy már bezárt jóváhagyás tiltását. A teljes böngészős elrendezés ellenőrzése továbbra is külön nyitott tétel.
 
 ## Korlátok és következő lépések
 
-A v0.7.1-ben nincs garázsbővítés, személyzet vagy több telephely. Nincs automatikus csődvége: ha kifogysz a pénzből, eladhatod a készleted vagy újrakezdhetsz. A mentés a böngészőhöz kötődik. A beépített böngésző helyi fájlokat tiltó szabálya miatt valódi böngészőben a vizuális elrendezés nem volt ellenőrizhető ebben a fejlesztési körben.
+A v0.7.2-ben nincs garázsbővítés, személyzet vagy több telephely. Nincs automatikus csődvége: ha kifogysz a pénzből, eladhatod a készleted vagy újrakezdhetsz. A mentés a böngészőhöz kötődik. A beépített böngésző helyi fájlokat tiltó szabálya miatt valódi böngészőben a vizuális elrendezés nem volt ellenőrizhető ebben a fejlesztési körben.
 
 Az első fejlődési kör elkészült. A kínálat 60 modellre bővült, és a gyűjtőalbum elkészült. A tycoon mélyítés első köre elkészült: visszatérő vevők, hibafeltüntetés és egyszerű reklamáció. A következő javasolt kör a helyi események gazdagítása és az ellenőrzött történelmi hírek alapja. A további autóbővítés a roadmap szerint folytatható. A további skillágak, perkek és vállalkozásfejlesztések a roadmapben maradnak. A több beálló későbbi lehetőség. A nagy autóállomány, a helyi események és a történelmi hírek részletes sorrendjét a [roadmap](ROADMAP.md) tartalmazza.

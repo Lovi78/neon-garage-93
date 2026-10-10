@@ -46,8 +46,13 @@ const click = (selector) => {
   const b = d.querySelector(selector);
   assert(b, "Hiányzó elem: " + selector);
   assert(!b.disabled, "Tiltott elem: " + selector);
+  const dayBeforeClick = saved().day;
   b.click();
   if (b.dataset.action === "next") {
+    assert.equal(saved().day, dayBeforeClick);
+    assert(d.querySelector("#day-confirm").open);
+    d.querySelector('#day-confirm [data-action="confirm-next"]').click();
+    assert.equal(saved().day, dayBeforeClick + 1);
     assert(
       d.querySelector("#day-report").open,
       "Day change must open a report",
@@ -135,7 +140,11 @@ click('[data-action="list"]');
 assert(saved().inventory[0].listed);
 click('[data-action="close"]');
 click('[data-action="next"]');
+assert(d.querySelector(".offer-notification"));
+assert.equal(saved().inventory[0].offers[0].seen, false);
 click(".parked-car");
+assert.equal(saved().inventory[0].offers[0].seen, true);
+assert(d.querySelector(".offer-notification"));
 assert.equal(d.querySelectorAll(".offer").length, 1);
 const originalOffer = saved().inventory[0].offers[0].price;
 click('[data-action="haggle-sell"]');
@@ -300,6 +309,9 @@ console.log(
 // Reports require acknowledgement, survive reload unread, and never advance twice.
 const dayBefore = saved().day;
 d.querySelector('[data-action="next"]').click();
+assert.equal(saved().day, dayBefore);
+assert(d.querySelector("#day-confirm").open);
+d.querySelector('#day-confirm [data-action="confirm-next"]').click();
 assert.equal(saved().day, dayBefore + 1);
 assert(d.querySelector("#day-report").open);
 assert.equal(saved().dayReport.read, false);
@@ -353,6 +365,119 @@ assert.equal(saved().cash, cashAfterRead);
 assert.equal(saved().day, dayBefore + 1);
 console.log(
   "PASS UI daily modal, advance guard, unread reload, acknowledgement, reopen and view offers.",
+);
+
+// Two pending offers: cancellation is lossless, review is per car, and alerts persist.
+const notificationFixture = w.NG.newState();
+w.NG.buy(notificationFixture, notificationFixture.market[0].id);
+w.NG.buy(notificationFixture, notificationFixture.market[0].id);
+for (const [index, car] of notificationFixture.inventory.entries()) {
+  w.NG.list(notificationFixture, car.id, 3000, "as-is");
+  car.offers = [
+    {
+      id: "pending-" + index,
+      buyer: "Buyer " + index,
+      price: 2000 + index * 100,
+      seen: false,
+    },
+  ];
+}
+w.close();
+function bootNotificationFixture(fixture) {
+  dom = new JSDOM(fs.readFileSync(path.join(root, "index.html"), "utf8"), {
+    url: "https://neon-garage.test/",
+    runScripts: "outside-only",
+  });
+  w = dom.window;
+  d = w.document;
+  w.scrollTo = () => {};
+  w.Math.random = () => 0.8;
+  w.HTMLDialogElement.prototype.showModal = function () {
+    this.open = true;
+  };
+  w.HTMLDialogElement.prototype.close = function () {
+    this.open = false;
+  };
+  w.localStorage.setItem("neon-garage-93-v1", JSON.stringify(fixture));
+  for (const script of d.querySelectorAll("script[src]"))
+    w.eval(
+      fs.readFileSync(path.join(root, script.getAttribute("src")), "utf8"),
+    );
+}
+bootNotificationFixture(notificationFixture);
+assert.match(
+  d.querySelector(".offer-notification").textContent,
+  /2 LIVE OFFERS/,
+);
+const beforeConfirmation = JSON.stringify(saved());
+d.querySelector('[data-action="next"]').click();
+assert(d.querySelector("#day-confirm").open);
+assert.equal(JSON.stringify(saved()), beforeConfirmation);
+assert.match(
+  d.querySelector("#day-confirm").textContent,
+  /2 pending offers will expire/,
+);
+assert(d.activeElement.dataset.action === "cancel-next");
+click('#day-confirm [data-action="cancel-next"]');
+assert.equal(JSON.stringify(saved()), beforeConfirmation);
+d.querySelector('[data-action="next"]').click();
+click('#day-confirm [data-action="confirm-view-offers"]');
+assert(!d.querySelector("#day-confirm").open);
+assert.equal(saved().day, 0);
+assert.equal(saved().inventory.filter((c) => c.offers[0].seen).length, 0);
+click(".desk-window .car-card");
+assert.equal(saved().inventory.filter((c) => c.offers[0].seen).length, 1);
+assert.match(
+  d.querySelector(".offer-notification").textContent,
+  /1 NEEDS REVIEW/,
+);
+click('[data-action="close"]');
+d.querySelector('[data-action="next"]').click();
+d.querySelector("#day-confirm").dispatchEvent(
+  new w.Event("cancel", { cancelable: true }),
+);
+assert(!d.querySelector("#day-confirm").open);
+assert.equal(saved().day, 0);
+d.querySelector('#day-confirm [data-action="confirm-next"]').click();
+assert.equal(saved().day, 0);
+const reviewSave = saved();
+w.close();
+bootNotificationFixture(reviewSave);
+assert.match(
+  d.querySelector(".offer-notification").textContent,
+  /1 NEEDS REVIEW/,
+);
+click('[data-action="view-offers"]');
+click(".desk-window .car-card");
+click('.offer [data-action="reject"]');
+click('[data-action="close"]');
+assert.match(
+  d.querySelector(".offer-notification").textContent,
+  /1 LIVE OFFER/,
+);
+click('[data-action="view-offers"]');
+assert(d.querySelector("#details").open);
+assert.equal(saved().inventory[1].offers[0].seen, true);
+assert.match(
+  d.querySelector(".offer-notification").textContent,
+  /PENDING DECISION/,
+);
+click('.offer [data-action="reject"]');
+assert(!d.querySelector(".offer-notification"));
+click('[data-action="close"]');
+d.querySelector('[data-action="next"]').click();
+assert.equal(saved().day, 0);
+const confirmButton = d.querySelector(
+  '#day-confirm [data-action="confirm-next"]',
+);
+confirmButton.click();
+assert.equal(saved().day, 1);
+assert(d.querySelector("#day-report").open);
+confirmButton.click();
+assert.equal(saved().day, 1);
+click('#day-report [data-action="close-day-report"]');
+console.log(
+  "PASS UI explicit day confirmation, lossless cancel/Escape, pending-offer warning, stale/double confirm guard, persistent notifications and per-car review.",
 );
 
 w.close();

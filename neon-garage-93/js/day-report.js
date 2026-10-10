@@ -1,4 +1,17 @@
 window.NG = window.NG || {};
+NG.currentOffers = (s) =>
+  s.inventory
+    .filter((c) => c.listed && !NG.busy(s, c))
+    .flatMap((c) =>
+      c.offers.map((o) => ({
+        carId: c.id,
+        car: NG.model(c).name,
+        id: o.id,
+        buyer: o.buyer,
+        price: o.price,
+        unread: o.seen !== true,
+      })),
+    );
 NG.dayReportBefore = (s) => ({
   day: s.day,
   cash: s.cash,
