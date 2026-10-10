@@ -17,6 +17,7 @@ for (const name of [
   "finance",
   "collection",
   "customers",
+  "enterprise",
   "opportunities",
   "day-report",
   "negotiation",
@@ -65,7 +66,7 @@ function request(s, kind) {
   s.opportunities.requests.push(q);
   return q;
 }
-test("Eight distinct local choices and three valid buyer request categories", () => {
+test("Eight legacy local choices remain compatible; three buyer request categories stay valid", () => {
   assert.equal(NG.localEvents.length, 8);
   assert.equal(NG.requestKinds.length, 3);
   for (const t of NG.requestKinds)
@@ -171,20 +172,20 @@ test("Mechanic, diagnostic and reputation choices change their stated systems", 
   NG.chooseLocalEvent(s, invite(s, "chamber").id, true);
   assert.equal(s.reputation, rep + 3);
 });
-test("Invitation generation is occasional, spaced, bounded and never rerolled by loading", () => {
+test("Legacy event spawning is retired; buyer requests and loading remain stable", () => {
   const [s] = fixture();
   s.day = 1;
   NG.opportunityDay(s, () => 0.9);
   assert.equal(s.opportunities.events.length, 0);
   NG.opportunityDay(s, () => 0);
-  assert.equal(s.opportunities.events.length, 1);
+  assert.equal(s.opportunities.events.length, 0);
   assert.equal(s.opportunities.requests.length, 1);
   const snap = JSON.stringify(s.opportunities);
   NG.save(s);
   assert.equal(JSON.stringify(NG.load().opportunities), snap);
   s.day = 2;
   NG.opportunityDay(s, () => 0);
-  assert.equal(s.opportunities.events.length, 1);
+  assert.equal(s.opportunities.events.length, 0);
 });
 test("Accepting requests starts a fixed deadline with no cash or inventory mutation", () => {
   const [s] = fixture(),

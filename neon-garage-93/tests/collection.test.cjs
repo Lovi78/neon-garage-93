@@ -19,6 +19,7 @@ for (const name of [
   "finance",
   "collection",
   "customers",
+  "enterprise",
   "opportunities",
   "day-report",
   "negotiation",

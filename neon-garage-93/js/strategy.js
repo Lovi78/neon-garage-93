@@ -67,7 +67,8 @@ NG.advanceMarket = (s, rng = Math.random) => {
       " days. Other active trends continue; daily noise adds risk.",
   };
 };
-NG.operatingBill = (s) => 20 + s.inventory.length * 5;
+NG.operatingBill = (s) =>
+  20 + s.inventory.length * 5 + (NG.enterpriseCosts?.(s) || 0);
 NG.operateDay = (s) => {
   NG.ensureStrategy(s);
   const o = s.operations;
@@ -121,7 +122,8 @@ NG.inspectionPrice = (s) =>
     ),
   );
 NG.workshopBusy = (s) =>
-  s.inventory.filter((c) => NG.busy(s, c) && c.repairMode !== "rush").length;
+  s.inventory.filter((c) => NG.busy(s, c) && c.repairMode !== "rush").length +
+  (NG.enterpriseOrdersBusy?.(s) || 0);
 NG.repairDuration = (s, part, mode) =>
   mode === "rush" ||
   (s.progress?.mechanical || 0) >= 2 ||

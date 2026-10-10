@@ -1,7 +1,7 @@
 # Neon Garage '93 - fejlesztési roadmap
 
 Rögzítve: 2026. október 9.
-Jelenlegi játékverzió: v0.10 / Local Opportunities.
+Jelenlegi játékverzió: v0.11 / Business Empire.
 
 Ez a dokumentum őrzi a megbeszélt termékirányt, funkciókat, fejlesztési sorrendet és nyitott döntéseket. A játék felülete angol; a fejlesztési egyeztetés és a dokumentáció magyar.
 
@@ -225,6 +225,23 @@ A sürgős eladó ötlete kimaradt: a felhasználó helyesen jelezte, hogy a nap
 - [ ] Tényleges böngészős vizuális ellenőrzés és hosszabb játékosi egyensúlyteszt.
 
 A részletes költségek és időszabályok a README-ben vannak. A történelmi hírek továbbra is külön, ellenőrzött forrásokat igénylő fejlesztés; ez a kör fiktív helyi döntéseket tartalmaz.
+
+## v0.11 - vállalkozásfejlesztés és tőkekockázat
+
+A felhasználó 148 játékbeli nap, 29 eladás és kb. $104k készpénz után elfogyó célokat és repetitív kereskedési hurkot jelzett. Az irány részletesebb vállalkozásépítés, tényleges nagy pénzügyi döntésekkel. Az apró v0.10-es opcionális eseményeket gyengének ítélte; a vevői megbízásokat megtartjuk.
+
+- [x] Service Center ($24k / 6 nap / $180 napi költség), Fleet Workshop ($68k / 10 nap / további $320 napi költség), Wholesale Trading Desk ($45k / 8 nap / $250 napi költség). Nagy tőkekiadás, nyitási idő, reputációs feltétel, egymásra épülő flottaműhely.
+- [x] Saját autók javításával közös kapacitást használó külső szerviz/flotta munkák. Alkatrész-előfinanszírozás és későbbi, egyszeri számlakifizetés; futó munkánál nincs szabad kiszállás.
+- [x] Öt napra lekötött $25k/$50k nagykereskedelmi tételek, mentett végrehajtási eltérés, piaci záróár és valódi tőkevesztés. Egy tétel legfeljebb 40%-ot veszíthet vagy 50%-ot kereshet, fix költségek előtt.
+- [x] Reputációhoz kötött $10k/$50k hitelkeret, napi egyszerű kamat és kézi tőketörlesztés. A hitel nem eredmény és nem nettó értéknövekedés.
+- [x] 25%-os megtartási díjú szüneteltetés; építkezés lemondásakor 50%, kész üzletág felszámolásakor 40% visszanyerés. Kötelezettség alatt nem kerülhető meg a futó munka vagy üzletág költsége.
+- [x] Heti fix költség, cash runway, utolsó 7 nap működési cash flow, lekötött tőke és új nettó eszközérték. Napi jelentés, új munkajelzés és Ledger-tételek.
+- [x] Deal margin és grafikon kiterjesztése az üzletágak lezárt eredményére, a vállalkozási költségektől világosan különválasztva.
+- [x] Új apró helyi események generálása megszűnt; régi fizetett hatás kifut, vevői megbízások megmaradnak. Régi pénzhez és fejlődéshez nincs visszamenőleges büntetés.
+- [x] 93 automatizált teszt és 8 felületi tesztútvonal. Új ellenőrzések: nagy beruházás, időzítés, közös kapacitás, előfinanszírozás, hitel/nettó érték, valódi veszteség, kifizetés egyszerisége, leállítási korlátok, régi mentés.
+- [ ] Tényleges böngészős vizuális ellenőrzés és hosszabb játékosi egyensúlyteszt; a működéstesztek nem bizonyítják önmagukban, hogy tartósan elég nehéz vagy izgalmas.
+
+További nyitott irány: üzletáganként hosszabb fejlődés, változó ügyfélkereslet és szerződéses munka, megbízók alkui és visszatérő partnerek. A történelmi hírek és nagy autókatalógus továbbra is külön roadmap-célok. A konkrét képletek és költségek a README-ben szerepelnek.
 
 ## 3. Reputáció - érezhető bizalom és új lehetőségek
 

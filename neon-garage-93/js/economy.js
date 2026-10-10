@@ -155,7 +155,10 @@ NG.repair = (s, id, part, mode = "standard") => {
     throw Error(
       "Today’s local event prevents new in-house bookings. Outsourced rush is still available.",
     );
-  if (mode === "standard" && NG.workshopBusy(s) >= 1)
+  if (
+    mode === "standard" &&
+    NG.workshopBusy(s) >= (NG.workshopCapacity?.(s) || 1)
+  )
     throw Error(
       "Your in-house workshop is occupied. Wait or outsource a rush repair.",
     );
@@ -346,6 +349,7 @@ NG.nextDay = (s, rng = Math.random) => {
       });
     }
   });
+  NG.enterpriseDay?.(s, rng);
   NG.opportunityDay?.(s, rng);
   s.history.unshift({ day: s.day, ...s.event });
   s.history = s.history.slice(0, 30);

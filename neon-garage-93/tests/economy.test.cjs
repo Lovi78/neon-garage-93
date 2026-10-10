@@ -18,6 +18,7 @@ for (const file of [
   "finance",
   "collection",
   "customers",
+  "enterprise",
   "opportunities",
   "day-report",
   "negotiation",

@@ -284,38 +284,7 @@ NG.opportunityDay = (s, rng = Math.random) => {
       );
     }
   }
-  if (
-    s.day >= o.nextEventDay &&
-    !o.events.some((e) => e.status === "pending") &&
-    rng() < 0.35
-  ) {
-    const candidates = NG.localEvents.filter(
-      (t) =>
-        !o.events.slice(-2).some((e) => e.kind === t.id) &&
-        !NG.activeLocalEffects(s).some((e) => e.kind === t.id),
-    );
-    if (candidates.length) {
-      const t =
-        candidates[
-          Math.min(candidates.length - 1, Math.floor(rng() * candidates.length))
-        ];
-      o.events.push({
-        id: "local-" + s.nextId++,
-        kind: t.id,
-        status: "pending",
-        day: s.day,
-        deadline: s.day + 1,
-      });
-      o.nextEventDay = s.day + 3;
-      o.notices.push(
-        "Local invitation: " +
-          t.title +
-          ". Decide by " +
-          NG.date(s.day + 1) +
-          ".",
-      );
-    }
-  }
+  // Local invitations retired in v0.11; existing paid benefits expire normally.
   if (
     s.day >= o.nextRequestDay &&
     !o.requests.some((q) => q.status === "offered") &&

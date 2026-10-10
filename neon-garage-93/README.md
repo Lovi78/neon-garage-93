@@ -1,4 +1,4 @@
-# Neon Garage '93 - v0.10 / Local Opportunities
+# Neon Garage '93 - v0.11 / Business Empire
 
 Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, fiktív kaliforniai város, 1993. június 1., $5,000 kezdőtőke, két férőhely.
 
@@ -7,6 +7,50 @@ A teljes játékfelület angol. A korábbi mentések eseményei, hibaleírásai 
 A teljes fejlesztési irány, a következő szakaszok és a nyitott döntések a [ROADMAP.md](ROADMAP.md) dokumentumban vannak rögzítve.
 
 A kattintható tárgyakat állandó, finom mentazöld pixel sarokjelölés emeli ki. Rámutatáskor vagy billentyűzetes kijelöléskor aranyszínű lesz és megjelenik a funkció neve. A saját autók sziluettje is enyhe jelölést kap. Az alsó súgó a számítógéphez irányítja az első játékost; a napváltási jelenetben a jelölések nem látszanak.
+
+## Nagy vállalkozási döntések - v0.11
+
+A **Dealer File** és az **Operations** ablakban új Business / Capital & Commitments rész van. A régi mentés pénze, autói és eredményei megmaradnak: új költség csak vállalt beruházással vagy hitellel keletkezik. A garázs továbbra is két saját autót tart; a bővítés üzletágat és műhelykapacitást nyit, nem új beállókat rajzol.
+
+| Beruházás | Induló tőke | Építés | Napi fix költség nyitástól | Új működés |
+| --- | ---: | ---: | ---: | --- |
+| Independent Service Center | $24,000 | 6 nap | $180 | 2 közös műhelyhely, külsős javítási megrendelések; legalább 10 REP |
+| Regional Fleet Workshop | $68,000 | 10 nap | további $320 | 3 közös műhelyhely, nagyobb flottamunkák; legalább 25 REP és nyitott Service Center |
+| Wholesale Trading Desk | $45,000 | 8 nap | $250 | Legfeljebb két, 5 napra lekötött nagykereskedelmi tétel; legalább 20 REP |
+
+Egy építkezés folyhat egyszerre. A beruházás ára előre kifizetendő; az új fix költség a nyitást követő reggeltől él. A flottaműhely a Service Center költségére rakódik: együtt $500/nap. A három üzletág összesen $137k beruházás és $750/nap személyzeti/üzemeltetési költség, a normál rezsi, készlettartás, reklám és hitelkamat előtt.
+
+A beruházás megkezdése előtt külön áttekintés mutatja a maradó pénzt és az új heti fix terhet. Az aktuális 7 napos költség, bevétel nélküli készpénz-fedezet és az elmúlt 7 nap tényleges működési pénzmozgása külön látszik. A 7 napos költség és cash runway az ismert építkezési nyitásokat és hátralékot is figyelembe veszi. A jelenlegi készletet és reklámállapotot feltételezi, további döntéseket vagy befolyó munkadíjat nem. Ez nem garantált jövőbeli pénzállás.
+
+### Szerviz mint második bevételi forrás
+
+Nyitott szerviz mellett legkorábban 2 naponta érkezik új, 3 napig megválaszolható ügyfélmunka; egyszerre egy új megkeresés vár döntésre. Normál munkánál $1,200-$3,200 alkatrészt kell előfinanszírozni, a költség fölötti számlamargin $900-$1,900, átfutás 2-4 nap. Nyitott flottaműhelynél 60% eséllyel nagyobb munka jön: $6k-$12k előlegnyi alkatrészköltség, $3k-$6k számlamargin, 4-6 nap átfutás.
+
+A teljes költség, számla és idő elfogadás előtt látható, a konkrét feltételek mentődnek. A költséget azonnal levonja, a fix számlát elkészüléskor egyszer fizeti ki a játék. Elutasítás és az el nem vállalt ajánlat lejárata ingyenes. Az ügyfélmunka ugyanazokat a műhelyhelyeket foglalja, mint a saját autók normál javítása. A rush javítás külön marad. A fizetett ügyfélmunkát nem lehet félbehagyni; személyzeti költség üres műhely mellett is van. A számlamargin nem nettó nyereség: a fix költségeket még ki kell termelni.
+
+### Nagykereskedelmi tőkelekötés
+
+A Wholesale Trading Deskben szegmens és $25k vagy $50k tétel választható. Az összeg azonnal kikerül a szabad készpénzből; 5 napig nincs korai kiszállás. A belépési kereslet és a végrehajtási eltérés mentődik, újratöltés nem sorsolja újra.
+
+Elszámolás: `tőke × (1.10 × záró kereslet / belépési kereslet + végrehajtási eltérés)`, ahol az eltérés -4 és +4 százalékpont közötti. A kifizetés a tőke 60%-a és 150%-a közé korlátozott. Egy $50k tétel így $30k-$75k között fizethet vissza, azaz $20k veszteség vagy $25k nyereség is lehet a külön fizetett működési költségek előtt. Nincs garantált tőkevisszafizetés. A záró kereslet az elszámolás reggelén, a napi piaci változás után érvényes érték.
+
+### Finanszírozás és visszavonulás
+
+- Business credit: 10 REP-től $10k, 25 REP-től $50k hitelkeret. A felvétel és törlesztés $10k-os lépésekben történik; az utolsó kisebb tartozás egyben törleszthető. Egyszerű kamat: heti 2%, naponta kerekített összeggel. A tőke addig tartozás marad, amíg vissza nem fizeted; nincs automatikus tőketörlesztés.
+- A hitel nem bevétel, és nem növeli a nettó vállalkozásértéket. Kamatát a következő reggeli üzemeltetési számla tartalmazza. Hitelből a lejárt számla is rendezhető. Hátralék mellett új beruházás, ügyfélmunka és nagykereskedelmi tétel nem indul.
+- Szüneteltetéskor nincs új üzletági tevékenység, de 25% napi megtartási költség marad. Aktív ügyfélmunka vagy nagykereskedelmi tétel mellett nem szüneteltethető vagy eladható az érintett üzletág. Műhelykapacitás-csökkentést akadályoz a túl sok saját futó javítás; a Service Center előtt a ráépülő flottaműhelyt kell felszámolni.
+- Építkezés lemondásakor 50%, kész üzletág eladásakor 40% beruházási ár térül vissza. A különbözet valódi befektetési veszteség. Az újranyitás ismét a teljes napi költséget indítja.
+- Kevés készpénznél a meglévő számlahátralék-szabály lép életbe. Az eszközérték vagy lekötött tőke nem fizeti ki automatikusan a napi számlát. Egy aznap elkészülő munka kifizetése a rezsi levonása után jön; ilyenkor a maradó hátralék kézzel rendezhető.
+
+### Pénzügyi követés
+
+A **Deal margin** az autók lezárt profitját és a szerviz/nagykereskedelem lezárt számlamarginját együtt mutatja. Nem tartalmazza a rezsit, kamatot vagy beruházási veszteséget; ezek a Ledgerben, készpénzben és vállalkozásértékben látszanak. A 7 napos operating cash flow minden tényleges pénzmozgást számít, kivéve tőkeberuházást/felszámolást és hitelfelvételt/tőketörlesztést; a készletvásárlás benne van.
+
+A nettó érték: készpénz + saját autók azonnali kereskedői értéke + épülő üzletágak 50%-os/kész üzletágak 40%-os felszámolási értéke + futó munkák előfinanszírozása és nagykereskedelmi tőke bekerülési áron - hiteltőke - számlahátralék. A bekerülési érték nem ígéret a megtérülésre. A napi jelentésben a nyitások, új munkák és lezárt kifizetések is megjelennek.
+
+Az apró v0.10-es választható helyi eseményekből nem érkezik több. A korábban kifizetett hatás és meglévő meghívás az eredeti feltételekkel kifut; a vevői autómegbízások változatlanul megmaradnak. A következő régebbi fejezetek az adott verzió működését dokumentálják.
+
+Az összegek és kockázatok játékegyensúly-szabályok, nem valós 1993-as gazdasági adatok. A működési és késői mentési tesztek sikeresek; hosszabb játékosi egyensúlyteszt és tényleges böngészős vizuális ellenőrzés még szükséges.
 
 ## Helyi döntések és vevői megbízások - v0.10
 
@@ -268,7 +312,7 @@ A játék keretrendszer, külső betűkészlet és csomagtelepítés nélkül fu
 
 ## Ellenőrzés
 
-A gazdasági tesztek futtatása, ha van Node.js: `npm test` (16 gazdasági + 8 fejlődési + 8 pénzügyi/katalógus + 8 album + 9 vevői + 5 napi összefoglaló + 8 stratégiai + 1 rádió-életciklus + 16 helyi esemény/megbízás teszt).
+A gazdasági tesztek futtatása, ha van Node.js: `npm test` (16 gazdasági + 8 fejlődési + 8 pénzügyi/katalógus + 8 album + 9 vevői + 5 napi összefoglaló + 8 stratégiai + 1 rádió-életciklus + 16 helyi esemény/megbízás + 14 vállalkozási teszt).
 
 Ellenőrzött: indulás és elérhető belépőmodellek 500 új kínálatban, kapacitás és készpénzkorlát, dupla műveletek tiltása, vizsgálati díj, rejtett hiba, javítás ideje és ára, napi kereslet, ajánlatok érvényessége, profitképlet és mentési adatok visszatöltése. További 1000 szimulált üzlet ellenőrzi a pénzmozgások egyezőségét és a nyereség/veszteség lehetőségét.
 

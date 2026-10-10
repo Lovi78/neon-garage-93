@@ -2161,3 +2161,46 @@ dialog h3 {
     grid-template-columns: 1fr;
   }
 }
+.enterprise-panel {
+  border: 2px solid #698575;
+  padding: 20px;
+  margin-bottom: 28px;
+  background: #172a2a;
+}
+.enterprise-projects {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+.enterprise-panel .finance-summary {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.enterprise-panel details {
+  margin: 12px 0;
+}
+.enterprise-panel summary {
+  cursor: pointer;
+  color: #e0c995;
+}
+.enterprise-panel .actions {
+  flex-wrap: wrap;
+}
+.enterprise-panel button {
+  white-space: normal;
+  line-height: 1.5;
+}
+.enterprise-panel select {
+  display: block;
+  margin: 12px 0;
+}
+@media (max-width: 1000px) {
+  .enterprise-projects,
+  .enterprise-panel .finance-summary {
+    grid-template-columns: 1fr;
+  }
+}
+
+.local-board [hidden] {
+  display: none !important;
+}

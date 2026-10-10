@@ -1,20 +1,27 @@
 window.NG = window.NG || {};
+NG.totalMargin = (s) => s.profit + (s.enterprise?.profit || 0);
 NG.businessValue = (s) =>
   Math.round(
     s.cash +
       s.inventory.reduce((n, c) => n + Math.round(NG.value(s, c) * 0.72), 0) -
-      (s.operations?.arrears || 0),
+      (s.operations?.arrears || 0) +
+      (NG.enterpriseAssets?.(s) || 0) -
+      (s.enterprise?.loan || 0),
   );
 NG.ensureFinance = (s) => {
   if (!Array.isArray(s.financialHistory))
     s.financialHistory = [
-      { day: s.day, profit: s.profit, value: NG.businessValue(s) },
+      { day: s.day, profit: NG.totalMargin(s), value: NG.businessValue(s) },
     ];
   return s;
 };
 NG.snapshotFinance = (s) => {
   NG.ensureFinance(s);
-  const point = { day: s.day, profit: s.profit, value: NG.businessValue(s) };
+  const point = {
+    day: s.day,
+    profit: NG.totalMargin(s),
+    value: NG.businessValue(s),
+  };
   const index = s.financialHistory.findIndex((p) => p.day === s.day);
   if (index >= 0) s.financialHistory[index] = point;
   else s.financialHistory.push(point);
@@ -84,5 +91,5 @@ NG.financeChart = (s) => {
           (i ? "L" : "M") + x(p.day).toFixed(2) + "," + y(p[key]).toFixed(2),
       )
       .join(" ");
-  return `<section class="finance-chart"><div class="section-heading"><h2>Business over time</h2><span class="chart-legend"><i class="profit-key"></i>Trading profit <i class="value-key"></i>Business value</span></div><svg viewBox="0 0 ${W} ${H}" class="history-chart" role="img" aria-label="Daily trading profit and business value in dollars"><title>Trading profit and business value. History starts ${NG.date(start)}.</title>${ticks.map((v) => `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" class="chart-grid"/><text x="${L - 12}" y="${y(v) + 4}" text-anchor="end" class="chart-axis">${v < 0 ? "-" : ""}${NG.money(Math.abs(v))}</text>`).join("")}<path d="${line("value")}" class="chart-line value-line"/><path d="${line("profit")}" class="chart-line profit-line"/>${points.map((p) => `<g class="chart-point" tabindex="0" aria-label="${NG.date(p.day)}: trading profit ${p.profit} dollars; business value ${p.value} dollars"><title>${NG.date(p.day)}\nTrading profit: ${p.profit < 0 ? "-" : ""}${NG.money(Math.abs(p.profit))}\nBusiness value: ${NG.money(p.value)}</title><line x1="${x(p.day)}" x2="${x(p.day)}" y1="${T}" y2="${H - B}" class="chart-hover"/><circle cx="${x(p.day)}" cy="${y(p.value)}" r="3" class="value-dot"/><circle cx="${x(p.day)}" cy="${y(p.profit)}" r="3" class="profit-dot"/></g>`).join("")}${[...new Set([start, Math.round((start + end) / 2), end])].map((d) => `<text x="${x(d)}" y="${H - 20}" text-anchor="middle" class="chart-axis">${NG.date(d)}</text>`).join("")}</svg><p class="fine-print">${points.length === 1 ? "One recorded day so far. Advance to the next day to build your timeline. " : ""}Daily snapshots since ${NG.date(start)}; today updates after each action. Business value = cash + inventory at immediate dealer prices - overdue operating bills. Upgrades are expensed; goodwill is not included. Trading profit includes customer repair contributions; it excludes business and marketing expenses. Hover or focus a point for exact figures.</p></section>`;
+  return `<section class="finance-chart"><div class="section-heading"><h2>Business over time</h2><span class="chart-legend"><i class="profit-key"></i>Deal margin <i class="value-key"></i>Business value</span></div><svg viewBox="0 0 ${W} ${H}" class="history-chart" role="img" aria-label="Daily deal margin and business value in dollars"><title>Deal margin and business value. History starts ${NG.date(start)}.</title>${ticks.map((v) => `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" class="chart-grid"/><text x="${L - 12}" y="${y(v) + 4}" text-anchor="end" class="chart-axis">${v < 0 ? "-" : ""}${NG.money(Math.abs(v))}</text>`).join("")}<path d="${line("value")}" class="chart-line value-line"/><path d="${line("profit")}" class="chart-line profit-line"/>${points.map((p) => `<g class="chart-point" tabindex="0" aria-label="${NG.date(p.day)}: deal margin ${p.profit} dollars; business value ${p.value} dollars"><title>${NG.date(p.day)}\nDeal margin: ${p.profit < 0 ? "-" : ""}${NG.money(Math.abs(p.profit))}\nBusiness value: ${NG.money(p.value)}</title><line x1="${x(p.day)}" x2="${x(p.day)}" y1="${T}" y2="${H - B}" class="chart-hover"/><circle cx="${x(p.day)}" cy="${y(p.value)}" r="3" class="value-dot"/><circle cx="${x(p.day)}" cy="${y(p.profit)}" r="3" class="profit-dot"/></g>`).join("")}${[...new Set([start, Math.round((start + end) / 2), end])].map((d) => `<text x="${x(d)}" y="${H - 20}" text-anchor="middle" class="chart-axis">${NG.date(d)}</text>`).join("")}</svg><p class="fine-print">${points.length === 1 ? "One recorded day so far. Advance to the next day to build your timeline. " : ""}Daily snapshots since ${NG.date(start)}; today updates after each action. Business value = cash + inventory dealer prices + major facility liquidation values + committed work/allocations at cost - credit principal - overdue bills. Starter upgrades are expensed; goodwill is not included. Committed capital can lose value. Deal margin includes car sales, service and wholesale results, and customer repair contributions; it excludes fixed costs, interest and capital investment losses. The cash flow panel shows actual liquidity changes. Hover or focus a point for exact figures.</p></section>`;
 };
