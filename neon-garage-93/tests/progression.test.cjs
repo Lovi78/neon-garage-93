@@ -15,6 +15,7 @@ for (const file of [
   "progression",
   "finance",
   "collection",
+  "customers",
   "negotiation",
   "legacy-language",
   "state",

@@ -25,6 +25,7 @@ for (const name of [
   "progression",
   "finance",
   "collection",
+  "customers",
   "negotiation",
   "legacy-language",
   "state",
@@ -182,6 +183,7 @@ for (const name of [
   "progression",
   "finance",
   "collection",
+  "customers",
   "negotiation",
   "legacy-language",
   "state",
@@ -205,4 +207,80 @@ console.log(
   "PASS Teljes DOM-játékmenet: piac, adatlap, vizsgálat, vétel, javítás, napváltás, hirdetés, ajánlat, eladás, pénzügyek, visszatöltés, reset megszakítása és új játék.",
 );
 console.log("Ez szerkezet- és interakcióteszt, nem vizuális böngészőteszt.");
+// A second real UI flow exercises listing disclosure and complaint settlement.
+const complaintFixture = w.NG.newState(),
+  faultyCar = complaintFixture.market[0];
+complaintFixture.reputation = 20;
+w.NG.buy(complaintFixture, faultyCar.id);
+faultyCar.parts = {
+  engine: 80,
+  transmission: 80,
+  suspension: 80,
+  body: 80,
+  cosmetic: 80,
+};
+faultyCar.inspected = true;
+faultyCar.flaws = [{ ...w.NG.flaws[0], fixed: false, revealed: true }];
+w.close();
+dom = new JSDOM(fs.readFileSync(path.join(root, "index.html"), "utf8"), {
+  url: "https://neon-garage.test/",
+  runScripts: "outside-only",
+});
+w = dom.window;
+d = w.document;
+w.scrollTo = () => {};
+w.Math.random = () => 0.4;
+w.HTMLDialogElement.prototype.showModal = function () {
+  this.open = true;
+};
+w.HTMLDialogElement.prototype.close = function () {
+  this.open = false;
+};
+w.localStorage.setItem("neon-garage-93-v1", JSON.stringify(complaintFixture));
+for (const name of [
+  "cars",
+  "catalog-v06",
+  "scene",
+  "economy",
+  "progression",
+  "finance",
+  "collection",
+  "customers",
+  "negotiation",
+  "legacy-language",
+  "state",
+  "ui",
+])
+  w.eval(fs.readFileSync(path.join(root, "js/" + name + ".js"), "utf8"));
+click(".parked-car");
+const description = d.querySelector("#listing-mode");
+description.value = "promise";
+description.dispatchEvent(new w.Event("change", { bubbles: true }));
+assert.match(d.querySelector("#listing-help").textContent, /complaint/);
+click('[data-action="list"]');
+click('[data-action="close"]');
+click('[data-action="next"]');
+click(".parked-car");
+assert(saved().inventory[0].offers.length);
+click('.offer [data-action="sell"]');
+assert.equal(saved().claims[0].status, "scheduled");
+click('[data-action="next"]');
+click('[data-action="next"]');
+assert.equal(saved().claims[0].status, "open");
+assert(d.querySelector(".case-banner"));
+click('.case-banner [data-action="view"]');
+assert.match(d.querySelector(".claim-open").textContent, /Leaking head gasket/);
+const refund = saved().claims[0].amount,
+  cashBefore = saved().cash,
+  profitBefore = saved().profit;
+click('[data-action="resolve-claim"][data-decision="refund"]');
+assert.equal(saved().cash, cashBefore - refund);
+assert.equal(saved().profit, profitBefore - refund);
+assert.equal(saved().claims[0].status, "settled");
+assert(!d.querySelector(".case-banner"));
+assert.equal(saved().customers[0].trust, 1);
+console.log(
+  "PASS UI listing description, customer contact, delayed complaint, notification, contribution and financial readback.",
+);
+
 w.close();

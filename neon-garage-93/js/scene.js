@@ -99,6 +99,7 @@ NG.garageScene = (state, arrival = null) => {
     ${state.business?.advertising ? '<span class="ad-poster" aria-label="Local newspaper advertising installed">USED<br>CARS<small>GOOD DEALS</small></span>' : ""}
     <button class="scene-object workbench" data-action="view" data-view="inventory" aria-label="Workbench: open inventory"><span class="object-marker">▸</span><span class="object-label">WORKBENCH <small>MY INVENTORY${offers ? " / " + offers + " OFFER" + (offers === 1 ? "" : "S") : ""}</small></span></button>
     <button class="scene-object collection-album" data-action="view" data-view="collection" aria-label="Car album: open collection"><span class="album-art" aria-hidden="true">93</span><span class="object-label">CAR ALBUM <small>YOUR COLLECTION</small></span></button>
+    <button class="scene-object customer-phone" data-action="view" data-view="customers" aria-label="Customer phone: open customers and complaints"><span class="phone-art" aria-hidden="true">☎</span><span class="object-label">CUSTOMERS <small>${state.claims.filter((q) => q.status === "open").length ? "COMPLAINT NEEDS ATTENTION" : "CONTACTS &amp; CARE"}</small></span></button>
     <button class="scene-object wall-clock" data-action="next" aria-label="Clock: advance to next day"><span class="object-marker">▸</span><span class="object-label">CLOSE UP <small>NEXT DAY</small></span></button>
     ${Array.from({ length: state.capacity }, (_, i) => {
       const car = state.inventory[i];

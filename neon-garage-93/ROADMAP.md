@@ -1,7 +1,7 @@
 # Neon Garage '93 - fejlesztési roadmap
 
 Rögzítve: 2026. október 9.
-Jelenlegi játékverzió: v0.6 / Collection.
+Jelenlegi játékverzió: v0.7 / Customer Care.
 
 Ez a dokumentum őrzi a megbeszélt termékirányt, funkciókat, fejlesztési sorrendet és nyitott döntéseket. A játék felülete angol; a fejlesztési egyeztetés és a dokumentáció magyar.
 
@@ -107,11 +107,30 @@ Rögzítve: 2026. október 10.
 
 A 60 modelles mérföldkő elkészült. A következő javasolt kör a tycoon mélyítése a korábbi terv szerint: visszatérő vevők, hibák feltüntetése, egyszerű reklamáció és ezek reputációs következménye. A 150 és több száz modelles cél megmarad.
 
+## v0.7 - vevőkapcsolatok és reputációs következmények
+
+Rögzítve: 2026. október 10.
+
+- [x] Hirdetési leírás: átvizsgált és minden hibát közlő, as-is vagy hibamentességet ígérő.
+- [x] Az őszinte, hibás autó is építheti a hírnevet; az as-is eladás bizonytalanságát alacsonyabb ajánlat tükrözi.
+- [x] Magánvevők könyve, preferált régióval, bizalommal, vásárlásszámmal és költéssel.
+- [x] Bizalom és reputáció által támogatott visszatérő vevői kapcsolat, 3% lojalitási ajánlatfelárral a hirdetési árig.
+- [x] Javítatlan hiba mellett tett hibamentes ígéret után késleltetett reklamáció.
+- [x] Választható javítási hozzájárulás, elutasítás vagy határidő után lezáruló ügy; nincs automatikus pénzlevonás vagy negatív egyenleg.
+- [x] Reputáció- és bizalomvesztés, korrekt rendezéskor részleges helyreállítás; új reputációs változások naplója.
+- [x] Kifizetéskor az eredeti eladás profitja, a modellalbum profitja és a pénzügyi grafikon is frissül.
+- [x] Vevői telefon és nyitott reklamációs értesítés a garázsban.
+- [x] Régi mentések megőrzése; nincs visszamenőleg kitalált vevői adat, reklamáció vagy reputációs napló.
+- [x] 48 gazdasági/fejlődési/katalógus/album/vevői teszt és két felületi működési útvonal, köztük reklamáció és rendezés.
+- [ ] Valódi böngészős vizuális ellenőrzés továbbra is nyitott.
+
+A részletes értékek és határidők a README-ben szerepelnek. A 60 modelles állomány ebben a körben nem változott. Ajánlások, gyűjtői megkeresések, beszámítás és összetett vevői személyiségek továbbra is későbbi lehetőségek. A következő javasolt szakasz a helyi események és a történelmi hírek alapja a korábbi terv szerint.
+
 ## 3. Reputáció - érezhető bizalom és új lehetőségek
 
 **Felhasználói igény:** legyen világos, mire jó a reputáció, és legyen érezhető üzleti következménye.
 
-**Jelenleg:** a reputáció enyhén javítja az ajánlat érkezésének esélyét, az eladói alku árkorlátját és a vevői alkukeretet. A magánvevőnek történő eladás növeli. Összetett bizalom- vagy reklamációs rendszer még nincs.
+**Jelenleg:** a reputáció javítja az érdeklődést és az alkupozíciót, és segíti a visszatérő vevők megjelenését. A v0.7-ben a hirdetés leírása, a reklamáció és annak rendezése is hat rá; a vevők külön bizalmi állapotot kapnak.
 
 ### Tervezett szerep
 
@@ -120,11 +139,11 @@ A 60 modelles mérföldkő elkészült. A következő javasolt kör a tycoon mé
 - [ ] Bizonyos vevők kisebb felárat is elfogadnak a megbízható kereskedőnél.
 - [ ] Reputációs mérföldkövekhez kötött új vevőkör és üzleti lehetőségek.
 - [ ] Magasabb szinten gyűjtők, beszámítások és külön magánhirdetések.
-- [ ] A korrekt eladások építik, az eltitkolt hibák és rosszul kezelt reklamációk rontják a reputációt.
-- [ ] Hibás autó őszinte, megfelelően árazott eladása is építhet bizalmat.
+- [x] A korrekt eladások építik, az eltitkolt hibák és rosszul kezelt reklamációk rontják a reputációt - v0.7.
+- [x] Hibás autó őszinte, megfelelően árazott eladása is építhet bizalmat - v0.7.
 - [ ] A felület megmutatja a jelenlegi előnyöket, a következő mérföldkövet és a reputáció változásának okát.
 
-**Függőség:** az őszinteséghez kötött reputációhoz szükséges a feltárt hibák feltüntetése és egy egyszerű reklamációs rendszer. Amíg ezek nincsenek, nem szabad olyan reputációs büntetést bevezetni, amelyet a játékos nem tud megfelelő döntéssel elkerülni.
+**Függőség:** az őszinteséghez kötött reputációhoz szükséges a feltárt hibák feltüntetése és egy egyszerű reklamációs rendszer. Ez a függőség v0.7-ben teljesült: az átvizsgált és őszinte, illetve az as-is leírás elkerüli az elhallgatott hiba miatti reklamációt. A büntetés oka követhető.
 
 **Nyitott:** a skála, a mérföldkövek, a bónuszok felső határa és a reputációvesztés pontos szabályai. Ezek egyensúlyozási döntések, még nem végleges értékek.
 

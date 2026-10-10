@@ -1,4 +1,90 @@
 /* The garage is the navigation. Windows are tools opened from objects in the scene. */
+.customer-phone {
+  left: 7%;
+  top: 55%;
+  width: 8%;
+  height: 9%;
+}
+.phone-art {
+  position: absolute;
+  top: 10%;
+  left: 20%;
+  width: 60%;
+  height: 55%;
+  display: grid;
+  place-items: center;
+  background: #404f50;
+  border: 2px solid #9fa794;
+  color: #d5cb9c;
+  font-size: 23px;
+  box-shadow: 3px 3px #16212b;
+}
+.case-banner {
+  background: #593929;
+  border: 1px solid #bc9765;
+  color: #f2ce94;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 10px;
+}
+.case-banner button {
+  font-size: 10px;
+  background: #d2bc86;
+  color: #2b2d25;
+}
+.claim-card {
+  border: 1px solid #596d61;
+  background: #213331;
+  padding: 18px;
+  margin-bottom: 15px;
+}
+.claim-card.claim-open {
+  border-color: #c1976d;
+  background: #3c302b;
+}
+.claim-card h3 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+.claim-card p {
+  font-size: 11px;
+  line-height: 1.8;
+}
+.claim-card button {
+  font-size: 10px;
+}
+.listing-description {
+  border: 1px solid #5b7b67;
+  padding: 12px;
+  background: #243930;
+  margin-bottom: 15px;
+}
+.listing-description p {
+  font-size: 11px;
+  line-height: 1.7;
+  margin: 10px 0 0;
+}
+#listing-mode {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  padding: 11px;
+  font-size: 10px;
+}
+@media (max-width: 700px) {
+  .phone-art {
+    font-size: 12px;
+    border-width: 1px;
+  }
+  .claim-card .actions {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+}
 .collection-album {
   left: 32%;
   top: 42%;

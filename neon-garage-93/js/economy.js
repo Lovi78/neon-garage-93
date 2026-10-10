@@ -173,12 +173,18 @@ NG.repair = (s, id, part, rng = Math.random) => {
   );
   return "Repair started. Your car will be ready tomorrow.";
 };
-NG.list = (s, id, price) => {
+NG.list = (s, id, price, mode) => {
   const c = s.inventory.find((c) => c.id === id);
   if (!c) throw Error("Car not found.");
   if (NG.busy(s, c)) throw Error("Wait for the repair to finish first.");
   if (!Number.isFinite(price) || price < 100 || price > 100000)
     throw Error("The price must be between $100 and $100,000.");
+  mode = mode || (c.inspected ? "honest" : "as-is");
+  if (!["honest", "as-is", "promise"].includes(mode))
+    throw Error("Choose a valid listing description.");
+  if (mode === "honest" && !c.inspected)
+    throw Error("Inspect the car before declaring all faults.");
+  c.listingMode = mode;
   c.listed = true;
   c.listPrice = Math.round(price);
   c.offers = [];
@@ -205,8 +211,8 @@ NG.sell = (s, id, offerId) => {
   s.cash += price;
   s.profit += profit;
   s.sold++;
-  s.reputation += offerId === "dealer" ? 0 : NG.condition(c) >= 65 ? 2 : 1;
   s.sales.unshift({
+    id: "sale-" + s.nextId++,
     model: c.model,
     carId: c.id,
     repairCost: c.repairCost,
@@ -216,6 +222,8 @@ NG.sell = (s, id, offerId) => {
     cost: NG.cost(c),
     profit,
   });
+  if (offerId !== "dealer")
+    NG.afterPrivateSale(s, c, negotiatedOffer, s.sales[0]);
   NG.record(s, "sale", price, NG.model(c).name + " - sale");
   s.inventory = s.inventory.filter((x) => x.id !== id);
   NG.trackCollection(s, c, "sold");
@@ -225,6 +233,7 @@ NG.sell = (s, id, offerId) => {
 };
 NG.nextDay = (s, rng = Math.random) => {
   s.day++;
+  NG.processClaims(s);
   NG.advertisingDay(s);
   s.demand = { japan: 1, europe: 1, america: 1 };
   s.event = {
@@ -273,7 +282,7 @@ NG.nextDay = (s, rng = Math.random) => {
     c.offers = [];
     c.buyerMessage = null;
     if (!c.listed || NG.busy(s, c)) return;
-    const value = NG.value(s, c),
+    const value = NG.listingValue(s, c),
       ratio = c.listPrice / value,
       chance = NG.clamp(
         1.25 -
@@ -284,18 +293,19 @@ NG.nextDay = (s, rng = Math.random) => {
         0.95,
       );
     if (rng() < chance) {
+      const buyer = NG.chooseBuyer(s, c, rng);
       const price = Math.min(
         c.listPrice,
         Math.round(
-          value * (0.87 + rng() * 0.2 + (s.event.kind === "rush" ? 0.1 : 0)),
+          value *
+            (0.87 + rng() * 0.2 + (s.event.kind === "rush" ? 0.1 : 0)) *
+            (buyer.returning ? 1.03 : 1),
         ),
       );
       c.offers.push({
         id: "o" + s.nextId++,
         price,
-        buyer: ["Alex M.", "Jamie R.", "Chris T.", "Morgan K."][
-          Math.floor(rng() * 4)
-        ],
+        ...buyer,
       });
     }
   });

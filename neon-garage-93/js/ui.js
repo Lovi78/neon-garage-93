@@ -38,8 +38,9 @@
       finances: "FINANCES",
       upgrades: "DEALER FILE",
       collection: "CAR COLLECTION",
+      customers: "CUSTOMERS",
     };
-    app.innerHTML = `<div class="game-shell"><header class="game-hud"><div class="game-logo"><span class="logo-mark">NG</span><div><h1>NEON GARAGE <b>'93</b></h1><small>SMALL LOT. BIG PLANS.</small></div></div><section class="stats" aria-label="Dealership status"><div><span>CASH</span><strong>${NG.money(state.cash)}</strong></div><div><span>GARAGE</span><strong>${state.inventory.length}<em> / ${state.capacity}</em></strong></div><div><span>REPUTATION</span><strong>${state.reputation}<em> REP</em></strong><small>${NG.repTier(state).name}</small></div><div><span>PROFIT</span><strong class="${state.profit >= 0 ? "positive" : "negative"}">${signed(state.profit)}</strong><small>${state.sold} completed sales</small></div></section><div class="hud-day"><span>${NG.date(state.day)}<small>DAY ${state.day + 1}</small></span><button class="primary" data-action="next">NEXT DAY &gt;</button></div></header><div class="progress-strip"><button data-action="view" data-view="upgrades">DEALER FILE / LEVEL ${state.progress.level}</button>${NG.progressBar("LEVEL " + state.progress.level, state.progress.xp, NG.xpNeeded(state.progress.level), state.progress.xp + " / " + NG.xpNeeded(state.progress.level) + " XP")}${NG.repProgress(state)}<span class="positive">${state.progress.points} SKILL POINT${state.progress.points === 1 ? "" : "S"}</span></div>${NG.storageError ? '<div class="storage-warning">Your browser is blocking saves. Enable local storage to keep your progress.</div>' : ""}<main class="world-frame">${NG.garageScene(state, arrival)}${view !== "garage" ? `<section class="desk-window" aria-label="${names[view]}"><header class="window-title"><span><i></i> ${view === "market" ? "CLASSIFIEDS.EXE" : view === "inventory" ? "WORKSHOP.EXE" : view === "upgrades" ? "DEALER-FILE.EXE" : view === "collection" ? "CAR-ALBUM.EXE" : "LEDGER.EXE"}</span><button data-action="view" data-view="garage" aria-label="Back to garage">&times;</button></header><div class="window-body"><div class="section-heading"><div><span class="eyebrow">NEON GARAGE / ${names[view]}</span><h2>${view === "market" ? "Find your next great deal." : view === "inventory" ? "The keys are in your hands." : view === "upgrades" ? "Build your name. Build your business." : view === "collection" ? "Every car has a story. Collect yours." : "The numbers tell the story."}</h2></div><button class="text-button" data-action="view" data-view="garage">&lt; BACK TO GARAGE</button></div>${view === "market" ? market() : view === "inventory" ? inventory() : view === "upgrades" ? growth() : view === "collection" ? album() : finances()}</div></section>` : ""}</main><footer class="game-footer"><div class="radio-news"><span>PALMS FM / 93.0</span><strong>${esc(state.event.title)}</strong><p>${esc(state.event.text)}</p></div><div class="footer-controls"><span>${NG.storageError ? "SAVING UNAVAILABLE" : "AUTO-SAVED"}</span><button data-action="reset">NEW GAME</button><small>v0.6 / COLLECTION</small></div></footer></div>`;
+    app.innerHTML = `<div class="game-shell"><header class="game-hud"><div class="game-logo"><span class="logo-mark">NG</span><div><h1>NEON GARAGE <b>'93</b></h1><small>SMALL LOT. BIG PLANS.</small></div></div><section class="stats" aria-label="Dealership status"><div><span>CASH</span><strong>${NG.money(state.cash)}</strong></div><div><span>GARAGE</span><strong>${state.inventory.length}<em> / ${state.capacity}</em></strong></div><div><span>REPUTATION</span><strong>${state.reputation}<em> REP</em></strong><small>${NG.repTier(state).name}</small></div><div><span>PROFIT</span><strong class="${state.profit >= 0 ? "positive" : "negative"}">${signed(state.profit)}</strong><small>${state.sold} completed sales</small></div></section><div class="hud-day"><span>${NG.date(state.day)}<small>DAY ${state.day + 1}</small></span><button class="primary" data-action="next">NEXT DAY &gt;</button></div></header><div class="progress-strip"><button data-action="view" data-view="upgrades">DEALER FILE / LEVEL ${state.progress.level}</button>${NG.progressBar("LEVEL " + state.progress.level, state.progress.xp, NG.xpNeeded(state.progress.level), state.progress.xp + " / " + NG.xpNeeded(state.progress.level) + " XP")}${NG.repProgress(state)}<span class="positive">${state.progress.points} SKILL POINT${state.progress.points === 1 ? "" : "S"}</span></div>${NG.storageError ? '<div class="storage-warning">Your browser is blocking saves. Enable local storage to keep your progress.</div>' : ""}${state.claims.some((q) => q.status === "open") ? `<div class="case-banner"><span>${state.claims.filter((q) => q.status === "open").length} OPEN CUSTOMER COMPLAINT(S)</span><button data-action="view" data-view="customers">Respond</button></div>` : ""}<main class="world-frame">${NG.garageScene(state, arrival)}${view !== "garage" ? `<section class="desk-window" aria-label="${names[view]}"><header class="window-title"><span><i></i> ${view === "market" ? "CLASSIFIEDS.EXE" : view === "inventory" ? "WORKSHOP.EXE" : view === "upgrades" ? "DEALER-FILE.EXE" : view === "collection" ? "CAR-ALBUM.EXE" : view === "customers" ? "CUSTOMER-CARE.EXE" : "LEDGER.EXE"}</span><button data-action="view" data-view="garage" aria-label="Back to garage">&times;</button></header><div class="window-body"><div class="section-heading"><div><span class="eyebrow">NEON GARAGE / ${names[view]}</span><h2>${view === "market" ? "Find your next great deal." : view === "inventory" ? "The keys are in your hands." : view === "upgrades" ? "Build your name. Build your business." : view === "collection" ? "Every car has a story. Collect yours." : view === "customers" ? "Good business brings people back." : "The numbers tell the story."}</h2></div><button class="text-button" data-action="view" data-view="garage">&lt; BACK TO GARAGE</button></div>${view === "market" ? market() : view === "inventory" ? inventory() : view === "upgrades" ? growth() : view === "collection" ? album() : view === "customers" ? customers() : finances()}</div></section>` : ""}</main><footer class="game-footer"><div class="radio-news"><span>PALMS FM / 93.0</span><strong>${esc(state.event.title)}</strong><p>${esc(state.event.text)}</p></div><div class="footer-controls"><span>${NG.storageError ? "SAVING UNAVAILABLE" : "AUTO-SAVED"}</span><button data-action="reset">NEW GAME</button><small>v0.7 / CUSTOMER CARE</small></div></footer></div>`;
     arrival = null;
   }
   function event() {
@@ -89,7 +90,7 @@
       expense = state.ledger
         .filter((l) => l.amount < 0)
         .reduce((n, l) => n - l.amount, 0);
-    return `<div class="finance-summary"><div><span>TOTAL SALES REVENUE</span><strong>${NG.money(state.sales.reduce((n, s) => n + s.price, 0))}</strong></div><div><span>TOTAL SPENDING</span><strong>${NG.money(expense)}</strong></div><div><span>ESTIMATED NET WORTH</span><strong>${NG.money(NG.businessValue(state))}</strong><small>Cash + inventory at instant dealer value</small></div></div>${NG.financeChart(state)}<div class="section-heading"><h2>Completed deals</h2></div>${state.sales.length ? `<div class="table-wrap"><table><thead><tr><th>Car / date</th><th>Total invested</th><th>Sale</th><th>Profit</th></tr></thead><tbody>${state.sales.map((s) => `<tr><td>${s.name}<small>${NG.date(s.day)}</small></td><td>${NG.money(s.cost)}</td><td>${NG.money(s.price)}</td><td class="${s.profit >= 0 ? "positive" : "negative"}">${signed(s.profit)}</td></tr>`).join("")}</tbody></table></div>` : '<div class="ledger-empty">No completed deals yet. Each car’s total investment and profit will appear here.</div>'}<div class="section-heading"><h2>Transactions <span>${state.ledger.length}</span></h2></div><div class="ledger">${state.ledger.map((l) => `<div><span>${l.description}<small>${NG.date(l.day)}</small></span><strong class="${l.amount > 0 ? "positive" : ""}">${signed(l.amount)}</strong></div>`).join("") || '<p class="muted">Starting capital: $5,000. No transactions yet.</p>'}</div><p class="fine-print">Realized profit = sale price - purchase price - inspections - repairs. Inspections of cars you do not buy, business upgrades and daily advertising are separate expenses. They reduce cash and net worth, not per-car profit.</p>`;
+    return `<div class="finance-summary"><div><span>TOTAL SALES REVENUE</span><strong>${NG.money(state.sales.reduce((n, s) => n + s.price, 0))}</strong></div><div><span>TOTAL SPENDING</span><strong>${NG.money(expense)}</strong></div><div><span>ESTIMATED NET WORTH</span><strong>${NG.money(NG.businessValue(state))}</strong><small>Cash + inventory at instant dealer value</small></div></div>${NG.financeChart(state)}<div class="section-heading"><h2>Completed deals</h2></div>${state.sales.length ? `<div class="table-wrap"><table><thead><tr><th>Car / date</th><th>Total invested</th><th>Sale</th><th>Customer care</th><th>Profit</th></tr></thead><tbody>${state.sales.map((s) => `<tr><td>${s.name}<small>${NG.date(s.day)}</small></td><td>${NG.money(s.cost)}</td><td>${NG.money(s.price)}</td><td>${NG.money(s.refundCost || 0)}</td><td class="${s.profit >= 0 ? "positive" : "negative"}">${signed(s.profit)}</td></tr>`).join("")}</tbody></table></div>` : '<div class="ledger-empty">No completed deals yet. Each car’s total investment and profit will appear here.</div>'}<div class="section-heading"><h2>Transactions <span>${state.ledger.length}</span></h2></div><div class="ledger">${state.ledger.map((l) => `<div><span>${l.description}<small>${NG.date(l.day)}</small></span><strong class="${l.amount > 0 ? "positive" : ""}">${signed(l.amount)}</strong></div>`).join("") || '<p class="muted">Starting capital: $5,000. No transactions yet.</p>'}</div><p class="fine-print">Realized profit = sale price - purchase price - inspections - repairs - customer repair contributions. Repair contributions reduce the original sale profit. Inspections of cars you do not buy, business upgrades and daily advertising are separate expenses. They reduce cash and net worth, not per-car profit.</p>`;
   }
   function growth() {
     const p = state.progress,
@@ -105,7 +106,7 @@
       )
       .join(
         "",
-      )}</section></div><section class="rep-panel"><span class="eyebrow">REPUTATION / ${state.reputation} POINTS</span><h3>${tier.name}</h3>${NG.repProgress(state)}<p>Buyer interest bonus: +${Math.round(tier.interest * 100)} percentage points. ${next ? "Next milestone: " + next.name + " at " + next.at + " reputation (" + (next.at - state.reputation) + " to go)." : "You have reached the highest reputation milestone."}</p><div class="rep-milestones">${NG.repTiers.map((t) => `<span class="${state.reputation >= t.at ? "reached" : ""}">${t.at} REP <b>${t.name}</b><small>+${Math.round(t.interest * 100)} pp interest</small></span>`).join("")}</div><p class="fine-print">Private sales earn +2 reputation at 65% condition or better, otherwise +1. Dealer sales earn none. Reputation also helps new negotiations, capped at a 2% price-limit bonus. Collector requests and complaints are planned for a later version.</p></section><section><div class="section-heading"><h2>Recent experience</h2></div><div class="ledger">${p.log.map((l) => `<div><span>${esc(l.car)} / ${l.phase === "purchase" ? "Purchase negotiation" : "Sale negotiation"}<small>${NG.date(l.day)}</small></span><strong class="positive">+${l.amount} XP</strong></div>`).join("") || '<p class="muted">Your first successful negotiated deal will appear here.</p>'}</div></section>`;
+      )}</section></div><section class="rep-panel"><span class="eyebrow">REPUTATION / ${state.reputation} POINTS</span><h3>${tier.name}</h3>${NG.repProgress(state)}<p>Buyer interest bonus: +${Math.round(tier.interest * 100)} percentage points. ${next ? "Next milestone: " + next.name + " at " + next.at + " reputation (" + (next.at - state.reputation) + " to go)." : "You have reached the highest reputation milestone."}</p><div class="rep-milestones">${NG.repTiers.map((t) => `<span class="${state.reputation >= t.at ? "reached" : ""}">${t.at} REP <b>${t.name}</b><small>+${Math.round(t.interest * 100)} pp interest</small></span>`).join("")}</div><p class="fine-print">Inspected honest sales earn the normal +1/+2 condition bonus plus 1 extra; as-is sales earn +1. Dealer sales earn none. Complaints can reduce reputation; Customers shows each change. Reputation also helps new negotiations, capped at a 2% price-limit bonus. Customer relationships and complaints are available in Customers. Collector requests are planned for a later version.</p></section><section><div class="section-heading"><h2>Recent experience</h2></div><div class="ledger">${p.log.map((l) => `<div><span>${esc(l.car)} / ${l.phase === "purchase" ? "Purchase negotiation" : "Sale negotiation"}<small>${NG.date(l.day)}</small></span><strong class="positive">+${l.amount} XP</strong></div>`).join("") || '<p class="muted">Your first successful negotiated deal will appear here.</p>'}</div></section>`;
   }
 
   function album() {
@@ -171,6 +172,49 @@
     if (!dialog.open) dialog.showModal();
   }
 
+  function customers() {
+    const visible = state.claims.filter((q) => q.status !== "scheduled"),
+      open = visible.filter((q) => q.status === "open");
+    return `<div class="growth-summary"><div><span>CUSTOMERS</span><strong>${state.customers.length}</strong></div><div><span>OPEN COMPLAINTS</span><strong>${open.length}</strong></div><div><span>RETURNING CUSTOMERS</span><strong>${state.customers.filter((c) => c.purchases > 1).length}</strong></div></div><div class="section-heading"><h2>Customer care</h2></div>${
+      visible
+        .slice()
+        .reverse()
+        .map(
+          (q) =>
+            `<article class="claim-card ${q.status === "open" ? "claim-open" : ""}"><span class="eyebrow">${q.status.toUpperCase()} / ${esc(q.buyer)}</span><h3>${NG.model({ model: q.model }).name}</h3><p>You advertised this car as fault-free. The buyer found: ${q.faults.map(esc).join(", ")}.</p>${q.status === "open" ? `<p>Respond before ${NG.date(q.deadline)}. Waiting until that day closes the complaint as unanswered.</p><div class="actions"><button class="primary" data-action="resolve-claim" data-claim="${q.id}" data-decision="refund" ${state.cash < q.amount ? "disabled" : ""}>Contribute ${NG.money(q.amount)} to repairs</button><button data-action="resolve-claim" data-claim="${q.id}" data-decision="decline">Decline / -2 REP</button></div><p class="fine-print">Contribution: +1 REP recovery and customer trust recovery; reduces cash and this sale’s profit. Declining costs no cash but hurts trust. Ignoring costs -3 REP. Reputation cannot fall below zero.</p>` : `<p class="fine-print">Resolved ${NG.date(q.resolvedDay)}${q.status === "settled" ? " / repair contribution " + NG.money(q.amount) : " / no payment"}.</p>`}</article>`,
+        )
+        .join("") ||
+      '<div class="ledger-empty">No complaints received. Clear descriptions help keep it that way.</div>'
+    }<div class="section-heading"><h2>Your customer book</h2></div><div class="table-wrap"><table><thead><tr><th>Customer</th><th>Preference</th><th>Purchases</th><th>Net spending</th><th>Trust</th></tr></thead><tbody>${state.customers.map((c) => `<tr><td>${esc(c.name)}<small>Last purchase ${NG.date(c.lastDay)}</small></td><td>${c.segment.toUpperCase()}</td><td>${c.purchases}</td><td>${NG.money(c.spent)}</td><td>${c.trust >= 1 ? "WILL CONSIDER RETURNING" : c.trust < 0 ? "LOST TRUST" : "CAUTIOUS"}</td></tr>`).join("") || '<tr><td colspan="5">Your first private buyer will appear here. Dealer sales do not create customer relationships.</td></tr>'}</tbody></table></div><p class="fine-print">Customers who trust you can return for cars from their preferred region. Their offers receive a 3% loyalty uplift, capped at your listed price. Higher reputation increases the chance of a repeat contact. A pending complaint blocks repeat offers from that customer.</p><div class="section-heading"><h2>Reputation history</h2></div><div class="ledger">${state.reputationLog.map((l) => `<div><span>${esc(l.reason)}<small>${NG.date(l.day)}</small></span><strong class="${l.delta >= 0 ? "positive" : "negative"}">${l.delta >= 0 ? "+" : ""}${l.delta} REP</strong></div>`).join("") || '<p class="muted">New reputation changes will appear here. Older changes are not reconstructed.</p>'}</div>`;
+  }
+  function listingDescription(c) {
+    const mode = c.listingMode || "as-is";
+    return `<div class="listing-description"><span class="eyebrow">LISTING DESCRIPTION</span><p>${NG.listingModes[mode].name}</p>${
+      mode === "honest"
+        ? `<p class="fine-print">Disclosed faults: ${
+            c.flaws
+              .filter((f) => !f.fixed)
+              .map((f) => esc(f.label))
+              .join(", ") || "none found"
+          }.</p>`
+        : mode === "promise"
+          ? '<p class="negative fine-print">An unresolved fault will trigger a complaint two days after sale.</p>'
+          : '<p class="fine-print">Condition is not guaranteed; no hidden-fault complaint under this description.</p>'
+    }</div>`;
+  }
+  function listingForm(c, value, id) {
+    return `<label class="price-label" for="list-price">Asking price ($)</label><input id="list-price" type="number" min="100" max="100000" step="25" value="${Math.round(((c.inspected ? value : NG.estimate(state, c)) * 1.08) / 25) * 25}"><label class="price-label" for="listing-mode">What do you tell the buyer?</label><select id="listing-mode">${Object.entries(
+      NG.listingModes,
+    )
+      .map(
+        ([key, m]) =>
+          `<option value="${key}" ${key === (c.inspected ? "honest" : "as-is") ? "selected" : ""} ${key === "honest" && !c.inspected ? "disabled" : ""}>${m.name}</option>`,
+      )
+      .join(
+        "",
+      )}</select><div id="listing-help" class="fine-print">${NG.listingModes[c.inspected ? "honest" : "as-is"].description}</div><button class="primary full" data-action="list" data-id="${id}">List car for sale</button>`;
+  }
+
   function purchasePanel(c) {
     const quote = NG.purchaseQuote(c),
       n = c.negotiation;
@@ -178,7 +222,7 @@
   }
   function offerCard(c, o) {
     const canCounter = !o.negotiation?.closed && o.price < c.listPrice;
-    return `<div class="offer buyer-offer"><div class="offer-summary"><span>${esc(o.buyer)}<strong>${NG.money(o.price)}</strong><small>Profit: ${signed(o.price - NG.cost(c))}</small></span><div class="offer-actions"><button class="primary" data-action="sell" data-id="${c.id}" data-offer="${o.id}">Accept</button><button data-action="reject" data-id="${c.id}" data-offer="${o.id}">Decline</button></div></div>${o.negotiation?.message ? `<div class="negotiation-dialogue"><span>BUYER / FINAL OFFER</span><p>${esc(o.negotiation.message)}</p></div>` : ""}${canCounter ? `<label class="price-label" for="counter-price-${o.id}">Your counteroffer ($)</label><div class="haggle-controls"><input id="counter-price-${o.id}" type="number" min="${o.price + 1}" max="${c.listPrice}" step="1" value="${Math.min(c.listPrice, Math.max(o.price + 1, Math.round(o.price * 1.06)))}"><button data-action="haggle-sell" data-id="${c.id}" data-offer="${o.id}">Counteroffer</button></div><p class="fine-print">Ask too much and the buyer may walk. Accept their reply to complete the sale.</p>` : ""}</div>`;
+    return `<div class="offer buyer-offer"><div class="offer-summary"><span>${esc(o.buyer)}${o.returning ? '<small class="positive">RETURNING CUSTOMER / +3% LOYALTY</small>' : ""}<strong>${NG.money(o.price)}</strong><small>Profit: ${signed(o.price - NG.cost(c))}</small></span><div class="offer-actions"><button class="primary" data-action="sell" data-id="${c.id}" data-offer="${o.id}">Accept</button><button data-action="reject" data-id="${c.id}" data-offer="${o.id}">Decline</button></div></div>${o.negotiation?.message ? `<div class="negotiation-dialogue"><span>BUYER / FINAL OFFER</span><p>${esc(o.negotiation.message)}</p></div>` : ""}${canCounter ? `<label class="price-label" for="counter-price-${o.id}">Your counteroffer ($)</label><div class="haggle-controls"><input id="counter-price-${o.id}" type="number" min="${o.price + 1}" max="${c.listPrice}" step="1" value="${Math.min(c.listPrice, Math.max(o.price + 1, Math.round(o.price * 1.06)))}"><button data-action="haggle-sell" data-id="${c.id}" data-offer="${o.id}">Counteroffer</button></div><p class="fine-print">Ask too much and the buyer may walk. Accept their reply to complete the sale.</p>` : ""}</div>`;
   }
 
   function details(id) {
@@ -208,7 +252,7 @@
         )
         .join("") ||
       `<p>${c.inspected ? "✓ No hidden faults found." : "? Hidden faults: not fully inspected."}</p>`
-    }</div>${!c.inspected ? `<button data-action="inspect" data-id="${id}">Mechanical inspection · $90</button>` : ""}${owned ? '<p class="fine-print">Repairs restore a part to 95% and take one day. If a hidden fault is found, you get a revised quote before paying.</p>' : ""}</section><section>${!owned ? purchasePanel(c) : `<h3>Sell your car</h3>${NG.busy(state, c) ? '<p class="workshop-note">Your car is in the workshop. It will be ready the next day.</p>' : c.listed ? `<p>Asking price: <strong>${NG.money(c.listPrice)}</strong></p><button data-action="unlist" data-id="${id}">Remove listing</button><h4>Today’s offers</h4>${c.buyerMessage ? `<div class="negotiation-dialogue"><p>${esc(c.buyerMessage)}</p></div>` : ""}${c.offers.length ? c.offers.map((o) => offerCard(c, o)).join("") : '<p class="muted">No offers yet. Advance to the next day. A higher asking price may require more patience.</p>'}` : `<label class="price-label" for="list-price">Asking price ($)</label><input id="list-price" type="number" min="100" max="100000" step="25" value="${Math.round(((c.inspected ? value : NG.estimate(state, c)) * 1.08) / 25) * 25}"><button class="primary full" data-action="list" data-id="${id}">List car for sale</button>`}<div class="dealer"><span>INSTANT DEALER OFFER / FIXED PRICE</span><strong>${NG.money(value * 0.72)}</strong><p>Profit: <b class="${value * 0.72 - NG.cost(c) >= 0 ? "positive" : "negative"}">${signed(Math.round(value * 0.72) - NG.cost(c))}</b></p><button data-action="sell" data-id="${id}" data-offer="dealer" ${NG.busy(state, c) ? "disabled" : ""}>Sell to dealer</button></div><p class="fine-print">Investment: purchase ${NG.money(c.purchasePrice)} + inspection ${NG.money(c.inspectionCost)} + repairs ${NG.money(c.repairCost)}.</p>`}</section></div>`;
+    }</div>${!c.inspected ? `<button data-action="inspect" data-id="${id}">Mechanical inspection · $90</button>` : ""}${owned ? '<p class="fine-print">Repairs restore a part to 95% and take one day. If a hidden fault is found, you get a revised quote before paying.</p>' : ""}</section><section>${!owned ? purchasePanel(c) : `<h3>Sell your car</h3>${NG.busy(state, c) ? '<p class="workshop-note">Your car is in the workshop. It will be ready the next day.</p>' : c.listed ? `${listingDescription(c)}<p>Asking price: <strong>${NG.money(c.listPrice)}</strong></p><button data-action="unlist" data-id="${id}">Remove listing</button><h4>Today’s offers</h4>${c.buyerMessage ? `<div class="negotiation-dialogue"><p>${esc(c.buyerMessage)}</p></div>` : ""}${c.offers.length ? c.offers.map((o) => offerCard(c, o)).join("") : '<p class="muted">No offers yet. Advance to the next day. A higher asking price may require more patience.</p>'}` : listingForm(c, value, id)}<div class="dealer"><span>INSTANT DEALER OFFER / FIXED PRICE</span><strong>${NG.money(value * 0.72)}</strong><p>Profit: <b class="${value * 0.72 - NG.cost(c) >= 0 ? "positive" : "negative"}">${signed(Math.round(value * 0.72) - NG.cost(c))}</b></p><button data-action="sell" data-id="${id}" data-offer="dealer" ${NG.busy(state, c) ? "disabled" : ""}>Sell to dealer</button></div><p class="fine-print">Investment: purchase ${NG.money(c.purchasePrice)} + inspection ${NG.money(c.inspectionCost)} + repairs ${NG.money(c.repairCost)}.</p>`}</section></div>`;
     if (!dialog.open) dialog.showModal();
   }
   let toastTimer;
@@ -264,13 +308,15 @@
       }
       if (action === "next") {
         NG.nextDay(state);
-        message = state.adNotice || state.event.title;
+        message = state.claimNotice || state.adNotice || state.event.title;
       }
       if (action === "inspect") {
         NG.inspect(state, id);
         message =
           "Inspection complete. Check the mechanical condition and faults.";
       }
+      if (action === "resolve-claim")
+        message = NG.resolveClaim(state, b.dataset.claim, b.dataset.decision);
       if (action === "train-negotiation") message = NG.trainNegotiation(state);
       if (action === "unlock-perk") message = NG.unlockOneMoreShot(state);
       if (action === "upgrade")
@@ -301,7 +347,12 @@
       }
       if (action === "repair") message = NG.repair(state, id, part);
       if (action === "list") {
-        NG.list(state, id, Number(document.querySelector("#list-price").value));
+        NG.list(
+          state,
+          id,
+          Number(document.querySelector("#list-price").value),
+          document.querySelector("#listing-mode").value,
+        );
         message = "Your listing is live. New offers may arrive the next day.";
       }
       if (action === "unlist") {
@@ -339,6 +390,9 @@
     }
   });
   document.addEventListener("change", (e) => {
+    if (e.target.id === "listing-mode")
+      document.querySelector("#listing-help").textContent =
+        NG.listingModes[e.target.value].description;
     if (e.target.id === "album-status") {
       albumStatus = e.target.value;
       render();
