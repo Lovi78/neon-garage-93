@@ -107,17 +107,26 @@ NG.payOperatingBills = (s) => {
 };
 NG.inspectionPrice = (s) =>
   Math.max(
-    30,
+    20,
     Math.round(
-      90 *
-        (1 - (s.progress?.mechanical || 0) * 0.15) *
-        (s.business?.diagnostics ? 0.8 : 1),
+      (1 - Math.min(0.5, NG.localEffect?.(s, "inspection") || 0)) *
+        Math.max(
+          30,
+          Math.round(
+            90 *
+              (1 - (s.progress?.mechanical || 0) * 0.15) *
+              (s.business?.diagnostics ? 0.8 : 1),
+          ),
+        ),
     ),
   );
 NG.workshopBusy = (s) =>
   s.inventory.filter((c) => NG.busy(s, c) && c.repairMode !== "rush").length;
 NG.repairDuration = (s, part, mode) =>
-  mode === "rush" || (s.progress?.mechanical || 0) >= 2
+  mode === "rush" ||
+  (s.progress?.mechanical || 0) >= 2 ||
+  ((NG.localEffect?.(s, "fast") || 0) &&
+    ["engine", "transmission"].includes(part))
     ? 1
     : ["engine", "transmission"].includes(part)
       ? 2

@@ -54,7 +54,9 @@ NG.repairQuote = (car, part, state, mode = "standard") => {
         (state?.business?.tools ? 0.85 : 1) *
         (1 - (state?.progress?.mechanical || 0) * 0.05),
     ) + Math.round(parts * (state?.business?.supplier ? 0.8 : 1));
-  return quote + (mode === "rush" ? Math.max(80, Math.round(quote * 0.25)) : 0);
+  const full =
+    quote + (mode === "rush" ? Math.max(80, Math.round(quote * 0.25)) : 0);
+  return NG.discountedLocalRepair?.(state, part, full).price ?? full;
 };
 NG.busy = (state, car) => car.readyDay > state.day;
 NG.generateCar = (state, modelIndex, rng = Math.random) => {
@@ -149,6 +151,10 @@ NG.repair = (s, id, part, mode = "standard") => {
     throw Error("Choose a valid workshop mode.");
   if (s.operations?.arrears > 0)
     throw Error("Clear overdue operating bills before booking work.");
+  if (mode === "standard" && NG.localWorkshopBlocked?.(s))
+    throw Error(
+      "Today’s local event prevents new in-house bookings. Outsourced rush is still available.",
+    );
   if (mode === "standard" && NG.workshopBusy(s) >= 1)
     throw Error(
       "Your in-house workshop is occupied. Wait or outsource a rush repair.",
@@ -174,6 +180,8 @@ NG.repair = (s, id, part, mode = "standard") => {
   const cost = NG.repairQuote(car, part, s, mode);
   if (s.cash < cost)
     throw Error("You do not have enough cash for this repair.");
+  const discount = NG.discountedLocalRepair?.(s, part, 100);
+  if (discount?.event?.uses > 0) discount.event.uses--;
   s.cash -= cost;
   car.repairCost += cost;
   car.parts[part] = 95;
@@ -215,8 +223,11 @@ NG.sell = (s, id, offerId) => {
   if (!c) throw Error("This car has already been sold.");
   if (NG.busy(s, c))
     throw Error("You cannot sell a car while it is being repaired.");
-  let price;
-  if (offerId === "dealer") price = Math.round(NG.value(s, c) * 0.72);
+  let price, delivery;
+  if (offerId.startsWith("request:")) {
+    delivery = NG.validateRequestDelivery(s, offerId.slice(8), c);
+    price = delivery.price;
+  } else if (offerId === "dealer") price = Math.round(NG.value(s, c) * 0.72);
   else {
     const offer = c.offers.find((o) => o.id === offerId);
     if (!c.listed || !offer) throw Error("This offer is no longer valid.");
@@ -242,9 +253,26 @@ NG.sell = (s, id, offerId) => {
     cost: NG.cost(c),
     profit,
   });
-  if (offerId !== "dealer")
+  if (delivery) {
+    NG.afterPrivateSale(
+      s,
+      { ...c, listingMode: "honest" },
+      { buyer: delivery.buyer },
+      s.sales[0],
+    );
+    delivery.request.status = "fulfilled";
+    delivery.request.completedDay = s.day;
+    delivery.request.saleId = s.sales[0].id;
+    s.sales[0].requestId = delivery.request.id;
+  } else if (offerId !== "dealer")
     NG.afterPrivateSale(s, c, negotiatedOffer, s.sales[0]);
-  NG.record(s, "sale", price, NG.model(c).name + " - sale");
+  NG.record(
+    s,
+    "sale",
+    price,
+    NG.model(c).name +
+      (delivery ? " - buyer request delivery (bonus included)" : " - sale"),
+  );
   s.inventory = s.inventory.filter((x) => x.id !== id);
   NG.trackCollection(s, c, "sold");
   NG.collectionEntry(s, c.model).profit += profit;
@@ -295,7 +323,8 @@ NG.nextDay = (s, rng = Math.random) => {
         1.25 -
           ratio * 0.65 +
           NG.interestBonus(s) +
-          (s.event.kind === "rush" ? 0.3 : 0),
+          (s.event.kind === "rush" ? 0.3 : 0) +
+          (NG.localEffect?.(s, "interest") || 0),
         0.02,
         0.95,
       );
@@ -317,6 +346,7 @@ NG.nextDay = (s, rng = Math.random) => {
       });
     }
   });
+  NG.opportunityDay?.(s, rng);
   s.history.unshift({ day: s.day, ...s.event });
   s.history = s.history.slice(0, 30);
   return NG.finishDayReport(s, before);

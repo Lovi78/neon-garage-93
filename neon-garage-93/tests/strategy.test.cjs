@@ -17,6 +17,7 @@ for (const name of [
   "finance",
   "collection",
   "customers",
+  "opportunities",
   "day-report",
   "negotiation",
   "legacy-language",

@@ -1,4 +1,4 @@
-# Neon Garage '93 - v0.9.2 / Garage Hotspots
+# Neon Garage '93 - v0.10 / Local Opportunities
 
 Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, fiktív kaliforniai város, 1993. június 1., $5,000 kezdőtőke, két férőhely.
 
@@ -7,6 +7,43 @@ A teljes játékfelület angol. A korábbi mentések eseményei, hibaleírásai 
 A teljes fejlesztési irány, a következő szakaszok és a nyitott döntések a [ROADMAP.md](ROADMAP.md) dokumentumban vannak rögzítve.
 
 A kattintható tárgyakat állandó, finom mentazöld pixel sarokjelölés emeli ki. Rámutatáskor vagy billentyűzetes kijelöléskor aranyszínű lesz és megjelenik a funkció neve. A saját autók sziluettje is enyhe jelölést kap. Az alsó súgó a számítógéphez irányítja az első játékost; a napváltási jelenetben a jelölések nem látszanak.
+
+## Helyi döntések és vevői megbízások - v0.10
+
+Az **Operations** clipboard ablakban vannak. Új meghívásnál vagy megbízásnál külön jelzés jelenik meg a garázs fölött, és a napi jelentés is felsorolja az új lehetőségeket, lejáratokat és aktív határidőket. Nem minden nap történik valami: egy jogosult reggelen 35% az esemény és 25% a megbízás esélye. Az események között legalább 3, a megbízások között legalább 4 nap telik el. Mentés/betöltés nem sorsolja őket újra. A régi mentésben nincs visszamenőleges esemény vagy jutalom.
+
+### Nyolc helyi meghívás
+
+| Esemény | Egyszeri díj | Hatás |
+| --- | ---: | --- |
+| Supplier prepay offer | $120 | A következő 3 javítás teljes árából 20% kedvezmény, legfeljebb 5 napig. Kis javításokon nem feltétlenül térül meg. |
+| Silver Palms car meet | $80 | A következő 2 reggelen +20 százalékpont vevőérkezési esély; aznap új normál javítás nem foglalható. |
+| Neighborhood flyer run | $50 | A következő 3 reggelen +12 százalékpont vevőérkezési esély. |
+| Visiting mechanic | $110 | A mai és a következő 3 napban indított normál motor/váltó javítás 1 nap. Már futó munkát nem gyorsít. |
+| Detailing shop partnership | $65 | A mai és a következő 3 napban 30% kedvezmény a cosmetic javítás teljes árából. |
+| Classifieds photo package | $60 | A következő 2 reggelen +18 százalékpont vevőérkezési esély. |
+| Local business open house | $90 | Azonnal +3 reputáció; aznap új normál javítás nem foglalható. |
+| Inspection lane day pass | $45 | A mai és a következő 3 napban 25% vizsgálati kedvezmény, minimum $20-os vizsgálati díj. |
+
+A meghívás az érkezés napján és a következő napon fogadható el. Elutasítás vagy figyelmen kívül hagyás ingyenes. Díj csak elfogadáskor kerül levonásra. Hátralék mellett fizetős esemény nem fogadható el. A műhelyt lefoglaló program csak üres normál műhely mellett vállalható; a külsős rush javítás továbbra is működik. A marketinghatások összeadódnak, de az ajánlatérkezés esélye legfeljebb 95%, és csak a meghirdetett autókra hatnak.
+
+A javítási kedvezmények közül a legerősebb érvényesül; nem szorzódnak össze. Az előfizetés 3 használatából csak ténylegesen kifizetett, azzal kedvezményezett javítás vesz el egyet. Árajánlat vagy rejtett hiba feltárása nem fogyaszt használatot. Az eseménydíj külön vállalkozási kiadás: csökkenti a pénzt és a vállalkozásértéket; az autó profitjába a tényleges, kedvezményes javítási ár kerül. A díj nem jár vissza lejáratkor.
+
+### Három megbízástípus
+
+| Megbízás | Keresett autó | Állapot / futás | Idő elfogadástól | Fix vételár + bónusz |
+| --- | --- | --- | ---: | ---: |
+| Japanese weekend car | Japan / sport, roadster vagy hatch | legalább 75%, legfeljebb 150,000 miles | 4 nap | $7,500 + $300 |
+| European daily driver | Europe / sedan vagy hatch | legalább 72%, legfeljebb 180,000 miles | 5 nap | $5,400 + $250 |
+| American performance car | America / sport | legalább 78%, legfeljebb 140,000 miles | 5 nap | $9,500 + $400 |
+
+A megkeresésre 3 napig lehet válaszolni. Elfogadáskor indul a fix határidő; legfeljebb 2 megbízás vállalható egyszerre. Nincs előleg, automatikus vásárlás vagy garantáltan megfelelő napi kínálat. A fix vevői árat a beszerzés és javítás várható költségéhez kell mérni.
+
+Csak teljesen átvizsgált, minden hibájától megszabadított, javításból elkészült saját autó adható át, a határidő napját is beleértve. Az Operations ablak megmutatja a kész, megfelelő autókat, befektetésüket és várható profitjukat. Az átadás rendes eladás: az autó kikerül a garázsból, a fix vételár és bónusz egyszer érkezik meg, a profit, Ledger, album és pénzügyi grafikon frissül. +3 reputáció jár; alku nélkül nincs XP.
+
+El nem vállalt megkeresés visszautasítása vagy lejárata ingyenes. Elfogadott megbízás elhagyása vagy lekésése 1 reputációt vesz el egyszer, készpénzbüntetés nélkül. A napzárás a mai megbízáshatáridőkre külön figyelmeztet, visszavezető gombbal. A reputáció nem mehet nulla alá.
+
+Ezek fiktív helyi események. Az ellenőrzött történelmi hírek külön, későbbi roadmap-tétel maradnak. Az egyensúly kezdeti szabályai játékosi visszajelzés alapján finomítandók.
 
 ## Egységes pixel art garázs - v0.9.1
 
@@ -231,7 +268,7 @@ A játék keretrendszer, külső betűkészlet és csomagtelepítés nélkül fu
 
 ## Ellenőrzés
 
-A gazdasági tesztek futtatása, ha van Node.js: `npm test` (16 gazdasági + 8 fejlődési + 8 pénzügyi/katalógus + 8 album + 9 vevői + 5 napi összefoglaló + 8 stratégiai + 1 rádió-életciklus teszt).
+A gazdasági tesztek futtatása, ha van Node.js: `npm test` (16 gazdasági + 8 fejlődési + 8 pénzügyi/katalógus + 8 album + 9 vevői + 5 napi összefoglaló + 8 stratégiai + 1 rádió-életciklus + 16 helyi esemény/megbízás teszt).
 
 Ellenőrzött: indulás és elérhető belépőmodellek 500 új kínálatban, kapacitás és készpénzkorlát, dupla műveletek tiltása, vizsgálati díj, rejtett hiba, javítás ideje és ára, napi kereslet, ajánlatok érvényessége, profitképlet és mentési adatok visszatöltése. További 1000 szimulált üzlet ellenőrzi a pénzmozgások egyezőségét és a nyereség/veszteség lehetőségét.
 

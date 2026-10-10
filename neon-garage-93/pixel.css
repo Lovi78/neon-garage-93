@@ -2110,3 +2110,54 @@ dialog h3 {
     inset: -2px;
   }
 }
+.local-notification {
+  border-color: #c4aa77;
+  background: #33352a;
+}
+.local-board {
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid #65756a;
+}
+.local-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 18px 0 24px;
+}
+.local-card {
+  min-width: 0;
+}
+.local-card .actions {
+  flex-wrap: wrap;
+}
+.local-card small {
+  display: block;
+  line-height: 1.7;
+}
+.local-card details {
+  margin-top: 16px;
+}
+.local-card summary,
+.local-history summary {
+  cursor: pointer;
+  color: #e2cb9c;
+}
+.request-delivery {
+  border-top: 1px solid #647565;
+  margin-top: 14px;
+  padding-top: 8px;
+}
+.request-delivery button {
+  max-width: 100%;
+  white-space: normal;
+  line-height: 1.6;
+}
+.local-history li {
+  margin: 8px 0;
+}
+@media (max-width: 800px) {
+  .local-grid {
+    grid-template-columns: 1fr;
+  }
+}

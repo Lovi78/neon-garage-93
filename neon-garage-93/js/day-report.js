@@ -81,6 +81,13 @@ NG.finishDayReport = (s, before) => {
         (q) => q.status === "ignored" && before.claims[q.id] !== "ignored",
       )
       .map((q) => q.buyer),
+    localNotices: [...(s.opportunities?.notices || [])],
+    activeRequests: (s.opportunities?.requests || [])
+      .filter((q) => q.status === "active")
+      .map((q) => ({
+        title: NG.requestKinds.find((t) => t.id === q.kind).title,
+        deadline: q.deadline,
+      })),
     operations: s.operations.notice,
     advertising:
       s.adNotice ||

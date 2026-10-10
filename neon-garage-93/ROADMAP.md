@@ -1,7 +1,7 @@
 # Neon Garage '93 - fejlesztési roadmap
 
 Rögzítve: 2026. október 9.
-Jelenlegi játékverzió: v0.9.2 / Garage Hotspots.
+Jelenlegi játékverzió: v0.10 / Local Opportunities.
 
 Ez a dokumentum őrzi a megbeszélt termékirányt, funkciókat, fejlesztési sorrendet és nyitott döntéseket. A játék felülete angol; a fejlesztési egyeztetés és a dokumentáció magyar.
 
@@ -208,6 +208,23 @@ További hangulatbővítésként nyitott: több saját zenei loop, rövid bemond
 - [x] Angol súgó: a kiemelt tárgyak kattinthatók, első lépés a számítógép.
 - [x] A jelölések kimaradnak a napzárási jelenetből. A működés és mentés változatlan.
 - [ ] Első felhasználós kipróbálás és tényleges böngészős vizuális ellenőrzés.
+
+## v0.10 - helyi döntések és vevői megbízások
+
+A sürgős eladó ötlete kimaradt: a felhasználó helyesen jelezte, hogy a napi hirdetésekről amúgy is aznap kell dönteni. Az új kör célja eltérő üzleti célok, készpénz- és műhelykompromisszumok létrehozása.
+
+- [x] Nyolc választható helyi esemény: előre fizetett javítási kedvezmény, autós találkozó, szórólapozás, vendégszerelő, detailing-partnerség, hirdetési fotózás, közösségi nyílt nap, diagnosztikai napijegy.
+- [x] Előre látható egyszeri díj, hatás, lejárat és műhelykorlátozás; ingyenes elutasítás. A hatások tényleges javítási/vizsgálati árra, javítási időre, ajánlatérkezésre és reputációra hatnak.
+- [x] Három visszatérő vevői megbízástípus: japán hétvégi autó, európai napi autó, amerikai sportautó. Konkrét kategória, minimum állapot, maximum futás, fix vételár és teljesítési bónusz.
+- [x] Elfogadástól számított 4-5 napos határidő; legfeljebb 2 aktív megbízás. Vizsgálat, hibamentesség és befejezett javítás szükséges. Nincs automatikus autóvásárlás vagy előleg.
+- [x] Átadáskor egyetlen rendes eladás és egyszeri bónusz; helyes profit, album, pénzügyi grafikon és Ledger. +3 reputáció; alku nélküli átadás nem ad XP-t.
+- [x] Elfogadott megbízás lekésése/elhagyása egyszeri -1 reputáció, készpénzbüntetés nélkül. Visszautasítás/figyelmen kívül hagyás ingyenes.
+- [x] Külön lehetőségjelzés, Operations nézet, lejárati progress bar, napi jelentés és napzárási figyelmeztetés.
+- [x] Nem napi kötelező események: esély és minimum időköz; mentés nem sorsol újra. Régi mentésnek nincs visszamenőleges díja vagy jutalma.
+- [x] 79 automatizált teszt és 7 DOM-felületi útvonal. Új ellenőrzések: mind a 8 díj, kedvezményfogyasztás, workshop-korlát, valódi marketinghatás, mindhárom megbízás, határidő, ismétlésvédelem, bónusz és régi mentés.
+- [ ] Tényleges böngészős vizuális ellenőrzés és hosszabb játékosi egyensúlyteszt.
+
+A részletes költségek és időszabályok a README-ben vannak. A történelmi hírek továbbra is külön, ellenőrzött forrásokat igénylő fejlesztés; ez a kör fiktív helyi döntéseket tartalmaz.
 
 ## 3. Reputáció - érezhető bizalom és új lehetőségek
 

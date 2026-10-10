@@ -30,6 +30,7 @@ for (const name of [
   "finance",
   "collection",
   "customers",
+  "opportunities",
   "day-report",
   "negotiation",
   "legacy-language",
@@ -210,6 +211,7 @@ for (const name of [
   "finance",
   "collection",
   "customers",
+  "opportunities",
   "day-report",
   "negotiation",
   "legacy-language",
@@ -277,6 +279,7 @@ for (const name of [
   "finance",
   "collection",
   "customers",
+  "opportunities",
   "day-report",
   "negotiation",
   "legacy-language",
@@ -355,6 +358,7 @@ for (const name of [
   "finance",
   "collection",
   "customers",
+  "opportunities",
   "day-report",
   "negotiation",
   "legacy-language",
@@ -622,6 +626,130 @@ w.setTimeout = nativeTimeout;
 w.clearTimeout = nativeClear;
 console.log(
   "PASS UI radio settings, unchanged save, closing/dawn/report sequence, skip, Escape, automatic completion and reduced motion.",
+);
+
+// Local choices and buyer requests use the real Operations UI and save path.
+click('[data-action="close"]');
+let opportunityState = saved();
+opportunityState.opportunities.events = [
+  {
+    id: "ui-meet",
+    kind: "meet",
+    status: "pending",
+    day: opportunityState.day,
+    deadline: opportunityState.day + 1,
+  },
+];
+opportunityState.opportunities.requests = [
+  {
+    id: "ui-request",
+    kind: "japan",
+    status: "offered",
+    day: opportunityState.day,
+    offerUntil: opportunityState.day + 2,
+  },
+];
+opportunityState.opportunities.requests.push({
+  id: "ui-due",
+  kind: "europe",
+  status: "active",
+  day: opportunityState.day - 5,
+  acceptedDay: opportunityState.day - 5,
+  deadline: opportunityState.day,
+});
+opportunityState.operations.arrears = 0;
+opportunityState.cash = 10000;
+const deliveryCar = opportunityState.inventory[0];
+deliveryCar.model = "crx";
+deliveryCar.inspected = true;
+deliveryCar.flaws = [];
+deliveryCar.mileage = 100000;
+deliveryCar.readyDay = 0;
+deliveryCar.listed = false;
+for (const key of Object.keys(deliveryCar.parts)) deliveryCar.parts[key] = 90;
+w.NG.save(opportunityState);
+// Re-evaluate the UI module as a page reload, removing earlier DOM click handlers.
+// Use a new window below to keep precisely one listener per action.
+const localDom = new JSDOM(
+  fs.readFileSync(path.join(root, "index.html"), "utf8"),
+  { url: "https://neon-garage.test/", runScripts: "outside-only" },
+);
+const lw = localDom.window,
+  ld = lw.document;
+lw.scrollTo = () => {};
+lw.Math.random = () => 0.4;
+lw.HTMLDialogElement.prototype.showModal = function () {
+  this.open = true;
+};
+lw.HTMLDialogElement.prototype.close = function () {
+  this.open = false;
+};
+lw.localStorage.setItem(w.NG.saveKey, JSON.stringify(opportunityState));
+for (const name of [
+  "cars",
+  "catalog-v06",
+  "sprite-clips",
+  "radio",
+  "ambience",
+  "scene",
+  "economy",
+  "progression",
+  "strategy",
+  "finance",
+  "collection",
+  "customers",
+  "opportunities",
+  "day-report",
+  "negotiation",
+  "legacy-language",
+  "state",
+  "ui",
+])
+  lw.eval(fs.readFileSync(path.join(root, "js", name + ".js"), "utf8"));
+const lc = (selector) => {
+  const el = ld.querySelector(selector);
+  assert(el, selector);
+  assert(!el.disabled, selector);
+  el.click();
+};
+const ls = () => JSON.parse(lw.localStorage.getItem(lw.NG.saveKey));
+if (ld.querySelector("#day-report").open)
+  lc('[data-action="close-day-report"]');
+assert(ld.querySelector(".local-notification"));
+lc('.local-notification [data-view="operations"]');
+assert.match(ld.querySelector(".local-board").textContent, /No deposits/);
+const stateBeforeWarning = lw.localStorage.getItem(lw.NG.saveKey);
+lc('[data-action="next"]');
+assert.match(
+  ld.querySelector("#day-confirm").textContent,
+  /Buyer request deadline today/,
+);
+lc('[data-action="confirm-view-requests"]');
+assert(!ld.querySelector("#day-confirm").open);
+assert(ld.querySelector(".local-board"));
+assert.equal(lw.localStorage.getItem(lw.NG.saveKey), stateBeforeWarning);
+const eventCash = ls().cash;
+lc('[data-action="local-accept"]');
+assert.equal(ls().cash, eventCash - 80);
+assert.equal(ls().opportunities.events[0].status, "accepted");
+lc('[data-action="request-accept"]');
+assert.equal(ls().opportunities.requests[0].deadline, ls().day + 4);
+assert(ld.querySelector('[data-action="request-deliver"]'));
+const requestCash = ls().cash,
+  requestRep = ls().reputation,
+  requestProfit = ls().profit;
+lc('[data-action="request-deliver"]');
+assert.equal(ls().cash, requestCash + 7800);
+assert.equal(ls().reputation, requestRep + 3);
+assert.equal(ls().profit, requestProfit + 7800 - lw.NG.cost(deliveryCar));
+assert.equal(ls().opportunities.requests[0].status, "fulfilled");
+assert(!ls().inventory.some((c) => c.id === deliveryCar.id));
+assert(!ld.querySelector('[data-action="request-deliver"][data-id="ui-request"]'));
+lc('[data-action="view"][data-view="finances"]');
+assert.match(ld.querySelector(".ledger").textContent, /Car meet|car meet/);
+localDom.window.close();
+console.log(
+  "PASS UI opportunity notification, terms, fee, request acceptance, delivery, bonus, reputation, single sale and ledger.",
 );
 
 w.close();
