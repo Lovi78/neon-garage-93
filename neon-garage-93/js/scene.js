@@ -94,22 +94,22 @@ NG.carArt = (car, large = false) => {
 NG.garageScene = (state, arrival = null) => {
   const offers = state.inventory.reduce((n, c) => n + c.offers.length, 0);
   return `<div class="garage-world ${NG.radio?.playing ? "radio-playing" : ""}" aria-label="Interactive garage">
-    <img class="garage-backdrop" src="assets/garage-pixel.png" alt="Your pixel art garage at dusk in Silver Palms" draggable="false">
+    <img class="garage-backdrop" src="assets/garage-pixel-integrated.png" alt="Your pixel art garage at dusk in Silver Palms" draggable="false">
     <div class="ambient-light" aria-hidden="true"></div>
     <div class="garage-dust" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
     <div class="street-glimmer" aria-hidden="true"></div>
-    <button class="scene-object garage-radio" data-action="radio-open" aria-label="Garage radio: choose a station"><span class="radio-art" aria-hidden="true"><i></i><b>FM</b><span class="radio-bars"><i></i><i></i><i></i></span></span><span class="object-label">RADIO <small>CHOOSE YOUR STATION</small></span></button>
-    <button class="scene-object computer" data-action="view" data-view="market" aria-label="Computer: open car market"><span class="object-marker">▸</span><span class="object-label">COMPUTER <small>CAR MARKET</small></span></button>
-    <button class="scene-object ledger-object" data-action="view" data-view="finances" aria-label="Ledger: open finances"><span class="object-marker">▸</span><span class="object-label">LEDGER <small>FINANCES</small></span></button>
-    <button class="scene-object dealer-folder" data-action="view" data-view="upgrades" aria-label="Office folder: open skills and business upgrades"><span class="folder-art" aria-hidden="true"></span><span class="object-label">DEALER FILE <small>SKILLS &amp; UPGRADES</small></span></button>
-    ${state.business?.tools ? '<span class="installed-tools" aria-label="Better tools installed"><i></i><i></i><i></i></span>' : ""}
-    ${state.business?.supplier ? '<span class="parts-crate" aria-label="Parts supplier deal installed">PARTS</span>' : ""}
-    ${state.business?.advertising ? '<span class="ad-poster" aria-label="Local newspaper advertising installed">USED<br>CARS<small>GOOD DEALS</small></span>' : ""}
-    <button class="scene-object workbench" data-action="view" data-view="inventory" aria-label="Workbench: open inventory"><span class="object-marker">▸</span><span class="object-label">WORKBENCH <small>MY INVENTORY${offers ? " / " + offers + " OFFER" + (offers === 1 ? "" : "S") : ""}</small></span></button>
-    <button class="scene-object collection-album" data-action="view" data-view="collection" aria-label="Car album: open collection"><span class="album-art" aria-hidden="true">93</span><span class="object-label">CAR ALBUM <small>YOUR COLLECTION</small></span></button>
-    <button class="scene-object customer-phone" data-action="view" data-view="customers" aria-label="Customer phone: open customers and complaints"><span class="phone-art" aria-hidden="true">☎</span><span class="object-label">CUSTOMERS <small>${state.claims.filter((q) => q.status === "open").length ? "COMPLAINT NEEDS ATTENTION" : "CONTACTS &amp; CARE"}</small></span></button>
-    <button class="scene-object operations-board" data-action="view" data-view="operations" aria-label="Operations board: open bills and workshop"><span class="operations-art" aria-hidden="true">OPS</span><span class="object-label">OPERATIONS <small>BILLS &amp; WORKSHOP</small></span></button>
-    <button class="scene-object wall-clock" data-action="next" aria-label="Clock: advance to next day"><span class="object-marker">▸</span><span class="object-label">CLOSE UP <small>NEXT DAY</small></span></button>
+    <button class="scene-object garage-radio" data-action="radio-open" aria-label="Garage radio: choose a station"><span class="object-label">RADIO <small>CHOOSE YOUR STATION</small></span></button>
+    <button class="scene-object computer" data-action="view" data-view="market" aria-label="Computer: open car market"><span class="object-label">COMPUTER <small>CAR MARKET</small></span></button>
+    <button class="scene-object ledger-object" data-action="view" data-view="finances" aria-label="Ledger: open finances"><span class="object-label">LEDGER <small>FINANCES</small></span></button>
+    <button class="scene-object dealer-folder" data-action="view" data-view="upgrades" aria-label="Office folder: open skills and business upgrades"><span class="object-label">DEALER FILE <small>SKILLS &amp; UPGRADES</small></span></button>
+    ${state.business?.tools ? '<button class="scene-object installed-tools" data-action="view" data-view="upgrades" aria-label="Better tools installed"><span class="object-label">BETTER TOOLS<small>INSTALLED</small></span></button>' : ""}
+    ${state.business?.supplier ? '<button class="scene-object parts-crate" data-action="view" data-view="upgrades" aria-label="Parts supplier deal installed"><span class="object-label">PARTS SUPPLIER<small>DEAL ACTIVE</small></span></button>' : ""}
+    ${state.business?.advertising ? '<button class="scene-object ad-poster" data-action="view" data-view="upgrades" aria-label="Local newspaper advertising installed"><span class="object-label">LOCAL ADVERTISING<small>UPGRADE INSTALLED</small></span></button>' : ""}
+    <button class="scene-object workbench" data-action="view" data-view="inventory" aria-label="Workbench: open inventory"><span class="object-label">WORKBENCH <small>MY INVENTORY${offers ? " / " + offers + " OFFER" + (offers === 1 ? "" : "S") : ""}</small></span></button>
+    <button class="scene-object collection-album" data-action="view" data-view="collection" aria-label="Car album: open collection"><span class="object-label">CAR ALBUM <small>YOUR COLLECTION</small></span></button>
+    <button class="scene-object customer-phone" data-action="view" data-view="customers" aria-label="Customer phone: open customers and complaints"><span class="object-label">CUSTOMERS <small>${state.claims.filter((q) => q.status === "open").length ? "COMPLAINT NEEDS ATTENTION" : "CONTACTS &amp; CARE"}</small></span></button>
+    <button class="scene-object operations-board" data-action="view" data-view="operations" aria-label="Operations board: open bills and workshop"><span class="object-label">OPERATIONS <small>BILLS &amp; WORKSHOP</small></span></button>
+    <button class="scene-object wall-clock" data-action="next" aria-label="Clock: advance to next day"><span class="object-label">CLOSE UP <small>NEXT DAY</small></span></button>
     ${Array.from({ length: state.capacity }, (_, i) => {
       const car = state.inventory[i];
       return car

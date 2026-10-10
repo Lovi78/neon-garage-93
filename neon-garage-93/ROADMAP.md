@@ -1,7 +1,7 @@
 # Neon Garage '93 - fejlesztési roadmap
 
 Rögzítve: 2026. október 9.
-Jelenlegi játékverzió: v0.9 / Garage Radio.
+Jelenlegi játékverzió: v0.9.1 / Integrated Garage.
 
 Ez a dokumentum őrzi a megbeszélt termékirányt, funkciókat, fejlesztési sorrendet és nyitott döntéseket. A játék felülete angol; a fejlesztési egyeztetés és a dokumentáció magyar.
 
@@ -191,6 +191,15 @@ A 2026. október 10-i kérés: rövid animációk napzáráskor és nyitáskor, 
 - [ ] Valódi böngészős kép- és hangellenőrzés: az automatizált tesztek nem igazolják a zene hallgatási minőségét vagy a jelenet vizuális élményét.
 
 További hangulatbővítésként nyitott: több saját zenei loop, rövid bemondói szövegek és a későbbi történelmi hírek rádióba kapcsolása.
+
+## v0.9.1 - a rárajzolt ikonok kiváltása
+
+- [x] A felhasználó képe alapján a flat CSS tárgyak kiváltása: a rádió, telefon, mappa, album és operations napló az eredeti garázs pixel art stílusába illesztve.
+- [x] Egységes háttérkép, eredeti fényekkel és perspektívával; az eredeti háttér külön megőrizve.
+- [x] Átlátszó kattintási területek a tényleges tárgyak helyén. A menüfelirat csak rámutatáskor vagy billentyűzetes kijelöléskor jelenik meg.
+- [x] A vállalkozásfejlesztések az eredeti szerszámokhoz, alkatrészekhez és poszterhez kötődnek; nincs külön rárajzolt upgrade-ikon.
+- [x] Az új kép megtekintése és a hat felületi működési tesztútvonal sikeres; mentési és gazdasági szabályok változatlanok.
+- [ ] Tényleges böngészős elrendezés-ellenőrzés továbbra is nyitott.
 
 ## 3. Reputáció - érezhető bizalom és új lehetőségek
 

@@ -53,28 +53,9 @@
   width: 6%;
   height: 12%;
 }
-.operations-art {
-  background: #b7b08b;
-  color: #37463e;
-  border: 3px solid #6d785c;
-  position: absolute;
-  top: 0;
-  left: 15%;
-  width: 65%;
-  height: 65%;
-  display: grid;
-  place-items: center;
-  font-size: 11px;
-  font-weight: bold;
-  box-shadow: 3px 3px #1b2626;
-}
 @media (max-width: 600px) {
   .trend-grid {
     grid-template-columns: 1fr;
-  }
-  .operations-art {
-    font-size: 6px;
-    border-width: 1px;
   }
 }
 .offer-notification {
@@ -231,20 +212,6 @@
   width: 8%;
   height: 9%;
 }
-.phone-art {
-  position: absolute;
-  top: 10%;
-  left: 20%;
-  width: 60%;
-  height: 55%;
-  display: grid;
-  place-items: center;
-  background: #404f50;
-  border: 2px solid #9fa794;
-  color: #d5cb9c;
-  font-size: 23px;
-  box-shadow: 3px 3px #16212b;
-}
 .case-banner {
   background: #593929;
   border: 1px solid #bc9765;
@@ -302,10 +269,6 @@
   font-size: 10px;
 }
 @media (max-width: 700px) {
-  .phone-art {
-    font-size: 12px;
-    border-width: 1px;
-  }
   .claim-card .actions {
     flex-wrap: wrap;
     justify-content: flex-start;
@@ -316,23 +279,6 @@
   top: 42%;
   width: 6%;
   height: 10%;
-}
-.album-art {
-  position: absolute;
-  width: 65%;
-  height: 55%;
-  top: 15%;
-  left: 15%;
-  background: #576c81;
-  border: 3px solid #8b9eaa;
-  border-left: 7px solid #263d51;
-  color: #dbc98d;
-  font-size: 16px;
-  font-weight: bold;
-  display: grid;
-  place-items: center;
-  transform: rotate(7deg);
-  box-shadow: 4px 4px #101c25;
 }
 .album-summary {
   display: flex;
@@ -427,11 +373,6 @@
   }
   .album-goals {
     grid-template-columns: repeat(2, 1fr);
-  }
-  .album-art {
-    font-size: 9px;
-    border-width: 1px;
-    border-left-width: 3px;
   }
   .album-filters {
     width: 100%;
@@ -589,92 +530,6 @@
   width: 6%;
   height: 11%;
 }
-.folder-art {
-  position: absolute;
-  width: 70%;
-  height: 40%;
-  left: 15%;
-  top: 30%;
-  background: #bb985f;
-  border: 3px solid #e0b66e;
-  box-shadow: 3px 3px #594132;
-  transform: rotate(-8deg);
-}
-.folder-art:before {
-  content: "";
-  position: absolute;
-  left: -3px;
-  top: -8px;
-  width: 45%;
-  height: 8px;
-  background: #e0b66e;
-}
-.folder-art:after {
-  content: "";
-  position: absolute;
-  left: 15%;
-  top: 30%;
-  width: 50%;
-  height: 3px;
-  background: #70563d;
-  box-shadow: 0 6px #70563d;
-}
-.installed-tools {
-  position: absolute;
-  left: 39.7%;
-  top: 31%;
-  height: 9%;
-  width: 4%;
-  display: flex;
-  gap: 7px;
-  pointer-events: none;
-}
-.installed-tools i {
-  display: block;
-  background: #c2d1c1;
-  width: 4px;
-  height: 70%;
-  border-top: 7px solid #bfd8cc;
-  box-shadow: 2px 2px #273c3e;
-  transform: rotate(-8deg);
-}
-.parts-crate {
-  position: absolute;
-  left: 58%;
-  top: 51%;
-  width: 6%;
-  height: 7%;
-  background: repeating-linear-gradient(0deg, #756047 0 6px, #4f4739 6px 8px);
-  border: 3px solid #a18860;
-  box-shadow: 4px 4px #162329;
-  display: grid;
-  place-items: center;
-  color: #f0d3a1;
-  font-size: 8px;
-  font-weight: bold;
-  pointer-events: none;
-}
-.ad-poster {
-  position: absolute;
-  left: 26.3%;
-  top: 23%;
-  width: 4.5%;
-  height: 12%;
-  background: #dbbe88;
-  border: 3px solid #84533d;
-  color: #683e32;
-  font-size: 12px;
-  font-weight: bold;
-  line-height: 1.3;
-  text-align: center;
-  padding-top: 6px;
-  pointer-events: none;
-}
-.ad-poster small {
-  display: block;
-  font-size: 5px;
-  margin-top: 4px;
-}
 .growth-summary {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
@@ -799,25 +654,6 @@
   .progress-strip {
     gap: 12px;
     font-size: 8px;
-  }
-  .ad-poster {
-    font-size: 7px;
-    padding-top: 2px;
-    border-width: 1px;
-  }
-  .ad-poster small {
-    font-size: 3px;
-  }
-  .parts-crate {
-    font-size: 4px;
-    border-width: 1px;
-  }
-  .installed-tools {
-    gap: 3px;
-  }
-  .installed-tools i {
-    width: 2px;
-    border-top-width: 3px;
   }
 }
 .negotiation-dialogue {
@@ -1848,59 +1684,6 @@ dialog h3 {
   width: 10%;
   z-index: 4;
 }
-.radio-art {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 82%;
-  height: clamp(22px, 3vw, 43px);
-  background: #273a3d;
-  border: 3px solid #bca87c;
-  box-shadow: 3px 3px #131f23;
-  position: relative;
-  margin: auto;
-}
-.radio-art::before {
-  content: "";
-  position: absolute;
-  height: 22px;
-  width: 2px;
-  background: #bca87c;
-  right: 9%;
-  bottom: 100%;
-  transform: rotate(25deg);
-  transform-origin: bottom;
-}
-.radio-art > i {
-  width: 28%;
-  height: 70%;
-  background: repeating-linear-gradient(0deg, #101c21 0 2px, #516367 2px 3px);
-}
-.radio-art b {
-  font-size: clamp(6px, 0.7vw, 10px);
-  color: #c1a779;
-}
-.radio-bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 2px;
-  height: 12px;
-}
-.radio-bars i {
-  width: 3px;
-  height: 3px;
-  background: #698375;
-}
-.radio-playing .radio-bars i {
-  background: #99efd2;
-  animation: radio-level 0.55s steps(3) infinite alternate;
-}
-.radio-playing .radio-bars i:nth-child(2) {
-  animation-delay: -0.18s;
-}
-.radio-playing .radio-bars i:nth-child(3) {
-  animation-delay: -0.37s;
-}
 @keyframes radio-level {
   to {
     height: 12px;
@@ -2134,10 +1917,6 @@ dialog h3 {
   .street-glimmer {
     display: none;
   }
-  .radio-playing .radio-bars i {
-    animation: none;
-    height: 8px;
-  }
 }
 
 .game-footer {
@@ -2148,4 +1927,135 @@ dialog h3 {
 }
 .radio-news {
   flex: 1 1 300px;
+}
+
+/* The art is in the backdrop; these transparent areas only provide interaction. */
+.garage-world .scene-object {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+.garage-world .scene-object:hover {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+.garage-world .scene-object:focus-visible {
+  outline: 2px dashed #dccf9a;
+  outline-offset: 3px;
+}
+.garage-world .scene-object .object-label {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  bottom: auto;
+  top: 100%;
+  margin-top: 7px;
+  z-index: 1;
+}
+.garage-world .scene-object:hover,
+.garage-world .scene-object:focus-visible {
+  z-index: 6;
+}
+.garage-world .scene-object:hover .object-label,
+.garage-world .scene-object:focus-visible .object-label {
+  opacity: 1;
+  visibility: visible;
+}
+.garage-world .computer {
+  left: 4.5%;
+  top: 39%;
+  width: 8%;
+  height: 11%;
+}
+.garage-world .ledger-object {
+  left: 19.5%;
+  top: 38.5%;
+  width: 4%;
+  height: 17%;
+}
+.garage-world .dealer-folder {
+  left: 4.5%;
+  top: 47.5%;
+  width: 6%;
+  height: 4%;
+}
+.garage-world .customer-phone {
+  left: 14.5%;
+  top: 44%;
+  width: 4%;
+  height: 5.5%;
+}
+.garage-world .collection-album {
+  left: 34.5%;
+  top: 34.8%;
+  width: 4.5%;
+  height: 4%;
+}
+.garage-world .operations-board {
+  left: 78%;
+  top: 29.5%;
+  width: 3%;
+  height: 8%;
+}
+.garage-world .garage-radio {
+  left: 50.7%;
+  top: 23.5%;
+  width: 4.4%;
+  height: 4%;
+}
+.garage-world .wall-clock {
+  left: 68.4%;
+  top: 20.5%;
+  width: 5%;
+  height: 9%;
+}
+.garage-world .workbench {
+  left: 39%;
+  top: 43%;
+  width: 17%;
+  height: 13%;
+}
+.garage-world .installed-tools {
+  left: 40%;
+  top: 30%;
+  width: 12%;
+  height: 11%;
+}
+.garage-world .parts-crate {
+  left: 67%;
+  top: 35.5%;
+  width: 4%;
+  height: 8%;
+}
+.garage-world .ad-poster {
+  left: 28.5%;
+  top: 21.5%;
+  width: 9%;
+  height: 12%;
+}
+.garage-world .radio-playing {
+  background: transparent;
+}
+.garage-world.radio-playing .garage-radio::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  left: 25%;
+  top: 27%;
+  width: 46%;
+  height: 16%;
+  background: #ffb24b25;
+  box-shadow: 0 0 5px #ffc67170;
+  animation: tuner-glow 1.3s steps(3) infinite alternate;
+}
+@keyframes tuner-glow {
+  to {
+    opacity: 0.35;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .garage-world.radio-playing .garage-radio::after {
+    animation: none;
+  }
 }

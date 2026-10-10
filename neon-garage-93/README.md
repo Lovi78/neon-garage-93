@@ -1,10 +1,14 @@
-# Neon Garage '93 - v0.9 / Garage Radio
+# Neon Garage '93 - v0.9.1 / Integrated Garage
 
 Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, fiktív kaliforniai város, 1993. június 1., $5,000 kezdőtőke, két férőhely.
 
 A teljes játékfelület angol. A korábbi mentések eseményei, hibaleírásai és pénzügyi bejegyzései betöltéskor angolra váltanak, a játékállás megtartásával.
 
 A teljes fejlesztési irány, a következő szakaszok és a nyitott döntések a [ROADMAP.md](ROADMAP.md) dokumentumban vannak rögzítve.
+
+## Egységes pixel art garázs - v0.9.1
+
+A rádió, telefon, dealer mappa, album és operations clipboard a háttérbe rajzolt, fényekhez és perspektívához illeszkedő tárgyak. A lapos CSS-ikonok és az állandó menütáblák megszűntek. A tárgyra mutatva vagy billentyűzettel kijelölve jelenik meg a funkció neve; kattintásra ugyanaz az ablak nyílik meg. A business upgrade állapotát az eredeti szerszámokra, alkatrészekre és poszterre mutatva, illetve a Dealer File ablakban lehet ellenőrizni.
 
 ## Garázshangulat és rádió - v0.9
 
