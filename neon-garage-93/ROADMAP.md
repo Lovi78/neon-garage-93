@@ -1,7 +1,7 @@
 # Neon Garage '93 - fejlesztési roadmap
 
 Rögzítve: 2026. október 9.
-Jelenlegi játékverzió: v0.8 / Moving Markets.
+Jelenlegi játékverzió: v0.9 / Garage Radio.
 
 Ez a dokumentum őrzi a megbeszélt termékirányt, funkciókat, fejlesztési sorrendet és nyitott döntéseket. A játék felülete angol; a fejlesztési egyeztetés és a dokumentáció magyar.
 
@@ -175,6 +175,22 @@ Rögzítve: 2026. október 10. Prioritásváltás a felhasználói visszajelzés
 - [ ] Szubjektív játszhatósági egyensúly és teljes böngészős vizuális ellenőrzés még nyitott.
 
 Az eredeti három skillág és három perk most mind megvalósult. A történelmi hírek, gyűjtői megkeresések és további helyi döntéses események megmaradnak a tervben; ezek előtt most a meglévő játékmenet döntési mélysége kapott elsőbbséget. A részletes képletek és költségek a README-ben vannak; ezek játékegyensúlyozási induló értékek, tesztelői visszajelzés alapján finomítandók.
+
+## v0.9 - garázshangulat és választható rádió
+
+A 2026. október 10-i kérés: rövid animációk napzáráskor és nyitáskor, kis hangulati részletek, három korhű hangzású rádióadó.
+
+- [x] 1,9 másodperces esti zárás/reggeli nyitás a meglévő megerősítés után, a napi jelentés előtt.
+- [x] Kihagyás gomb, Escape és a rendszer csökkentett mozgás beállításának követése.
+- [x] Egyszeri napváltás és azonnali mentés; a jelenet nem változtat pénzügyeket vagy jelentésadatokat.
+- [x] Finom por- és utcai fényanimáció, lejátszáskor mozgó rádiókijelző.
+- [x] Kattintható garázsrádió és három fiktív adó: Neon FM, Palms Groove, Rust FM.
+- [x] Saját offline instrumentális loopok: szintipop, hiphop/funk, alternatív rock ihlette hangzás. Nem valódi történelmi rádióműsorok vagy licencelt dalok.
+- [x] Hangerő, leállítás, adó/hangerő megjegyzése; kattintás nélkül nincs automatikus zene.
+- [x] 63 automatizált működésteszt és hat felületi tesztútvonal. A rádióteszt ellenőrzi a hangcsatornák bekötését, adóváltást, időzítőt, leállítást, késleltetett indítás megszakítását és újratöltést. A jelenetteszt ellenőrzi a nyitást, kihagyást, Escape-et és csökkentett mozgást.
+- [ ] Valódi böngészős kép- és hangellenőrzés: az automatizált tesztek nem igazolják a zene hallgatási minőségét vagy a jelenet vizuális élményét.
+
+További hangulatbővítésként nyitott: több saját zenei loop, rövid bemondói szövegek és a későbbi történelmi hírek rádióba kapcsolása.
 
 ## 3. Reputáció - érezhető bizalom és új lehetőségek
 

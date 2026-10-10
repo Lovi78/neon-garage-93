@@ -21,6 +21,8 @@ for (const name of [
   "cars",
   "catalog-v06",
   "sprite-clips",
+  "radio",
+  "ambience",
   "scene",
   "economy",
   "progression",
@@ -199,6 +201,8 @@ for (const name of [
   "cars",
   "catalog-v06",
   "sprite-clips",
+  "radio",
+  "ambience",
   "scene",
   "economy",
   "progression",
@@ -264,6 +268,8 @@ for (const name of [
   "cars",
   "catalog-v06",
   "sprite-clips",
+  "radio",
+  "ambience",
   "scene",
   "economy",
   "progression",
@@ -340,6 +346,8 @@ for (const name of [
   "cars",
   "catalog-v06",
   "sprite-clips",
+  "radio",
+  "ambience",
   "scene",
   "economy",
   "progression",
@@ -548,6 +556,72 @@ click('[data-action="inspect"]');
 assert.equal(saved().cash, cashBeforeInspection - fee);
 console.log(
   "PASS UI operating bills, two new skills/perks, diagnostics, workshop contention, paid rush work, completed-job report, forecast and discounted inspection.",
+);
+
+// Radio controls never change the saved game.
+const beforeRadio = w.localStorage.getItem("neon-garage-93-v1");
+click(".garage-radio");
+assert(d.querySelector("#radio-dialog").open);
+assert.equal(d.querySelectorAll(".radio-station").length, 3);
+const volume = d.querySelector("#radio-volume");
+volume.value = "43";
+volume.dispatchEvent(new w.Event("input", { bubbles: true }));
+assert.equal(w.NG.radio.volume, 0.43);
+assert.equal(d.querySelector("#radio-volume-value").textContent, "43%");
+click('[data-action="radio-close"]');
+assert.equal(w.localStorage.getItem("neon-garage-93-v1"), beforeRadio);
+// Exercise the real transition flow with motion enabled and controlled timers.
+w.matchMedia = () => ({ matches: false });
+const nativeTimeout = w.setTimeout,
+  nativeClear = w.clearTimeout;
+const transitionTimers = new Map();
+let timerId = 0;
+w.setTimeout = (fn, delay) => {
+  transitionTimers.set(++timerId, { fn, delay });
+  return timerId;
+};
+w.clearTimeout = (id) => transitionTimers.delete(id);
+click('[data-action="view"][data-view="garage"]');
+const dayBeforeAnimation = saved().day;
+d.querySelector('[data-action="next"]').click();
+assert(d.querySelector("#day-confirm").open);
+click('[data-action="confirm-next"]');
+assert.equal(saved().day, dayBeforeAnimation + 1);
+assert(d.querySelector("#garage-transition").open);
+assert(!d.querySelector("#day-report").open);
+const snapshotAfterClose = w.localStorage.getItem("neon-garage-93-v1");
+const dawn = [...transitionTimers.values()].find((t) => t.delay === 900);
+dawn.fn();
+assert.equal(
+  d.querySelector("#transition-label").textContent,
+  "OPEN FOR A NEW DAY",
+);
+click("#skip-transition");
+assert(!d.querySelector("#garage-transition").open);
+assert(d.querySelector("#day-report").open);
+assert.equal(w.localStorage.getItem("neon-garage-93-v1"), snapshotAfterClose);
+assert.equal(transitionTimers.size, 0);
+click('[data-action="close-day-report"]');
+let completed = 0;
+const scene = d.querySelector(".garage-world").outerHTML;
+w.NG.playGarageTransition(scene, scene, "June 3, 1993", () => completed++);
+d.querySelector("#garage-transition").dispatchEvent(
+  new w.Event("cancel", { cancelable: true }),
+);
+assert.equal(completed, 1);
+assert.equal(transitionTimers.size, 0);
+w.NG.playGarageTransition(scene, scene, "June 3, 1993", () => completed++);
+[...transitionTimers.values()].find((t) => t.delay === 1900).fn();
+assert.equal(completed, 2);
+assert(!d.querySelector("#garage-transition").open);
+w.matchMedia = () => ({ matches: true });
+w.NG.playGarageTransition(scene, scene, "June 3, 1993", () => completed++);
+assert.equal(completed, 3);
+assert.equal(transitionTimers.size, 0);
+w.setTimeout = nativeTimeout;
+w.clearTimeout = nativeClear;
+console.log(
+  "PASS UI radio settings, unchanged save, closing/dawn/report sequence, skip, Escape, automatic completion and reduced motion.",
 );
 
 w.close();

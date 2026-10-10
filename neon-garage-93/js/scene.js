@@ -93,9 +93,12 @@ NG.carArt = (car, large = false) => {
 };
 NG.garageScene = (state, arrival = null) => {
   const offers = state.inventory.reduce((n, c) => n + c.offers.length, 0);
-  return `<div class="garage-world" aria-label="Interactive garage">
+  return `<div class="garage-world ${NG.radio?.playing ? "radio-playing" : ""}" aria-label="Interactive garage">
     <img class="garage-backdrop" src="assets/garage-pixel.png" alt="Your pixel art garage at dusk in Silver Palms" draggable="false">
     <div class="ambient-light" aria-hidden="true"></div>
+    <div class="garage-dust" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <div class="street-glimmer" aria-hidden="true"></div>
+    <button class="scene-object garage-radio" data-action="radio-open" aria-label="Garage radio: choose a station"><span class="radio-art" aria-hidden="true"><i></i><b>FM</b><span class="radio-bars"><i></i><i></i><i></i></span></span><span class="object-label">RADIO <small>CHOOSE YOUR STATION</small></span></button>
     <button class="scene-object computer" data-action="view" data-view="market" aria-label="Computer: open car market"><span class="object-marker">▸</span><span class="object-label">COMPUTER <small>CAR MARKET</small></span></button>
     <button class="scene-object ledger-object" data-action="view" data-view="finances" aria-label="Ledger: open finances"><span class="object-marker">▸</span><span class="object-label">LEDGER <small>FINANCES</small></span></button>
     <button class="scene-object dealer-folder" data-action="view" data-view="upgrades" aria-label="Office folder: open skills and business upgrades"><span class="folder-art" aria-hidden="true"></span><span class="object-label">DEALER FILE <small>SKILLS &amp; UPGRADES</small></span></button>

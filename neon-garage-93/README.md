@@ -1,10 +1,19 @@
-# Neon Garage '93 - v0.8 / Moving Markets
+# Neon Garage '93 - v0.9 / Garage Radio
 
 Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, fiktív kaliforniai város, 1993. június 1., $5,000 kezdőtőke, két férőhely.
 
 A teljes játékfelület angol. A korábbi mentések eseményei, hibaleírásai és pénzügyi bejegyzései betöltéskor angolra váltanak, a játékállás megtartásával.
 
 A teljes fejlesztési irány, a következő szakaszok és a nyitott döntések a [ROADMAP.md](ROADMAP.md) dokumentumban vannak rögzítve.
+
+## Garázshangulat és rádió - v0.9
+
+- A megerősített napzárást 1,9 másodperces jelenet követi: leereszkedő redőny, esti elsötétülés, majd reggeli nyitás. Ezután nyílik meg a napi összefoglaló. **Skip animation** vagy Escape azonnal a jelentésre ugrik.
+- A nap és minden pénzügyi változás a jelenet előtt mentődik. Kihagyás és újratöltés nem ismétli meg a napváltást; a még olvasatlan jelentés visszajön.
+- Finoman mozgó porszemek és időnkénti utcai fények teszik élőbbé a garázst. A rendszer csökkentett mozgás beállításával a napváltási jelenet kimarad, a háttérmozgás leáll.
+- A polcon lévő kis **RADIO** tárgy vagy az alsó rádiópanel nyitja a választót. Három fiktív, 1993 hangzását idéző adó saját, szintetizált instrumentális loopokkal: **Neon FM 94.3** (szintipop), **Palms Groove 93.0** (hiphop/funk), **Rust FM 101.7** (alternatív rock ihlette riffek).
+- Az adóra kattintva indul a zene. Külön leállítás és hangerőcsúszka van; a kijelző játék közben mozog. Internetkapcsolat és letöltött zenefájl nem kell.
+- Az adó és hangerő külön helyi beállításként mentődik. Újraindításkor a rádió csendben marad, amíg el nem indítod. A játékállást és a gazdaságot nem módosítja.
 
 ## Indítás
 
@@ -216,7 +225,7 @@ A játék keretrendszer, külső betűkészlet és csomagtelepítés nélkül fu
 
 ## Ellenőrzés
 
-A gazdasági tesztek futtatása, ha van Node.js: `npm test` (16 gazdasági + 8 fejlődési + 8 pénzügyi/katalógus + 8 album + 9 vevői + 5 napi összefoglaló + 8 stratégiai teszt).
+A gazdasági tesztek futtatása, ha van Node.js: `npm test` (16 gazdasági + 8 fejlődési + 8 pénzügyi/katalógus + 8 album + 9 vevői + 5 napi összefoglaló + 8 stratégiai + 1 rádió-életciklus teszt).
 
 Ellenőrzött: indulás és elérhető belépőmodellek 500 új kínálatban, kapacitás és készpénzkorlát, dupla műveletek tiltása, vizsgálati díj, rejtett hiba, javítás ideje és ára, napi kereslet, ajánlatok érvényessége, profitképlet és mentési adatok visszatöltése. További 1000 szimulált üzlet ellenőrzi a pénzmozgások egyezőségét és a nyereség/veszteség lehetőségét.
 

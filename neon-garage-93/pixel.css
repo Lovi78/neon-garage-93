@@ -1771,3 +1771,381 @@ dialog h3 {
     transition: none !important;
   }
 }
+
+/* Garage atmosphere and the shelf radio. */
+.garage-dust,
+.street-glimmer {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+}
+.garage-dust {
+  left: 8%;
+  top: 28%;
+  width: 22%;
+  height: 45%;
+  overflow: hidden;
+}
+.garage-dust i {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #ffe8aa;
+  opacity: 0;
+  animation: dust-drift 11s linear infinite;
+}
+.garage-dust i:nth-child(2) {
+  left: 28%;
+  animation-delay: -3s;
+}
+.garage-dust i:nth-child(3) {
+  left: 58%;
+  animation-delay: -7s;
+}
+.garage-dust i:nth-child(4) {
+  left: 85%;
+  animation-delay: -9s;
+}
+@keyframes dust-drift {
+  0% {
+    opacity: 0;
+    transform: translate(0, 140px);
+  }
+  20%,
+  70% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(35px, -10px);
+  }
+}
+.street-glimmer {
+  right: 0;
+  top: 42%;
+  width: 15%;
+  height: 20%;
+  background: linear-gradient(110deg, transparent, #ffc37840, transparent);
+  opacity: 0;
+  animation: street-glimmer 18s ease-in-out infinite;
+}
+@keyframes street-glimmer {
+  0%,
+  75%,
+  100% {
+    opacity: 0;
+  }
+  83% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0;
+  }
+}
+.scene-object.garage-radio {
+  left: 46%;
+  top: 20%;
+  width: 10%;
+  z-index: 4;
+}
+.radio-art {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 82%;
+  height: clamp(22px, 3vw, 43px);
+  background: #273a3d;
+  border: 3px solid #bca87c;
+  box-shadow: 3px 3px #131f23;
+  position: relative;
+  margin: auto;
+}
+.radio-art::before {
+  content: "";
+  position: absolute;
+  height: 22px;
+  width: 2px;
+  background: #bca87c;
+  right: 9%;
+  bottom: 100%;
+  transform: rotate(25deg);
+  transform-origin: bottom;
+}
+.radio-art > i {
+  width: 28%;
+  height: 70%;
+  background: repeating-linear-gradient(0deg, #101c21 0 2px, #516367 2px 3px);
+}
+.radio-art b {
+  font-size: clamp(6px, 0.7vw, 10px);
+  color: #c1a779;
+}
+.radio-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+}
+.radio-bars i {
+  width: 3px;
+  height: 3px;
+  background: #698375;
+}
+.radio-playing .radio-bars i {
+  background: #99efd2;
+  animation: radio-level 0.55s steps(3) infinite alternate;
+}
+.radio-playing .radio-bars i:nth-child(2) {
+  animation-delay: -0.18s;
+}
+.radio-playing .radio-bars i:nth-child(3) {
+  animation-delay: -0.37s;
+}
+@keyframes radio-level {
+  to {
+    height: 12px;
+  }
+}
+.garage-radio .object-label {
+  opacity: 0;
+  font-size: clamp(6px, 0.7vw, 10px);
+}
+.garage-radio:hover .object-label,
+.garage-radio:focus-visible .object-label {
+  opacity: 1;
+}
+.radio-console {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border: 2px solid #526765;
+  background: #111d25;
+}
+.radio-console button {
+  font-size: 10px;
+}
+.radio-console button:first-child {
+  text-align: left;
+  background: transparent;
+  border: 0;
+}
+.radio-console span,
+.radio-console strong {
+  display: block;
+}
+.radio-console span {
+  color: #bea97a;
+  font-size: 9px;
+  margin-bottom: 5px;
+}
+.radio-console strong {
+  color: #a8edce;
+}
+#radio-dialog {
+  width: min(650px, 92vw);
+}
+.radio-stations {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 20px 0;
+}
+.radio-station {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  padding: 14px;
+}
+.radio-station span {
+  color: #d6ba7d;
+}
+.radio-station small {
+  font-size: 11px;
+  line-height: 1.6;
+}
+.radio-station[aria-pressed="true"] {
+  border-color: #a3ebcf;
+  background: #234039;
+}
+.radio-now {
+  color: #a3ebcf;
+  min-height: 30px;
+}
+.radio-volume {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 12px;
+  margin: 22px 0;
+}
+.radio-volume input {
+  flex: 1;
+  min-width: 50px;
+  accent-color: #a3ebcf;
+}
+.radio-volume output {
+  width: 42px;
+}
+/* The completed day is saved before this optional, skippable scene plays. */
+#garage-transition {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  width: min(1280px, 94vw);
+  max-width: 94vw;
+  max-height: 94vh;
+  overflow: auto;
+  box-shadow: none;
+  text-align: center;
+}
+#garage-transition::backdrop {
+  background: #060b12e8;
+}
+.transition-frame {
+  position: relative;
+  overflow: hidden;
+  border: 3px solid #69756b;
+  background: #101923;
+}
+.transition-content {
+  pointer-events: none;
+}
+.transition-content .scene-object,
+.transition-content .parking-label,
+.transition-content .scene-help,
+.transition-content .scene-coordinate {
+  visibility: hidden;
+}
+.transition-content .garage-radio {
+  visibility: visible;
+}
+.transition-content .garage-radio .object-label {
+  visibility: hidden;
+}
+.transition-shutter {
+  position: absolute;
+  z-index: 7;
+  top: 12%;
+  right: 0;
+  width: 17%;
+  height: 63%;
+  background: repeating-linear-gradient(
+    0deg,
+    #26333a 0 10px,
+    #17232b 10px 12px
+  );
+  border-bottom: 5px solid #70817c;
+  clip-path: inset(0 0 100% 0);
+  animation: shutter-cycle 1.9s ease-in-out forwards;
+}
+.transition-night {
+  position: absolute;
+  z-index: 8;
+  inset: 0;
+  background: #051022;
+  opacity: 0;
+  animation: garage-night 1.9s ease-in-out forwards;
+}
+.transition-dawn {
+  position: absolute;
+  z-index: 8;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 40%, #ffd58a66);
+  opacity: 0;
+  animation: garage-dawn 1.9s ease-out forwards;
+}
+.transition-caption {
+  position: absolute;
+  z-index: 9;
+  bottom: 7%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 22px;
+  background: #0b172bea;
+  border: 2px solid #9c9b7a;
+  color: #f0deac;
+  width: max-content;
+  max-width: 90%;
+  font-size: clamp(10px, 2vw, 22px);
+}
+.transition-caption small {
+  display: block;
+  margin-top: 10px;
+  color: #a2e8d0;
+  font-size: 11px;
+}
+#skip-transition {
+  margin: 12px auto;
+  font-size: 12px;
+}
+@keyframes shutter-cycle {
+  0% {
+    clip-path: inset(0 0 100% 0);
+  }
+  32%,
+  54% {
+    clip-path: inset(0);
+  }
+  90%,
+  100% {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+@keyframes garage-night {
+  0% {
+    opacity: 0;
+  }
+  42%,
+  52% {
+    opacity: 0.93;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes garage-dawn {
+  0%,
+  50% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@media (max-width: 700px) {
+  .radio-stations {
+    grid-template-columns: 1fr;
+  }
+  .radio-station {
+    gap: 6px;
+  }
+  .radio-console {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .garage-dust,
+  .street-glimmer {
+    display: none;
+  }
+  .radio-playing .radio-bars i {
+    animation: none;
+    height: 8px;
+  }
+}
+
+.game-footer {
+  flex-wrap: wrap;
+}
+.radio-console {
+  flex-shrink: 0;
+}
+.radio-news {
+  flex: 1 1 300px;
+}
