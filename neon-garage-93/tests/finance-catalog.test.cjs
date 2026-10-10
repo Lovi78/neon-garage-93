@@ -11,12 +11,14 @@ global.localStorage = {
 for (const name of [
   "cars",
   "catalog-v06",
+  "sprite-clips",
   "scene",
   "economy",
   "progression",
   "finance",
   "collection",
   "customers",
+  "day-report",
   "negotiation",
   "legacy-language",
   "state",
@@ -155,5 +157,32 @@ test("Progress bars clamp display values and expose accessible ranges", () => {
   assert(NG.repProgress(s).includes("15 / 30 REP"));
   s.reputation = 100;
   assert(NG.repProgress(s).includes("MAXIMUM TIER"));
+});
+test("Per-model silhouette clips replace percentage-based atlas cuts", () => {
+  assert.equal(Object.keys(NG.spriteClips).length, 60);
+  const audit = JSON.parse(
+    fs.readFileSync(
+      path.join(__dirname, "../assets/SPRITE-CLIP-AUDIT.json"),
+      "utf8",
+    ),
+  );
+  assert.equal(audit.length, 60);
+  assert(audit.every((row) => row.foreignBodyPixels === 0));
+  for (const m of NG.catalog) {
+    const clip = NG.spriteClips[m.id];
+    assert(clip.path.length > 0);
+    assert(fs.existsSync(path.join(__dirname, "../assets", clip.sheet)));
+    assert(clip.bounds.every((n) => Number.isFinite(n)));
+    const markup = NG.carArt({ model: m.id });
+    assert(markup.startsWith("<svg"));
+    assert(markup.includes("clip-path="));
+    assert(!markup.includes("--sprite-x"));
+    assert(markup.includes('viewBox="0 0 400 400"'));
+  }
+  assert.equal(NG.spriteClips.delta.sheet, "car-delta-isolated.png");
+  assert.equal(NG.spriteClips.saab.sheet, "car-saab-isolated.png");
+  const a = NG.carArt({ model: "eclipse" }),
+    b = NG.carArt({ model: "eclipse" });
+  assert.notEqual(a.match(/id="([^"]+)"/)[1], b.match(/id="([^"]+)"/)[1]);
 });
 console.log(count + " finance and catalog tests passed.");

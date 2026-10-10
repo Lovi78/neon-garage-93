@@ -1,4 +1,76 @@
 /* The garage is the navigation. Windows are tools opened from objects in the scene. */
+#day-report {
+  width: min(980px, 94vw);
+}
+.report-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 22px 0;
+}
+.report-metrics > div {
+  background: #253b31;
+  border: 1px solid #69846c;
+  padding: 16px;
+}
+.report-metrics span {
+  display: block;
+  font-size: 8px;
+  color: #b5c5aa;
+  margin-bottom: 10px;
+}
+.report-metrics strong {
+  display: block;
+  font-size: 24px;
+}
+.report-section {
+  padding: 17px;
+  border: 1px solid #638173;
+  background: #20352f;
+  margin-bottom: 22px;
+}
+.report-section h3 {
+  margin: 10px 0;
+}
+.report-section p,
+.report-columns p,
+.report-columns li {
+  font-size: 11px;
+  line-height: 1.8;
+}
+.report-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+.report-columns h3 {
+  font-size: 17px;
+  margin: 20px 0 12px;
+}
+.report-columns ul {
+  padding-left: 18px;
+}
+.report-columns li {
+  margin-bottom: 10px;
+}
+#day-report .actions {
+  flex-wrap: wrap;
+}
+.report-transactions { margin:15px 0 22px; padding:12px 15px; background:#1c2b2f; border:1px solid #536b60; font-size:11px; line-height:1.8; }
+.report-transactions summary { cursor:pointer; color:#d4d9b9; }
+.report-transactions ul { padding-left:17px; }
+@media (max-width: 650px) {
+  .report-metrics {
+    grid-template-columns: 1fr;
+  }
+  .report-columns {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .report-metrics strong {
+    font-size: 21px;
+  }
+}
 .customer-phone {
   left: 7%;
   top: 55%;
@@ -912,10 +984,8 @@ main.world-frame {
 }
 .pixel-car {
   display: block;
-  background-image: var(--sprite-sheet, url("assets/cars-pixel.png"));
-  background-size: 500% 200%;
-  background-position: var(--sprite-x) var(--sprite-y);
-  background-repeat: no-repeat;
+  background: none;
+  overflow: hidden;
   image-rendering: pixelated;
   aspect-ratio: 1;
   width: 100%;

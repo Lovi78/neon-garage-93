@@ -11,11 +11,13 @@ global.localStorage = {
 for (const name of [
   "cars",
   "catalog-v06",
+  "sprite-clips",
   "economy",
   "progression",
   "finance",
   "collection",
   "customers",
+  "day-report",
   "negotiation",
   "legacy-language",
   "state",

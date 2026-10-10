@@ -515,3 +515,6 @@ NG.extraSprites = {
     drop: 6.9,
   },
 };
+
+NG.extraSprites.delta = { sheet: "car-delta-isolated.png", frame: 0, drop: 0 };
+NG.extraSprites.saab = { sheet: "car-saab-isolated.png", frame: 0, drop: 0 };

@@ -1,0 +1,662 @@
+[
+  {
+    "model": "delta",
+    "sheet": "car-delta-isolated.png",
+    "bounds": [
+      40,
+      189,
+      1466,
+      757
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "saab",
+    "sheet": "car-saab-isolated.png",
+    "bounds": [
+      51,
+      231,
+      1444,
+      699
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "rx7",
+    "sheet": "cars-japan-pixel.png",
+    "bounds": [
+      16,
+      143,
+      379,
+      173
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "supra",
+    "sheet": "cars-japan-pixel.png",
+    "bounds": [
+      411,
+      139,
+      393,
+      176
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "240sx",
+    "sheet": "cars-japan-pixel.png",
+    "bounds": [
+      819,
+      143,
+      387,
+      173
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "ae86",
+    "sheet": "cars-japan-pixel.png",
+    "bounds": [
+      1221,
+      140,
+      377,
+      178
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "civic",
+    "sheet": "cars-japan-pixel.png",
+    "bounds": [
+      1607,
+      140,
+      363,
+      178
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "integra",
+    "sheet": "cars-japan-pixel.png",
+    "bounds": [
+      19,
+      508,
+      382,
+      166
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "celica",
+    "sheet": "cars-japan-pixel.png",
+    "bounds": [
+      419,
+      503,
+      370,
+      170
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "3000gt",
+    "sheet": "cars-japan-pixel.png",
+    "bounds": [
+      805,
+      503,
+      406,
+      170
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "280zx",
+    "sheet": "cars-japan-pixel.png",
+    "bounds": [
+      1223,
+      498,
+      380,
+      177
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "323gtx",
+    "sheet": "cars-japan-pixel.png",
+    "bounds": [
+      1610,
+      489,
+      355,
+      186
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "crx",
+    "sheet": "cars-pixel.png",
+    "bounds": [
+      18,
+      149,
+      373,
+      185
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "mr2",
+    "sheet": "cars-pixel.png",
+    "bounds": [
+      412,
+      158,
+      384,
+      176
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "mx5",
+    "sheet": "cars-pixel.png",
+    "bounds": [
+      816,
+      168,
+      358,
+      166
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "e30",
+    "sheet": "cars-pixel.png",
+    "bounds": [
+      1196,
+      147,
+      391,
+      187
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "golf",
+    "sheet": "cars-pixel.png",
+    "bounds": [
+      1599,
+      145,
+      369,
+      187
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "300zx",
+    "sheet": "cars-pixel.png",
+    "bounds": [
+      17,
+      499,
+      372,
+      167
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "legacy",
+    "sheet": "cars-pixel.png",
+    "bounds": [
+      405,
+      481,
+      382,
+      187
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "mustang",
+    "sheet": "cars-pixel.png",
+    "bounds": [
+      800,
+      485,
+      379,
+      184
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "camaro",
+    "sheet": "cars-pixel.png",
+    "bounds": [
+      1194,
+      492,
+      384,
+      177
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "volvo",
+    "sheet": "cars-pixel.png",
+    "bounds": [
+      1595,
+      483,
+      377,
+      183
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "thunderbird",
+    "sheet": "cars-v06-america.png",
+    "bounds": [
+      13,
+      196,
+      415,
+      168
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "escort",
+    "sheet": "cars-v06-america.png",
+    "bounds": [
+      428,
+      196,
+      348,
+      168
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "s10",
+    "sheet": "cars-v06-america.png",
+    "bounds": [
+      783,
+      195,
+      397,
+      173
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "caprice",
+    "sheet": "cars-v06-america.png",
+    "bounds": [
+      1184,
+      197,
+      409,
+      167
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "chevelle",
+    "sheet": "cars-v06-america.png",
+    "bounds": [
+      1599,
+      199,
+      379,
+      165
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "charger",
+    "sheet": "cars-v06-america.png",
+    "bounds": [
+      8,
+      531,
+      426,
+      167
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "daytona",
+    "sheet": "cars-v06-america.png",
+    "bounds": [
+      426,
+      531,
+      366,
+      164
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "barracuda",
+    "sheet": "cars-v06-america.png",
+    "bounds": [
+      795,
+      530,
+      417,
+      168
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "fiero",
+    "sheet": "cars-v06-america.png",
+    "bounds": [
+      1203,
+      539,
+      372,
+      160
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "cutlass",
+    "sheet": "cars-v06-america.png",
+    "bounds": [
+      1584,
+      531,
+      395,
+      172
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "m5",
+    "sheet": "cars-v06-europe.png",
+    "bounds": [
+      6,
+      129,
+      428,
+      234
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "2002",
+    "sheet": "cars-v06-europe.png",
+    "bounds": [
+      435,
+      132,
+      374,
+      224
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "mgb",
+    "sheet": "cars-v06-europe.png",
+    "bounds": [
+      815,
+      164,
+      383,
+      195
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "spider",
+    "sheet": "cars-v06-europe.png",
+    "bounds": [
+      1200,
+      155,
+      393,
+      203
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "328",
+    "sheet": "cars-v06-europe.png",
+    "bounds": [
+      1581,
+      153,
+      398,
+      202
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "countach",
+    "sheet": "cars-v06-europe.png",
+    "bounds": [
+      16,
+      469,
+      408,
+      217
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "renault5",
+    "sheet": "cars-v06-europe.png",
+    "bounds": [
+      1226,
+      451,
+      356,
+      236
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "xjs",
+    "sheet": "cars-v06-europe.png",
+    "bounds": [
+      1580,
+      473,
+      400,
+      209
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "skyline",
+    "sheet": "cars-v06-japan.png",
+    "bounds": [
+      10,
+      162,
+      399,
+      188
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "silvia",
+    "sheet": "cars-v06-japan.png",
+    "bounds": [
+      418,
+      168,
+      390,
+      180
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "pulsar",
+    "sheet": "cars-v06-japan.png",
+    "bounds": [
+      810,
+      152,
+      374,
+      204
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "240z",
+    "sheet": "cars-v06-japan.png",
+    "bounds": [
+      1201,
+      173,
+      389,
+      183
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "prelude",
+    "sheet": "cars-v06-japan.png",
+    "bounds": [
+      1590,
+      163,
+      388,
+      190
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "accord",
+    "sheet": "cars-v06-japan.png",
+    "bounds": [
+      12,
+      475,
+      408,
+      200
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "cressida",
+    "sheet": "cars-v06-japan.png",
+    "bounds": [
+      419,
+      474,
+      416,
+      201
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "starion",
+    "sheet": "cars-v06-japan.png",
+    "bounds": [
+      828,
+      485,
+      401,
+      194
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "eclipse",
+    "sheet": "cars-v06-japan.png",
+    "bounds": [
+      1230,
+      491,
+      385,
+      187
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "swift",
+    "sheet": "cars-v06-japan.png",
+    "bounds": [
+      1619,
+      471,
+      352,
+      205
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "944",
+    "sheet": "cars-west-pixel.png",
+    "bounds": [
+      15,
+      166,
+      393,
+      176
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "911",
+    "sheet": "cars-west-pixel.png",
+    "bounds": [
+      420,
+      155,
+      378,
+      185
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "190e",
+    "sheet": "cars-west-pixel.png",
+    "bounds": [
+      800,
+      155,
+      399,
+      186
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "quattro",
+    "sheet": "cars-west-pixel.png",
+    "bounds": [
+      1199,
+      163,
+      389,
+      178
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "205gti",
+    "sheet": "cars-west-pixel.png",
+    "bounds": [
+      1603,
+      154,
+      362,
+      185
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "corvette",
+    "sheet": "cars-west-pixel.png",
+    "bounds": [
+      12,
+      515,
+      400,
+      167
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "firebird",
+    "sheet": "cars-west-pixel.png",
+    "bounds": [
+      410,
+      511,
+      400,
+      168
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "grandnational",
+    "sheet": "cars-west-pixel.png",
+    "bounds": [
+      806,
+      495,
+      406,
+      189
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "stealth",
+    "sheet": "cars-west-pixel.png",
+    "bounds": [
+      1210,
+      508,
+      380,
+      178
+    ],
+    "foreignBodyPixels": 0
+  },
+  {
+    "model": "cherokee",
+    "sheet": "cars-west-pixel.png",
+    "bounds": [
+      1594,
+      465,
+      381,
+      225
+    ],
+    "foreignBodyPixels": 0
+  }
+]

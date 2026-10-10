@@ -232,6 +232,7 @@ NG.sell = (s, id, offerId) => {
   return profit;
 };
 NG.nextDay = (s, rng = Math.random) => {
+  const before=NG.dayReportBefore(s);
   s.day++;
   NG.processClaims(s);
   NG.advertisingDay(s);
@@ -311,4 +312,5 @@ NG.nextDay = (s, rng = Math.random) => {
   });
   s.history.unshift({ day: s.day, ...s.event });
   s.history = s.history.slice(0, 30);
+  return NG.finishDayReport(s,before);
 };

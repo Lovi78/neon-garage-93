@@ -1,4 +1,4 @@
-# Neon Garage '93 - v0.7 / Customer Care
+# Neon Garage '93 - v0.7.1 / Daily Report
 
 Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, fiktív kaliforniai város, 1993. június 1., $5,000 kezdőtőke, két férőhely.
 
@@ -108,6 +108,25 @@ A vevői mappában reputációs napló is van, minden új változás okával. Ko
 
 Ez egyszerű, játékbeli customer-care rendszer. Az állapotot a hirdetés tényleges leírása rögzíti; a leírás változtatásához előbb le kell venni és újra fel kell adni a hirdetést, ami törli az ajánlatokat.
 
+## Napzáró felugró összefoglaló
+
+Minden **Next Day** vagy falióra-kattintás után megnyílik a napi összefoglaló. A lezárt nap és a következő reggel külön szakasz:
+
+- Záró készpénz, napi készpénzmozgás, realizált autóüzleti eredmény, szint, kapott XP és záró reputáció.
+- Lenyitható tételes pénzmozgások a lezárt napról.
+- Új piaci hír, keresleti állapot, friss hirdetések és lejárt ajánlatok.
+- Elkészült javítások és új vevői ajánlatok, konkrét autóval és összeggel.
+- Új és válasz nélkül lezárt reklamációk, összeggel és határidővel.
+- Éjszakai reklámköltség és reputációváltozás.
+
+A **Continue to garage** bezárja az ablakot. A **View offers** vagy **Customer care** közvetlenül a megfelelő mappát nyitja meg. Amíg az összefoglaló nyitva van, a következő nap nem indítható újra. A legutóbbi összefoglaló a **DAY REPORT** gombbal újranyitható; ez nem lépteti az időt és nem von le újabb költséget. Ha olvasás előtt bezárod a böngészőt, a mentett összefoglaló újranyitáskor megjelenik.
+
+A napi autóüzleti eredmény az aznap lezárt autók eladási ára mínusz bekerülése, levonva az aznap kifizetett vevői hozzájárulásokat. A készpénzmozgás az aznapi beszerzést, javítást és üzleti kiadást is tartalmazza. A következő reggel reklámdíja külön jelenik meg.
+
+## Autóképek kivágása
+
+Mind a 60 modell saját SVG-körvonalmaszkot kapott. A megjelenítés a tényleges járműből dolgozik, az atlasz feltételezett oszlophatárai helyett. A kivágás a garázsban, a piacon, az albumon és az adatlapokon közös. Az eredeti sprite-fájlok megmaradtak; a fizikailag összeérő Delta és Saab külön forrásképet kapott. A megoldás és a generáló promptok a [SPRITE-FIX-V071.md](assets/SPRITE-FIX-V071.md) dokumentumban vannak.
+
 ## Működő rendszerek
 
 - XP, szintlépés, Negotiation skill, One More Shot perk és három vállalkozásfejlesztés.
@@ -127,6 +146,9 @@ Ez egyszerű, játékbeli customer-care rendszer. Az állapotot a hirdetés tén
 ## Felépítés
 
 - `js/catalog-v06.js`: a második harminc modell és a hozzájuk tartozó sprite-manifest.
+- `js/day-report.js`: lezárt nap és következő reggel összesítése, menthető összefoglaló.
+- `js/sprite-clips.js`: generált, modellenkénti körvonalas kivágások.
+- `scripts/build-sprite-clips.py`: a kivágási adatok újraépítése fejlesztéskor.
 - `js/customers.js`: hirdetési leírások, vevőkapcsolatok, lojalitási ajánlatok, reklamációk és reputációs napló.
 - `js/collection.js`: vásárlási, javítási és eladási gyűjtési állapot, korábbi mentések bizonyított adatainak átvétele.
 - `js/cars.js`: modelladatok, alkatrészek, hibák, autóillusztrációk.
@@ -145,16 +167,16 @@ A játék keretrendszer, külső betűkészlet és csomagtelepítés nélkül fu
 
 ## Ellenőrzés
 
-A gazdasági tesztek futtatása, ha van Node.js: `npm test` (16 eredeti gazdasági + 8 fejlődési + 7 pénzügyi/katalógus + 8 album + 9 vevői teszt).
+A gazdasági tesztek futtatása, ha van Node.js: `npm test` (16 eredeti gazdasági + 8 fejlődési + 8 pénzügyi/katalógus + 8 album + 9 vevői + 5 napi összefoglaló-teszt).
 
 Ellenőrzött: indulás és elérhető belépőmodellek 500 új kínálatban, kapacitás és készpénzkorlát, dupla műveletek tiltása, vizsgálati díj, rejtett hiba, javítás ideje és ára, napi kereslet, ajánlatok érvényessége, profitképlet és mentési adatok visszatöltése. További 1000 szimulált üzlet ellenőrzi a pénzmozgások egyezőségét és a nyereség/veszteség lehetőségét.
 
 A pixel garázs felületi működéstesztje ellenőrizte a számítógépről megnyíló piacot, az érkező autó animációs állapotát és a garázsból megnyíló autóadatlapot. Emellett végigment a piac, adatlap, vizsgálat, vétel, javítás, napváltás, hirdetés, ajánlat, eladás és pénzügyek útvonalán. Külön ellenőrizte az új oldalpéldányba történő mentés-visszatöltést, az újrakezdés megszakítását és az új játékot. Ez DOM-alapú szerkezet- és interakcióteszt, nem valódi böngészős képi ellenőrzés. Fejlesztőknek: `npm install`, majd `npm run test:ui`. A játék futtatásához ezek nem szükségesek.
 
-Az alku külön tesztjei ellenőrizték az elfogadást, ellenajánlatot, végső árat, visszalépést, hibás összegeket, körkorlátot, mentés-visszatöltést és a kialkudott árhoz tartozó profitot. A teljes felületi útvonalon vételi és eladási alku, XP és szintlépés, skillpontköltés, perkfeloldás, mindhárom vállalkozásfejlesztés és reklámaktiválás is szerepel. A teszt ellenőrzi a fejlesztések jeleneten megjelenő elemeit, a napi díjat, a mentést és az új játékot is. A második felületi tesztútvonal a hibamentes hirdetéstől az eladáson át a késleltetett reklamációig és a hozzájárulás rendezéséig is végigment, pénzügyi visszaellenőrzéssel. Ezek működéstesztek, nem valódi böngészős vizuális ellenőrzések.
+Az alku külön tesztjei ellenőrizték az elfogadást, ellenajánlatot, végső árat, visszalépést, hibás összegeket, körkorlátot, mentés-visszatöltést és a kialkudott árhoz tartozó profitot. A teljes felületi útvonalon vételi és eladási alku, XP és szintlépés, skillpontköltés, perkfeloldás, mindhárom vállalkozásfejlesztés és reklámaktiválás is szerepel. A teszt ellenőrzi a fejlesztések jeleneten megjelenő elemeit, a napi díjat, a mentést és az új játékot is. A második felületi tesztútvonal a hibamentes hirdetéstől az eladáson át a késleltetett reklamációig és a hozzájárulás rendezéséig is végigment, pénzügyi visszaellenőrzéssel. A harmadik útvonal a napi modal megnyitását, a dupla naplépés tiltását, az olvasatlan összefoglaló visszatöltését, nyugtázását és újranyitását is ellenőrzi. A sprite-kimeneteket külön renderelővel is megnéztük. A teljes böngészős elrendezés ellenőrzése továbbra is külön nyitott tétel.
 
 ## Korlátok és következő lépések
 
-A v0.7-ben nincs garázsbővítés, személyzet vagy több telephely. Nincs automatikus csődvége: ha kifogysz a pénzből, eladhatod a készleted vagy újrakezdhetsz. A mentés a böngészőhöz kötődik. A beépített böngésző helyi fájlokat tiltó szabálya miatt valódi böngészőben a vizuális elrendezés nem volt ellenőrizhető ebben a fejlesztési körben.
+A v0.7.1-ben nincs garázsbővítés, személyzet vagy több telephely. Nincs automatikus csődvége: ha kifogysz a pénzből, eladhatod a készleted vagy újrakezdhetsz. A mentés a böngészőhöz kötődik. A beépített böngésző helyi fájlokat tiltó szabálya miatt valódi böngészőben a vizuális elrendezés nem volt ellenőrizhető ebben a fejlesztési körben.
 
 Az első fejlődési kör elkészült. A kínálat 60 modellre bővült, és a gyűjtőalbum elkészült. A tycoon mélyítés első köre elkészült: visszatérő vevők, hibafeltüntetés és egyszerű reklamáció. A következő javasolt kör a helyi események gazdagítása és az ellenőrzött történelmi hírek alapja. A további autóbővítés a roadmap szerint folytatható. A további skillágak, perkek és vállalkozásfejlesztések a roadmapben maradnak. A több beálló későbbi lehetőség. A nagy autóállomány, a helyi események és a történelmi hírek részletes sorrendjét a [roadmap](ROADMAP.md) tartalmazza.

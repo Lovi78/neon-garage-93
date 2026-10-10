@@ -20,12 +20,14 @@ w.HTMLDialogElement.prototype.close = function () {
 for (const name of [
   "cars",
   "catalog-v06",
+  "sprite-clips",
   "scene",
   "economy",
   "progression",
   "finance",
   "collection",
   "customers",
+  "day-report",
   "negotiation",
   "legacy-language",
   "state",
@@ -45,6 +47,14 @@ const click = (selector) => {
   assert(b, "Hiányzó elem: " + selector);
   assert(!b.disabled, "Tiltott elem: " + selector);
   b.click();
+  if (b.dataset.action === "next") {
+    assert(
+      d.querySelector("#day-report").open,
+      "Day change must open a report",
+    );
+    assert.match(d.querySelector("#day-report").textContent, /NEXT MORNING/);
+    d.querySelector('#day-report [data-action="close-day-report"]').click();
+  }
   assert.doesNotMatch(
     d.body.textContent,
     /[áéíóöőúüűÁÉÍÓÖŐÚÜŰ]/,
@@ -125,7 +135,7 @@ click('[data-action="list"]');
 assert(saved().inventory[0].listed);
 click('[data-action="close"]');
 click('[data-action="next"]');
-click(".car-card");
+click(".parked-car");
 assert.equal(d.querySelectorAll(".offer").length, 1);
 const originalOffer = saved().inventory[0].offers[0].price;
 click('[data-action="haggle-sell"]');
@@ -178,12 +188,14 @@ w.localStorage.setItem("neon-garage-93-v1", JSON.stringify(snap));
 for (const name of [
   "cars",
   "catalog-v06",
+  "sprite-clips",
   "scene",
   "economy",
   "progression",
   "finance",
   "collection",
   "customers",
+  "day-report",
   "negotiation",
   "legacy-language",
   "state",
@@ -240,12 +252,14 @@ w.localStorage.setItem("neon-garage-93-v1", JSON.stringify(complaintFixture));
 for (const name of [
   "cars",
   "catalog-v06",
+  "sprite-clips",
   "scene",
   "economy",
   "progression",
   "finance",
   "collection",
   "customers",
+  "day-report",
   "negotiation",
   "legacy-language",
   "state",
@@ -281,6 +295,64 @@ assert(!d.querySelector(".case-banner"));
 assert.equal(saved().customers[0].trust, 1);
 console.log(
   "PASS UI listing description, customer contact, delayed complaint, notification, contribution and financial readback.",
+);
+
+// Reports require acknowledgement, survive reload unread, and never advance twice.
+const dayBefore = saved().day;
+d.querySelector('[data-action="next"]').click();
+assert.equal(saved().day, dayBefore + 1);
+assert(d.querySelector("#day-report").open);
+assert.equal(saved().dayReport.read, false);
+d.querySelector('[data-action="next"]').click();
+assert.equal(saved().day, dayBefore + 1);
+const pendingReportSave = saved();
+w.close();
+dom = new JSDOM(fs.readFileSync(path.join(root, "index.html"), "utf8"), {
+  url: "https://neon-garage.test/",
+  runScripts: "outside-only",
+});
+w = dom.window;
+d = w.document;
+w.scrollTo = () => {};
+w.HTMLDialogElement.prototype.showModal = function () {
+  this.open = true;
+};
+w.HTMLDialogElement.prototype.close = function () {
+  this.open = false;
+};
+w.localStorage.setItem("neon-garage-93-v1", JSON.stringify(pendingReportSave));
+for (const name of [
+  "cars",
+  "catalog-v06",
+  "sprite-clips",
+  "scene",
+  "economy",
+  "progression",
+  "finance",
+  "collection",
+  "customers",
+  "day-report",
+  "negotiation",
+  "legacy-language",
+  "state",
+  "ui",
+])
+  w.eval(fs.readFileSync(path.join(root, "js/" + name + ".js"), "utf8"));
+assert(d.querySelector("#day-report").open);
+assert.match(d.querySelector("#day-report").textContent, /DAY’S CASH FLOW/);
+click('#day-report [data-action="close-day-report"]');
+assert(saved().dayReport.read);
+assert.equal(saved().day, dayBefore + 1);
+const cashAfterRead = saved().cash;
+click('[data-action="show-day-report"]');
+assert(d.querySelector("#day-report").open);
+click('#day-report [data-action="report-go"][data-view="inventory"]');
+assert(!d.querySelector("#day-report").open);
+assert(d.querySelector(".desk-window"));
+assert.equal(saved().cash, cashAfterRead);
+assert.equal(saved().day, dayBefore + 1);
+console.log(
+  "PASS UI daily modal, advance guard, unread reload, acknowledgement, reopen and view offers.",
 );
 
 w.close();

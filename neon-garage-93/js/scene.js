@@ -83,8 +83,13 @@ for (const [id, sprite] of Object.entries(NG.extraSprites || {})) {
   NG.spriteDrop[id] = sprite.drop;
 }
 NG.carArt = (car, large = false) => {
-  const frame = NG.spriteFrames[car.model];
-  return `<span class="car-art pixel-car ${large ? "large" : ""}" role="img" aria-label="${NG.model(car).name} pixel art" style="--sprite-sheet:url('assets/${NG.spriteSheets[car.model]}');--sprite-x:${(frame % 5) * 25}%;--sprite-y:${Math.floor(frame / 5) * 100}%;--sprite-drop:${NG.spriteDrop[car.model] ?? (frame >= 5 ? 16 : 0)}%"></span>`;
+  const clip = NG.spriteClips[car.model],
+    [x, y, w, h] = clip.bounds;
+  const scale = Math.min(380 / w, 215 / h),
+    tx = (400 - w * scale) / 2 - x * scale,
+    ty = 334 - (y + h) * scale;
+  const id = "vehicle-clip-" + (NG.spriteSerial = (NG.spriteSerial || 0) + 1);
+  return `<svg class="car-art pixel-car ${large ? "large" : ""}" viewBox="0 0 400 400" role="img" aria-label="${NG.model(car).name} pixel art" style="--sprite-drop:0%" data-model="${car.model}"><defs><clipPath id="${id}" clipPathUnits="userSpaceOnUse"><path d="${clip.path}"/></clipPath></defs><g transform="translate(${tx} ${ty}) scale(${scale})"><g clip-path="url(#${id})"><image href="assets/${clip.sheet}" width="${clip.size[0]}" height="${clip.size[1]}" style="image-rendering:pixelated"/></g></g></svg>`;
 };
 NG.garageScene = (state, arrival = null) => {
   const offers = state.inventory.reduce((n, c) => n + c.offers.length, 0);

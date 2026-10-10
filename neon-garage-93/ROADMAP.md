@@ -1,7 +1,7 @@
 # Neon Garage '93 - fejlesztési roadmap
 
 Rögzítve: 2026. október 9.
-Jelenlegi játékverzió: v0.7 / Customer Care.
+Jelenlegi játékverzió: v0.7.1 / Daily Report.
 
 Ez a dokumentum őrzi a megbeszélt termékirányt, funkciókat, fejlesztési sorrendet és nyitott döntéseket. A játék felülete angol; a fejlesztési egyeztetés és a dokumentáció magyar.
 
@@ -125,6 +125,20 @@ Rögzítve: 2026. október 10.
 - [ ] Valódi böngészős vizuális ellenőrzés továbbra is nyitott.
 
 A részletes értékek és határidők a README-ben szerepelnek. A 60 modelles állomány ebben a körben nem változott. Ajánlások, gyűjtői megkeresések, beszámítás és összetett vevői személyiségek továbbra is későbbi lehetőségek. A következő javasolt szakasz a helyi események és a történelmi hírek alapja a korábbi terv szerint.
+
+## v0.7.1 - sprite-kivágás és napzáró ablak
+
+Rögzítve: 2026. október 10., felhasználói képernyőkép és visszajelzés alapján.
+
+- [x] A hibás százalékos atlaszkivágás helyett mind a 60 modell saját körvonalmaszkot kapott.
+- [x] A fizikailag összeérő Delta és Saab külön sprite; az Eclipse és a két problémás európai autó aktuális SVG-renderelése külön vizuálisan ellenőrizve.
+- [x] Egységes megjelenítő a garázshoz, piachoz, albumhoz és adatlaphoz; teljes autó és közös talajvonal.
+- [x] Minden napváltáskor felugró napzáró/új reggeli összefoglaló, pénzmozgásokkal, eredménnyel, XP-vel, hírekkel, javításokkal, ajánlatokkal és reklamációkkal.
+- [x] Nyitott összefoglaló mellett nincs dupla naplépés; legutóbbi jelentés újranyitható, olvasatlan jelentés újratöltéskor visszajön.
+- [x] 54 automatizált teszt és három felületi működési útvonal.
+- [ ] A teljes garázs és modal böngészős vizuális ellenőrzése külön nyitott tétel; a sprite-kimenetek ellenőrzése ezt nem helyettesíti.
+
+A fejlesztési segéd és a kivágási jegyzék is a projektben van, hogy a későbbi autóbővítésnél az oszlopeltolódás ellenőrizhető legyen. A katalógus változatlanul 60 modelles, a mentési kulcs és a meglévő játékállás megmarad.
 
 ## 3. Reputáció - érezhető bizalom és új lehetőségek
 
