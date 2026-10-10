@@ -2059,3 +2059,54 @@ dialog h3 {
     animation: none;
   }
 }
+
+/* Permanent pixel corner marks identify interactive painted objects. */
+.garage-world .scene-object::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  pointer-events: none;
+  color: #bce6cb;
+  opacity: 0.6;
+  background:
+    linear-gradient(currentColor, currentColor) left top / 8px 2px,
+    linear-gradient(currentColor, currentColor) left top / 2px 8px,
+    linear-gradient(currentColor, currentColor) right top / 8px 2px,
+    linear-gradient(currentColor, currentColor) right top / 2px 8px,
+    linear-gradient(currentColor, currentColor) left bottom / 8px 2px,
+    linear-gradient(currentColor, currentColor) left bottom / 2px 8px,
+    linear-gradient(currentColor, currentColor) right bottom / 8px 2px,
+    linear-gradient(currentColor, currentColor) right bottom / 2px 8px;
+  background-repeat: no-repeat;
+  transition:
+    opacity 0.16s ease,
+    color 0.16s ease;
+}
+.garage-world .scene-object:hover::before,
+.garage-world .scene-object:focus-visible::before {
+  opacity: 1;
+  color: #ffe2a0;
+  filter: drop-shadow(0 0 3px #ffd67a70);
+}
+.garage-world .parked-car .car-art {
+  filter: drop-shadow(1px 0 0 #bce6cb70) drop-shadow(-1px 0 0 #bce6cb70)
+    drop-shadow(0 -1px 0 #bce6cb70) drop-shadow(0 5px 1px #0007);
+}
+.garage-world .parked-car:hover .car-art,
+.garage-world .parked-car:focus-visible .car-art {
+  filter: drop-shadow(1px 0 0 #ffe2a0) drop-shadow(-1px 0 0 #ffe2a0)
+    drop-shadow(0 -1px 0 #ffe2a0) drop-shadow(0 0 4px #ffd67a50)
+    drop-shadow(0 5px 1px #0007);
+}
+.transition-content .scene-object::before,
+.transition-content .scene-object::after {
+  display: none;
+}
+.transition-content .parked-car .car-art {
+  filter: drop-shadow(0 5px 1px #0007);
+}
+@media (max-width: 600px) {
+  .garage-world .scene-object::before {
+    inset: -2px;
+  }
+}

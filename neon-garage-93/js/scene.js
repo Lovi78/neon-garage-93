@@ -117,6 +117,6 @@ NG.garageScene = (state, arrival = null) => {
         : `<div class="empty-bay bay-${i}" aria-label="Empty garage space ${i + 1}"><span>BAY 0${i + 1}<small>WAITING FOR YOUR NEXT FIND</small></span></div>`;
     }).join("")}
     <span class="scene-coordinate">SILVER PALMS, CA · 1993</span>
-    <div class="scene-help">CLICK AN OBJECT TO GET STARTED <span>COMPUTER · WORKBENCH · LEDGER</span></div>
+    <div class="scene-help">HIGHLIGHTED OBJECTS ARE CLICKABLE <span>START AT THE COMPUTER · HOVER TO SEE WHAT EACH OBJECT DOES</span></div>
   </div>`;
 };

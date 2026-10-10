@@ -1,7 +1,7 @@
 # Neon Garage '93 - fejlesztési roadmap
 
 Rögzítve: 2026. október 9.
-Jelenlegi játékverzió: v0.9.1 / Integrated Garage.
+Jelenlegi játékverzió: v0.9.2 / Garage Hotspots.
 
 Ez a dokumentum őrzi a megbeszélt termékirányt, funkciókat, fejlesztési sorrendet és nyitott döntéseket. A játék felülete angol; a fejlesztési egyeztetés és a dokumentáció magyar.
 
@@ -200,6 +200,14 @@ További hangulatbővítésként nyitott: több saját zenei loop, rövid bemond
 - [x] A vállalkozásfejlesztések az eredeti szerszámokhoz, alkatrészekhez és poszterhez kötődnek; nincs külön rárajzolt upgrade-ikon.
 - [x] Az új kép megtekintése és a hat felületi működési tesztútvonal sikeres; mentési és gazdasági szabályok változatlanok.
 - [ ] Tényleges böngészős elrendezés-ellenőrzés továbbra is nyitott.
+
+## v0.9.2 - a kattintható tárgyak felismerhetősége
+
+- [x] Állandó mentazöld pixel sarokjelölés minden kattintható garázstárgynál, arany kiemelés rámutatáskor és billentyűzetes kijelöléskor.
+- [x] Finom sziluettkiemelés a saját autókon; üres beálló nem kap kattinthatóságot sugalló jelölést.
+- [x] Angol súgó: a kiemelt tárgyak kattinthatók, első lépés a számítógép.
+- [x] A jelölések kimaradnak a napzárási jelenetből. A működés és mentés változatlan.
+- [ ] Első felhasználós kipróbálás és tényleges böngészős vizuális ellenőrzés.
 
 ## 3. Reputáció - érezhető bizalom és új lehetőségek
 
