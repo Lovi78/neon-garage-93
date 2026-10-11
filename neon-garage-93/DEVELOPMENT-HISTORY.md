@@ -6,6 +6,16 @@ Ez történeti dokumentum. Az alábbi verzióleírások, eredeti javaslatok, st�
 
 A mai működés: [README](README.md). Aktuális prioritások és nyitott tervek: [ROADMAP](ROADMAP.md).
 
+## v0.12 - The Art of the Deal / 2026. október 11.
+
+A napi teljes piac- és vevőcsere helyett tartós hirdetés, eladói motiváció, információgyűjtés és többnapos, mentett tárgyalás készült. Az átvizsgálás részleges, a vevői kérdés nem automatikusan megvehető ajánlat. A készlettartás közvetlen autóköltség, az átírás $50; rezsi és kamat külön marad. Az eredeti mentési formátum bővítéssel kompatibilis; a régi folyó alku saját szabályait megtartja.
+
+A meglévő garázs, rádió, katalógus, javítás, reputáció, XP, megbízások, vállalkozások és hitelek megmaradtak. A teljes játék betöltési sorrendjéből futó új 15 integrált teszt, meglévő és új UI-tesztek, 25 reprodukálható 200 napos szimuláció készült. A vevői kérdés megválaszolása hozzáadódott a korábbi UI-játékmenet tesztjéhez. A régi modulok önálló alaptesztjei továbbra is kompatibilitási regressziót ellenőriznek.
+
+A szimuláció első változatában a kevésbé óvatos kereskedés erősen veszteséges volt. A buyer opening offer átvizsgált autónál a mentett fizetési keret 96%-ára, egyébként 94%-ára került: a vizsgálat vevői bizalmi értéket is kapott. Ez mérésből következő hangolás, nem garantált nyereség. A végső eredmények és korlátaik a [v0.12 dokumentációban](TRADING-V012.md) vannak.
+
+A fejlesztés külön branchen készült; nincs automatikus main merge vagy közzététel. A feltételes vizsgálati szerződés, teljes könyvelés/adózás és komplex banki/beszámítási folyamat későbbre maradt.
+
 ## A kivezetett v0.10-es helyi meghívások szabályai
 
 A v0.11 óta új ilyen meghívás nem keletkezik. A régi mentésben meglévő meghívások és fizetett hatások az eredeti feltételekkel kifutnak. Korábban jogosult reggelen 35% volt az új esemény esélye, legalább három napos közökkel. A vevői autómegbízások külön rendszerként megmaradtak.

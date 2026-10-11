@@ -298,7 +298,11 @@ NG.nextDay = (s, rng = Math.random) => {
         s.event.text +
         " Buyers in a hurry are more likely to make offers today.",
     };
-  } else if (r >= 0.52 && r < 0.65) {
+  } else if (
+    r >= 0.52 &&
+    r < 0.65 &&
+    (!NG.advanceListings || s.market.length < 14)
+  ) {
     s.event = {
       kind: "rare",
       title: "A rare listing during a market swing",
@@ -307,8 +311,9 @@ NG.nextDay = (s, rng = Math.random) => {
         " A Nissan 300ZX appears at a 20% asking-price discount.",
     };
   }
-  s.market = NG.market(s, rng);
-  if (s.event.kind === "rare") {
+  if (NG.advanceListings) NG.advanceListings(s, rng);
+  else s.market = NG.market(s, rng);
+  if (!NG.advanceListings && s.event.kind === "rare") {
     s.market[8] = NG.generateCar(s, 5, rng);
     s.market[8].ask = Math.round(s.market[8].ask * 0.8);
   }
@@ -316,6 +321,10 @@ NG.nextDay = (s, rng = Math.random) => {
     if (c.pendingCollectionRepair && !NG.busy(s, c)) {
       NG.trackCollection(s, c, "repaired");
       c.pendingCollectionRepair = false;
+    }
+    if (NG.advanceBuyers) {
+      NG.advanceBuyers(s, c, rng);
+      return;
     }
     c.offers = [];
     c.buyerMessage = null;

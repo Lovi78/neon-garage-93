@@ -1,0 +1,155 @@
+
+> neon-garage-93@0.12.0 test
+> node tests/economy.test.cjs && node tests/progression.test.cjs && node tests/finance-catalog.test.cjs && node tests/collection.test.cjs && node tests/customers.test.cjs && node tests/day-report.test.cjs && node tests/strategy.test.cjs && node tests/ambience.test.cjs && node tests/opportunities.test.cjs && node tests/enterprise.test.cjs && node tests/trading.test.cjs
+
+PASS Kezdőtőke, kapacitás, dátum és korhű kínálat
+PASS Vizsgálat egyszer fizethető, vásárlás és kapacitás
+PASS Nincs hitel, nincs ingyenes javítás vagy ismételt eladás
+PASS Rejtett hiba feltárásakor nem történik váratlan levonás
+PASS Hirdetés, ajánlat, elutasítás és érvényesség
+PASS Profit = bevétel - vétel - vizsgálat - javítás
+PASS Piaci hullám több napig él, és valóban módosítja az értéket
+PASS Mentés és újratöltés adatvesztés nélkül
+Üzletek: 336 nyereséges, 662 veszteséges.
+PASS 1000 üzlet: pénzmegmaradás, nyereség és veszteség
+PASS A korábbi magyar mentés angolra vált, a játékállás megmarad
+PASS Vételi alku: elfogadás, pontos ár és profit
+PASS Vételi alku: ellenajánlat és három kör után végső ár
+PASS Az eladó visszaléphet, hibás ajánlat nem használ el kört
+PASS Eladási alku: elfogadott ellenajánlat nem automatikus eladás
+PASS Eladási alku: végső ár, vevő távozása és érvénytelen ajánlat
+PASS Alku mentése: újranyitás nem sorsol új korlátokat
+16 teszt sikeres.
+PASS XP only on closed negotiated deals; no duplicates after reload
+PASS Straight trades, rejected offers and dealer sales grant no XP
+PASS Level thresholds, points, skill caps and perk prerequisite
+PASS Skills improve new limits; One More Shot gives an actual fourth round
+PASS Business purchases, discounted quotes and actual repair cash agree
+PASS Marketing fees and pauses remain separate from operating bills
+PASS Reputation and marketing change real buyer arrival chances
+PASS Legacy v0.3 saves retain money, cars and ongoing negotiations
+8 progression tests passed.
+PASS 60 distinct models, valid years, complete sprite coverage and assets
+PASS Daily markets can produce all 60 while retaining affordable entry cars
+PASS Different new models have different service costs and upgrades still apply
+PASS One daily snapshot updates accurately after purchase, sale and overhead
+PASS Old saves start today; earlier dates and values are not fabricated
+PASS Chart handles losses, zero value, one point and long histories
+PASS Progress bars clamp display values and expose accessible ranges
+PASS Per-model silhouette clips replace percentage-based atlas cuts
+8 finance and catalog tests passed.
+PASS Empty album contains 60 targets without granting progress
+PASS Purchase, finished repairs and sale stamp each vehicle once
+PASS Hidden-fault discovery does not claim a completed repair
+PASS Two vehicles of the same model increase counts, not distinct-model goals
+PASS Failed purchase and repair leave album progress unchanged
+PASS Old saves recover proven purchases and sales without inventing repairs
+PASS Old in-progress repairs are stamped only after their finish day
+PASS Collectible tiers are stable game categories and collection has no cash reward
+8 collection tests passed.
+PASS Listing modes validate inspection and change real offer valuation
+PASS Honest sale with disclosed defects builds trust without complaints
+PASS As-is sale is explicit, earns one reputation and does not claim fault-free
+PASS Broken promises create a delayed complaint and one reputation penalty
+PASS Contributions adjust cash, sale profit, album profit and chart once
+PASS Insufficient cash, rejection and expiry do not charge hidden money
+PASS Returning buyers respect preferences and receive a real loyalty uplift
+PASS Dealer sales and repaired fault-free promises create no complaint
+PASS Old saves keep existing offers and gain no retroactive complaints
+9 customer care tests passed.
+PASS Closing cash flow, trading result and new morning are separate
+PASS Completed workshop jobs, expiring offers and incoming offers are reported
+PASS Daily marketing belongs to overnight cash and is saved without replay
+PASS Complaint arrivals and ignored cases appear with exact reputation changes
+PASS Contributions for earlier sales count on the day they were paid
+5 daily report tests passed.
+PASS Demand waves persist, move value, expire and cannot reroll on reload
+PASS Operating costs are paid once and arrears reduce value and block expansion
+PASS Holding costs, advertising and day report show actual overnight payments
+PASS One normal job occupies the workshop; rush bypasses it at a real premium
+PASS Mechanical ranks lower real costs and shorten work; specialist perks consume points
+PASS Market ranks improve valuation without performing an inspection
+PASS Thirty strategic days preserve accounting and valid market ranges
+PASS Legacy saves keep live values and ongoing jobs; new fields are added safely
+8 strategy tests passed.
+PASS radio: lazy audio, three station patterns, connected instruments, one scheduler, delayed ticks, volume persistence, stop cleanup and pending-play cancellation.
+PASS Eight legacy local choices remain compatible; three buyer request categories stay valid
+PASS Invitations have no cash effects until accepted; decline and stale clicks are lossless
+PASS All eight choices charge their published fee exactly once and survive save/reload
+PASS Insufficient cash, arrears and occupied workshops reject event fees without mutation
+PASS Car meet blocks in-house booking only today and leaves real rush repairs available
+PASS Repair prepay consumes only paid jobs; quotes and hidden faults do not consume uses
+PASS Discounts do not multiply: strongest applicable repair discount wins
+PASS Mechanic, diagnostic and reputation choices change their stated systems
+PASS Legacy event spawning is retired; buyer requests and loading remain stable
+PASS Accepting requests starts a fixed deadline with no cash or inventory mutation
+PASS Each request validates origin, shape, mileage, condition, inspection, faults and repair readiness
+PASS Delivery on the final day is one sale, one bonus, correct profit, reputation and no negotiation XP
+PASS Missing a committed deadline costs reputation once and is included in the morning report
+PASS Declining or ignoring unaccepted requests is free; abandoning accepted requests costs one reputation
+PASS Promotion changes actual buyer arrival probability without guaranteeing offers
+PASS Old saves retain all cash, cars and live trades, with no retroactive invitations
+16 local opportunity tests passed.
+PASS Construction charges once, delays benefits and starts wages only after opening
+PASS Weekly bills and runway include committed construction openings
+PASS Expansion prerequisites and one construction slot reject before charging
+PASS Cancellation and liquidation recover only published fractions and never manufacture value
+PASS Client work advances parts, occupies shared slots and pays once after completion
+PASS External orders genuinely contend with stock repairs and prevent facility shutdown
+PASS Fleet development changes capacity, adds meaningful daily cost and unlocks bigger contracts
+PASS Pause retains 25% fixed cost, removes benefits and reopening restores both
+PASS Wholesale locks capital for five days; downside is real and reloading preserves execution risk
+PASS Wholesale upside respects the cap; allocation limits and affordability prevent extra commitments
+PASS Borrowing and principal repayment are not income or net worth gains; interest is a real daily cost
+PASS Empty cash creates arrears even with valuable committed capital and blocks new work
+PASS Day report, finance history and operating cash flow reflect enterprise settlements without duplication
+PASS Legacy saves preserve cash and trades with zero retroactive expansion costs
+14 enterprise tests passed.
+PASS Persistent listing identities, price history, expiry and outside buyers
+PASS Motivations produce different saved reservation prices and tactical decisions
+PASS Inspection evidence changes the same negotiation; false arguments hurt trust
+PASS Inspections are not perfect, cannot reroll facts or charge twice
+PASS Public estimates never reveal a secret fault or unknown accident history
+PASS Waiting and walking persist; callback resumes without deleting conversation
+PASS Buy, transfer, accrued holding, repair and sale reconcile with cash and margin
+PASS Buyer inquiry is not a sale; answers, counteroffers and deadlines are saved
+PASS Buyer needs, not repeated tactics, determine accepted ceilings
+PASS Old saves migrate once without replacing money, cars, faults or legacy limits
+PASS Liquidity extremes and credit cannot create cash, net worth or repeat rewards
+PASS Regional prices adjust gradually and market plans survive reload
+PASS Overdue holding payments stay out of shared overhead after a sale
+PASS Repeat buyers retain their needs instead of rerolling personalities
+PASS Waiting, skill bonuses, invalid bids and an expired agreement cannot bypass state
+15 total integrated trading tests passed.
+
+
+> neon-garage-93@0.12.0 test:ui
+> node tests/ui.test.cjs && node tests/enterprise-ui.test.cjs && node tests/trading-ui.test.cjs
+
+PASS Teljes DOM-játékmenet: piac, adatlap, vizsgálat, vétel, javítás, napváltás, hirdetés, ajánlat, eladás, pénzügyek, visszatöltés, reset megszakítása és új játék.
+Ez szerkezet- és interakcióteszt, nem vizuális böngészőteszt.
+PASS UI listing description, customer contact, delayed complaint, notification, contribution and financial readback.
+PASS UI daily modal, advance guard, unread reload, acknowledgement, reopen and view offers.
+PASS UI explicit day confirmation, lossless cancel/Escape, pending-offer warning, stale/double confirm guard, persistent notifications and per-car review.
+PASS UI operating bills, two new skills/perks, diagnostics, workshop contention, paid rush work, completed-job report, forecast and discounted inspection.
+PASS UI radio settings, unchanged save, closing/dawn/report sequence, skip, Escape, automatic completion and reduced motion.
+PASS UI opportunity notification, terms, fee, request acceptance, delivery, bonus, reputation, single sale and ledger.
+PASS UI late-game migration, capital review, credit, construction, service work, shared slots, blocked shutdown, pause/reopen, wholesale settlement, repayment and financial readback.
+PASS practice A: seller call, cash negotiation, inspection, listing, day close, sale and separate save.
+PASS practice B: public information stays hidden until paid investigations change the deal.
+PASS practice C: lower the stale stock asking price without losing the investment history.
+
+
+> neon-garage-93@0.12.0 test:simulation
+> node tests/trading-simulation.cjs
+
+┌─────────┬─────────────────┬───────┬────────────┬────────────┬────────┬──────────────┬──────────────┬────────────┬────────────────────┬──────────┐
+│ (index) │ strategy        │ sales │ daysToSale │ profitable │ losses │ contribution │ shortageDays │ listingAge │ negotiationSuccess │ netWorth │
+├─────────┼─────────────────┼───────┼────────────┼────────────┼────────┼──────────────┼──────────────┼────────────┼────────────────────┼──────────┤
+│ 0       │ 'quick'         │ 35.4  │ 3.73       │ 13.8       │ 21.6   │ -59          │ 42.2         │ 10.49      │ 0.84               │ -545.6   │
+│ 1       │ 'cautious'      │ 62    │ 2.47       │ 51.2       │ 10.8   │ 383.6        │ 0            │ 10.21      │ 0.62               │ 17405.6  │
+│ 2       │ 'aggressive'    │ 22.8  │ 3.9        │ 10.6       │ 12     │ 7            │ 22           │ 10.37      │ 0.28               │ 2613.2   │
+│ 3       │ 'high-price'    │ 6.6   │ 36.14      │ 2          │ 4.6    │ -224.2       │ 45.2         │ 10.79      │ 1                  │ -188.8   │
+│ 4       │ 'capital-heavy' │ 21.4  │ 7.93       │ 6.8        │ 14.4   │ -107.2       │ 52           │ 10.45      │ 0.94               │ -814     │
+└─────────┴─────────────────┴───────┴────────────┴────────────┴────────┴──────────────┴──────────────┴────────────┴────────────────────┴──────────┘
+PASS 25 seeded 200-day runs, cash reconciliation each day, persistence and reproducibility.

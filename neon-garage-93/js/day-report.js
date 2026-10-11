@@ -9,6 +9,8 @@ NG.currentOffers = (s) =>
         id: o.id,
         buyer: o.buyer,
         price: o.price,
+        stage: o.stage || "offer",
+        expiresDay: o.expiresDay,
         unread: o.seen !== true,
       })),
     );
@@ -36,7 +38,13 @@ NG.dayReportBefore = (s) => ({
   completedCandidates: s.inventory
     .filter((c) => NG.busy(s, c))
     .map((c) => ({ id: c.id, name: NG.model(c).name, readyDay: c.readyDay })),
-  expiredOffers: s.inventory.reduce((n, c) => n + c.offers.length, 0),
+  expiredOffers: s.inventory.reduce(
+    (n, c) =>
+      n +
+      c.offers.filter((o) => o.expiresDay == null || o.expiresDay <= s.day)
+        .length,
+    0,
+  ),
   claims: Object.fromEntries(s.claims.map((q) => [q.id, q.status])),
 });
 NG.finishDayReport = (s, before) => {
@@ -61,12 +69,15 @@ NG.finishDayReport = (s, before) => {
       .map((c) => c.name),
     expiredOffers: before.expiredOffers,
     offers: s.inventory.flatMap((c) =>
-      c.offers.map((o) => ({
-        car: NG.model(c).name,
-        buyer: o.buyer,
-        price: o.price,
-        returning: !!o.returning,
-      })),
+      c.offers
+        .filter((o) => o.createdDay == null || o.createdDay === s.day)
+        .map((o) => ({
+          car: NG.model(c).name,
+          buyer: o.buyer,
+          price: o.price,
+          returning: !!o.returning,
+          stage: o.stage || "offer",
+        })),
     ),
     newClaims: s.claims
       .filter((q) => q.status === "open" && before.claims[q.id] !== "open")

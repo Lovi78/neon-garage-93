@@ -34,6 +34,7 @@ for (const name of [
   "opportunities",
   "day-report",
   "negotiation",
+  "trading",
   "legacy-language",
   "state",
   "ui",
@@ -151,10 +152,14 @@ click(".parked-car");
 assert.equal(saved().inventory[0].offers[0].seen, true);
 assert(d.querySelector(".offer-notification"));
 assert.equal(d.querySelectorAll(".offer").length, 1);
+if (saved().inventory[0].offers[0].stage === "question")
+  click('[data-action="answer-buyer"]');
 const originalOffer = saved().inventory[0].offers[0].price;
 click('[data-action="haggle-sell"]');
 assert(saved().inventory[0].offers[0].price > originalOffer);
 assert(d.querySelector(".negotiation-dialogue"));
+if (d.querySelector('[data-action="answer-buyer"]'))
+  click('[data-action="answer-buyer"]');
 click('.offer [data-action="sell"]');
 assert.equal(saved().inventory.length, 0);
 assert.equal(d.querySelectorAll(".parked-car").length, 0);
@@ -216,6 +221,7 @@ for (const name of [
   "opportunities",
   "day-report",
   "negotiation",
+  "trading",
   "legacy-language",
   "state",
   "ui",
@@ -285,6 +291,7 @@ for (const name of [
   "opportunities",
   "day-report",
   "negotiation",
+  "trading",
   "legacy-language",
   "state",
   "ui",
@@ -300,6 +307,8 @@ click('[data-action="close"]');
 click('[data-action="next"]');
 click(".parked-car");
 assert(saved().inventory[0].offers.length);
+if (d.querySelector('[data-action="answer-buyer"]'))
+  click('[data-action="answer-buyer"]');
 click('.offer [data-action="sell"]');
 assert.equal(saved().claims[0].status, "scheduled");
 click('[data-action="next"]');
@@ -365,6 +374,7 @@ for (const name of [
   "opportunities",
   "day-report",
   "negotiation",
+  "trading",
   "legacy-language",
   "state",
   "ui",
@@ -706,6 +716,7 @@ for (const name of [
   "opportunities",
   "day-report",
   "negotiation",
+  "trading",
   "legacy-language",
   "state",
   "ui",
@@ -749,7 +760,9 @@ assert.equal(ls().reputation, requestRep + 3);
 assert.equal(ls().profit, requestProfit + 7800 - lw.NG.cost(deliveryCar));
 assert.equal(ls().opportunities.requests[0].status, "fulfilled");
 assert(!ls().inventory.some((c) => c.id === deliveryCar.id));
-assert(!ld.querySelector('[data-action="request-deliver"][data-id="ui-request"]'));
+assert(
+  !ld.querySelector('[data-action="request-deliver"][data-id="ui-request"]'),
+);
 lc('[data-action="view"][data-view="finances"]');
 assert.match(ld.querySelector(".ledger").textContent, /Car meet|car meet/);
 localDom.window.close();

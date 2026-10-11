@@ -1,10 +1,23 @@
 # Neon Garage '93 - aktuális fejlesztési roadmap
 
-Frissítve: 2026. október 10. Jelenlegi verzió: v0.11.0 / Business Empire.
+Frissítve: 2026. október 11. Jelenlegi verzió: v0.12.0 / The Art of the Deal.
 
 A jelenlegi működés szabályai a [README-ben](README.md), az eredeti javaslatok és verziónkénti feljegyzések a [DEVELOPMENT-HISTORY.md](DEVELOPMENT-HISTORY.md) dokumentumban vannak. Az előzmények megmaradtak; az ottani régi státuszok nem a mai állapotot jelentik.
 
 **Státuszok:** kész = megvalósult működés; nyitott = még szükséges ellenőrzés vagy döntés; terv = felhasználói cél, még nincs kész; javaslat = ajánlott következő lépés, nem új fejlesztési vállalás. A tesztek nem bizonyítják önmagukban a vizuális minőséget vagy a tartós játékélményt.
+
+## v0.12 - megvalósított kereskedési alap
+
+- Kész: tartós hirdetések, árnapló, lejárat/külső eladás/visszavonás; lassabb keresleti folyamatok.
+- Kész: nyolc gazdasági motiváció, mentett eladók, taktikák, bizonyíték, kivárás és visszahívás.
+- Kész: előéletkeresés, részleges/szakvizsgálat, becsült üzleti és kockázati kép.
+- Kész: vevői preferenciák, kérdésből ajánlat, több lépéses ellenajánlat, tartós határidő és visszatérő preferencia.
+- Kész: $50 átírás, autónkénti holding, külön közös költség/kamat, régi mentés migrációja.
+- Kész: automatizált integráció és UI, 25 x 200 nap szimuláció; három elkülönített gyakorlóhelyzet.
+- Nyitott: hosszabb emberi egyensúlypróba és a vizsgálati költség/nyereség további hangolása.
+- Későbbre: vizsgálathoz kötött feltételes szerződés, foglaló, tesztvezetés, beszámítás, részletfizetés, teljes adózás és eredménykimutatás.
+
+Részletes audit, migráció, tesztek és mérési korlátok: [TRADING-V012.md](TRADING-V012.md). A következő táblázat a v0.11-ből megtartott alapokat foglalja össze; a módosított piaci/alkuszabályok helyett a v0.12 leírás az érvényes.
 
 ## Termékirány és elfogadott prioritások
 
@@ -18,7 +31,7 @@ A jelenlegi működés szabályai a [README-ben](README.md), az eredeti javaslat
 - A megbízások jó irány. Az apró, alacsony hatású fizetős események jelenlegi formáját elvetettük.
 - Később releváns, ellenőrzött történelmi események a valódi naptári dátumukon.
 
-## Kész rendszerek v0.11-ben
+## Megtartott v0.11 alapok
 
 | Terület | Jelenlegi megvalósítás |
 | --- | --- |
@@ -29,7 +42,7 @@ A jelenlegi működés szabályai a [README-ben](README.md), az eredeti javaslat
 | Perkek | One More Shot, Sharp Eye, Trend Spotter; mindegyik a hozzá tartozó skill 2. rangja után 1 pontért |
 | Kis fejlesztések | Better Tools $600, Parts Supplier Deal $900, Local Newspaper Ad $450, Diagnostic Equipment $1,000 |
 | Reputáció | 0/5/15/30/50 mérföldkő, érdeklődési és alkubónusz, visszatérő vevők, bizalom, hibaközlés és reklamáció; üzletági és hitelfeltételek |
-| Piac és üzemeltetés | Napi új, 2-4 napos régiós keresleti hullámok; rezsi, készlettartás, hátralék, közös műhelykapacitás és fizetett rush |
+| Piac és üzemeltetés | v0.12-ben tartós kínálat és lassabb régiós folyamatok; rezsi, készlettartás, hátralék, közös műhelykapacitás és fizetett rush |
 | Autómegbízások | Három vevői igény, fix vételár és bónusz, vállalási és szállítási határidő, követhető készültség, reputációs következmény |
 | Nagy beruházások | Service Center $24k, Fleet Workshop $68k, Wholesale Trading Desk $45k; építési idő, reputációs feltétel és rendszeres költség |
 | Új bevételi utak | Saját javítással közös kapacitású ügyfél-/flottamunkák, előfinanszírozás; 5 napos $25k/$50k nagykereskedelmi lekötés, tőkevesztés lehetőségével |

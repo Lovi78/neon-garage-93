@@ -1,10 +1,10 @@
-# Neon Garage '93 - v0.11 / Business Empire
+# Neon Garage '93 - v0.12 / The Art of the Deal
 
 Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, fiktív kaliforniai város, 1993. június 1., $5,000 kezdőtőke, két férőhely.
 
 A teljes játékfelület angol. A korábbi mentések eseményei, hibaleírásai és pénzügyi bejegyzései betöltéskor angolra váltanak, a játékállás megtartásával.
 
-Dokumentáció frissítve: 2026. október 10. Játékverzió: 0.11.0.
+Dokumentáció frissítve: 2026. október 11. Játékverzió: 0.12.0.
 
 A teljes fejlesztési irány, a következő szakaszok és a nyitott döntések a [ROADMAP.md](ROADMAP.md) dokumentumban vannak rögzítve.
 
@@ -20,15 +20,16 @@ A játék minden változtatás után a böngésző helyi tárhelyére ment. Ugya
 
 ## Az első üzleted
 
-1. Kattints a garázs bal oldalán álló **számítógépre**. Ez nyitja meg a **Car Market** ablakot. A Golf GTI, Volvo 240 és Honda CRX a kezdőtőkéhez igazodó belépőmodellek. A teljes adatbázis 60 modelles; a napi kínálat továbbra is 9 hirdetésből áll. Régi mentésben az új modellek a következő napváltástól kerülhet a piacra.
-2. Kattints egy autóra. Az eladó állapotleírása és az abból készült értékbecslés tévedhet.
-3. Az **alapáron $90-os átvizsgálás** (skillel és diagnosztikával olcsóbb) megmutatja az alkatrészek állapotát és a rejtett hibákat. A díjat akkor is kifizetted, ha végül nem veszed meg az autót.
-4. Vásárolj. A piac bezáródik, és a megvett autó animációval begurul a garázsba. A készpénz és a két férőhely valódi korlát. Maradjon pénz a javításokra.
-5. Kattints a beállóban álló autóra az adatlapjához, vagy a **műhelyasztalra** a **My Inventory** ablakhoz. Itt választhatsz javítást. A motor és váltó normál javítása két nap, a többi egy nap. Mechanical Knowledge 2-től a normál munkák is egynaposak; drágább külsős gyorsjavítás is választható. A javítás 95%-ra emeli az adott alkatrész állapotát; a hibajavítás külön költsége előre látszik. Újonnan felfedezett hiba esetén először új árat kapsz, automatikus pluszlevonás nincs.
-6. Állíts be hirdetési árat, majd kattints a **Next Day** gombra vagy a faliórára. Az érdeklődő ajánlatát elfogadhatod vagy elutasíthatod. Magas árnál ritkább az érdeklődés.
-7. Azonnali pénzhez a kereskedőnek is eladhatsz, a valós napi piaci érték 72%-áért. Javítás alatt nem lehet eladni.
+1. Számítógép: **Car Market**. Kilenc kezdőhirdetés, később napi 1-3 új autó és tartósan megmaradó korábbi kínálat.
+2. Nyisd meg az autót. **Call seller** mutatja az eladás okát. A sürgős tulajdonos és a türelmes gyűjtő másként tárgyal.
+3. Opcionális: **Search vehicle records** ($35), **Mechanical inspection** (alapdíj $90) vagy dupla díjas **Specialist examination**. A vizsgálat nem garantáltan teljes. A feltárt tények mentődnek.
+4. **Your offer**, **Your approach**, **Make offer**. A gyors fizetés sürgős helyzetben, a **Fault** valós bizonyítékkal segíthet. **Think overnight** vagy **End the call** több napra is eltolhatja az ügyletet.
+5. **Accept & buy**: kialkudott vételár + $50 átírás. Az azonnali vétel is elérhető. Maradjon készpénz vizsgálatra, javításra és rezsire.
+6. Saját autó: szükséges javítás, majd **List car for sale**. A meglévő műhelykapacitás, normál/rush javítás és két beálló megmaradt.
+7. **Next Day** után kérdés vagy ajánlat érkezhet. Az **INQUIRY** előbb választ igényel. Utána elfogadás vagy személyiségfüggő ellenajánlat, végül eladás. A kapcsolat 2-5 napig is élhet.
+8. A napzárás autonként $5 készlettartást és a $20 közös rezsit is terheli. Magas ár mellett hosszabb készletidő és lekötött tőke kockázata van. A fix dealer exit azonnali, óvatosabb ár.
 
-Nincs időnyomás vagy automatikus napváltás. A következő nap lecseréli a piaci hirdetéseket és a korábbi ajánlatokat. Javítás előtt vedd le a hirdetést.
+A **Practice A / B / C** linkek külön mentésen kipróbálható üzleti helyzeteket nyitnak. A saját játékot a **Return to your dealership** linkkel éred el. A részletes audit, szabályok, migráció és szimulációeredmények: [TRADING-V012.md](TRADING-V012.md).
 
 ## Egységes pixel art garázs
 
@@ -36,11 +37,11 @@ A rádió, telefon, dealer mappa, album és operations clipboard a háttérbe ra
 
 ## Alku vásárlásnál és eladásnál
 
-Az autó piaci adatlapján a **Your offer** mezőbe írj egy összeget, majd kattints a **Make offer** gombra. Az eladó elfogadhatja, ellenajánlatot adhat, vagy sértően alacsony ajánlatnál végleg visszaléphet az aznapi üzlettől. Legfeljebb három kör van; újabb körben emelned kell a saját ajánlatodat. Az **Accept & buy** gombbal a látható kialkudott áron vásárolsz. Az eredeti áron továbbra is vásárolhatsz alku nélkül.
+A vételi tárgyalás nem fix három kör. Az eladó türelme, sürgőssége, bizalma, más érdeklődői és a friss bizonyíték határozza meg a reakciót. A régi ajánlatok, elutasítás és kivárás mentődik. Visszahívás után a **Return seller’s call** folytatja az ügyletet, korábbi előzményekkel. A megállapodás a következő nap végéig él. Egy hirdetés közben elkelhet másnak.
 
-A beérkező vevői ajánlatnál a **Your counteroffer** mezőben kérhetsz magasabb árat, legfeljebb a meghirdetett összegig. A **Counteroffer** gombra a vevő elfogadhatja az árat, adhat egy végső ajánlatot, vagy távozhat. Az **Accept** gomb zárja le az eladást a válaszban szereplő áron. A kereskedő azonnali ára fix; alkudni a magánvevőkkel lehet.
+A vevő lehet érdeklődő, ajánlattevő vagy már megegyezett partner. Az ajánlatot és a plafont a saját igényei alakítják: állapot, fenntartási költség, karosszéria, dokumentumok és a kereskedő hírneve. A szolgálati előélet vagy megbízhatóság csak az arra fogékony vevőnél indokol magasabb ellenajánlatot. A lezárásig nincs vételi/eladási pénzmozgás; a vizsgálat külön fizetett művelet.
 
-Az alku közben nincs pénzmozgás. A kialkudott vételár és eladási ár szerepel a profitban és a pénzmozgások között. A tárgyalás mentődik, újranyitással nem kap új árkorlátot vagy köröket. Napváltáskor a hirdetések és ajánlatok szokás szerint lecserélődnek.
+Régi, már elkezdett v0.11-es tárgyalások saját mentett korlátaikkal folytatódnak. Új tárgyalások az új szabályokat követik. A régi mentésekhez nincs utólagos díj, új hiba vagy XP.
 
 ## Fejlődés és vállalkozásfejlesztések
 
@@ -48,8 +49,8 @@ Kattints a garázsban a **Dealer File** irodai mappára, vagy a felső fejlődé
 
 - Lezárt, sikeres vételi és eladási alkuért 20 XP + minden $100 árelőny után 1 XP jár, legfeljebb 40 XP. Vételnél az eredeti hirdetési árhoz, eladásnál a vevő első ajánlatához képest számítjuk az előnyt. XP csak a tényleges tranzakciókor jár, egyszer; elutasításért és azonnali kereskedői eladásért nem.
 - Az első szintlépéshez 80 XP kell, utána szintenként 40-nel nő az igény. A szintlépés 1 skillpontot ad, a többlet-XP megmarad.
-- **Negotiation**: három rang, rangonként 1 skillpont. Új tárgyalásban rangonként a hirdetési ár 1%-ával alacsonyabb eladói minimum és a nyitó ajánlat 1%-ával magasabb vevői alkukeret. A már folyó tárgyalások korlátai változatlanok.
-- **One More Shot**: Negotiation 2 után 1 skillpontért. Négy eladói alkukör a korábbi három helyett. A lezárt tárgyalást és a távozó eladót nem nyitja újra; magánvevői tárgyalásban nem ad új kört.
+- **Negotiation**: három rang, rangonként 1 skillpont. Új tárgyalásban rangonként 0,8% előny az eladói engedményben és a vevő ellenajánlati keretében. A már folyó tárgyalások korlátai változatlanok.
+- **One More Shot**: Negotiation 2 után 1 skillpontért. Az eladó türelme egy lépéssel nő. A visszahívás külön, eladói helyzettől függő folyamat; a perk nem törli az előzményeket.
 - **Better Tools**: $600, a javítás munkadíja 15%-kal alacsonyabb.
 - **Parts Supplier Deal**: $900, a javítás alkatrészrésze és a feltárt hibák alkatrészköltsége 20%-kal alacsonyabb. Az alapjavítás munkadíj/alkatrész bontása 65/35; a kijelzett és levont ár a kedvezményeket tartalmazza.
 - **Local Newspaper Ad**: $450 egyszeri befektetés. Ezután bekapcsolható és szüneteltethető a kampány: napi $20, +15 százalékpont érdeklődési esély. A napi díj napváltáskor jelentkezik, és pénzhiánynál automatikusan leáll a kampány. Nem keletkezik tartozás.
@@ -58,17 +59,15 @@ Reputációs mérföldkövek: 0 **Unknown Dealer**, 5 **Familiar Face**, 15 **Tr
 
 A régi v0.3-mentések megtartják a készpénzt, autókat és tárgyalásokat. Az új fejlődési adatok 1. szinttel, 0 XP-vel és fejlesztés nélkül indulnak. A korábbi üzletekre nincs utólag kitalált XP-jutalom.
 
-A business upgrade és a reklám általános kiadásként szerepel a pénzügyekben; nem kerül automatikusan egyetlen autó profitjába. Az autóprofit eladás mínusz vétel, vizsgálat, javítás és a későbbi vevői hozzájárulás.
+A business upgrade és a reklám általános kiadásként szerepel a pénzügyekben; nem kerül automatikusan egyetlen autó profitjába. Az autófedezet eladás mínusz vétel, vizsgálat, javítás, $50 átírás, felmerült készlettartás és későbbi vevői hozzájárulás.
 
 ## Mozgó piac és üzemeltetés
 
-### Piaci hullámok
+### Tartós keresleti folyamatok
 
-Mindennap új keresleti hullám indul valamelyik régióban. A célérték a semleges szinthez képest 12-30%-kal magasabb vagy alacsonyabb; egy hullám 2-4 napig tarthat. Az új hullám felülírhatja ugyanannak a régiónak az előző hullámát. A többi aktív trend tovább él, napi legfeljebb 2 százalékpont zajjal; a keresleti szorzó 70-135% között marad.
+A régiós célok jellemzően 90-110%-osak és 8-16 napig élnek; új piaci kilátás 7-13 naponta érkezik. A kereslet naponta legfeljebb 1,2 százalékponttal közelít a célhoz, kis zajjal. A következő terv mentődik. A régi mentés korábbi erősebb hulláma fokozatosan kifut. A modell, helyi kínálat és roadster-szezonalitás is hat az árra.
 
-A **Moving markets** panel a piacon és az **Operations** ablakban mutatja az aktuális szorzókat, a tegnaphoz képest történt változást és a hullám várható hátralévő idejét. Az eladói árak, a készlet értéke és a vevői ajánlatok követik a keresletet. A fizetésnapi és ritka hirdetéses helyi események továbbra is előfordulhatnak.
-
-A következő hullám terve mentődik, újranyitással nem sorsolható újra. A hullám nem garantált eladási ár: a vevői érdeklődés, a hirdetési ár és a napi zaj továbbra is számít.
+A Moving markets panel mutatja az irányt. A hirdetés saját ára, a játékos megfigyelésekből számított becslése és a titkos NPC-értékek elkülönülnek. A panel nem garantál profitot.
 
 ### Új skillágak és perkek
 
@@ -76,7 +75,7 @@ A **Dealer File** két új ágat kapott; mindegyik 0-3 rang, rangonként 1 skill
 
 - **Mechanical Knowledge**: rangonként 15%-kal kisebb átvizsgálási alapdíj és 5%-kal kisebb javítási munkadíj. A meglévő eszközkedvezményekkel szorzódik. Rank 2-től az új normál motor-/váltójavítás is egy nap; a már megkezdett munkák határideje nem módosul.
 - **Sharp Eye**: Mechanical Knowledge 2 után 1 pontért. Vásárlás előtt egy lehetséges rejtett hibára utaló ingyenes jel látszik. A perk nem végzi el az átvizsgálást és nem ad teljes állapotlapot.
-- **Market Knowledge**: rangonként a becslés 25%-kal közelebb kerül a tényleges állapotalapú értékhez, a seller-claim becslésből kiindulva. Rank 3-nál is marad bizonytalanság; nem jelöli az autót átvizsgáltnak.
+- **Market Knowledge**: rangonként mérsékeltebb eladói állítás és szűkebb kockázati sáv. Nem olvassa vagy mutatja meg a titkos valódi értéket; nem jelöli az autót átvizsgáltnak.
 - **Trend Spotter**: Market Knowledge 2 után 1 pontért. Megmutatja a következő tervezett régiós hullám célértékét és időtartamát; a napi zaj miatt ez előrejelzés, nem garantált profit.
 - **Diagnostic Equipment**: $1,000-os business upgrade, további 20%-kal kisebb átvizsgálási díj. A minimális díj $30. A meglévő Negotiation és One More Shot változatlanul működik.
 
@@ -89,7 +88,7 @@ A garázs **Operations** tábláján követhető a következő számla, az esetl
 - A számla a következő reggelen fizetődik ki, a reklámdíj előtt. Napzárási megerősítésben előre látszik az összeg.
 - Pénzhiánynál a készpénz nem megy negatívba; a fennmaradó számla hátralékba kerül és csökkenti a vállalkozás értékét.
 - Hátralék mellett új autó, javítás és business upgrade nem vásárolható. A meglévő készlet továbbra is eladható, és az **Operations** ablakból a befolyt pénzzel rendezhetők a számlák.
-- A kifizetés a Ledgerben külön üzemeltetési költség. A realizált autóprofitba nem osztjuk szét; a készpénzt és a vállalkozás értékét érinti.
+- A kifizetés a Ledgerben holding / interest / overhead bontású. A $5/autó/nap holding a konkrét autó fedezetébe kerül, a közös rezsi és kamat külön marad. A hátralék is őrzi ezt a bontást, kettős költséglevonás nélkül.
 - A régi mentésekben nincs utólagos számlaterhelés: az új költségek a következő tényleges napváltástól indulnak.
 
 ### Műhelykapacitás és gyorsjavítás
@@ -164,7 +163,7 @@ A nettó érték: készpénz + saját autók azonnali kereskedői értéke + ép
 
 Az apró v0.10-es választható helyi eseményekből nem érkezik több. A korábban kifizetett hatás és meglévő meghívás az eredeti feltételekkel kifut; a vevői autómegbízások változatlanul megmaradnak. A következő fejezetek is a jelenlegi működést írják le; a korábbi állapotok külön történeti dokumentumban vannak.
 
-Az összegek és kockázatok játékegyensúly-szabályok, nem valós 1993-as gazdasági adatok. A működési és késői mentési tesztek sikeresek; hosszabb játékosi egyensúlyteszt és tényleges böngészős vizuális ellenőrzés még szükséges.
+Az összegek és kockázatok játékegyensúly-szabályok, nem valós 1993-as gazdasági adatok. A működési és késői mentési tesztek sikeresek; 25 darab 200 napos automatizált balanszmérés és böngészős próba készült; hosszabb emberi játékosi egyensúlyteszt továbbra is szükséges.
 
 ## Fejlődési sávok és pénzügyi grafikon
 
@@ -202,7 +201,7 @@ A második bővítés harminc új modellje külön adatfájlban van. Többek kö
 
 Hirdetés előtt a **What do you tell the buyer?** mezőben választhatsz:
 
-- **Inspected / disclose all faults**: teljes átvizsgálás kell. Az összes megmaradt hiba fel van tüntetve. A normál, állapotfüggő +1/+2 reputáció mellé +1 jár a korrekt tájékoztatásért. Ilyen leírás mellett nem érkezik elhallgatott hibára reklamáció.
+- **Inspected / disclose observed faults**: átvizsgálás kell. A felismert megmaradt hibák vannak feltüntetve, az ismeretlenekre nincs hibamentességi ígéret. A normál, állapotfüggő +1/+2 reputáció mellé +1 jár a korrekt tájékoztatásért. Ilyen leírás mellett nem érkezik elhallgatott hibára reklamáció.
 - **As-is / condition not guaranteed**: őszintén vállalod a bizonytalanságot. Az ajánlatok alapértéke 5%-kal alacsonyabb, az eladás +1 reputációt ad. Nincs hibamentességi ígéret és ebből következő reklamáció.
 - **Advertise as fault-free**: a vevő hibalevonás nélkül értékeli az autót. Ha ténylegesen maradt javítatlan rejtett hiba, az eladás után két játék nappal reklamáció érkezik. Ha minden hiba javított, nincs ilyen reklamáció.
 
@@ -275,6 +274,7 @@ Mind a 60 modell saját SVG-körvonalmaszkot kapott. A megjelenítés a tényleg
 - `js/collection.js`: vásárlási, javítási és eladási gyűjtési állapot, korábbi mentések bizonyított adatainak átvétele.
 - `js/cars.js`: modelladatok, alkatrészek, hibák, autóillusztrációk.
 - `js/economy.js`: árak, vásárlás, javítás, eladás, napok és események.
+- `js/trading.js` - v0.12 tartós piac, NPC-k, vizsgálati információ és tranzakciós integráció.
 - `js/negotiation.js`: vételi és eladási alku, mentett árkorlátok és körök.
 - `js/state.js`: új játék, dátum, helyi mentés és visszatöltés.
 - `js/finance.js`: napi érték- és profitsnapshotok, vonaldiagram és fejlődési sávok.
@@ -289,21 +289,20 @@ A játék keretrendszer, külső betűkészlet és csomagtelepítés nélkül fu
 
 ## Ellenőrzés
 
-A v0.11 fejlesztési körben 93 automatizált szabályteszt és 8 DOM-alapú felületi tesztútvonal sikeres volt. Dokumentációfrissítés: 2026. október 10.; ebben a körben a játék kódja nem változott.
-
-Fejlesztőként a játék mappájában:
+A játék indításához nincs telepítés. Fejlesztői ellenőrzéshez a játék mappájában:
 
 ```sh
 npm install
 npm test
 npm run test:ui
+npm run test:simulation
 ```
 
-A 93 teszt bontása: 16 gazdasági, 8 fejlődési, 8 pénzügyi/katalógus, 8 album, 9 vevői, 5 napi jelentés, 8 stratégiai, 1 rádió-életciklus, 16 megbízás/régi esemény és 14 vállalkozási teszt. A csomagtelepítés kizárólag a fejlesztői felületi tesztekhez kell; játszani telepítés nélkül lehet.
+A régi modulok regressziós alaptesztjei mellett az új 15 integrált teszt a tényleges játék betöltési sorrendjével ellenőrzi az NPC-döntést, hirdetéséletciklust, vizsgálatot, információrejtést, vételt/eladást, pénzmozgást, migrációt, visszahívást és szélsőséges likviditást. A teljes DOM-játékmenet és a három új gyakorlóhelyzet is tesztelt.
 
-Az ellenőrzések lefedik a kereskedést és alkut, egyszeri XP-t és kifizetéseket, mentések visszatöltését, reklamációt, napzárási megerősítést és értesítéseket, piaci hullámokat, javítási kapacitást, megbízáshatáridőket, beruházásokat, hitelt, tőkevesztést és pénzügyi képleteket. Az alapgazdasági teszt 1000 szimulált üzletet is ellenőriz. A rádióteszt helyettesített hangkörnyezetben az életciklust vizsgálja.
+A szimuláció 5 stratégia x 5 véletlenmag x 200 nap. Minden nap készpénz-napló egyeztetés, 25 naponta mentésből folytatás; külön reprodukálhatósági ellenőrzés. Kimenet: [reports/trading-simulation.json](reports/trading-simulation.json). A számok első balanszmérésből származnak; nem történelmi gazdasági adatok.
 
-A DOM-tesztek nem valódi böngészős képi tesztek. A tényleges elrendezés, animációk, kisebb képernyők és a rádió meghallgatása még ellenőrizendő. A beépített böngésző helyi fájlokra vonatkozó korlátozása miatt ezek nem voltak elvégezhetők. Hosszabb játékosi próba kell ahhoz is, hogy a v0.11 tartós nehézségét és élvezetességét megítéljük.
+Valódi böngészős próba helyi kiszolgálással is készült. Ez nem játékfüggőség: a játék továbbra is közvetlen `index.html` megnyitással működik. A rádió hangját és hosszabb emberi játékélményt külön játékosi próba tudja megítélni.
 
 ## Korlátok és következő lépések
 
