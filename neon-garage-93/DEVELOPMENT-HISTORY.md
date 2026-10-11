@@ -36,6 +36,12 @@ Rövidebb feliratok, státuszok és adatmezők a többi fő nézetben. A magyar�
 
 Azonos késői tesztállás böngészős összehasonlítása: Operations nyitóképernyő 932 helyett 59 szó; régi tartalommagasság 3317 pixel, új asztali nyitónézet 370 pixel. Belső görgetés nélküli nézet asztalon és 390 pixeles mobilméreten. Az értékek kontrollált fixture-re vonatkoznak, nem minden játékállásra. A régi UI-tesztek a tényleges új fülnavigációval folytatódnak; új teszt ellenőrzi a teendőket, hátralék miatti blokkolást, a pénzügyi kockázat láthatóságát és az érintetlen mentést.
 
+## GitHub-szinkron ellenőrzés - 2026. október 11.
+
+A friss GitHub-állapot ellenőrzésekor csak a `main` ág létezett, `67c1d95` commiton, v0.11.0 verzióval. A helyi munkamappa tiszta volt; a `codex/v0.12-art-of-the-deal` ág négy fejlesztői committal járt előrébb: `b65a9ee` (kereskedési rendszer), `567a684` (vételi alku és előzmények), `74490b7` (ellenajánlat és látható validáció), `730782b` (rövid felület és Operations fülek). Ezek korábban csak helyben voltak commitolva.
+
+A tényleges aktuális verzió v0.12.2 marad. A README külön feltünteti a fejlesztői branch elérését és a main külön állapotát; a játék lábléce is a teljes v0.12.2 verziót mutatja. A működési, UI- és 25 darab 200 napos szimulációs ellenőrzés újra lefutott a szinkron előtt. A feltöltés normál push a külön fejlesztői ágra; main merge és force push nem része ennek a szinkronnak.
+
 ## A kivezetett v0.10-es helyi meghívások szabályai
 
 A v0.11 óta új ilyen meghívás nem keletkezik. A régi mentésben meglévő meghívások és fizetett hatások az eredeti feltételekkel kifutnak. Korábban jogosult reggelen 35% volt az új esemény esélye, legalább három napos közökkel. A vevői autómegbízások külön rendszerként megmaradtak.

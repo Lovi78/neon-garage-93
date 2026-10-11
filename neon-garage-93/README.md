@@ -1,4 +1,4 @@
-# Neon Garage '93 - v0.12 / The Art of the Deal
+# Neon Garage '93 - v0.12.2 / The Art of the Deal
 
 Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, fiktív kaliforniai város, 1993. június 1., $5,000 kezdőtőke, két férőhely.
 
