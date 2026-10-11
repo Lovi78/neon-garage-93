@@ -16,6 +16,12 @@ A szimuláció első változatában a kevésbé óvatos kereskedés erősen vesz
 
 A fejlesztés külön branchen készült; nincs automatikus main merge vagy közzététel. A feltételes vizsgálati szerződés, teljes könyvelés/adózás és komplex banki/beszámítási folyamat későbbre maradt.
 
+## v0.12 javítás - folytatható alku és látható előzmények
+
+A másik érdeklődő jelzője korábban minden el nem fogadott ajánlatot azonnal WAITING állapotba tett. A későbbi visszahívás után a teljes korábbi körszám türelmi korlátként működött, újabb azonnali várakozást okozva. Az eladói ellenajánlat most az első körben is érdemi válasz; a konkurens érdeklődő csak közeli ajánlatok több lépéses tárgyalásakor kérhet egyszeri összehasonlító éjszakát. A visszahívás új beszélgetési türelmet ad, a teljes előzményt és régi ajánlatokat megtartva.
+
+Betöltés egyszer helyreállítja a régi hibás konkurens WAITING állapotot. A felület dátumozott játékosi ajánlatot, taktikát és eladói választ mutat, nem pusztán bejegyzésszámot. Régi bejegyzésben nem tárolt válaszszöveg helyett a mentett eredmény és ellenajánlat jelenik meg. Új regresszióteszt: 5% nyitó alku, másnapi folytatás, hat régi bejegyzés migrációja és látható UI-előzmények.
+
 ## A kivezetett v0.10-es helyi meghívások szabályai
 
 A v0.11 óta új ilyen meghívás nem keletkezik. A régi mentésben meglévő meghívások és fizetett hatások az eredeti feltételekkel kifutnak. Korábban jogosult reggelen 35% volt az új esemény esélye, legalább három napos közökkel. A vevői autómegbízások külön rendszerként megmaradtak.

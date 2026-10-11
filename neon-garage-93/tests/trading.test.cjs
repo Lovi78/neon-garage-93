@@ -110,7 +110,9 @@ test("Waiting and walking persist; callback resumes without deleting conversatio
   assert.equal(d.negotiation.status, "callback");
   assert.throws(() => NG.buy(t, c.id));
   NG.resumeDeal(t, c.id);
-  assert.equal(d.negotiation.history.length, 1);
+  assert.equal(d.negotiation.history.length, 2);
+  assert.equal(d.negotiation.history[0].bid, 1200);
+  assert.equal(d.negotiation.history[1].action, "resume");
   NG.hagglePurchase(t, c.id, 1800, () => 0.1, "cash");
   NG.buy(t, c.id);
   assert.equal(t.inventory.length, 1);
@@ -307,5 +309,83 @@ test("Waiting, skill bonuses, invalid bids and an expired agreement cannot bypas
   s.cash = 5000;
   s.day = c.negotiation.agreedUntil + 1;
   assert.throws(() => NG.buy(s, c.id));
+});
+test("Five percent opening discount gets a real counteroffer despite other interest", () => {
+  const s = NG.practiceScenario("A"),
+    c = s.market[0];
+  c.ask = 1000;
+  Object.assign(c.seller, {
+    competitors: true,
+    urgency: 0.1,
+    reservation: 940,
+    risk: 1,
+    patience: 5,
+  });
+  NG.hagglePurchase(s, c.id, 950);
+  assert.equal(c.negotiation.status, "active");
+  assert.equal(c.negotiation.price, 980);
+  assert.match(c.negotiation.message, /I could do/);
+  assert.equal(c.negotiation.resumeDay, undefined);
+  NG.hagglePurchase(s, c.id, 970);
+  assert.equal(c.negotiation.status, "waiting");
+  NG.nextDay(s, () => 0.9);
+  NG.resumeDeal(s, c.id);
+  assert.equal(c.negotiation.rounds, 2);
+  assert.equal(c.negotiation.sessionRounds, 0);
+  NG.hagglePurchase(s, c.id, 975);
+  assert.equal(c.negotiation.status, "agreed");
+  assert.equal(c.negotiation.history.length, 4);
+});
+test("Exhausted calls get a new session without erasing earlier rounds", () => {
+  const s = NG.practiceScenario("A"),
+    c = s.market[0];
+  c.ask = 1000;
+  Object.assign(c.seller, {
+    competitors: false,
+    reservation: 980,
+    patience: 2,
+  });
+  NG.hagglePurchase(s, c.id, 750);
+  NG.hagglePurchase(s, c.id, 850);
+  assert.equal(c.negotiation.status, "waiting");
+  NG.nextDay(s, () => 0.9);
+  NG.resumeDeal(s, c.id);
+  NG.hagglePurchase(s, c.id, 900);
+  assert.equal(c.negotiation.status, "active");
+  assert.equal(c.negotiation.rounds, 3);
+  assert.equal(c.negotiation.sessionRounds, 1);
+});
+test("Existing stuck competitor saves recover once with all six entries intact", () => {
+  const s = NG.practiceScenario("A"),
+    c = s.market[0];
+  c.seller.competitors = true;
+  c.negotiation = {
+    schema: 12,
+    price: 2100,
+    rounds: 6,
+    lastBid: 2000,
+    lastDay: 0,
+    evidenceUsed: 0,
+    closed: false,
+    walked: false,
+    status: "waiting",
+    resumeDay: 1,
+    message: "Another buyer is interested. Let me think overnight.",
+    history: Array.from({ length: 6 }, (_, i) => ({
+      day: 0,
+      bid: 1500 + i * 100,
+      tactic: "direct",
+      response: "waiting",
+      price: 2100,
+    })),
+  };
+  const t = roundtrip(s),
+    n = t.market[0].negotiation;
+  assert.equal(n.status, "active");
+  assert.equal(n.history.length, 7);
+  assert.equal(n.rounds, 6);
+  assert.equal(n.lastBid, 2000);
+  assert.equal(n.resumeDay, undefined);
+  assert.deepEqual(json(roundtrip(t).market[0].negotiation), json(n));
 });
 console.log(count + " total integrated trading tests passed.");

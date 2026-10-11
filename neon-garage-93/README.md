@@ -37,7 +37,7 @@ A rádió, telefon, dealer mappa, album és operations clipboard a háttérbe ra
 
 ## Alku vásárlásnál és eladásnál
 
-A vételi tárgyalás nem fix három kör. Az eladó türelme, sürgőssége, bizalma, más érdeklődői és a friss bizonyíték határozza meg a reakciót. A régi ajánlatok, elutasítás és kivárás mentődik. Visszahívás után a **Return seller’s call** folytatja az ügyletet, korábbi előzményekkel. A megállapodás a következő nap végéig él. Egy hirdetés közben elkelhet másnak.
+A vételi tárgyalás nem fix három kör. Az eladó türelme, sürgőssége, bizalma, más érdeklődői és a friss bizonyíték határozza meg a reakciót. A régi ajánlatok, elutasítás és kivárás mentődik. A Conversation history dátumozva mutatja az ajánlatodat, taktikádat és az eladó válaszát. Másik érdeklődő mellett is először érdemi ellenajánlat érkezhet; nincs automatikus első körös várakozás. Visszahívás után a **Return seller’s call** folytatja az ügyletet, korábbi előzményekkel. A megállapodás a következő nap végéig él. Egy hirdetés közben elkelhet másnak.
 
 A vevő lehet érdeklődő, ajánlattevő vagy már megegyezett partner. Az ajánlatot és a plafont a saját igényei alakítják: állapot, fenntartási költség, karosszéria, dokumentumok és a kereskedő hírneve. A szolgálati előélet vagy megbízhatóság csak az arra fogékony vevőnél indokol magasabb ellenajánlatot. A lezárásig nincs vételi/eladási pénzmozgás; a vizsgálat külön fizetett művelet.
 
@@ -298,7 +298,7 @@ npm run test:ui
 npm run test:simulation
 ```
 
-A régi modulok regressziós alaptesztjei mellett az új 15 integrált teszt a tényleges játék betöltési sorrendjével ellenőrzi az NPC-döntést, hirdetéséletciklust, vizsgálatot, információrejtést, vételt/eladást, pénzmozgást, migrációt, visszahívást és szélsőséges likviditást. A teljes DOM-játékmenet és a három új gyakorlóhelyzet is tesztelt.
+A régi modulok regressziós alaptesztjei mellett az új 18 integrált teszt a tényleges játék betöltési sorrendjével ellenőrzi az NPC-döntést, hirdetéséletciklust, vizsgálatot, információrejtést, vételt/eladást, pénzmozgást, migrációt, visszahívást és szélsőséges likviditást. A teljes DOM-játékmenet és a három új gyakorlóhelyzet is tesztelt.
 
 A szimuláció 5 stratégia x 5 véletlenmag x 200 nap. Minden nap készpénz-napló egyeztetés, 25 naponta mentésből folytatás; külön reprodukálhatósági ellenőrzés. Kimenet: [reports/trading-simulation.json](reports/trading-simulation.json). A számok első balanszmérésből származnak; nem történelmi gazdasági adatok.
 

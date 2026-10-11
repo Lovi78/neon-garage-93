@@ -3,7 +3,7 @@ const assert = require("node:assert/strict"),
   path = require("node:path"),
   { JSDOM } = require("jsdom");
 const { root, html, scripts } = require("./runtime.cjs");
-function open(scenario) {
+function open(scenario, customize) {
   const dom = new JSDOM(html, {
       url: "https://neon-garage.test/?scenario=" + scenario,
       runScripts: "outside-only",
@@ -18,8 +18,17 @@ function open(scenario) {
   w.HTMLDialogElement.prototype.close = function () {
     this.open = false;
   };
-  for (const file of scripts)
+  for (const file of scripts) {
+    if (file.endsWith("/ui.js") && customize) {
+      const fixture = w.NG.practiceScenario(scenario);
+      customize(fixture);
+      const key = w.NG.saveKey;
+      w.NG.saveKey += "-practice-" + scenario;
+      w.NG.save(fixture);
+      w.NG.saveKey = key;
+    }
     w.eval(fs.readFileSync(path.join(root, file), "utf8"));
+  }
   const state = () => JSON.parse(w.localStorage.getItem(w.NG.saveKey));
   const click = (selector) => {
     const b = d.querySelector(selector);
@@ -101,5 +110,42 @@ function open(scenario) {
   assert.doesNotMatch(d.body.textContent, /NaN|undefined/);
   console.log(
     "PASS practice C: lower the stale stock asking price without losing the investment history.",
+  );
+}
+
+{
+  const { d: e, click } = open("A", (fixture) => {
+    const c = fixture.market[0];
+    c.ask = 1000;
+    Object.assign(c.seller, {
+      competitors: true,
+      urgency: 0.1,
+      reservation: 940,
+      risk: 1,
+    });
+  });
+  click(".computer");
+  click(".car-card");
+  e.querySelector("#purchase-bid").value = 950;
+  click('[data-action="haggle-buy"]');
+  assert(e.querySelector('[data-action="haggle-buy"]'));
+  assert.match(
+    e.querySelector(".negotiation-history").textContent,
+    /You:.*\$950/,
+  );
+  assert.match(
+    e.querySelector(".negotiation-history").textContent,
+    /Seller:.*\$980/,
+  );
+  assert.doesNotMatch(
+    e.querySelector("#details").textContent,
+    /saved conversation entries/,
+  );
+  assert.doesNotMatch(
+    e.querySelector(".negotiation-history").textContent,
+    /reservation|minimum|trust/,
+  );
+  console.log(
+    "PASS UI competitor counteroffer remains actionable and shows dated player/seller conversation.",
   );
 }

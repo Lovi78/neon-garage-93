@@ -225,8 +225,34 @@ window.NG = window.NG || {};
   };
   NG.ensureTrading = (s) => {
     s.trading = { schema: 12, archive: [], ...s.trading };
-    for (const c of [...s.market, ...s.inventory])
+    for (const c of [...s.market, ...s.inventory]) {
       NG.attachTrading(s, c, undefined, true);
+      const n = c.negotiation;
+      if (n?.schema === 12 && !n.flowRevision) {
+        // Repair the old unconditional competitor pause without erasing saved offers.
+        if (
+          n.status === "waiting" &&
+          n.message === "Another buyer is interested. Let me think overnight."
+        ) {
+          n.status = "active";
+          n.closed = false;
+          n.sessionRounds = 0;
+          n.competitionConsidered = true;
+          delete n.resumeDay;
+          n.message =
+            "There is other interest, but we can discuss the price. My counteroffer is " +
+            NG.money(n.price) +
+            ".";
+          n.history.push({
+            day: s.day,
+            action: "continue",
+            message: n.message,
+            price: n.price,
+          });
+        }
+        n.flowRevision = 1;
+      }
+    }
     return s;
   };
   NG.vehicleFactor = (s, c, publicOnly = false) => {
@@ -386,6 +412,7 @@ window.NG = window.NG || {};
     ) {
       n.closed = false;
       n.status = "active";
+      delete n.resumeDay;
       n.message = "New evidence? Tell me what the inspection found.";
     }
   };
@@ -424,6 +451,8 @@ window.NG = window.NG || {};
       n ||
       (c.negotiation = {
         schema: 12,
+        flowRevision: 1,
+        sessionRounds: 0,
         price: c.ask,
         rounds: 0,
         lastBid: 0,
@@ -436,6 +465,7 @@ window.NG = window.NG || {};
       });
     p.contacted = true;
     d.rounds++;
+    d.sessionRounds = (d.sessionRounds || 0) + 1;
     d.lastBid = bid;
     d.lastDay = s.day;
     const evidence = NG.evidence(c),
@@ -462,49 +492,72 @@ window.NG = window.NG || {};
       d.resumeDay = s.day + 2;
       p.trust = NG.clamp(p.trust - 0.2, 0, 1);
       d.message = "That is not a serious offer. Call me another day.";
-    } else if (
-      bid >= d.minimum &&
-      (!p.competitors ||
-        bid >= d.minimum * (1.015 + p.risk * 0.035) ||
-        p.urgency >= 0.8)
-    ) {
-      d.price = bid;
-      d.closed = true;
-      d.status = "agreed";
-      d.agreedUntil = s.day + 1;
-      d.message =
-        "All right. " + NG.money(bid) + " plus transfer, and it is yours.";
     } else {
-      d.price = Math.min(
-        current,
-        Math.max(
-          d.minimum,
-          Math.round(current - (current - bid) * (p.flexibility + 0.2)),
-        ),
-      );
-      if (
-        d.rounds >= p.patience + (s.progress?.oneMoreShot ? 1 : 0) ||
-        p.competitors
-      ) {
-        d.status = "waiting";
-        d.resumeDay = s.day + 1;
-        d.message = p.competitors
-          ? "Another buyer is interested. Let me think overnight."
-          : "I need a break. My price is " + NG.money(d.price) + ".";
-      } else
+      const competitiveMinimum =
+        p.competitors && !d.competitionConsidered && p.urgency < 0.8
+          ? Math.max(
+              d.minimum,
+              Math.min(
+                Math.round(c.ask * 0.98),
+                Math.round(d.minimum * (1.015 + p.risk * 0.035)),
+              ),
+            )
+          : d.minimum;
+      if (bid >= competitiveMinimum) {
+        d.price = bid;
+        d.closed = true;
+        d.status = "agreed";
+        d.agreedUntil = s.day + 1;
         d.message =
-          (tactic === "fault" && !newEvidence
-            ? "I need proof of that fault. "
-            : "") +
-          "I could do " +
-          NG.money(d.price) +
-          ". What can you offer?";
+          "All right. " + NG.money(bid) + " plus transfer, and it is yours.";
+      } else {
+        d.price = Math.min(
+          current,
+          Math.max(
+            competitiveMinimum,
+            Math.round(current - (current - bid) * (p.flexibility + 0.2)),
+          ),
+        );
+        const compareOtherBuyer =
+          p.competitors &&
+          !d.competitionConsidered &&
+          p.urgency < 0.8 &&
+          d.sessionRounds >= 2 &&
+          bid >= d.minimum;
+        if (
+          compareOtherBuyer ||
+          d.sessionRounds >= p.patience + (s.progress?.oneMoreShot ? 1 : 0)
+        ) {
+          d.status = "waiting";
+          d.resumeDay = s.day + 1;
+          if (compareOtherBuyer) d.competitionConsidered = true;
+          d.message =
+            (compareOtherBuyer
+              ? "I will compare the other interest overnight. "
+              : "Let us take a break until tomorrow. ") +
+            "My counteroffer is " +
+            NG.money(d.price) +
+            ".";
+        } else {
+          d.status = "active";
+          d.message =
+            (tactic === "fault" && !newEvidence
+              ? "I need proof of that fault. "
+              : p.competitors && !d.competitionConsidered
+                ? "There is other interest, so I have less room. "
+                : "") +
+            "I could do " +
+            NG.money(d.price) +
+            ". What can you offer?";
+        }
+      }
     }
     d.history.push({
       day: s.day,
       bid,
       tactic,
       response: d.status,
+      message: d.message,
       price: d.price,
     });
     return p.name + ': "' + d.message + '"';
@@ -518,6 +571,8 @@ window.NG = window.NG || {};
       c.negotiation ||
       (c.negotiation = {
         schema: 12,
+        flowRevision: 1,
+        sessionRounds: 0,
         price: c.ask,
         rounds: 0,
         lastBid: 0,
@@ -533,7 +588,11 @@ window.NG = window.NG || {};
     n.message = walk
       ? "You ended the call. The seller may call back."
       : "Call back tomorrow. The car may sell meanwhile.";
-    n.history.push({ day: s.day, action: walk ? "walk" : "wait" });
+    n.history.push({
+      day: s.day,
+      action: walk ? "walk" : "wait",
+      message: n.message,
+    });
     return n.message;
   };
   NG.resumeDeal = (s, id) => {
@@ -544,9 +603,16 @@ window.NG = window.NG || {};
     n.closed = false;
     n.walked = false;
     n.status = "active";
+    n.sessionRounds = 0;
     delete n.resumeDay;
     n.message =
       "Still interested? We can talk again. Previous offers are on record.";
+    n.history.push({
+      day: s.day,
+      action: "resume",
+      message: n.message,
+      price: n.price,
+    });
     return n.message;
   };
   NG.advanceListings = (s, rng = Math.random) => {

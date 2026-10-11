@@ -33,7 +33,7 @@ Fejlesztés: 2026. október 11. Alap: `67c1d95`, helyi main és a frissített `o
 
 - **Direct**, **Cash**, **Fault**, **Inspection**: eltérő feltételek között működnek. A gyors fizetés a sürgős eladónál erősebb; a hibás érveléshez friss, feltárt bizonyíték kell. A bizonyíték egyszer használható engedményhez, az alaptalan hibahivatkozás csökkenti a bizalmat.
 - Minimum alapja a létrehozáskor mentett eladói rezerváció. Az eladó árcsökkentése, skill, reputáció és bizonyíték alakíthatja, új véletlen minimum nincs.
-- Állapotok: active, waiting, walked, callback, agreed. A körök, napok, ajánlatok, taktika, bizonyíték és válasz története mentődik. Megszakítás után nincs azonnali újrapróba; az eladó később visszahívhat. A korábbi ajánlatok és elhasznált türelem nem törlődnek.
+- Állapotok: active, waiting, walked, callback, agreed. A körök, napok, ajánlatok, taktika, bizonyíték és válasz története mentődik. Megszakítás után nincs azonnali újrapróba; az eladó később visszahívhat. A korábbi ajánlatok és teljes körszám nem törlődnek. Új visszahíváskor a beszélgetés türelmi kerete újraindul, így nem kerül azonnal újra várakozásba. Másik érdeklődő nem állítja le automatikusan az első ajánlatot; több lépés után lehet egyszeri éjszakai összehasonlítás.
 - Megállapodás a következő nap végéig érvényes. Új bizonyíték sértés nélkül megszakadt/lezárt alkut újranyithat. Az ismert áron történő közvetlen vétel továbbra is lehetséges; várakozó vagy visszahívásos állapotból előbb folytatni kell a beszélgetést.
 - Negotiation rangonként 0,8% tárgyalási előny. One More Shot egy türelmi lépést ad. A régi, már elkezdett v0.11 tárgyalás saját régi korlátait megtartja.
 
@@ -64,7 +64,9 @@ Az alsó **Practice** linkek külön mentést használnak. A **Return to your de
 
 ## Ellenőrzés és korlátok
 
-A régi modulok regressziós tesztjei a régi API/kompatibilitási alapot vizsgálják. Az új `runtime.cjs` a tényleges `index.html` betöltési sorrendjét használja; az új 15 tárgyalási teszt és a DOM-tesztek a teljes v0.12 integrációt ellenőrzik. A korábbi UI-tesztben a vevői kérdés megválaszolását hozzá kellett adni: az érdeklődés tudatosan már nem azonnal elfogadható ajánlat.
+A tárgyalási előzmények dátumozott ajánlatot, taktikát és eladói választ mutatnak. A régi, hibás automatikus konkurens WAITING állapot betöltéskor egyszer helyreáll, az előzmények megőrzésével.
+
+A régi modulok regressziós tesztjei a régi API/kompatibilitási alapot vizsgálják. Az új `runtime.cjs` a tényleges `index.html` betöltési sorrendjét használja; az új 18 tárgyalási teszt és a DOM-tesztek a teljes v0.12 integrációt ellenőrzik. A korábbi UI-tesztben a vevői kérdés megválaszolását hozzá kellett adni: az érdeklődés tudatosan már nem azonnal elfogadható ajánlat.
 
 25 reprodukálható, 200 napos futás, öt stratégia és öt mag. Naponta készpénz-napló egyeztetés; 25 naponta valódi mentésből folytatás. A botok nem olvassák az eladói rezervációt, rejtett hibát vagy vevői keretet. A készlettartási és közös költségek miatt az ügyletfedezet nem egyenlő a nettó vagyon változásával.
 
@@ -73,12 +75,12 @@ Valódi böngészős ellenőrzés: 490 pixel széles alapnézet és 1280 x 900 a
 A botok egyszerűek: nem javítanak és nem nyitnak üzletágat. A magas áras bot szélsőségesen sokat vár; az agresszív bot gyakran sértő vagy nem elfogadható ajánlatot tesz. Ez összehasonlító első balanszmérés, nem történelmi realizmusbizonyíték vagy végleges játékosi egyensúly. Részletes adatok: [trading-simulation.json](reports/trading-simulation.json).
 
 | Stratégia | Eladások | Átlagos készletnap | Nyereséges / veszteséges | Átlagfedezet | Cash-hiányos nap | Záró nettó vagyon |
-| --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| Gyors | 35.4 | 3.73 | 13.8 / 21.6 | $-59 | 42.2 | $-545.6 |
-| Óvatos | 62 | 2.47 | 51.2 / 10.8 | $383.6 | 0 | $17405.6 |
-| Agresszív | 22.8 | 3.9 | 10.6 / 12 | $7 | 22 | $2613.2 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Gyors | 48.2 | 3.73 | 23.2 / 25 | $-26.2 | 37.4 | $2967.4 |
+| Óvatos | 83.8 | 2.47 | 70.6 / 13.2 | $445.6 | 0 | $30220 |
+| Agresszív | 104.8 | 3.14 | 64.6 / 40 | $146.4 | 10.2 | $19832 |
 | Magas áron kiváró | 6.6 | 36.14 | 2 / 4.6 | $-224.2 | 45.2 | $-188.8 |
-| Sok készletet tartó | 21.4 | 7.93 | 6.8 / 14.4 | $-107.2 | 52 | $-814 |
+| Sok készletet tartó | 21 | 8.12 | 7.2 / 13.6 | $-111.8 | 55.2 | $-785 |
 
 Az adatok öt futás átlagai. Induló nettó vagyon: $5,000. Negatív vagyon lehetséges a számlahátralék miatt; a készpénz nem megy negatívba.
 
