@@ -4,7 +4,7 @@ Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, f
 
 A teljes játékfelület angol. A korábbi mentések eseményei, hibaleírásai és pénzügyi bejegyzései betöltéskor angolra váltanak, a játékállás megtartásával.
 
-Dokumentáció frissítve: 2026. október 11. Játékverzió: 0.12.1.
+Dokumentáció frissítve: 2026. október 11. Játékverzió: 0.12.2.
 
 A teljes fejlesztési irány, a következő szakaszok és a nyitott döntések a [ROADMAP.md](ROADMAP.md) dokumentumban vannak rögzítve.
 
@@ -17,6 +17,12 @@ Nyisd meg az `index.html` fájlt Chrome-ban, Edge-ben, Firefoxban vagy Safariban
 Macen az `Indítás.command` fájlra is kattinthatsz kétszer. Ha a rendszer blokkolja ezt, nyisd meg közvetlenül az `index.html` fájlt.
 
 A játék minden változtatás után a böngésző helyi tárhelyére ment. Ugyanabban a böngészőben, ugyanarról a helyről nyisd újra a fájlt. Privát ablak vagy a böngészőadatok törlése miatt a mentés elveszhet. Ha a tárolás nem engedélyezett, a játék figyelmeztet.
+
+## Rövidebb felület - v0.12.2
+
+Az **Operations** nyitófüle **Today**: aktuális teendők, következő számla, készpénzfedezet és hátralék. A **Workshop**, **Requests** és **Business** fülek külön mutatják a munkákat, vevői megbízásokat és beruházásokat/hitelt. A füleken számláló jelzi az aktív tételeket. Az ablak rövid nézethez igazítja a magasságát; hosszabb listán belül lehet görgetni.
+
+A működési magyarázatok **How it works**, a beszélgetések **Conversation history**, a pénzügyi grafikon és napló külön lenyithatók. Az árak, fizetési kötelezettségek, határidők és kockázati jelzések a döntés mellett látszanak. A Dealer File csak a fejlődést és kisebb fejlesztéseket mutatja; Business gombja az Operations megfelelő fülére vezet. A felület változtatása nem módosítja a gazdasági szabályokat vagy a mentést.
 
 ## Az első üzleted
 
@@ -101,7 +107,7 @@ Ezekből valódi választás következik: megvárod a hullámot és kifizeted a 
 
 ## Vevői autómegbízások
 
-Az **Operations** ablakban érhetők el. Jogosult reggelen 25% eséllyel érkezik új megkeresés, legalább négy napos közökkel; egyszerre legfeljebb egy el nem vállalt megkeresés vár döntésre. A feltételek mentődnek, betöltés nem sorsolja őket újra. Új megkeresésről értesítés és napi jelentés szól.
+Az **Operations / Requests** fülön érhetők el. Jogosult reggelen 25% eséllyel érkezik új megkeresés, legalább négy napos közökkel; egyszerre legfeljebb egy el nem vállalt megkeresés vár döntésre. A feltételek mentődnek, betöltés nem sorsolja őket újra. Új megkeresésről értesítés és napi jelentés szól.
 
 A korábbi nyolc fizetős helyi meghívásból nem generálódik új. A régi mentések függő meghívásai és fizetett hatásai kifutnak; szabályaik a [fejlesztési előzményekben](DEVELOPMENT-HISTORY.md) maradtak meg.
 
@@ -123,7 +129,7 @@ Ezek fiktív vevői autómegbízások. Az ellenőrzött történelmi hírek kül
 
 ## Nagy vállalkozási döntések
 
-A **Dealer File** és az **Operations** ablakban új Business / Capital & Commitments rész van. A régi mentés pénze, autói és eredményei megmaradnak: új költség csak vállalt beruházással vagy hitellel keletkezik. A garázs továbbra is két saját autót tart; a bővítés üzletágat és műhelykapacitást nyit, nem új beállókat rajzol.
+Az **Operations / Business** fülön érhetők el a nagy beruházások és a hitel; a Dealer File Business gombja ide vezet. A régi mentés pénze, autói és eredményei megmaradnak: új költség csak vállalt beruházással vagy hitellel keletkezik. A garázs továbbra is két saját autót tart; a bővítés üzletágat és műhelykapacitást nyit, nem új beállókat rajzol.
 
 | Beruházás | Induló tőke | Építés | Napi fix költség nyitástól | Új működés |
 | --- | ---: | ---: | ---: | --- |

@@ -18,7 +18,9 @@ w.HTMLDialogElement.prototype.showModal = function () {
 w.HTMLDialogElement.prototype.close = function () {
   this.open = false;
 };
-const files = [...html.matchAll(/src="(js\/[^" ]+)"/g)].map((m) => m[1]);
+const files = [...html.matchAll(/src="(js\/[^" ]+)"/g)].map(
+  (m) => m[1].split("?")[0],
+);
 for (const file of files.filter((f) => !f.endsWith("/ui.js")))
   w.eval(fs.readFileSync(path.join(root, file), "utf8"));
 const fixture = w.NG.newState();
@@ -46,8 +48,9 @@ const next = () => {
   click('[data-action="close-day-report"]');
 };
 click(".dealer-folder");
+click('[data-action="view"][data-tab="business"]');
 assert(d.querySelector(".enterprise-panel"));
-assert.match(d.querySelector(".enterprise-panel").textContent, /CASH RUNWAY/);
+assert.match(d.querySelector(".operations-console").textContent, /Cash runway/);
 const initialNet = w.NG.businessValue(state());
 click('[data-action="enterprise-borrow"]');
 assert.equal(state().cash, 114259);
@@ -63,6 +66,7 @@ for (let i = 0; i < 6; i++) next();
 assert.equal(state().enterprise.projects.service.status, "active");
 assert(d.querySelector('.offer-notification [data-view="operations"]'));
 click(".operations-board");
+click('[data-action="ops-tab"][data-tab="workshop"]');
 assert.match(
   d.querySelector(".enterprise-panel").textContent,
   /shared capacity 0 \/ 2/,
@@ -73,15 +77,18 @@ click('[data-action="enterprise-order"]');
 assert.equal(state().cash, cash - order.cost);
 assert.equal(state().enterprise.orders[0].status, "running");
 const beforePause = state().enterprise.projects.service.status;
+click('[data-action="ops-tab"][data-tab="business"]');
 click('[data-action="enterprise-pause"][data-id="service"]');
 assert.equal(state().enterprise.projects.service.status, beforePause);
 for (let i = 0; i < order.days; i++) next();
 assert.equal(state().enterprise.orders[0].status, "completed");
 assert.equal(state().enterprise.profit, order.revenue - order.cost);
 click(".operations-board");
+click('[data-action="ops-tab"][data-tab="business"]');
 click('[data-action="enterprise-build"][data-id="wholesale"]');
 for (let i = 0; i < 8; i++) next();
 click(".operations-board");
+click('[data-action="ops-tab"][data-tab="business"]');
 assert.equal(state().enterprise.projects.wholesale.status, "active");
 click('[data-action="enterprise-pause"][data-id="wholesale"]');
 assert.equal(state().enterprise.projects.wholesale.status, "paused");
@@ -97,6 +104,7 @@ for (let i = 0; i < 5; i++) next();
 assert.equal(state().enterprise.lots[0].status, "settled");
 assert.equal(state().enterprise.lots.length, 1);
 click(".operations-board");
+click('[data-action="ops-tab"][data-tab="business"]');
 click('[data-action="enterprise-repay"]');
 assert.equal(state().enterprise.loan, 0);
 click(".ledger-object");

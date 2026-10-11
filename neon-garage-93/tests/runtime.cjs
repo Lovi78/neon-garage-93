@@ -3,7 +3,9 @@ const fs = require("node:fs"),
   vm = require("node:vm");
 const root = path.join(__dirname, "..");
 const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
-const scripts = [...html.matchAll(/src="(js\/[^" ]+)"/g)].map((m) => m[1]);
+const scripts = [...html.matchAll(/src="(js\/[^" ]+)"/g)].map(
+  (m) => m[1].split("?")[0],
+);
 function runtime(rng) {
   const storage = new Map(),
     context = vm.createContext({

@@ -431,7 +431,7 @@ function bootNotificationFixture(fixture) {
   w.localStorage.setItem("neon-garage-93-v1", JSON.stringify(fixture));
   for (const script of d.querySelectorAll("script[src]"))
     w.eval(
-      fs.readFileSync(path.join(root, script.getAttribute("src")), "utf8"),
+      fs.readFileSync(path.join(root, script.getAttribute("src").split("?")[0]), "utf8"),
     );
 }
 bootNotificationFixture(notificationFixture);
@@ -525,7 +525,10 @@ strategyFixture.operations.arrears = 40;
 w.close();
 bootNotificationFixture(strategyFixture);
 click(".operations-board");
+assert.match(d.querySelector(".desk-window").textContent, /OVERDUE/);
+click('[data-action="ops-tab"][data-tab="workshop"]');
 assert.match(d.querySelector(".desk-window").textContent, /Workshop schedule/);
+click('[data-action="ops-tab"][data-tab="today"]');
 const cashBeforeBills = saved().cash;
 click('[data-action="pay-bills"]');
 assert.equal(saved().cash, cashBeforeBills - 40);
@@ -733,7 +736,7 @@ if (ld.querySelector("#day-report").open)
   lc('[data-action="close-day-report"]');
 assert(ld.querySelector(".local-notification"));
 lc('.local-notification [data-view="operations"]');
-assert.match(ld.querySelector(".local-board").textContent, /No deposits/);
+assert.match(ld.querySelector(".local-board").textContent, /No deposit/);
 const stateBeforeWarning = lw.localStorage.getItem(lw.NG.saveKey);
 lc('[data-action="next"]');
 assert.match(

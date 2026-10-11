@@ -28,6 +28,14 @@ A régi `.offer > div` stílus oszloposra állította az ellenajánlat vezérlő
 
 A pixel.css verziózott hivatkozást kapott, hogy normál frissítéskor se maradjon a gyorsítótárban az elrontott elrendezés. Automatikus UI-regresszió: $12,137 nyitó ajánlat, $14,625 hirdetés, érvénytelen $1,400 és érvényes $14,000 ellenajánlat, mentett vevői válasz, valamint vevői visszalépés látható indoklással. Böngészős ellenőrzés: az összegmező asztali nézetben 246 pixel, 390 pixeles nézetben 183 pixel, a dialogon belül marad. Külön tesztmentés, valódi játékállás módosítása nélkül.
 
+## v0.12.2 - rövid, teendőközpontú felület
+
+Operations: Today, Workshop, Requests, Business fülek. Today csak aktuális teendőt, számlát, hátralékot és likviditási jelzést mutat. Külön lapra került a műhely, a megbízás, a beruházás, a hitel és a nagykereskedés; a fontos pénzügyi adatok és kockázatok továbbra is a döntés mellett látszanak. Az ablak rövid nézetnél kisebb, hosszú listánál korlátozottan görgethető. A Dealer File-ból megszűnt a teljes vállalati panel ismétlése.
+
+Rövidebb feliratok, státuszok és adatmezők a többi fő nézetben. A magyarázatok és régi beszélgetések lenyithatók. A pénzügyi grafikon és teljes tételes napló megmaradt, külön nyitható. Billentyűzetes fülnavigáció, feladathoz vezető értesítések. UI-only: gazdaság, NPC, pénzmozgás és mentési modell változatlan.
+
+Azonos késői tesztállás böngészős összehasonlítása: Operations nyitóképernyő 932 helyett 59 szó; régi tartalommagasság 3317 pixel, új asztali nyitónézet 370 pixel. Belső görgetés nélküli nézet asztalon és 390 pixeles mobilméreten. Az értékek kontrollált fixture-re vonatkoznak, nem minden játékállásra. A régi UI-tesztek a tényleges új fülnavigációval folytatódnak; új teszt ellenőrzi a teendőket, hátralék miatti blokkolást, a pénzügyi kockázat láthatóságát és az érintetlen mentést.
+
 ## A kivezetett v0.10-es helyi meghívások szabályai
 
 A v0.11 óta új ilyen meghívás nem keletkezik. A régi mentésben meglévő meghívások és fizetett hatások az eredeti feltételekkel kifutnak. Korábban jogosult reggelen 35% volt az új esemény esélye, legalább három napos közökkel. A vevői autómegbízások külön rendszerként megmaradtak.
