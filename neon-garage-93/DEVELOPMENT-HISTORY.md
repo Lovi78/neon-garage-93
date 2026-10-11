@@ -22,6 +22,12 @@ A másik érdeklődő jelzője korábban minden el nem fogadott ajánlatot azonn
 
 Betöltés egyszer helyreállítja a régi hibás konkurens WAITING állapotot. A felület dátumozott játékosi ajánlatot, taktikát és eladói választ mutat, nem pusztán bejegyzésszámot. Régi bejegyzésben nem tárolt válaszszöveg helyett a mentett eredmény és ellenajánlat jelenik meg. Új regresszióteszt: 5% nyitó alku, másnapi folytatás, hat régi bejegyzés migrációja és látható UI-előzmények.
 
+## v0.12.1 - ellenajánlat mező és látható visszajelzés
+
+A régi `.offer > div` stílus oszloposra állította az ellenajánlat vezérlőit, a nullás szélességű összegmező így 65 pixelre zsugorodott és levágta az ötjegyű összeget. A vezérlő most célzottan soros, tördelhető, legalább 150 pixeles mezővel. Érvénytelen ellenajánlat esetén a hiba közvetlenül az ajánlatkártyán látszik; a modal mögötti toast helyett a tényleges alsó/felső határt mutatja. A vevő fizetési logikája változatlan.
+
+A pixel.css verziózott hivatkozást kapott, hogy normál frissítéskor se maradjon a gyorsítótárban az elrontott elrendezés. Automatikus UI-regresszió: $12,137 nyitó ajánlat, $14,625 hirdetés, érvénytelen $1,400 és érvényes $14,000 ellenajánlat, mentett vevői válasz, valamint vevői visszalépés látható indoklással. Böngészős ellenőrzés: az összegmező asztali nézetben 246 pixel, 390 pixeles nézetben 183 pixel, a dialogon belül marad. Külön tesztmentés, valódi játékállás módosítása nélkül.
+
 ## A kivezetett v0.10-es helyi meghívások szabályai
 
 A v0.11 óta új ilyen meghívás nem keletkezik. A régi mentésben meglévő meghívások és fizetett hatások az eredeti feltételekkel kifutnak. Korábban jogosult reggelen 35% volt az új esemény esélye, legalább három napos közökkel. A vevői autómegbízások külön rendszerként megmaradtak.

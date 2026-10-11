@@ -1,5 +1,5 @@
 
-> neon-garage-93@0.12.0 test
+> neon-garage-93@0.12.1 test
 > node tests/economy.test.cjs && node tests/progression.test.cjs && node tests/finance-catalog.test.cjs && node tests/collection.test.cjs && node tests/customers.test.cjs && node tests/day-report.test.cjs && node tests/strategy.test.cjs && node tests/ambience.test.cjs && node tests/opportunities.test.cjs && node tests/enterprise.test.cjs && node tests/trading.test.cjs
 
 PASS Kezdőtőke, kapacitás, dátum és korhű kínálat
@@ -10,7 +10,7 @@ PASS Hirdetés, ajánlat, elutasítás és érvényesség
 PASS Profit = bevétel - vétel - vizsgálat - javítás
 PASS Piaci hullám több napig él, és valóban módosítja az értéket
 PASS Mentés és újratöltés adatvesztés nélkül
-Üzletek: 339 nyereséges, 659 veszteséges.
+Üzletek: 338 nyereséges, 660 veszteséges.
 PASS 1000 üzlet: pénzmegmaradás, nyereség és veszteség
 PASS A korábbi magyar mentés angolra vált, a játékállás megmarad
 PASS Vételi alku: elfogadás, pontos ár és profit
@@ -126,7 +126,7 @@ PASS Existing stuck competitor saves recover once with all six entries intact
 18 total integrated trading tests passed.
 
 
-> neon-garage-93@0.12.0 test:ui
+> neon-garage-93@0.12.1 test:ui
 > node tests/ui.test.cjs && node tests/enterprise-ui.test.cjs && node tests/trading-ui.test.cjs
 
 PASS Teljes DOM-játékmenet: piac, adatlap, vizsgálat, vétel, javítás, napváltás, hirdetés, ajánlat, eladás, pénzügyek, visszatöltés, reset megszakítása és új játék.
@@ -142,8 +142,10 @@ PASS practice A: seller call, cash negotiation, inspection, listing, day close, 
 PASS practice B: public information stays hidden until paid investigations change the deal.
 PASS practice C: lower the stale stock asking price without losing the investment history.
 PASS UI competitor counteroffer remains actionable and shows dated player/seller conversation.
+PASS UI screenshot regression: invalid counter is visible inside the dialog; $14,000 counter receives a saved buyer reply without changing cash.
+PASS UI counteroffer withdrawal displays the buyer’s reason instead of silently ignoring the button.
 
-
+Previous unchanged economic simulation:
 > neon-garage-93@0.12.0 test:simulation
 > node tests/trading-simulation.cjs
 

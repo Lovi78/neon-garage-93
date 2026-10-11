@@ -4,7 +4,7 @@ Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, f
 
 A teljes játékfelület angol. A korábbi mentések eseményei, hibaleírásai és pénzügyi bejegyzései betöltéskor angolra váltanak, a játékállás megtartásával.
 
-Dokumentáció frissítve: 2026. október 11. Játékverzió: 0.12.0.
+Dokumentáció frissítve: 2026. október 11. Játékverzió: 0.12.1.
 
 A teljes fejlesztési irány, a következő szakaszok és a nyitott döntések a [ROADMAP.md](ROADMAP.md) dokumentumban vannak rögzítve.
 

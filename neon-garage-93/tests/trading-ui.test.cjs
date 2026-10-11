@@ -149,3 +149,80 @@ function open(scenario, customize) {
     "PASS UI competitor counteroffer remains actionable and shows dated player/seller conversation.",
   );
 }
+
+{
+  const { d, state, click } = open("C", (fixture) => {
+    const c = fixture.inventory[0];
+    fixture.day = 175;
+    c.inspected = true;
+    c.listPrice = 14625;
+    c.offers = [
+      {
+        id: "counter-regression",
+        buyer: "Sam P.",
+        price: 12137,
+        stage: "offer",
+        expiresDay: 176,
+        seen: true,
+        profile: {
+          id: "budget",
+          name: "Budget shopper",
+          focus: "cost",
+          budget: 13000,
+          trust: 0.5,
+          patience: 2,
+        },
+      },
+    ];
+  });
+  click(".parked-car");
+  const input = d.querySelector("#counter-price-counter-regression"),
+    initial = state();
+  input.value = 1400;
+  click('[data-action="haggle-sell"]');
+  const feedback = d.querySelector(".offer-feedback");
+  assert.equal(feedback.hidden, false);
+  assert.match(feedback.textContent, /above \$12,137.*\$14,625/);
+  assert.equal(input.getAttribute("aria-invalid"), "true");
+  assert.deepEqual(state(), initial);
+  input.value = 14000;
+  click('[data-action="haggle-sell"]');
+  assert.equal(state().inventory[0].offers[0].negotiation.rounds, 1);
+  assert(state().inventory[0].offers[0].price > 12137);
+  assert.equal(state().cash, initial.cash);
+  assert.match(
+    d.querySelector(".buyer-offer .negotiation-dialogue").textContent,
+    /I can stretch/,
+  );
+  assert.equal(d.querySelector(".offer-feedback").hidden, true);
+  console.log(
+    "PASS UI screenshot regression: invalid counter is visible inside the dialog; $14,000 counter receives a saved buyer reply without changing cash.",
+  );
+}
+{
+  const { d, state, click } = open("C", (fixture) => {
+    const c = fixture.inventory[0];
+    c.listPrice = 14625;
+    c.offers = [
+      {
+        id: "walk-counter",
+        buyer: "Sam P.",
+        price: 12137,
+        stage: "offer",
+        expiresDay: 10,
+        profile: { budget: 12600, trust: 0.45, patience: 2, focus: "cost" },
+      },
+    ];
+  });
+  click(".parked-car");
+  d.querySelector("#counter-price-walk-counter").value = 14000;
+  click('[data-action="haggle-sell"]');
+  assert.equal(state().inventory[0].offers.length, 0);
+  assert.match(
+    d.querySelector("#details").textContent,
+    /Too much for my needs/,
+  );
+  console.log(
+    "PASS UI counteroffer withdrawal displays the buyer’s reason instead of silently ignoring the button.",
+  );
+}

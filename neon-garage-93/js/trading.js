@@ -820,7 +820,11 @@ window.NG = window.NG || {};
       throw Error("Choose a valid selling tactic.");
     if (!Number.isInteger(price) || price <= o.price || price > c.listPrice)
       throw Error(
-        "Counter above the offer, up to your listed price, in whole dollars.",
+        "Enter whole dollars above " +
+          NG.money(o.price) +
+          " and no more than " +
+          NG.money(c.listPrice) +
+          ".",
       );
     const n =
       o.negotiation ||
