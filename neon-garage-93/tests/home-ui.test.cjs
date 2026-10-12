@@ -50,7 +50,7 @@ function boot(make = (N) => N.newState()) {
         "#app > .game-shell > .retro-nav > button, #app > .game-shell > .retro-nav > details > summary",
       ),
     ].map((b) => b.textContent),
-    ["Garage", "Market", "My Cars", "Deals", "Business"],
+    ["Garage", "Market", "My Cars", "Deals", "Dealer", "Business"],
   );
   for (const view of [
     "market",
@@ -91,7 +91,7 @@ function boot(make = (N) => N.newState()) {
   assert(!d.querySelector(".nav-business").open);
   assert.equal(w.localStorage.getItem(w.NG.saveKey), before);
   console.log(
-    "PASS garage-first home: five categories, no idle bars, all destinations in one/two clicks, keyboard menus and unchanged save.",
+    "PASS garage-first home: six categories, persistent progress, all destinations in one/two clicks, keyboard menus and unchanged save.",
   );
 }
 {
@@ -103,7 +103,7 @@ function boot(make = (N) => N.newState()) {
   assert(d.querySelector(".progress-notice"));
   click(".progress-notice");
   assert(d.querySelector(".rep-panel"));
-  assert.match(d.querySelector(".growth-summary").textContent, /EXPERIENCE/);
+  assert.match(d.querySelector(".driver-progress").textContent, /XP/);
   click('[data-action="train-negotiation"]');
   assert.equal(saved().progress.points, 0);
   click('.window-title [data-view="garage"]');

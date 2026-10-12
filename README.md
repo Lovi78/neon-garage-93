@@ -2,6 +2,8 @@
 
 Pixel art autókereskedős tycoon, angol játékfelülettel. Jelenlegi verzió: v0.13.0 / Run the Lot. Dokumentáció frissítve: 2026. október 12.
 
+A teljes felületi átalakítás a [codex/premium-retro-ux](https://github.com/Lovi78/neon-garage-93/tree/codex/premium-retro-ux) ágon található. [Audit, előtte/utána képek és tesztek](neon-garage-93/UX-REDESIGN.md). Ez a v0.13 játék felületi csomagja, változatlan gazdasági szabályokkal.
+
 A v0.13 fejlesztései a [codex/v0.13-run-the-lot](https://github.com/Lovi78/neon-garage-93/tree/codex/v0.13-run-the-lot) ágon találhatók. A `main` külön, v0.11.0 állapotban marad a mainbe történő jóváhagyott beolvasztásig. A legfrissebb változat letöltéséhez a GitHub branchválasztójában ezt a fejlesztői ágat válaszd.
 
 A játék fájljai a [`neon-garage-93`](neon-garage-93/) mappában vannak. Indításhoz töltsd le a projektet, majd nyisd meg a mappában található `index.html` fájlt böngészőben. Nincs szükség telepítésre vagy szerverre.

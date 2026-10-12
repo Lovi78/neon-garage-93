@@ -1,5 +1,7 @@
 # Garage-first főképernyő
 
+Ez a korábbi Garage-first kör feljegyzése. A jelenlegi, XP/REP HUD-ot és hat belépőt tartalmazó felületet a [Premium Retro UX](UX-REDESIGN.md) írja le.
+
 2026. október 12. A v0.13 játékmechanikájára épülő, kizárólag felületi finomítás.
 
 - Kompakt fejléc: kisebb logó, Cash, Garage, dátum és jól látható Next Day.

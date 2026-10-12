@@ -518,3 +518,8 @@ Elfogadási feltételek:
 Új döntést ide kell rögzíteni, megkülönböztetve az ötletet, a véglegesített szabályt és a megvalósult funkciót. Egy tétel csak ellenőrzött megvalósítás után jelölhető késznek. A [README](README.md) a jelenlegi játék indítását és működését írja le; ez a roadmap a jövőbeli fejlesztés közös hivatkozási pontja.
 
 A még nyitott tételek továbbra is tervek. A v0.4 fent részletezett szabályai már működnek; a későbbi bővítések előtt az új döntéseket külön kell rögzíteni.
+
+
+## 2026. október 12. - Premium Retro UX
+
+A v0.12 UI/UX-feladat a munkakezdéskor tényleges v0.13-as játékra épült. A meglévő Garage-first helyi munkát külön baseline commit őrzi. Közös állandó/modal HUD, XP/REP, Dealer-fülek, közvetlen Business-navigáció, Finance-hitel, zárolási feltételek, állapotfüggő garázssegítség, közös olvasható stílus és visszajelzések készültek. A gazdaság és a mentési modell változatlan. Részletek és korlátok: [UX-REDESIGN.md](UX-REDESIGN.md). Külön branch/PR, main merge nélkül.

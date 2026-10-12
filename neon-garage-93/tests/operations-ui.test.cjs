@@ -80,7 +80,8 @@ click('[role="tab"][data-tab="requests"]');
 assert(d.querySelector('[data-action="request-accept"]'));
 assert.match(d.querySelector("#ops-content").textContent, /5,650/);
 click('[role="tab"][data-tab="business"]');
-assert(d.querySelector('[data-action="enterprise-borrow"]'));
+assert(!d.querySelector('[data-action="enterprise-borrow"]'));
+assert(d.querySelector('[data-action="view"][data-view="finances"]'));
 assert.match(
   d.querySelector("#ops-content").textContent,
   /Capital at risk.*5 days locked/,

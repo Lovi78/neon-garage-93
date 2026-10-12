@@ -26,9 +26,13 @@ A **Finance** elkülöníti az eredményt a cash flowtól: Last 7 days, időará
 
 Részletes szabályok, három konkrét játékhelyzet, mérési eredmények és nyitott balanszkérdések: [MANAGEMENT-V013.md](MANAGEMENT-V013.md).
 
+## Premium Retro UX
+
+A jelenlegi fejlesztői ág teljes felületi megújulása: állandó Cash/Garage/dátum és külön XP/REP HUD, hat fő navigációs belépő, füles Dealer, rövid zárolt beruházások és Finance alá rendezett hitel. A garázs és az autóképek megmaradtak, a gazdasági és mentési szabályok változatlanok. [Audit, képek, ellenőrzés és korlátok](UX-REDESIGN.md).
+
 ## Navigáció és autófülek
 
-A főképernyő öt kategóriája: **Garage, Market, My Cars, Deals, Business**. A **Business** alatt Operations, Finance, Customers, Business upgrades, Dealer File és Collection érhető el, legfeljebb két kattintással. A fejlécben csak Cash, Garage, dátum és Next Day maradt. Az üres teendősáv eltűnik; a garázs kapja a fő területet. Előtte-utána képek és mérési eredmények: [HOME-UX.md](HOME-UX.md). A **Today's Priorities** teendői közvetlenül a megfelelő autóra vagy funkcióra vezetnek. A Deals a folyó eladói és vevői beszélgetések közös belépője.
+A főképernyő hat belépője: **Garage, Market, My Cars, Deals, Dealer, Business**. A Business közvetlenül nyitja a Today, Staff, Workshop, Buyer requests, Finance, Customers, Expansions, Tools & marketing és Collection nézetet. A **Dealer** külön Skills / Reputation / Tools & marketing füleket kapott. A **Finance** a hitel egyetlen otthona. A HUD mutatja a Cash, Garage, dátum, Level, XP, REP, következő rang és skillpont adatokat; görgetéskor és a fontos modal ablakokban is elérhető. A garázs üres állapotban hangsúlyos autókeresési gombot ad. A **Today's Priorities** közvetlenül a megfelelő autóra vagy funkcióra vezet. A korábbi főképernyő-kör története a [HOME-UX.md](HOME-UX.md), a jelenlegi megvalósítás az [UX-REDESIGN.md](UX-REDESIGN.md) fájlban olvasható.
 
 Autóvásárlás: **Overview / Inspection / Negotiation / Deal**. Saját autó: **Overview / Workshop / Selling / Finances**. A még el nem küldött, módosított összegek és választások fülváltáskor és fő nézetváltáskor megmaradnak a munkamenetben. Az alsó döntési sávban elérhető a vétel és az adott autó következő nézete. Vevői válasz/elfogadás a vevő kártyáján történik, egyetlen elsődleges gombbal. Az elkészült, de még nem hirdetett javítás későbbi napokon is teendő marad. A részletes leírás: [UX-V0123.md](UX-V0123.md).
 
@@ -75,7 +79,7 @@ Kattints a garázsban a **Dealer File** irodai mappára, vagy válaszd a **Busin
 - **Parts Supplier Deal**: $900, a javítás alkatrészrésze és a feltárt hibák alkatrészköltsége 20%-kal alacsonyabb. Az alapjavítás munkadíj/alkatrész bontása 65/35; a kijelzett és levont ár a kedvezményeket tartalmazza.
 - **Local Newspaper Ad**: $450 egyszeri befektetés. Ezután bekapcsolható és szüneteltethető a kampány: napi $20, +15 százalékpont érdeklődési esély. A napi díj napváltáskor jelentkezik, és pénzhiánynál automatikusan leáll a kampány. Nem keletkezik tartozás.
 
-Reputációs mérföldkövek: 0 **Unknown Dealer**, 5 **Familiar Face**, 15 **Trusted Dealer**, 30 **Established Business**, 50 **Local Legend**. Az érdeklődés bónusza sorrendben 0, 3, 7, 12 és 18 százalékpont. A hirdetési ár továbbra is befolyásolja az érdeklődést; ajánlat nincs garantálva. A reputáció új tárgyalásokban továbbra is segít, legfeljebb 2% árkorlát-bónusszal. A **Dealer File** mutatja a következő célhoz hiányzó pontokat.
+Reputációs mérföldkövek: 0 **Unknown Dealer**, 5 **Familiar Face**, 15 **Trusted Dealer**, 30 **Established Business**, 50 **Local Legend**. Az érdeklődés bónusza sorrendben 0, 3, 7, 12 és 18 százalékpont. A hirdetési ár továbbra is befolyásolja az érdeklődést; ajánlat nincs garantálva. A reputáció új tárgyalásokban továbbra is segít, legfeljebb 2% árkorlát-bónusszal. A **Dealer / Reputation** és a HUD mutatja a következő célhoz hiányzó pontokat.
 
 A régi v0.3-mentések megtartják a készpénzt, autókat és tárgyalásokat. Az új fejlődési adatok 1. szinttel, 0 XP-vel és fejlesztés nélkül indulnak. A korábbi üzletekre nincs utólag kitalált XP-jutalom.
 
