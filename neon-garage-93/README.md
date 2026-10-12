@@ -28,7 +28,7 @@ Részletes szabályok, három konkrét játékhelyzet, mérési eredmények és 
 
 ## Navigáció és autófülek
 
-A garázs mellett állandó menü érhető el: **Market, Inventory, Deals, Operations, Finance, Customers**. **More** alatt Dealer File és Collection. A **Today's Priorities** teendői közvetlenül a megfelelő autóra vagy funkcióra vezetnek. A Deals a folyó eladói és vevői beszélgetések közös belépője.
+A főképernyő öt kategóriája: **Garage, Market, My Cars, Deals, Business**. A **Business** alatt Operations, Finance, Customers, Business upgrades, Dealer File és Collection érhető el, legfeljebb két kattintással. A fejlécben csak Cash, Garage, dátum és Next Day maradt. Az üres teendősáv eltűnik; a garázs kapja a fő területet. Előtte-utána képek és mérési eredmények: [HOME-UX.md](HOME-UX.md). A **Today's Priorities** teendői közvetlenül a megfelelő autóra vagy funkcióra vezetnek. A Deals a folyó eladói és vevői beszélgetések közös belépője.
 
 Autóvásárlás: **Overview / Inspection / Negotiation / Deal**. Saját autó: **Overview / Workshop / Selling / Finances**. A még el nem küldött, módosított összegek és választások fülváltáskor és fő nézetváltáskor megmaradnak a munkamenetben. Az alsó döntési sávban elérhető a vétel és az adott autó következő nézete. Vevői válasz/elfogadás a vevő kártyáján történik, egyetlen elsődleges gombbal. Az elkészült, de még nem hirdetett javítás későbbi napokon is teendő marad. A részletes leírás: [UX-V0123.md](UX-V0123.md).
 
@@ -65,7 +65,7 @@ Régi, már elkezdett v0.11-es tárgyalások saját mentett korlátaikkal folyta
 
 ## Fejlődés és vállalkozásfejlesztések
 
-Kattints a garázsban a **Dealer File** irodai mappára, vagy a felső fejlődési sávra.
+Kattints a garázsban a **Dealer File** irodai mappára, vagy válaszd a **Business / Dealer File** menüt. Elkölthető skillpont esetén a főképernyő értesítése is ide vezet.
 
 - Lezárt, sikeres vételi és eladási alkuért 20 XP + minden $100 árelőny után 1 XP jár, legfeljebb 40 XP. Vételnél az eredeti hirdetési árhoz, eladásnál a vevő első ajánlatához képest számítjuk az előnyt. XP csak a tényleges tranzakciókor jár, egyszer; elutasításért és azonnali kereskedői eladásért nem.
 - Az első szintlépéshez 80 XP kell, utána szintenként 40-nel nő az igény. A szintlépés 1 skillpontot ad, a többlet-XP megmarad.
@@ -187,7 +187,7 @@ Az összegek és kockázatok játékegyensúly-szabályok, nem valós 1993-as ga
 
 ## Fejlődési sávok és pénzügyi grafikon
 
-A felső sávban az XP és a következő reputációs mérföldkő is követhető. A Dealer File-ban a Negotiation rang, a perk rangkövetelménye és a business upgrade megfizethetősége is sávot kapott. A készpénzsáv azt jelzi, megengedheted-e a fejlesztést; nem jelent félretett pénzt vagy automatikus vásárlást.
+Az XP és a következő reputációs mérföldkő a Dealer File alatt követhető; külön fejlődési sáv nincs a főképernyőn. A Dealer File-ban a Negotiation rang, a perk rangkövetelménye és a business upgrade megfizethetősége is sávot kapott. A készpénzsáv azt jelzi, megengedheted-e a fejlesztést; nem jelent félretett pénzt vagy automatikus vásárlást.
 
 A **Ledger** két vonallal mutatja a **Deal margin** és **Business value** alakulását. A margin az autóüzletek és a lezárt szerviz/nagykereskedelmi munkák eredménye; nem nettó üzleti profit. A nettó vállalkozásérték az üzletági eszközöket, lekötéseket, hitelt és hátralékot is számolja. A pontos képletek a „Nagy vállalkozási döntések” fejezetben szerepelnek. Becsült márkaértéket nem adunk hozzá.
 

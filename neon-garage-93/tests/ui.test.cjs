@@ -86,7 +86,8 @@ assert.equal(d.documentElement.lang, "en");
 const saved = () => JSON.parse(w.localStorage.getItem(w.NG.saveKey));
 assert.match(d.querySelector("h1").textContent, /NEON GARAGE/);
 assert.equal(d.querySelectorAll(".empty-bay").length, 2);
-assert.equal(d.querySelectorAll('[role="progressbar"]').length, 2);
+assert.equal(d.querySelectorAll('[role="progressbar"]').length, 0);
+assert.equal(d.querySelectorAll('.game-hud .stats > div').length, 2);
 click(".collection-album");
 assert.equal(d.querySelectorAll(".album-card").length, 60);
 let searchField = d.querySelector("#album-search");
@@ -240,7 +241,8 @@ for (const name of [
 ])
   w.eval(fs.readFileSync(path.join(root, "js/" + name + ".js"), "utf8"));
 assert.deepEqual(saved(), snap);
-assert.match(d.querySelector(".stats").textContent, /1 completed sale/);
+click('[data-action="view"][data-view="upgrades"]');
+assert.match(d.querySelector(".growth-summary").textContent, /1 completed sale/);
 click('[data-action="reset"]');
 click('[data-action="close-reset"]');
 assert.deepEqual(saved(), snap);

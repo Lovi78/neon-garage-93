@@ -2493,3 +2493,87 @@ dialog h3 {
     max-height: calc(100dvh - 182px);
   }
 }
+
+/* Garage-first home: five destinations, quiet notifications, one shared width. */
+.game-shell {
+  width: min(calc(100% - 32px), calc((100dvh - 220px) * 1.77778));
+  max-width: 1320px;
+  padding: 0;
+}
+.game-shell.has-alerts { width: min(calc(100% - 32px), calc((100dvh - 268px) * 1.77778)); }
+.game-hud { gap: 20px; min-height: 64px; padding: 10px 0; }
+.game-logo { gap: 8px; }
+.game-logo h1 { font-size: 15px; margin: 0; white-space: nowrap; }
+.logo-mark { width: 32px; height: 32px; font-size: 13px; border-width: 2px; box-shadow: 2px 2px #424e4d; }
+.game-hud .stats { flex: 1; justify-content: flex-end; }
+.game-hud .stats > div { padding: 0 18px; }
+.game-hud .stats span { font: 11px/1.4 "Courier New", monospace; }
+.game-hud .stats strong { font-size: 23px; margin-top: 2px; }
+.hud-day { gap: 12px; }
+.hud-day > span { font: 12px/1.4 "Courier New", monospace; white-space: nowrap; }
+.hud-day button { font-size: 11px; padding: 11px 14px; }
+#app > .game-shell > .retro-nav { position: relative; justify-content: flex-start; padding: 6px 0; gap: 6px; }
+.retro-nav .nav-business { margin-left: 0; }
+.nav-business summary { font: 12px/1.4 "Courier New", monospace; padding: 8px 12px; cursor: pointer; border: 1px solid #46525c; background: #202a32; }
+.nav-business summary[aria-current="page"], .nav-business[open] > summary { background: #a8c8b2; color: #193129; }
+.nav-business > div { left: 0; right: auto; min-width: 190px; }
+.nav-business summary:focus-visible, .progress-notice:focus-visible { outline: 2px solid #e2c37f; outline-offset: 2px; }
+.priorities { padding: 6px 0; border-bottom: 0; gap: 6px; }
+.priorities > div { gap: 6px; }
+.priority-item { padding: 5px 9px; font-size: 11px; }
+.priority-item b { font-weight: normal; }
+.priority-item small { display: inline; font-size: 11px; margin-left: 8px; color: #a9b8ae; }
+.progress-notice { font: 11px/1.4 "Courier New", monospace; padding: 5px 9px; color: #d7c48d; border-color: #685f43; background: #242921; }
+main.world-frame { width: 100%; min-width: 0; }
+.game-footer { min-height: 80px; padding: 12px 0; gap: 14px; flex-wrap: nowrap; }
+.game-footer .radio-console { width: auto; padding: 8px; gap: 10px; }
+.game-footer .radio-console small { font-size: 10px; }
+.game-footer .radio-console button { padding: 8px; }
+.radio-news { display: block; min-width: 0; position: relative; flex: 1; }
+.radio-news summary { cursor: pointer; list-style: none; }
+.radio-news summary span { display: block; font: 10px/1.4 "Courier New", monospace; color: #b39f73; }
+.radio-news summary strong { display: block; font: 12px/1.4 "Courier New", monospace; color: #c3cfbe; margin-top: 3px; }
+.radio-news[open] p { position: absolute; bottom: 100%; left: 0; width: min(420px,70vw); background: #1c252b; border: 1px solid #678c77; padding: 12px; z-index: 8; }
+.footer-controls { flex: 0 0 auto; gap: 8px; }
+.footer-controls > span { font: 10px/1.4 "Courier New", monospace; }
+.footer-tools { position: relative; }
+.footer-tools summary { cursor: pointer; font: 11px/1.4 "Courier New", monospace; padding: 6px; }
+.footer-tools > div { position: absolute; bottom: 100%; right: 0; background: #1c252b; border: 1px solid #678c77; padding: 12px; width: 220px; display: grid; gap: 10px; z-index: 8; }
+.footer-tools .practice-links { display: block; font: 11px/1.6 "Courier New", monospace; }
+@media (min-width: 901px) {
+  .desk-window { top: 116px; }
+  .desk-window[data-window-view="operations"] { max-height: calc(100dvh - 138px); }
+}
+@media (max-width: 900px) {
+  .game-shell, .game-shell.has-alerts { width: calc(100% - 24px); padding: 0; }
+  .game-hud { display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; padding: 10px 0; }
+  .game-logo { min-width: 0; }
+  .game-hud .stats { grid-row: 2; order: initial; justify-content: flex-start; gap: 18px; }
+  .game-hud .stats > div { padding: 0; flex: 0 0 auto; border: 0; }
+  .hud-day { grid-column: 2; grid-row: 1 / 3; flex-direction: column; align-items: flex-end; gap: 7px; }
+  .game-footer { display: flex; flex-wrap: wrap; }
+  .radio-news { flex-basis: calc(100% - 170px); }
+  .footer-controls { width: 100%; margin-top: 0; justify-content: flex-end; }
+}
+@media (max-width: 520px) {
+  .game-logo h1 { font-size: 12px; }
+  .logo-mark { width: 25px; height: 25px; font-size: 11px; }
+  .game-hud .stats strong { font-size: 20px; }
+  .hud-day > span { font-size: 10px; }
+  #app .retro-nav { flex-wrap: nowrap; gap: 4px; }
+  .retro-nav button, .nav-business summary { padding: 8px 6px; font-size: 11px; white-space: nowrap; }
+  .nav-business > div { left: auto; right: 0; }
+  .nav-business > div button { text-align: left; padding: 9px; }
+  .priority-item small { display: none; }
+  .priorities > div { width: 100%; }
+  .priority-more > div { right: 0; width: min(240px,80vw); }
+  .game-footer { gap: 10px; }
+}
+@media (max-width: 520px) {
+  .priority-item small { display: block; margin: 2px 0 0; font-size: 10px; }
+}
+@media (max-width: 360px) {
+  #app .retro-nav button, #app .retro-nav summary { font-size: 10px; padding: 8px 5px; }
+}
+.radio-news summary span::after { content: " ▸"; }
+.radio-news[open] summary span::after { content: " ▾"; }

@@ -78,15 +78,49 @@
   }
   function navigation(inDialog = false) {
     const entries = [
+      ["garage", "Garage"],
       ["market", "Market"],
-      ["inventory", "Inventory"],
+      ["inventory", "My Cars"],
       ["deals", "Deals"],
+    ];
+    const business = [
       ["operations", "Operations"],
       ["finances", "Finance"],
       ["customers", "Customers"],
+      ["operations", "Business upgrades", "business"],
+      ["upgrades", "Dealer File"],
+      ["collection", "Collection"],
     ];
-    return `<nav class="retro-nav ${inDialog ? "dialog-nav" : ""}" aria-label="${inDialog ? "Car window navigation" : "Game navigation"}"><button data-action="view" data-view="garage" ${view === "garage" ? 'aria-current="page"' : ""}>Garage</button>${entries.map(([key, label]) => `<button data-action="view" data-view="${key}" ${view === key ? 'aria-current="page"' : ""}>${label}</button>`).join("")}<details class="nav-more"><summary>More</summary><div><button data-action="view" data-view="upgrades">Dealer File</button><button data-action="view" data-view="collection">Collection</button></div></details></nav>`;
+    return `<nav class="retro-nav ${inDialog ? "dialog-nav" : ""}" aria-label="${inDialog ? "Car window navigation" : "Game navigation"}">${entries.map(([key, label]) => `<button data-action="view" data-view="${key}" ${view === key ? 'aria-current="page"' : ""}>${label}</button>`).join("")}<details class="nav-more nav-business"><summary ${business.some(([key]) => view === key) ? 'aria-current="page"' : ""}>Business</summary><div>${business.map(([key, label, tab]) => `<button data-action="view" data-view="${key}" ${tab ? `data-tab="${tab}"` : ""}>${label}</button>`).join("")}</div></details></nav>`;
   }
+  // Native menus stay keyboard accessible and close without changing game state.
+  document.addEventListener("click", (event) => {
+    document
+      .querySelectorAll(
+        ".nav-business[open], .priority-more[open], .footer-tools[open]",
+      )
+      .forEach((menu) => {
+        if (!menu.contains(event.target)) menu.open = false;
+      });
+  });
+  document.addEventListener(
+    "keydown",
+    (event) => {
+      if (event.key !== "Escape") return;
+      const menu = [
+        ...document.querySelectorAll(
+          ".nav-business[open], .priority-more[open], .footer-tools[open]",
+        ),
+      ].find((menu) => menu.contains(document.activeElement));
+      if (menu) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        menu.open = false;
+        menu.querySelector("summary").focus();
+      }
+    },
+    true,
+  );
   function priorityItems() {
     const items = [],
       add = (key, text, detail, attrs, rank) =>
@@ -94,7 +128,7 @@
     if (state.operations.arrears)
       add(
         "bill",
-        "Overdue bill",
+        "Payment overdue",
         NG.money(state.operations.arrears),
         'data-action="view" data-view="operations" data-tab="today"',
         0,
@@ -104,6 +138,14 @@
         "bill",
         "Next bill at risk",
         NG.money(NG.knownDailyBills(state, state.day + 1)),
+        'data-action="view" data-view="operations" data-tab="today"',
+        0,
+      );
+    if (state.management.unpaid)
+      add(
+        "payroll",
+        "Payment overdue",
+        "Payroll " + NG.money(state.management.unpaid),
         'data-action="view" data-view="operations" data-tab="today"',
         0,
       );
@@ -121,7 +163,7 @@
       if (due.length)
         add(
           c.id,
-          "Buyer deadline today",
+          "Deal expires today",
           NG.model(c).name,
           `data-action="detail" data-id="${c.id}" data-tab="selling"`,
           0,
@@ -138,7 +180,7 @@
         add(
           c.id,
           offers.some((o) => o.seen !== true)
-            ? "New buyer offer"
+            ? "Buyer offer received"
             : "Review buyer offer",
           NG.model(c).name,
           `data-action="detail" data-id="${c.id}" data-tab="selling"`,
@@ -147,7 +189,7 @@
       if (!c.listed && c.readyDay > 0 && c.readyDay <= state.day)
         add(
           c.id + "-repair",
-          "Repair ready",
+          "Repair completed",
           NG.model(c).name,
           `data-action="detail" data-id="${c.id}" data-tab="workshop"`,
           2,
@@ -220,27 +262,12 @@
     return items.sort((a, b) => a.rank - b.rank);
   }
   function priorities() {
-    const items = priorityItems();
-    return `<section class="priorities" aria-label="Today's Priorities"><strong>Today's Priorities</strong><div>${
-      items
-        .slice(0, 4)
-        .map(
-          (item) =>
-            `<button class="priority-item ${item.rank === 0 ? "urgent" : ""}" ${item.attrs}><b>${item.text}</b><small>${esc(item.detail)}</small></button>`,
-        )
-        .join("") ||
-      `<span class="priority-idle">${state.inventory.length ? "Review stock or close the day." : "Start with Market. Keep cash for repairs."}</span>`
-    }${
-      items.length > 4
-        ? `<details class="priority-more"><summary>${items.length - 4} more</summary><div>${items
-            .slice(4)
-            .map(
-              (item) =>
-                `<button class="priority-item" ${item.attrs}><b>${item.text}</b><small>${esc(item.detail)}</small></button>`,
-            )
-            .join("")}</div></details>`
-        : ""
-    }</div></section>`;
+    const items = priorityItems(),
+      points = state.progress.points;
+    if (!items.length && !points) return "";
+    const notification = (item) =>
+      `<button class="priority-item ${item.rank === 0 ? "urgent" : ""}" ${item.attrs}><b>${item.text}</b><small>${esc(item.detail)}</small></button>`;
+    return `<section class="priorities" aria-label="Today's Priorities"><div>${items.slice(0, 4).map(notification).join("")}${items.length > 4 ? `<details class="priority-more"><summary>${items.length - 4} more</summary><div>${items.slice(4).map(notification).join("")}</div></details>` : ""}${points ? `<button class="progress-notice" data-action="view" data-view="upgrades"><span role="status">LEVEL ${state.progress.level} / ${points} skill point${points === 1 ? "" : "s"} available</span></button>` : ""}</div></section>`;
   }
   function deals() {
     return `${activeDeals()}<section class="deals-inbox"><h3>Buyer conversations</h3>${
@@ -298,7 +325,8 @@
       customers: "CUSTOMERS",
       operations: "OPERATIONS",
     };
-    app.innerHTML = `<div class="game-shell"><header class="game-hud"><div class="game-logo"><span class="logo-mark">NG</span><div><h1>NEON GARAGE <b>'93</b></h1><small>SMALL LOT. BIG PLANS.</small></div></div><section class="stats" aria-label="Dealership status"><div><span>CASH</span><strong>${NG.money(state.cash)}</strong></div><div><span>GARAGE</span><strong>${state.inventory.length}<em> / ${state.capacity}</em></strong></div><div><span>REPUTATION</span><strong>${state.reputation}<em> REP</em></strong><small>${NG.repTier(state).name}</small></div><div><span>DEAL MARGIN</span><strong class="${NG.totalMargin(state) >= 0 ? "positive" : "negative"}">${signed(NG.totalMargin(state))}</strong><small>${state.sold} completed sales</small></div></section><div class="hud-day"><span>${NG.date(state.day)}<small>DAY ${state.day + 1}</small></span><button class="primary" data-action="next">NEXT DAY &gt;</button></div></header>${navigation()}${priorities()}<div class="progress-strip"><button data-action="view" data-view="upgrades">DEALER FILE / LEVEL ${state.progress.level}</button>${NG.progressBar("LEVEL " + state.progress.level, state.progress.xp, NG.xpNeeded(state.progress.level), state.progress.xp + " / " + NG.xpNeeded(state.progress.level) + " XP")}${NG.repProgress(state)}<span class="positive">${state.progress.points} SKILL POINT${state.progress.points === 1 ? "" : "S"}</span></div>${NG.storageError ? '<div class="storage-warning">Your browser is blocking saves. Enable local storage to keep your progress.</div>' : ""}${state.practice ? `<div class="case-banner"><span>PRACTICE ${esc(state.practice)} / SEPARATE SAVE</span><a href="?">Return to your dealership</a></div>` : ""}<main class="world-frame">${NG.garageScene(state, arrival)}${view !== "garage" ? `<section class="desk-window" aria-label="${names[view]}" data-window-view="${view}"><header class="window-title"><span><i></i> ${view === "market" ? "CLASSIFIEDS.EXE" : view === "deals" ? "DEALS.EXE" : view === "inventory" ? "WORKSHOP.EXE" : view === "upgrades" ? "DEALER-FILE.EXE" : view === "collection" ? "CAR-ALBUM.EXE" : view === "customers" ? "CUSTOMER-CARE.EXE" : view === "operations" ? "OPERATIONS.EXE" : "LEDGER.EXE"}</span><button data-action="view" data-view="garage" aria-label="Back to garage">&times;</button></header><div class="window-body" tabindex="-1"><div class="section-heading"><div><span class="eyebrow">NEON GARAGE / ${names[view]}</span><h2>${view === "market" ? "Car market" : view === "deals" ? "Deals" : view === "inventory" ? "Your cars" : view === "upgrades" ? "Dealer file" : view === "collection" ? "Car collection" : view === "customers" ? "Customers" : view === "operations" ? "Operations" : "Finances"}</h2></div><button class="text-button" data-action="view-back">&lt; BACK</button></div>${view === "market" ? market() : view === "deals" ? deals() : view === "inventory" ? inventory() : view === "upgrades" ? growth() : view === "collection" ? album() : view === "customers" ? customers() : view === "operations" ? operations() : finances()}</div></section>` : ""}</main><footer class="game-footer">${radioConsole()}<div class="radio-news"><span>MARKET WIRE / SILVER PALMS</span><strong>${esc(state.event.title)}</strong><p>${esc(state.event.text)}</p></div><div class="footer-controls"><span>${NG.storageError ? "SAVING UNAVAILABLE" : "AUTO-SAVED"}</span>${state.dayReport ? '<button data-action="show-day-report">DAY REPORT</button>' : ""}<button data-action="reset">NEW GAME</button><small>v0.13.0 / RUN THE LOT</small><span class="practice-links">Practice: <a href="?scenario=A">A / Moving seller</a> · <a href="?scenario=B">B / Suspicious car</a> · <a href="?scenario=C">C / Slow stock</a></span></div></footer></div>`;
+    const alerts = priorities();
+    app.innerHTML = `<div class="game-shell ${alerts ? "has-alerts" : ""}"><header class="game-hud"><div class="game-logo"><span class="logo-mark">NG</span><h1>NEON GARAGE <b>'93</b></h1></div><section class="stats" aria-label="Dealership status"><div><span>CASH</span><strong>${NG.money(state.cash)}</strong></div><div><span>GARAGE</span><strong>${state.inventory.length}<em> / ${state.capacity}</em></strong></div></section><div class="hud-day"><span>${NG.date(state.day)}</span><button class="primary" data-action="next">NEXT DAY &gt;</button></div></header>${navigation()}${alerts}${NG.storageError ? '<div class="storage-warning">Your browser is blocking saves. Enable local storage to keep your progress.</div>' : ""}${state.practice ? `<div class="case-banner"><span>PRACTICE ${esc(state.practice)} / SEPARATE SAVE</span><a href="?">Return to your dealership</a></div>` : ""}<main class="world-frame">${NG.garageScene(state, arrival)}${view !== "garage" ? `<section class="desk-window" aria-label="${names[view]}" data-window-view="${view}"><header class="window-title"><span><i></i> ${view === "market" ? "CLASSIFIEDS.EXE" : view === "deals" ? "DEALS.EXE" : view === "inventory" ? "WORKSHOP.EXE" : view === "upgrades" ? "DEALER-FILE.EXE" : view === "collection" ? "CAR-ALBUM.EXE" : view === "customers" ? "CUSTOMER-CARE.EXE" : view === "operations" ? "OPERATIONS.EXE" : "LEDGER.EXE"}</span><button data-action="view" data-view="garage" aria-label="Back to garage">&times;</button></header><div class="window-body" tabindex="-1"><div class="section-heading"><div><span class="eyebrow">NEON GARAGE / ${names[view]}</span><h2>${view === "market" ? "Car market" : view === "deals" ? "Deals" : view === "inventory" ? "Your cars" : view === "upgrades" ? "Dealer file" : view === "collection" ? "Car collection" : view === "customers" ? "Customers" : view === "operations" ? "Operations" : "Finances"}</h2></div><button class="text-button" data-action="view-back">&lt; BACK</button></div>${view === "market" ? market() : view === "deals" ? deals() : view === "inventory" ? inventory() : view === "upgrades" ? growth() : view === "collection" ? album() : view === "customers" ? customers() : view === "operations" ? operations() : finances()}</div></section>` : ""}</main><footer class="game-footer">${radioConsole()}<details class="radio-news"><summary><span>MARKET WIRE</span><strong>${esc(state.event.title)}</strong></summary><p>${esc(state.event.text)}</p></details><div class="footer-controls"><span>${NG.storageError ? "SAVING UNAVAILABLE" : "AUTO-SAVED"}</span>${state.dayReport ? '<button data-action="show-day-report">DAY REPORT</button>' : ""}<details class="footer-tools"><summary>Options</summary><div><button data-action="reset">NEW GAME</button><small>v0.13.0 / RUN THE LOT</small><span class="practice-links">Practice: <a href="?scenario=A">A / Moving seller</a> · <a href="?scenario=B">B / Suspicious car</a> · <a href="?scenario=C">C / Slow stock</a></span></div></details></div></footer></div>`;
     compactHelp(app);
     const body = app.querySelector(".window-body");
     if (body) body.scrollTop = viewScroll.get(view) || 0;
@@ -664,7 +692,7 @@
       b = state.business,
       tier = NG.repTier(state),
       next = NG.nextRepTier(state);
-    return `<div class="actions"><button data-action="view" data-view="operations" data-tab="business">Business expansions & credit</button></div><div class="growth-summary"><div><span>DEALER LEVEL</span><strong>${p.level}</strong></div><div><span>EXPERIENCE</span><strong>${p.xp} / ${NG.xpNeeded(p.level)} XP</strong><div class="xp-meter"><i style="width:${(p.xp / NG.xpNeeded(p.level)) * 100}%"></i></div></div><div><span>SKILL POINTS</span><strong>${p.points}</strong></div></div><div class="growth-columns"><section><div class="section-heading"><h2>Personal development</h2></div><div class="growth-card"><span class="eyebrow">SKILL / RANK ${p.negotiation} OF 3</span><h3>Negotiation</h3>${NG.progressBar("NEGOTIATION RANK", p.negotiation, 3)}<p>Each rank improves bargaining by 0.8%: seller concessions and buyer counteroffer ceilings. Personality and evidence still matter.</p><p class="fine-print">Old saved negotiations keep their original limits. Cost: 1 skill point per rank.</p><button class="primary" data-action="train-negotiation" ${p.points < 1 || p.negotiation >= 3 ? "disabled" : ""}>${p.negotiation >= 3 ? "MAXIMUM RANK" : "Train Negotiation / 1 point"}</button></div><div class="growth-card"><span class="eyebrow">PERK / ${p.oneMoreShot ? "UNLOCKED" : "NEGOTIATION RANK 2 REQUIRED"}</span><h3>One More Shot</h3>${NG.progressBar("PERK REQUIREMENT", Math.min(p.negotiation, 2), 2, p.oneMoreShot ? "UNLOCKED" : Math.min(p.negotiation, 2) + " / 2 RANK · 1 POINT TO UNLOCK")}<p>Adds one step to a seller’s patience. Conversations can continue on later days; insults still have lasting consequences.</p><button class="primary" data-action="unlock-perk" ${p.oneMoreShot || p.negotiation < 2 || p.points < 1 ? "disabled" : ""}>${p.oneMoreShot ? "PERK ACTIVE" : "Unlock / 1 point"}</button></div><p class="fine-print">Close a purchase below the original asking price or a sale above the buyer’s opening offer after negotiating: 20 XP + 1 per $100 gained, capped at 40 XP per deal. No XP for sending offers, straight purchases, dealer sales or repeating a transaction. Each level grants 1 skill point.</p>${specialistCards()}</section><section><div class="section-heading"><h2>Business upgrades</h2></div>${Object.entries(
+    return `<div class="actions"><button data-action="view" data-view="operations" data-tab="business">Business expansions & credit</button></div><div class="growth-summary"><div><span>DEAL MARGIN</span><strong>${signed(NG.totalMargin(state))}</strong><small>${state.sold} completed sales</small></div><div><span>DEALER LEVEL</span><strong>${p.level}</strong></div><div><span>EXPERIENCE</span><strong>${p.xp} / ${NG.xpNeeded(p.level)} XP</strong><div class="xp-meter"><i style="width:${(p.xp / NG.xpNeeded(p.level)) * 100}%"></i></div></div><div><span>SKILL POINTS</span><strong>${p.points}</strong></div></div><div class="growth-columns"><section><div class="section-heading"><h2>Personal development</h2></div><div class="growth-card"><span class="eyebrow">SKILL / RANK ${p.negotiation} OF 3</span><h3>Negotiation</h3>${NG.progressBar("NEGOTIATION RANK", p.negotiation, 3)}<p>Each rank improves bargaining by 0.8%: seller concessions and buyer counteroffer ceilings. Personality and evidence still matter.</p><p class="fine-print">Old saved negotiations keep their original limits. Cost: 1 skill point per rank.</p><button class="primary" data-action="train-negotiation" ${p.points < 1 || p.negotiation >= 3 ? "disabled" : ""}>${p.negotiation >= 3 ? "MAXIMUM RANK" : "Train Negotiation / 1 point"}</button></div><div class="growth-card"><span class="eyebrow">PERK / ${p.oneMoreShot ? "UNLOCKED" : "NEGOTIATION RANK 2 REQUIRED"}</span><h3>One More Shot</h3>${NG.progressBar("PERK REQUIREMENT", Math.min(p.negotiation, 2), 2, p.oneMoreShot ? "UNLOCKED" : Math.min(p.negotiation, 2) + " / 2 RANK · 1 POINT TO UNLOCK")}<p>Adds one step to a seller’s patience. Conversations can continue on later days; insults still have lasting consequences.</p><button class="primary" data-action="unlock-perk" ${p.oneMoreShot || p.negotiation < 2 || p.points < 1 ? "disabled" : ""}>${p.oneMoreShot ? "PERK ACTIVE" : "Unlock / 1 point"}</button></div><p class="fine-print">Close a purchase below the original asking price or a sale above the buyer’s opening offer after negotiating: 20 XP + 1 per $100 gained, capped at 40 XP per deal. No XP for sending offers, straight purchases, dealer sales or repeating a transaction. Each level grants 1 skill point.</p>${specialistCards()}</section><section><div class="section-heading"><h2>Business upgrades</h2></div>${Object.entries(
       NG.upgrades,
     )
       .map(
