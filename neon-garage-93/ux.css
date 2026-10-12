@@ -1771,3 +1771,138 @@ main.world-frame {
 .rep-panel .visual-progress i {
   background: var(--rep);
 }
+/* Shared 16px pixel icon vocabulary, without external assets or fonts. */
+.ui-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  flex: 0 0 auto;
+  vertical-align: middle;
+  shape-rendering: crispEdges;
+  pointer-events: none;
+}
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+.retro-nav .nav-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.retro-nav .nav-icon-only {
+  width: 46px;
+  min-height: 40px;
+  padding: 9px;
+}
+.retro-nav .nav-icon-only .game-nav-label {
+  position: absolute;
+  top: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 10px;
+  border: 1px solid #789586;
+  border-radius: 3px;
+  background: #1b2b31;
+  color: #edf3e3;
+  font: 13px/1.4 var(--ui-font);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 4px 12px #0007;
+  z-index: 30;
+}
+.retro-nav .nav-icon-only:hover .game-nav-label,
+.retro-nav .nav-icon-only:focus-visible .game-nav-label {
+  opacity: 1;
+}
+.nav-business > summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-business > summary::before {
+  content: "▸";
+}
+.nav-business[open] > summary::before {
+  content: "▾";
+}
+.nav-business > summary {
+  list-style: none;
+}
+.nav-business > summary::-webkit-details-marker {
+  display: none;
+}
+.game-hud .stats .hud-symbol {
+  display: inline-flex;
+  align-items: center;
+  color: #b5cbbf;
+  min-height: 20px;
+}
+.hud-symbol .ui-icon {
+  width: 16px;
+  height: 16px;
+}
+.hud-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.hud-date .ui-icon {
+  width: 14px;
+  height: 14px;
+  color: #b9c8c1;
+}
+.progress-label b {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.progress-label .ui-icon {
+  width: 14px;
+  height: 14px;
+}
+.driver-progress .skill-ready {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--xp);
+}
+.skill-ready .ui-icon {
+  width: 12px;
+  height: 12px;
+}
+@media (max-width: 650px) {
+  #app .retro-nav .nav-icon-only,
+  .dialog-nav .nav-icon-only {
+    width: auto;
+  }
+  .retro-nav .nav-icon-only .game-nav-label {
+    position: static;
+    transform: none;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    opacity: 1;
+    box-shadow: none;
+    color: inherit;
+  }
+  .retro-nav .nav-button {
+    gap: 5px;
+  }
+  .retro-nav .ui-icon {
+    width: 14px;
+    height: 14px;
+  }
+}
+.modal-hud .driver-progress .skill-ready { display:flex; }

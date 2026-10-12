@@ -77,6 +77,30 @@
       dialog.querySelector("#listing-help").textContent =
         NG.listingModes[listing.value].description;
   }
+  // Small code-native pixel icons. Decorative SVGs never replace accessible names.
+  function icon(name) {
+    const shapes = {
+      cash: "M7 1h2v2h3v2H6v2h5v2h2v4H9v2H7v-2H3v-2h8V9H5V7H3V3h4Z",
+      garage:
+        "M6 1h4v2h2v2h2v2h1v8H1V7h1V5h2V3h2Zm-3 6v6h2V8h6v5h2V7ZM7 10v3h2v-3Z",
+      car: "M4 3h8v2h1v3h2v5h-2v2h-2v-2H5v2H3v-2H1V8h2V5h1Zm1 2v3h6V5ZM3 10v1h2v-1Zm8 0v1h2v-1Z",
+      calendar:
+        "M3 1h2v2h6V1h2v2h2v12H1V3h2Zm0 6v6h10V7Zm2 2h2v2H5Zm4 0h2v2H9Z",
+      star: "M7 1h2v4h4v2h2v2h-4v4H9v2H7v-4H3V9H1V7h4V3h2Z",
+      badge:
+        "M5 1h6v2h2v2h2v6h-2v2h-2v2H5v-2H3v-2H1V5h2V3h2Zm0 4v6h6V5ZM7 7h2v2H7Z",
+      point: "M2 1h12v2h1v10h-1v2H2v-2H1V3h1Zm5 3v3H4v2h3v3h2V9h3V7H9V4Z",
+      dealer:
+        "M1 2h14v12H1Zm2 2v8h10V4ZM4 5h3v3H4Zm-1 4h5v2H3Zm6-4h3v2H9Zm0 4h3v2H9Z",
+      market:
+        "M1 1h8v2h2v2h2v2h2v2l-6 6H7L1 9Zm2 2v5l5 5h1l4-4-5-6Zm1 1h2v2H4Z",
+      deals:
+        "M1 3h9V1h2v2h2v2h1v2h-3v2h-2V7H1Zm14 10H6v2H4v-2H2v-2H1V9h3V7h2v2h9Z",
+      business:
+        "M5 1h6v3h4v10H1V4h4Zm2 2v1h2V3ZM3 6v2h4V7h2v1h4V6Zm0 4v2h10v-2H9v1H7v-1Z",
+    };
+    return `<svg class="ui-icon icon-${name}" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="${shapes[name]}" fill="currentColor" /></svg>`;
+  }
   function navigation(inDialog = false) {
     const entries = [
       ["garage", "Garage"],
@@ -96,7 +120,7 @@
       ["upgrades", "Tools & marketing", "investments"],
       ["collection", "Collection"],
     ];
-    return `<nav class="retro-nav ${inDialog ? "dialog-nav" : ""}" aria-label="${inDialog ? "Car window navigation" : "Game navigation"}">${entries.map(([key, label]) => `<button data-action="view" data-view="${key}" ${view === key ? 'aria-current="page"' : ""}>${label}</button>`).join("")}<details class="nav-more nav-business"><summary ${business.some(([key]) => view === key && key !== "upgrades") ? 'aria-current="page"' : ""}>Business</summary><div>${business.map(([key, label, tab]) => `<button data-action="view" data-view="${key}" ${tab ? `data-tab="${tab}"` : ""}>${label}</button>`).join("")}</div></details></nav>`;
+    return `<nav class="retro-nav ${inDialog ? "dialog-nav" : ""}" aria-label="${inDialog ? "Car window navigation" : "Game navigation"}">${entries.map(([key, label]) => `<button class="nav-button ${["garage", "inventory", "upgrades"].includes(key) ? "nav-icon-only" : ""}" data-action="view" data-view="${key}" aria-label="${label}" ${view === key ? 'aria-current="page"' : ""}>${icon({ garage: "garage", market: "market", inventory: "car", deals: "deals", upgrades: "dealer" }[key])}<span class="game-nav-label">${label}</span></button>`).join("")}<details class="nav-more nav-business"><summary ${business.some(([key]) => view === key && key !== "upgrades") ? 'aria-current="page"' : ""}>${icon("business")}<span>Business</span></summary><div>${business.map(([key, label, tab]) => `<button data-action="view" data-view="${key}" ${tab ? `data-tab="${tab}"` : ""}>${label}</button>`).join("")}</div></details></nav>`;
   }
   // Native menus stay keyboard accessible and close without changing game state.
   document.addEventListener("click", (event) => {
@@ -333,10 +357,10 @@
       tier = NG.repTier(state),
       next = NG.nextRepTier(state);
     const repMax = next ? next.at - tier.at : 1;
-    return `<section class="driver-progress" aria-label="Dealer progression"><button class="hud-xp" data-action="view" data-view="upgrades" data-tab="skills"><span class="progress-label"><b>✦ Level ${p.level}</b><span>${p.xp} / ${NG.xpNeeded(p.level)} XP</span></span><span class="hud-meter" role="progressbar" aria-label="Experience" aria-valuenow="${p.xp}" aria-valuemin="0" aria-valuemax="${NG.xpNeeded(p.level)}"><i style="width:${Math.min(100, (p.xp / NG.xpNeeded(p.level)) * 100)}%"></i></span><small>${p.points ? `${p.points} skill point${p.points === 1 ? "" : "s"} available` : "Next level: +1 skill point"}</small></button><button class="hud-rep" data-action="view" data-view="upgrades" data-tab="reputation"><span class="progress-label"><b>◆ ${tier.name}</b><span>${state.reputation} REP</span></span><span class="hud-meter" role="progressbar" aria-label="Reputation milestone" aria-valuenow="${next ? state.reputation - tier.at : 1}" aria-valuemin="0" aria-valuemax="${repMax}"><i style="width:${next ? Math.min(100, ((state.reputation - tier.at) / repMax) * 100) : 100}%"></i></span><small>${next ? `${next.at - state.reputation} REP to ${next.name}` : "Top rank: +18 pp buyer interest"}</small></button></section>`;
+    return `<section class="driver-progress" aria-label="Dealer progression"><button class="hud-xp" data-action="view" data-view="upgrades" data-tab="skills"><span class="progress-label"><b>${icon("star")}<span>Level ${p.level}</span></b><span>${p.xp} / ${NG.xpNeeded(p.level)} XP</span></span><span class="hud-meter" role="progressbar" aria-label="Experience" aria-valuenow="${p.xp}" aria-valuemin="0" aria-valuemax="${NG.xpNeeded(p.level)}"><i style="width:${Math.min(100, (p.xp / NG.xpNeeded(p.level)) * 100)}%"></i></span><small class="${p.points ? "skill-ready" : ""}">${p.points ? `${icon("point")}${p.points} skill point${p.points === 1 ? "" : "s"} available` : "Next level: +1 skill point"}</small></button><button class="hud-rep" data-action="view" data-view="upgrades" data-tab="reputation"><span class="progress-label"><b>${icon("badge")}<span>${tier.name}</span></b><span>${state.reputation} REP</span></span><span class="hud-meter" role="progressbar" aria-label="Reputation milestone" aria-valuenow="${next ? state.reputation - tier.at : 1}" aria-valuemin="0" aria-valuemax="${repMax}"><i style="width:${next ? Math.min(100, ((state.reputation - tier.at) / repMax) * 100) : 100}%"></i></span><small>${next ? `${next.at - state.reputation} REP to ${next.name}` : "Top rank: +18 pp buyer interest"}</small></button></section>`;
   }
   function hud(inDialog = false) {
-    return `<header class="game-hud ${inDialog ? "modal-hud" : ""}">${inDialog ? "" : `<div class="game-logo"><span class="logo-mark">NG</span><h1>NEON GARAGE <b>'93</b></h1></div>`}<section class="stats" aria-label="Dealership status"><div><span>Cash</span><strong>${NG.money(state.cash)}</strong></div><div><span>Garage</span><strong>${state.inventory.length}<em> / ${state.capacity}</em></strong></div></section>${progressionHUD()}<div class="hud-day"><span>${NG.date(state.day)}</span>${inDialog ? "" : '<button class="primary" data-action="next">Next Day &gt;</button>'}</div></header>`;
+    return `<header class="game-hud ${inDialog ? "modal-hud" : ""}">${inDialog ? "" : `<div class="game-logo"><span class="logo-mark">NG</span><h1>NEON GARAGE <b>'93</b></h1></div>`}<section class="stats" aria-label="Dealership status"><div><span class="hud-symbol" title="Cash">${icon("cash")}<span class="sr-only">Cash</span></span><strong>${NG.money(state.cash)}</strong></div><div><span class="hud-symbol" title="Garage capacity">${icon("garage")}<span class="sr-only">Garage capacity</span></span><strong>${state.inventory.length}<em> / ${state.capacity}</em></strong></div></section>${progressionHUD()}<div class="hud-day"><span class="hud-date">${icon("calendar")}<span>${NG.date(state.day)}</span></span>${inDialog ? "" : '<button class="primary" data-action="next">Next Day &gt;</button>'}</div></header>`;
   }
   function garageGuide() {
     if (view !== "garage" || priorityItems().some((i) => i.rank === 0))

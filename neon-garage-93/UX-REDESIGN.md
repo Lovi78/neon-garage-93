@@ -90,3 +90,12 @@ További bizonyíték: [szintlépés](reports/ux-level-up.jpg), [mobil hirdetés
 - A mainbe történő merge és éles publikálás nincs elvégezve. Először a külön UX PR és a működő helyi előnézet vizsgálandó.
 
 A munkakezdéskor meglévő helyi módosításokat külön baseline commit őrzi. Az eredeti munkamappa diffje az audit előtt elmentett diff-fel bájtra egyezik; ez az ág nem írta felül azt a munkát.
+
+
+## Jóváhagyott ikonos kiegészítés
+
+A HUD Cash és Garage capacity feliratait pixelikon váltja; a dátum naptárikont, az XP csillagot, a REP arany jelvényt kap. A pluszos skillpont-jelvény csak elkölthető pont esetén jelenik meg. A számok, rang és mértékegységek megmaradnak. Desktopon Garage / My Cars / Dealer ikonos gomb, fókuszra és rámutatásra funkciónévvel; Market / Deals / Business ikon és szöveg. Mobilon minden név látható. Dekoratív, helyben rajzolt SVG-k, akadálymentes gombnevek, külső asset és függőség nélkül.
+
+A [30 UI-tesztblokk újra sikeres](reports/ux-icons-ui-output.txt). Valódi Chromium-próba: 1440 x 900 és 390 x 844, billentyűzetes tooltip és Dealer-belépés. Mobilon dokumentumszélesség = 390 px, nincs vízszintes túlcsordulás. [Desktop](reports/ux-icons-1440.jpg), [tooltip](reports/ux-icons-tooltip.jpg), [mobil](reports/ux-icons-390.jpg). A fenti előtte/utána összehasonlítás az ikonok előtti redesign-kör felvétele.
+
+A felhasználó a kiegészítés után jóváhagyta a merge-et. A [PR #1](https://github.com/Lovi78/neon-garage-93/pull/1) célága `codex/v0.13-run-the-lot`; a main ettől külön marad.

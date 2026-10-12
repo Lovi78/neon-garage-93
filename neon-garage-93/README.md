@@ -30,6 +30,8 @@ Részletes szabályok, három konkrét játékhelyzet, mérési eredmények és 
 
 A jelenlegi fejlesztői ág teljes felületi megújulása: állandó Cash/Garage/dátum és külön XP/REP HUD, hat fő navigációs belépő, füles Dealer, rövid zárolt beruházások és Finance alá rendezett hitel. A garázs és az autóképek megmaradtak, a gazdasági és mentési szabályok változatlanok. [Audit, képek, ellenőrzés és korlátok](UX-REDESIGN.md).
 
+A HUD feliratait egységes pixelikonok rövidítik. Desktopon Garage / My Cars / Dealer ikonos gomb, rámutatásra és billentyűzetes fókuszra felirattal; Market / Deals / Business mellett a név megmarad. Mobilon minden menüpont ikon és szöveg.
+
 ## Navigáció és autófülek
 
 A főképernyő hat belépője: **Garage, Market, My Cars, Deals, Dealer, Business**. A Business közvetlenül nyitja a Today, Staff, Workshop, Buyer requests, Finance, Customers, Expansions, Tools & marketing és Collection nézetet. A **Dealer** külön Skills / Reputation / Tools & marketing füleket kapott. A **Finance** a hitel egyetlen otthona. A HUD mutatja a Cash, Garage, dátum, Level, XP, REP, következő rang és skillpont adatokat; görgetéskor és a fontos modal ablakokban is elérhető. A garázs üres állapotban hangsúlyos autókeresési gombot ad. A **Today's Priorities** közvetlenül a megfelelő autóra vagy funkcióra vezet. A korábbi főképernyő-kör története a [HOME-UX.md](HOME-UX.md), a jelenlegi megvalósítás az [UX-REDESIGN.md](UX-REDESIGN.md) fájlban olvasható.
