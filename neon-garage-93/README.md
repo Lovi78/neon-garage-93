@@ -1,10 +1,10 @@
-# Neon Garage '93 - v0.12.2 / The Art of the Deal
+# Neon Garage '93 - v0.12.3 / The Art of the Deal
 
 Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, fiktív kaliforniai város, 1993. június 1., $5,000 kezdőtőke, két férőhely.
 
 A teljes játékfelület angol. A korábbi mentések eseményei, hibaleírásai és pénzügyi bejegyzései betöltéskor angolra váltanak, a játékállás megtartásával.
 
-Dokumentáció frissítve: 2026. október 11. Játékverzió: 0.12.2.
+Dokumentáció frissítve: 2026. október 12. Játékverzió: 0.12.3.
 
 A teljes fejlesztési irány, a következő szakaszok és a nyitott döntések a [ROADMAP.md](ROADMAP.md) dokumentumban vannak rögzítve.
 
@@ -18,6 +18,12 @@ Macen az `Indítás.command` fájlra is kattinthatsz kétszer. Ha a rendszer blo
 
 A játék minden változtatás után a böngésző helyi tárhelyére ment. Ugyanabban a böngészőben, ugyanarról a helyről nyisd újra a fájlt. Privát ablak vagy a böngészőadatok törlése miatt a mentés elveszhet. Ha a tárolás nem engedélyezett, a játék figyelmeztet.
 
+## Navigáció és autófülek - v0.12.3
+
+A garázs mellett állandó menü érhető el: **Market, Inventory, Deals, Operations, Finance, Customers**. **More** alatt Dealer File és Collection. A **Today's Priorities** teendői közvetlenül a megfelelő autóra vagy funkcióra vezetnek. A Deals a folyó eladói és vevői beszélgetések közös belépője.
+
+Autóvásárlás: **Overview / Inspection / Negotiation / Deal**. Saját autó: **Overview / Workshop / Selling / Finances**. A még el nem küldött, módosított összegek és választások fülváltáskor és fő nézetváltáskor megmaradnak a munkamenetben. Az alsó döntési sávban elérhető a vétel, illetve egyetlen vevő válaszadása/elfogadása. A részletes leírás: [UX-V0123.md](UX-V0123.md).
+
 ## Rövidebb felület - v0.12.2
 
 Az **Operations** nyitófüle **Today**: aktuális teendők, következő számla, készpénzfedezet és hátralék. A **Workshop**, **Requests** és **Business** fülek külön mutatják a munkákat, vevői megbízásokat és beruházásokat/hitelt. A füleken számláló jelzi az aktív tételeket. Az ablak rövid nézethez igazítja a magasságát; hosszabb listán belül lehet görgetni.
@@ -26,12 +32,12 @@ A működési magyarázatok **How it works**, a beszélgetések **Conversation h
 
 ## Az első üzleted
 
-1. Számítógép: **Car Market**. Kilenc kezdőhirdetés, később napi 1-3 új autó és tartósan megmaradó korábbi kínálat.
+1. **Market** menü vagy a garázs számítógépe: **Car Market**. Kilenc kezdőhirdetés, később napi 1-3 új autó és tartósan megmaradó korábbi kínálat.
 2. Nyisd meg az autót. **Call seller** mutatja az eladás okát. A sürgős tulajdonos és a türelmes gyűjtő másként tárgyal.
-3. Opcionális: **Search vehicle records** ($35), **Mechanical inspection** (alapdíj $90) vagy dupla díjas **Specialist examination**. A vizsgálat nem garantáltan teljes. A feltárt tények mentődnek.
-4. **Your offer**, **Your approach**, **Make offer**. A gyors fizetés sürgős helyzetben, a **Fault** valós bizonyítékkal segíthet. **Think overnight** vagy **End the call** több napra is eltolhatja az ügyletet.
-5. **Accept & buy**: kialkudott vételár + $50 átírás. Az azonnali vétel is elérhető. Maradjon készpénz vizsgálatra, javításra és rezsire.
-6. Saját autó: szükséges javítás, majd **List car for sale**. A meglévő műhelykapacitás, normál/rush javítás és két beálló megmaradt.
+3. Az **Inspection** fülön opcionális: **Search vehicle records** ($35), **Mechanical inspection** (alapdíj $90) vagy dupla díjas **Specialist examination**. A vizsgálat nem garantáltan teljes. A feltárt tények mentődnek.
+4. A **Negotiation** fülön **Your offer**, **Your approach**, **Make offer**. A gyors fizetés sürgős helyzetben, a **Fault** valós bizonyítékkal segíthet. **Think overnight** vagy **End the call** több napra is eltolhatja az ügyletet.
+5. A **Deal** fülön **Buy**: kialkudott vételár + $50 átírás. Az azonnali vétel is elérhető. Maradjon készpénz vizsgálatra, javításra és rezsire.
+6. Saját autó: a **Workshop** fülön szükséges javítás, majd a **Selling** fülön **List car for sale**. A meglévő műhelykapacitás, normál/rush javítás és két beálló megmaradt.
 7. **Next Day** után kérdés vagy ajánlat érkezhet. Az **INQUIRY** előbb választ igényel. Utána elfogadás vagy személyiségfüggő ellenajánlat, végül eladás. A kapcsolat 2-5 napig is élhet.
 8. A napzárás autonként $5 készlettartást és a $20 közös rezsit is terheli. Magas ár mellett hosszabb készletidő és lekötött tőke kockázata van. A fix dealer exit azonnali, óvatosabb ár.
 

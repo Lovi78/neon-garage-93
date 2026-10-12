@@ -39,6 +39,11 @@ const click = (selector) => {
   assert(!el.disabled, selector);
   const details = el.closest("details");
   if (details) details.open = true;
+  const panel = el.closest("[data-car-panel]");
+  if (panel?.hidden)
+    d.querySelector(
+      `[role="tab"][data-tab="${panel.dataset.carPanel}"]`,
+    ).click();
   el.click();
 };
 const next = () => {
@@ -64,7 +69,7 @@ assert(
 );
 for (let i = 0; i < 6; i++) next();
 assert.equal(state().enterprise.projects.service.status, "active");
-assert(d.querySelector('.offer-notification [data-view="operations"]'));
+assert(d.querySelector('.priorities [data-tab="workshop"]'));
 click(".operations-board");
 click('[data-action="ops-tab"][data-tab="workshop"]');
 assert.match(

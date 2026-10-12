@@ -1,10 +1,14 @@
 # Neon Garage '93 - aktuális fejlesztési roadmap
 
-Frissítve: 2026. október 11. Jelenlegi verzió: v0.12.2 / The Art of the Deal.
+Frissítve: 2026. október 12. Jelenlegi verzió: v0.12.3 / The Art of the Deal.
 
 A jelenlegi működés szabályai a [README-ben](README.md), az eredeti javaslatok és verziónkénti feljegyzések a [DEVELOPMENT-HISTORY.md](DEVELOPMENT-HISTORY.md) dokumentumban vannak. Az előzmények megmaradtak; az ottani régi státuszok nem a mai állapotot jelentik.
 
 **Státuszok:** kész = megvalósult működés; nyitott = még szükséges ellenőrzés vagy döntés; terv = felhasználói cél, még nincs kész; javaslat = ajánlott következő lépés, nem új fejlesztési vállalás. A tesztek nem bizonyítják önmagukban a vizuális minőséget vagy a tartós játékélményt.
+
+## v0.12.3 - megvalósult célzott UX-kör
+
+Állandó retro navigáció, kompakt Today's Priorities, füles autóadatlap, módosított draftok munkameneti megőrzése, aktuális ajánlat/partner-válasz elkülönítése, rögzített döntési sáv. A gazdasági és mentési modell változatlan. Részletek: [UX-V0123.md](UX-V0123.md). Következő nagy irány: vállalkozásüzemeltetés; annak új mechanikái még nem részei ennek az UI-verziónak.
 
 ## v0.12 - megvalósított kereskedési alap
 

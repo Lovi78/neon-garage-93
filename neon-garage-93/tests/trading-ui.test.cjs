@@ -31,9 +31,17 @@ function open(scenario, customize) {
   }
   const state = () => JSON.parse(w.localStorage.getItem(w.NG.saveKey));
   const click = (selector) => {
+    if (selector.includes('[data-action="buy"]') && !d.querySelector(selector))
+      d.querySelector('#details [role="tab"][data-tab="deal"]')?.click();
     const b = d.querySelector(selector);
     assert(b, selector);
     assert(!b.disabled, selector);
+    const panel = b.closest("[data-car-panel]");
+    if (panel?.hidden)
+      d.querySelector(
+        `[role="tab"][data-tab="${panel.dataset.carPanel}"]`,
+      ).click();
+    b.closest("details")?.setAttribute("open", "");
     b.click();
   };
   return { dom, w, d, state, click };

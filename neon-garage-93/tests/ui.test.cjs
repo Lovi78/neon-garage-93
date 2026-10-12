@@ -49,10 +49,18 @@ for (const name of [
   }
 }
 const click = (selector) => {
+  if (selector.includes('[data-action="buy"]') && !d.querySelector(selector))
+    d.querySelector('#details [role="tab"][data-tab="deal"]')?.click();
   const b = d.querySelector(selector);
   assert(b, "Hiányzó elem: " + selector);
   assert(!b.disabled, "Tiltott elem: " + selector);
   const dayBeforeClick = saved().day;
+  const panel = b.closest("[data-car-panel]");
+  if (panel?.hidden)
+    d.querySelector(
+      `[role="tab"][data-tab="${panel.dataset.carPanel}"]`,
+    ).click();
+  b.closest("details")?.setAttribute("open", "");
   b.click();
   if (b.dataset.action === "next") {
     assert.equal(saved().day, dayBeforeClick);
@@ -146,11 +154,11 @@ click('[data-action="list"]');
 assert(saved().inventory[0].listed);
 click('[data-action="close"]');
 click('[data-action="next"]');
-assert(d.querySelector(".offer-notification"));
+assert(d.querySelector('.priorities [data-tab="selling"]'));
 assert.equal(saved().inventory[0].offers[0].seen, false);
 click(".parked-car");
 assert.equal(saved().inventory[0].offers[0].seen, true);
-assert(d.querySelector(".offer-notification"));
+assert(d.querySelector('.priorities [data-tab="selling"]'));
 assert.equal(d.querySelectorAll(".offer").length, 1);
 if (saved().inventory[0].offers[0].stage === "question")
   click('[data-action="answer-buyer"]');
@@ -314,8 +322,8 @@ assert.equal(saved().claims[0].status, "scheduled");
 click('[data-action="next"]');
 click('[data-action="next"]');
 assert.equal(saved().claims[0].status, "open");
-assert(d.querySelector(".case-banner"));
-click('.case-banner [data-action="view"]');
+assert(d.querySelector('.priorities [data-view="customers"]'));
+click('.priorities [data-view="customers"]');
 assert.match(d.querySelector(".claim-open").textContent, /Leaking head gasket/);
 const refund = saved().claims[0].amount,
   cashBefore = saved().cash,
@@ -431,14 +439,14 @@ function bootNotificationFixture(fixture) {
   w.localStorage.setItem("neon-garage-93-v1", JSON.stringify(fixture));
   for (const script of d.querySelectorAll("script[src]"))
     w.eval(
-      fs.readFileSync(path.join(root, script.getAttribute("src").split("?")[0]), "utf8"),
+      fs.readFileSync(
+        path.join(root, script.getAttribute("src").split("?")[0]),
+        "utf8",
+      ),
     );
 }
 bootNotificationFixture(notificationFixture);
-assert.match(
-  d.querySelector(".offer-notification").textContent,
-  /2 LIVE OFFERS/,
-);
+assert.equal(d.querySelectorAll('.priorities [data-tab="selling"]').length, 2);
 const beforeConfirmation = JSON.stringify(saved());
 d.querySelector('[data-action="next"]').click();
 assert(d.querySelector("#day-confirm").open);
@@ -457,9 +465,9 @@ assert.equal(saved().day, 0);
 assert.equal(saved().inventory.filter((c) => c.offers[0].seen).length, 0);
 click(".desk-window .car-card");
 assert.equal(saved().inventory.filter((c) => c.offers[0].seen).length, 1);
-assert.match(
-  d.querySelector(".offer-notification").textContent,
-  /1 NEEDS REVIEW/,
+assert.equal(
+  saved().inventory.filter((c) => c.offers[0]?.seen !== true).length,
+  1,
 );
 click('[data-action="close"]');
 d.querySelector('[data-action="next"]').click();
@@ -473,27 +481,21 @@ assert.equal(saved().day, 0);
 const reviewSave = saved();
 w.close();
 bootNotificationFixture(reviewSave);
-assert.match(
-  d.querySelector(".offer-notification").textContent,
-  /1 NEEDS REVIEW/,
+assert.equal(
+  saved().inventory.filter((c) => c.offers[0]?.seen !== true).length,
+  1,
 );
-click('[data-action="view-offers"]');
-click(".desk-window .car-card");
+click('.retro-nav [data-view="deals"]');
+click('.deals-inbox [data-action="detail"]');
 click('.offer [data-action="reject"]');
 click('[data-action="close"]');
-assert.match(
-  d.querySelector(".offer-notification").textContent,
-  /1 LIVE OFFER/,
-);
-click('[data-action="view-offers"]');
+assert.equal(d.querySelectorAll('.priorities [data-tab="selling"]').length, 1);
+click('.deals-inbox [data-action="detail"]');
 assert(d.querySelector("#details").open);
 assert.equal(saved().inventory[1].offers[0].seen, true);
-assert.match(
-  d.querySelector(".offer-notification").textContent,
-  /PENDING DECISION/,
-);
+assert(d.querySelector('.priorities [data-tab="selling"]'));
 click('.offer [data-action="reject"]');
-assert(!d.querySelector(".offer-notification"));
+assert(!d.querySelector('.priorities [data-tab="selling"]'));
 click('[data-action="close"]');
 d.querySelector('[data-action="next"]').click();
 assert.equal(saved().day, 0);
@@ -729,13 +731,19 @@ const lc = (selector) => {
   const el = ld.querySelector(selector);
   assert(el, selector);
   assert(!el.disabled, selector);
+  const panel = el.closest("[data-car-panel]");
+  if (panel?.hidden)
+    ld.querySelector(
+      `[role="tab"][data-tab="${panel.dataset.carPanel}"]`,
+    ).click();
+  el.closest("details")?.setAttribute("open", "");
   el.click();
 };
 const ls = () => JSON.parse(lw.localStorage.getItem(lw.NG.saveKey));
 if (ld.querySelector("#day-report").open)
   lc('[data-action="close-day-report"]');
-assert(ld.querySelector(".local-notification"));
-lc('.local-notification [data-view="operations"]');
+assert(ld.querySelector('.priorities [data-tab="requests"]'));
+lc('.priorities [data-tab="requests"]');
 assert.match(ld.querySelector(".local-board").textContent, /No deposit/);
 const stateBeforeWarning = lw.localStorage.getItem(lw.NG.saveKey);
 lc('[data-action="next"]');

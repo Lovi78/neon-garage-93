@@ -42,6 +42,14 @@ A friss GitHub-állapot ellenőrzésekor csak a `main` ág létezett, `67c1d95` 
 
 A tényleges aktuális verzió v0.12.2 marad. A README külön feltünteti a fejlesztői branch elérését és a main külön állapotát; a játék lábléce is a teljes v0.12.2 verziót mutatja. A működési, UI- és 25 darab 200 napos szimulációs ellenőrzés újra lefutott a szinkron előtt. A feltöltés normál push a külön fejlesztői ágra; main merge és force push nem része ennek a szinkronnak.
 
+## v0.12.3 - UI / UX Overhaul / lezárva 2026. október 12.
+
+Öt fókusz: állandó navigáció, napi teendők, füles autóadatlap, szerkesztett draftok megtartása, egyértelmű ajánlat/válasz és következő döntés. A pixel garázs, autóképek, rádió és retro ablakstílus megmaradt. Az eredeti műveletek ugyanazokat a gazdasági függvényeket hívják; új mentési struktúra vagy framework nincs.
+
+A fő nézetekhez Market / Inventory / Deals / Operations / Finance / Customers menü vezet; Dealer File és Collection More alatt. Today's Priorities a meglévő állapotból legfeljebb négy elsődleges teendőt mutat, a többi lenyitható. Vásárlás: Overview / Inspection / Negotiation / Deal. Saját autó: Overview / Workshop / Selling / Finances. A ténylegesen szerkesztett mezők a munkamenetben visszatérnek; a nem szerkesztett alapérték frissülhet, például vizsgálat után. A rögzített döntési sáv hosszabb lapon is elérhető.
+
+Új UX-regresszióteszt: teljes vétel-eladás, navigáció és vissza, draftok fül/nézet/vizsgálat közti megőrzése, prioritásból célba jutás, read-only navigáció, régi mentés és billentyűzetes tabkezelés. A korábbi UI-tesztek az új fülek valós megnyitásával ellenőrzik ugyanazokat a műveleteket. Dokumentáció: [UX-V0123.md](UX-V0123.md).
+
 ## A kivezetett v0.10-es helyi meghívások szabályai
 
 A v0.11 óta új ilyen meghívás nem keletkezik. A régi mentésben meglévő meghívások és fizetett hatások az eredeti feltételekkel kifutnak. Korábban jogosult reggelen 35% volt az új esemény esélye, legalább három napos közökkel. A vevői autómegbízások külön rendszerként megmaradtak.
