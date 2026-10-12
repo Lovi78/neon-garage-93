@@ -1,10 +1,10 @@
-# Neon Garage '93 - v0.12.3 / The Art of the Deal
+# Neon Garage '93 - v0.13.0 / Run the Lot
 
 Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, fiktív kaliforniai város, 1993. június 1., $5,000 kezdőtőke, két férőhely.
 
 A teljes játékfelület angol. A korábbi mentések eseményei, hibaleírásai és pénzügyi bejegyzései betöltéskor angolra váltanak, a játékállás megtartásával.
 
-Dokumentáció frissítve: 2026. október 12. Játékverzió: 0.12.3.
+Dokumentáció frissítve: 2026. október 12. Játékverzió: 0.13.0.
 
 A teljes fejlesztési irány, a következő szakaszok és a nyitott döntések a [ROADMAP.md](ROADMAP.md) dokumentumban vannak rögzítve.
 
@@ -18,17 +18,25 @@ Macen az `Indítás.command` fájlra is kattinthatsz kétszer. Ha a rendszer blo
 
 A játék minden változtatás után a böngésző helyi tárhelyére ment. Ugyanabban a böngészőben, ugyanarról a helyről nyisd újra a fájlt. Privát ablak vagy a böngészőadatok törlése miatt a mentés elveszhet. Ha a tárolás nem engedélyezett, a játék figyelmeztet.
 
-## Navigáció és autófülek - v0.12.3
+## Vállalkozásvezetés - v0.13
+
+**Operations / Today / Staff / Workshop / Requests / Business**: napi 8 tulajdonosi munkaóra, tényleges feladatot végző szerelő és értékesítő, heti bérfizetés, munkasor és prioritás. Felvétel/elbocsátás, kézi delegálás és Routine ON/OFF. A vásárlás és eladás önmagában nem fogyaszt munkaórát; vizsgálat, javítás, vevői válasz és az első hirdetés előkészítése igen.
+
+A **Finance** elkülöníti az eredményt a cash flowtól: Last 7 days, időarányos bér, heti kifizetés, fizetetlen bér, következő payday és 7 napos cash buffer. A már megszolgált bér a nettó cégértéket is csökkenti. A korábbi mentések dolgozó nélkül, utólagos bérlevonás nélkül indulnak.
+
+Részletes szabályok, három konkrét játékhelyzet, mérési eredmények és nyitott balanszkérdések: [MANAGEMENT-V013.md](MANAGEMENT-V013.md).
+
+## Navigáció és autófülek
 
 A garázs mellett állandó menü érhető el: **Market, Inventory, Deals, Operations, Finance, Customers**. **More** alatt Dealer File és Collection. A **Today's Priorities** teendői közvetlenül a megfelelő autóra vagy funkcióra vezetnek. A Deals a folyó eladói és vevői beszélgetések közös belépője.
 
-Autóvásárlás: **Overview / Inspection / Negotiation / Deal**. Saját autó: **Overview / Workshop / Selling / Finances**. A még el nem küldött, módosított összegek és választások fülváltáskor és fő nézetváltáskor megmaradnak a munkamenetben. Az alsó döntési sávban elérhető a vétel, illetve egyetlen vevő válaszadása/elfogadása. A részletes leírás: [UX-V0123.md](UX-V0123.md).
+Autóvásárlás: **Overview / Inspection / Negotiation / Deal**. Saját autó: **Overview / Workshop / Selling / Finances**. A még el nem küldött, módosított összegek és választások fülváltáskor és fő nézetváltáskor megmaradnak a munkamenetben. Az alsó döntési sávban elérhető a vétel és az adott autó következő nézete. Vevői válasz/elfogadás a vevő kártyáján történik, egyetlen elsődleges gombbal. Az elkészült, de még nem hirdetett javítás későbbi napokon is teendő marad. A részletes leírás: [UX-V0123.md](UX-V0123.md).
 
 ## Rövidebb felület - v0.12.2
 
 Az **Operations** nyitófüle **Today**: aktuális teendők, következő számla, készpénzfedezet és hátralék. A **Workshop**, **Requests** és **Business** fülek külön mutatják a munkákat, vevői megbízásokat és beruházásokat/hitelt. A füleken számláló jelzi az aktív tételeket. Az ablak rövid nézethez igazítja a magasságát; hosszabb listán belül lehet görgetni.
 
-A működési magyarázatok **How it works**, a beszélgetések **Conversation history**, a pénzügyi grafikon és napló külön lenyithatók. Az árak, fizetési kötelezettségek, határidők és kockázati jelzések a döntés mellett látszanak. A Dealer File csak a fejlődést és kisebb fejlesztéseket mutatja; Business gombja az Operations megfelelő fülére vezet. A felület változtatása nem módosítja a gazdasági szabályokat vagy a mentést.
+A működési magyarázatok **How it works**, a beszélgetések **Conversation history**, a pénzügyi grafikon és napló külön lenyithatók. Az árak, fizetési kötelezettségek, határidők és kockázati jelzések a döntés mellett látszanak. A Dealer File csak a fejlődést és kisebb fejlesztéseket mutatja; Business gombja az Operations megfelelő fülére vezet. A v0.12.2 UI-kör nem módosította a gazdasági szabályokat; a v0.13 vállalkozásvezetési szabályai fent és a külön leírásban találhatók.
 
 ## Az első üzleted
 
@@ -143,7 +151,7 @@ Az **Operations / Business** fülön érhetők el a nagy beruházások és a hit
 | Regional Fleet Workshop | $68,000 | 10 nap | további $320 | 3 közös műhelyhely, nagyobb flottamunkák; legalább 25 REP és nyitott Service Center |
 | Wholesale Trading Desk | $45,000 | 8 nap | $250 | Legfeljebb két, 5 napra lekötött nagykereskedelmi tétel; legalább 20 REP |
 
-Egy építkezés folyhat egyszerre. A beruházás ára előre kifizetendő; az új fix költség a nyitást követő reggeltől él. A flottaműhely a Service Center költségére rakódik: együtt $500/nap. A három üzletág összesen $137k beruházás és $750/nap személyzeti/üzemeltetési költség, a normál rezsi, készlettartás, reklám és hitelkamat előtt.
+Egy építkezés folyhat egyszerre. A beruházás ára előre kifizetendő; az új fix költség a nyitást követő reggeltől él. A flottaműhely a Service Center költségére rakódik: együtt $500/nap felvett szerelő nélkül. Szerelő felvételével a beépített külsős munkadíj egy része helyettesítődik; a teljes alkalmazotti bér külön, egyszer jelenik meg. A három üzletág összesen $137k beruházás és $750/nap alapüzemeltetési költség explicit alkalmazotti bérek nélkül, a normál rezsi, készlettartás, reklám és hitelkamat előtt.
 
 A beruházás megkezdése előtt külön áttekintés mutatja a maradó pénzt és az új heti fix terhet. Az aktuális 7 napos költség, bevétel nélküli készpénz-fedezet és az elmúlt 7 nap tényleges működési pénzmozgása külön látszik. A 7 napos költség és cash runway az ismert építkezési nyitásokat és hátralékot is figyelembe veszi. A jelenlegi készletet és reklámállapotot feltételezi, további döntéseket vagy befolyó munkadíjat nem. Ez nem garantált jövőbeli pénzállás.
 
@@ -278,6 +286,8 @@ Mind a 60 modell saját SVG-körvonalmaszkot kapott. A megjelenítés a tényleg
 - `js/legacy-language.js`: régi magyar mentési szövegek angolra alakítása.
 
 - `js/catalog-v06.js`: a második harminc modell és a hozzájuk tartozó sprite-manifest.
+- `js/management.js`: személyzet, munkasor, idő, bér és eredmény/cash elkülönítés.
+- `js/management-ui.js`: Staff, feladatkiosztás és vezetői áttekintés.
 - `js/strategy.js`: többnapos piaci hullámok, tervezett következő trend, üzemeltetési számlák, műhelyidő, specialistaskillek és perkek.
 - `js/day-report.js`: lezárt nap és következő reggel összesítése, menthető összefoglaló.
 - `js/sprite-clips.js`: generált, modellenkénti körvonalas kivágások.
@@ -312,14 +322,16 @@ npm run test:simulation
 
 A régi modulok regressziós alaptesztjei mellett az új 18 integrált teszt a tényleges játék betöltési sorrendjével ellenőrzi az NPC-döntést, hirdetéséletciklust, vizsgálatot, információrejtést, vételt/eladást, pénzmozgást, migrációt, visszahívást és szélsőséges likviditást. A teljes DOM-játékmenet és a három új gyakorlóhelyzet is tesztelt.
 
-A szimuláció 5 stratégia x 5 véletlenmag x 200 nap. Minden nap készpénz-napló egyeztetés, 25 naponta mentésből folytatás; külön reprodukálhatósági ellenőrzés. Kimenet: [reports/trading-simulation.json](reports/trading-simulation.json). A számok első balanszmérésből származnak; nem történelmi gazdasági adatok.
+Új személyzeti ellenőrzés: 17 integrációs teszt és külön UI-folyamat, valamint 30 x 180 napos management szimuláció; részletek a [v0.13 leírásban](MANAGEMENT-V013.md).
+
+A kereskedési szimuláció 5 stratégia x 5 véletlenmag x 200 nap. Minden nap készpénz-napló egyeztetés, 25 naponta mentésből folytatás; külön reprodukálhatósági ellenőrzés. Kimenet: [reports/trading-simulation.json](reports/trading-simulation.json). A számok első balanszmérésből származnak; nem történelmi gazdasági adatok.
 
 Valódi böngészős próba helyi kiszolgálással is készült. Ez nem játékfüggőség: a játék továbbra is közvetlen `index.html` megnyitással működik. A rádió hangját és hosszabb emberi játékélményt külön játékosi próba tudja megítélni.
 
 ## Korlátok és következő lépések
 
 - 60 modell és két saját autóbeálló. A nagy beruházások kapacitást és üzletágat nyitnak, külön új telephelygrafika nincs.
-- A személyzet költségként jelenik meg; egyedi alkalmazottak felvétele és beosztása nincs.
+- A személyzet valós munkát végez; négy jelölt közül két munkakörben alkalmazott vehető fel és osztható be; további HR-rendszer nincs.
 - Nincs automatikus csődvége. Készleteladás, hitel és a kötelezettségektől függő üzletági felszámolás segíthet a likviditási gondokon.
 - A mentés helyi, ugyanahhoz a böngészőhöz és fájlhelyhez kötődik. Felhőmentés és mentésexport nincs.
 - Az új kis helyi meghívások generálása megszűnt; a vevői megbízások megmaradtak.

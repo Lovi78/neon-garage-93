@@ -1,14 +1,20 @@
 # Neon Garage '93 - aktuális fejlesztési roadmap
 
-Frissítve: 2026. október 12. Jelenlegi verzió: v0.12.3 / The Art of the Deal.
+Frissítve: 2026. október 12. Jelenlegi verzió: v0.13.0 / Run the Lot.
 
 A jelenlegi működés szabályai a [README-ben](README.md), az eredeti javaslatok és verziónkénti feljegyzések a [DEVELOPMENT-HISTORY.md](DEVELOPMENT-HISTORY.md) dokumentumban vannak. Az előzmények megmaradtak; az ottani régi státuszok nem a mai állapotot jelentik.
 
 **Státuszok:** kész = megvalósult működés; nyitott = még szükséges ellenőrzés vagy döntés; terv = felhasználói cél, még nincs kész; javaslat = ajánlott következő lépés, nem új fejlesztési vállalás. A tesztek nem bizonyítják önmagukban a vizuális minőséget vagy a tartós játékélményt.
 
+## v0.13 - megvalósult vállalkozásvezetés
+
+Kész: két munkakör, négy jelölt, felvétel/elbocsátás, napi idő és valódi delegált munka, heti bér és hátralék, közös műhely/munkasor, rutin visszahívás és előkészítés, külön eredmény/cash flow, laptop UI-polish. A nagyobb pénzügyi döntéseket a játékos hagyja jóvá. 17 új integrációs teszt, management UI, 30 x 180 nap management és 25 x 200 nap trading szimuláció. Szabályok és mérési korlátok: [MANAGEMENT-V013.md](MANAGEMENT-V013.md).
+
+Nyitott: hosszabb emberi játék, alacsony forgalomnál alkalmazotti megtérülés, szerelő sebességelőnye a nagy műhelyben, facility munkadíj-helyettesítés, értékesítő haszna és többféle rutinszabály. A következő kör elsősorban ezek balansza, nem új munkakörök vagy HR-komplexitás.
+
 ## v0.12.3 - megvalósult célzott UX-kör
 
-Állandó retro navigáció, kompakt Today's Priorities, füles autóadatlap, módosított draftok munkameneti megőrzése, aktuális ajánlat/partner-válasz elkülönítése, rögzített döntési sáv. A gazdasági és mentési modell változatlan. Részletek: [UX-V0123.md](UX-V0123.md). Következő nagy irány: vállalkozásüzemeltetés; annak új mechanikái még nem részei ennek az UI-verziónak.
+Állandó retro navigáció, kompakt Today's Priorities, füles autóadatlap, módosított draftok munkameneti megőrzése, aktuális ajánlat/partner-válasz elkülönítése, rögzített döntési sáv. A gazdasági és mentési modell változatlan. Részletek: [UX-V0123.md](UX-V0123.md). Következő nagy irány: vállalkozásüzemeltetés; annak új mechanikái a v0.13 külön rétegében valósultak meg.
 
 ## v0.12 - megvalósított kereskedési alap
 
@@ -83,7 +89,8 @@ Ez ajánlott sorrend. A konkrét következő fejlesztési csomag, ára és szab�
 
 ### Vállalkozás és reputáció
 
-- [ ] Üzletági fejlődési fokozatok és eltérő stratégiák; egyedi személyzet, ha valódi döntést ad.
+- [x] Egyedi szerelő és értékesítő, tényleges munkával és bérrel.
+- [ ] További üzletági fejlődési fokozatok és eltérő stratégiák.
 - [ ] Detailing Station és Showroom Presentation: eredeti jelöltek, még nincsenek megvalósítva.
 - [ ] Alkatrészszállítási várakozás/hiány, garázsbővítés és új telephelyek: későbbi lehetőségek, nem a mostani fő prioritás.
 - [ ] Vevői ajánlások, ismerősi megkeresések, gyűjtők, beszámítás és különleges magánhirdetések.

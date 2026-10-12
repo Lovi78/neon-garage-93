@@ -144,12 +144,7 @@
           `data-action="detail" data-id="${c.id}" data-tab="selling"`,
           1,
         );
-      if (
-        !c.listed &&
-        c.readyDay > 0 &&
-        c.readyDay <= state.day &&
-        c.readyDay === state.day
-      )
+      if (!c.listed && c.readyDay > 0 && c.readyDay <= state.day)
         add(
           c.id + "-repair",
           "Repair ready",
@@ -303,7 +298,7 @@
       customers: "CUSTOMERS",
       operations: "OPERATIONS",
     };
-    app.innerHTML = `<div class="game-shell"><header class="game-hud"><div class="game-logo"><span class="logo-mark">NG</span><div><h1>NEON GARAGE <b>'93</b></h1><small>SMALL LOT. BIG PLANS.</small></div></div><section class="stats" aria-label="Dealership status"><div><span>CASH</span><strong>${NG.money(state.cash)}</strong></div><div><span>GARAGE</span><strong>${state.inventory.length}<em> / ${state.capacity}</em></strong></div><div><span>REPUTATION</span><strong>${state.reputation}<em> REP</em></strong><small>${NG.repTier(state).name}</small></div><div><span>DEAL MARGIN</span><strong class="${NG.totalMargin(state) >= 0 ? "positive" : "negative"}">${signed(NG.totalMargin(state))}</strong><small>${state.sold} completed sales</small></div></section><div class="hud-day"><span>${NG.date(state.day)}<small>DAY ${state.day + 1}</small></span><button class="primary" data-action="next">NEXT DAY &gt;</button></div></header>${navigation()}${priorities()}<div class="progress-strip"><button data-action="view" data-view="upgrades">DEALER FILE / LEVEL ${state.progress.level}</button>${NG.progressBar("LEVEL " + state.progress.level, state.progress.xp, NG.xpNeeded(state.progress.level), state.progress.xp + " / " + NG.xpNeeded(state.progress.level) + " XP")}${NG.repProgress(state)}<span class="positive">${state.progress.points} SKILL POINT${state.progress.points === 1 ? "" : "S"}</span></div>${NG.storageError ? '<div class="storage-warning">Your browser is blocking saves. Enable local storage to keep your progress.</div>' : ""}${state.practice ? `<div class="case-banner"><span>PRACTICE ${esc(state.practice)} / SEPARATE SAVE</span><a href="?">Return to your dealership</a></div>` : ""}<main class="world-frame">${NG.garageScene(state, arrival)}${view !== "garage" ? `<section class="desk-window" aria-label="${names[view]}" data-window-view="${view}"><header class="window-title"><span><i></i> ${view === "market" ? "CLASSIFIEDS.EXE" : view === "deals" ? "DEALS.EXE" : view === "inventory" ? "WORKSHOP.EXE" : view === "upgrades" ? "DEALER-FILE.EXE" : view === "collection" ? "CAR-ALBUM.EXE" : view === "customers" ? "CUSTOMER-CARE.EXE" : view === "operations" ? "OPERATIONS.EXE" : "LEDGER.EXE"}</span><button data-action="view" data-view="garage" aria-label="Back to garage">&times;</button></header><div class="window-body" tabindex="-1"><div class="section-heading"><div><span class="eyebrow">NEON GARAGE / ${names[view]}</span><h2>${view === "market" ? "Car market" : view === "deals" ? "Deals" : view === "inventory" ? "Your cars" : view === "upgrades" ? "Dealer file" : view === "collection" ? "Car collection" : view === "customers" ? "Customers" : view === "operations" ? "Operations" : "Finances"}</h2></div><button class="text-button" data-action="view-back">&lt; BACK</button></div>${view === "market" ? market() : view === "deals" ? deals() : view === "inventory" ? inventory() : view === "upgrades" ? growth() : view === "collection" ? album() : view === "customers" ? customers() : view === "operations" ? operations() : finances()}</div></section>` : ""}</main><footer class="game-footer">${radioConsole()}<div class="radio-news"><span>MARKET WIRE / SILVER PALMS</span><strong>${esc(state.event.title)}</strong><p>${esc(state.event.text)}</p></div><div class="footer-controls"><span>${NG.storageError ? "SAVING UNAVAILABLE" : "AUTO-SAVED"}</span>${state.dayReport ? '<button data-action="show-day-report">DAY REPORT</button>' : ""}<button data-action="reset">NEW GAME</button><small>v0.12.3 / THE ART OF THE DEAL</small><span class="practice-links">Practice: <a href="?scenario=A">A / Moving seller</a> · <a href="?scenario=B">B / Suspicious car</a> · <a href="?scenario=C">C / Slow stock</a></span></div></footer></div>`;
+    app.innerHTML = `<div class="game-shell"><header class="game-hud"><div class="game-logo"><span class="logo-mark">NG</span><div><h1>NEON GARAGE <b>'93</b></h1><small>SMALL LOT. BIG PLANS.</small></div></div><section class="stats" aria-label="Dealership status"><div><span>CASH</span><strong>${NG.money(state.cash)}</strong></div><div><span>GARAGE</span><strong>${state.inventory.length}<em> / ${state.capacity}</em></strong></div><div><span>REPUTATION</span><strong>${state.reputation}<em> REP</em></strong><small>${NG.repTier(state).name}</small></div><div><span>DEAL MARGIN</span><strong class="${NG.totalMargin(state) >= 0 ? "positive" : "negative"}">${signed(NG.totalMargin(state))}</strong><small>${state.sold} completed sales</small></div></section><div class="hud-day"><span>${NG.date(state.day)}<small>DAY ${state.day + 1}</small></span><button class="primary" data-action="next">NEXT DAY &gt;</button></div></header>${navigation()}${priorities()}<div class="progress-strip"><button data-action="view" data-view="upgrades">DEALER FILE / LEVEL ${state.progress.level}</button>${NG.progressBar("LEVEL " + state.progress.level, state.progress.xp, NG.xpNeeded(state.progress.level), state.progress.xp + " / " + NG.xpNeeded(state.progress.level) + " XP")}${NG.repProgress(state)}<span class="positive">${state.progress.points} SKILL POINT${state.progress.points === 1 ? "" : "S"}</span></div>${NG.storageError ? '<div class="storage-warning">Your browser is blocking saves. Enable local storage to keep your progress.</div>' : ""}${state.practice ? `<div class="case-banner"><span>PRACTICE ${esc(state.practice)} / SEPARATE SAVE</span><a href="?">Return to your dealership</a></div>` : ""}<main class="world-frame">${NG.garageScene(state, arrival)}${view !== "garage" ? `<section class="desk-window" aria-label="${names[view]}" data-window-view="${view}"><header class="window-title"><span><i></i> ${view === "market" ? "CLASSIFIEDS.EXE" : view === "deals" ? "DEALS.EXE" : view === "inventory" ? "WORKSHOP.EXE" : view === "upgrades" ? "DEALER-FILE.EXE" : view === "collection" ? "CAR-ALBUM.EXE" : view === "customers" ? "CUSTOMER-CARE.EXE" : view === "operations" ? "OPERATIONS.EXE" : "LEDGER.EXE"}</span><button data-action="view" data-view="garage" aria-label="Back to garage">&times;</button></header><div class="window-body" tabindex="-1"><div class="section-heading"><div><span class="eyebrow">NEON GARAGE / ${names[view]}</span><h2>${view === "market" ? "Car market" : view === "deals" ? "Deals" : view === "inventory" ? "Your cars" : view === "upgrades" ? "Dealer file" : view === "collection" ? "Car collection" : view === "customers" ? "Customers" : view === "operations" ? "Operations" : "Finances"}</h2></div><button class="text-button" data-action="view-back">&lt; BACK</button></div>${view === "market" ? market() : view === "deals" ? deals() : view === "inventory" ? inventory() : view === "upgrades" ? growth() : view === "collection" ? album() : view === "customers" ? customers() : view === "operations" ? operations() : finances()}</div></section>` : ""}</main><footer class="game-footer">${radioConsole()}<div class="radio-news"><span>MARKET WIRE / SILVER PALMS</span><strong>${esc(state.event.title)}</strong><p>${esc(state.event.text)}</p></div><div class="footer-controls"><span>${NG.storageError ? "SAVING UNAVAILABLE" : "AUTO-SAVED"}</span>${state.dayReport ? '<button data-action="show-day-report">DAY REPORT</button>' : ""}<button data-action="reset">NEW GAME</button><small>v0.13.0 / RUN THE LOT</small><span class="practice-links">Practice: <a href="?scenario=A">A / Moving seller</a> · <a href="?scenario=B">B / Suspicious car</a> · <a href="?scenario=C">C / Slow stock</a></span></div></footer></div>`;
     compactHelp(app);
     const body = app.querySelector(".window-body");
     if (body) body.scrollTop = viewScroll.get(view) || 0;
@@ -365,7 +360,7 @@
         .filter((l) => l.amount < 0)
         .reduce((n, l) => n - l.amount, 0);
     const e = NG.economics(state);
-    return `<div class="finance-summary"><div><span>CASH</span><strong>${NG.money(e.cash)}</strong></div><div><span>STOCK / EST. EXIT</span><strong>${NG.money(e.inventory)}</strong></div><div><span>NET WORTH</span><strong>${NG.money(e.netWorth)}</strong></div></div><details class="finance-history"><summary>Capital and costs</summary><div class="trend-grid">${[
+    return `${NG.managementFinanceUI(state)}<div class="finance-summary"><div><span>CASH</span><strong>${NG.money(e.cash)}</strong></div><div><span>STOCK / EST. EXIT</span><strong>${NG.money(e.inventory)}</strong></div><div><span>NET WORTH</span><strong>${NG.money(e.netWorth)}</strong></div></div><details class="finance-history"><summary>Capital and costs</summary><div class="trend-grid">${[
       ["CASH", e.cash],
       ["INVENTORY / EST. DEALER EXIT", e.inventory],
       ["STOCK ACQUISITION", e.acquisition],
@@ -549,12 +544,12 @@
       tasks.push(
         `<article class="ops-task"><div><span>EARLIER INVITATION</span><h3>${legacy.length} pending</h3></div><button data-action="ops-tab" data-tab="requests">Review</button></article>`,
       );
-    return `<div class="ops-tasks">${tasks.join("") || '<div class="ops-clear"><b>All clear.</b><p>No urgent decisions. Check your stock or close the day.</p><button data-action="view" data-view="inventory">View stock</button></div>'}</div>`;
+    return `${NG.managementTodayUI(state)}<div class="ops-tasks">${tasks.join("") || '<div class="ops-clear"><b>All clear.</b><p>No urgent decisions. Check your stock or close the day.</p><button data-action="view" data-view="inventory">View stock</button></div>'}</div>`;
   }
   function operationsWorkshop() {
     const e = state.enterprise,
       jobs = state.inventory.filter((c) => NG.busy(state, c));
-    return `<section class="enterprise-panel"><h3>Workshop schedule <span class="tag">${NG.workshopBusy(state)} / ${NG.workshopCapacity(state)} slots</span></h3>${NG.localWorkshopBlocked(state) ? '<p class="negative">In-house bookings blocked today. Rush work available.</p>' : ""}<div class="ops-tasks">${jobs.map((c) => `<article class="ops-task"><div><span>${c.repairMode === "rush" ? "OUTSOURCED RUSH" : "STOCK REPAIR"}</span><h3>${esc(NG.model(c).name)}</h3><small>Ready ${NG.date(c.readyDay)}</small></div><button data-action="detail" data-id="${c.id}">View car</button></article>`).join("")}</div><h3>Client workshop / shared capacity ${NG.workshopBusy(state)} / ${NG.workshopCapacity(state)}</h3><div class="ops-cards">${
+    return `${NG.managementWorkUI(state)}<section class="enterprise-panel"><h3>Workshop schedule <span class="tag">${NG.workshopBusy(state)} / ${NG.workshopCapacity(state)} slots</span></h3>${NG.localWorkshopBlocked(state) ? '<p class="negative">In-house bookings blocked today. Rush work available.</p>' : ""}<div class="ops-tasks">${jobs.map((c) => `<article class="ops-task"><div><span>${c.repairMode === "rush" ? "OUTSOURCED RUSH" : "STOCK REPAIR"}</span><h3>${esc(NG.model(c).name)}</h3><small>${esc(NG.workerName(state, c.assignedWorker))} / Ready ${NG.date(c.readyDay)} / repairs ${NG.money(c.repairCost)}</small></div><button data-action="detail" data-id="${c.id}">View car</button></article>`).join("")}</div><h3>Client workshop / shared capacity ${NG.workshopBusy(state)} / ${NG.workshopCapacity(state)}</h3><div class="ops-cards">${
       e.orders
         .filter((j) => ["offered", "running"].includes(j.status))
         .map((j) => {
@@ -577,7 +572,7 @@
               ["Invoice", NG.money(j.revenue)],
               ["Margin", NG.money(j.revenue - j.cost), "positive"],
             ],
-          )}<small>${j.days} days / 1 shared slot / margin before overhead</small>${j.status === "offered" ? `<div class="actions"><button class="primary" data-action="enterprise-order" data-id="${j.id}" ${reason ? "disabled" : ""}>Accept / ${NG.money(j.cost)}</button><button data-action="enterprise-decline" data-id="${j.id}">Decline</button></div>${reason ? `<small class="negative">${reason}</small>` : ""}` : NG.progressBar("WORK IN PROGRESS", state.day - j.started, j.days, NG.date(j.readyDay))}</article>`;
+          )}<small>${j.days} days / 1 shared slot / ${esc(NG.workerName(state, j.assignedWorker))} / margin before overhead</small>${j.status === "offered" ? `<div class="actions"><button class="primary" data-action="enterprise-order" data-id="${j.id}" ${reason ? "disabled" : ""}>Accept / ${NG.money(j.cost)}</button><button data-action="enterprise-decline" data-id="${j.id}">Decline</button></div>${reason ? `<small class="negative">${reason}</small>` : ""}` : NG.progressBar("WORK IN PROGRESS", state.day - j.started, j.days, NG.date(j.readyDay))}</article>`;
         })
         .join("") ||
       `<p class="muted">${NG.enterpriseActive(state, "service") ? "No client work waiting." : "Open a Service Center for client work."}</p>`
@@ -661,7 +656,7 @@
         NG.money(state.operations.arrears),
         state.operations.arrears ? "negative" : "positive",
       ],
-    ])}<div class="ops-tabs" role="tablist" aria-label="Operations sections">${opsTabButton("today", "Today")}${opsTabButton("workshop", "Workshop", work)}${opsTabButton("requests", "Requests", pending)}${opsTabButton("business", "Business")}</div><section id="ops-content" role="tabpanel" aria-labelledby="ops-tab-${operationsTab}">${operationsTab === "today" ? operationsToday() : operationsTab === "workshop" ? operationsWorkshop() : operationsTab === "requests" ? localBoard() : operationsBusiness()}</section></div>`;
+    ])}<div class="ops-tabs" role="tablist" aria-label="Operations sections">${opsTabButton("today", "Today")}${opsTabButton("staff", "Staff", state.management.staff.length)}${opsTabButton("workshop", "Workshop", work)}${opsTabButton("requests", "Requests", pending)}${opsTabButton("business", "Business")}</div><section id="ops-content" role="tabpanel" aria-labelledby="ops-tab-${operationsTab}">${operationsTab === "today" ? operationsToday() : operationsTab === "staff" ? NG.managementStaffUI(state) : operationsTab === "workshop" ? operationsWorkshop() : operationsTab === "requests" ? localBoard() : operationsBusiness()}</section></div>`;
   }
 
   function growth() {
@@ -900,26 +895,10 @@
       bar.classList.remove("primary");
       delete bar.dataset.id;
       delete bar.dataset.offer;
-      if (tab === "selling" && offer && !NG.busy(state, car)) {
-        bar.dataset.action =
-          offer.stage === "question" ? "answer-buyer" : "sell";
-        bar.dataset.id = car.id;
-        bar.dataset.offer = offer.id;
-        delete bar.dataset.tab;
-        bar.classList.add("primary");
-        bar.textContent =
-          offer.stage === "question"
-            ? "Send reply"
-            : "Accept " +
-              NG.money(offer.price) +
-              " / " +
-              (offer.buyer || "buyer");
-      } else {
-        bar.dataset.action = "car-tab";
-        bar.dataset.tab = tab === "selling" ? "finances" : "selling";
-        bar.textContent =
-          tab === "selling" ? "Review investment" : "Selling options";
-      }
+      bar.dataset.action = "car-tab";
+      bar.dataset.tab = tab === "selling" ? "finances" : "selling";
+      bar.textContent =
+        tab === "selling" ? "Review investment" : "Selling options";
     }
     if (focus) dialog.querySelector(`[role="tab"][data-tab="${tab}"]`).focus();
   }
@@ -979,7 +958,7 @@
   function carSelling(c) {
     const id = c.id,
       value = NG.value(state, c);
-    return `<h3>Sell your car</h3>${NG.busy(state, c) ? `<p class="workshop-note">Repair in progress. Ready ${NG.date(c.readyDay)}.</p>` : c.listed ? `${listingDescription(c)}<div class="selling-price"><b>Listed ${NG.money(c.listPrice)}</b><button data-action="unlist" data-id="${id}">Change / remove listing</button></div>${c.marketAdvice ? `<p class="negative">${esc(c.marketAdvice)}</p>` : ""}${c.buyerMessage ? `<div class="negotiation-dialogue"><p>${esc(c.buyerMessage)}</p></div>` : ""}<div class="buyer-conversations">${c.offers.map((o) => offerCard(c, o)).join("") || "<p>No buyers yet. Close the day to attract interest.</p>"}</div>` : listingForm(c, value, id)}<details class="dealer-exit"><summary>Instant dealer exit / ${NG.money(Math.round(value * 0.72))}</summary><p>Deal margin ${signed(Math.round(value * 0.72) - NG.cost(c))}. Fixed price.</p><button data-action="sell" data-id="${id}" data-offer="dealer" ${NG.busy(state, c) ? "disabled" : ""}>Sell to dealer</button></details>`;
+    return `<h3>Sell your car</h3><p class="fine-print">${c.prepared ? "Sale preparation complete. Listing uses no further work time." : "First listing includes two hours of your work. Delegate sale preparation in Operations to free that time."}</p>${NG.busy(state, c) ? `<p class="workshop-note">Repair in progress. Ready ${NG.date(c.readyDay)}.</p>` : c.listed ? `${listingDescription(c)}<div class="selling-price"><b>Listed ${NG.money(c.listPrice)}</b><button data-action="unlist" data-id="${id}">Change / remove listing</button></div>${c.marketAdvice ? `<p class="negative">${esc(c.marketAdvice)}</p>` : ""}${c.buyerMessage ? `<div class="negotiation-dialogue"><p>${esc(c.buyerMessage)}</p></div>` : ""}<div class="buyer-conversations">${c.offers.map((o) => offerCard(c, o)).join("") || "<p>No buyers yet. Close the day to attract interest.</p>"}</div>` : listingForm(c, value, id)}<details class="dealer-exit"><summary>Instant dealer exit / ${NG.money(Math.round(value * 0.72))}</summary><p>Deal margin ${signed(Math.round(value * 0.72) - NG.cost(c))}. Fixed price.</p><button data-action="sell" data-id="${id}" data-offer="dealer" ${NG.busy(state, c) ? "disabled" : ""}>Sell to dealer</button></details>`;
   }
   function carFinances(c) {
     return `<h3>Investment in this car</h3>${opsMetrics([
@@ -1044,7 +1023,7 @@
           negotiation: purchasePanel(c),
           deal: purchaseDeal(c),
         };
-    dialog.innerHTML = `<div class="car-window-head"><button data-action="close">&lt; Back</button><b>${esc(NG.model(c).name)}</b><button data-action="close" aria-label="Close">×</button></div>${navigation(true)}<div class="car-tabs" role="tablist" aria-label="Car sections">${tabs.map(([key, label]) => `<button role="tab" id="car-tab-${key}" data-action="car-tab" data-tab="${key}" aria-controls="car-panel-${key}" aria-selected="false" tabindex="-1">${label}${key === "selling" && c.offers.length ? ` <b>${c.offers.length}</b>` : ""}</button>`).join("")}</div><div class="car-panel-scroll">${tabs.map(([key, label]) => `<section id="car-panel-${key}" data-car-panel="${key}" role="tabpanel" aria-labelledby="car-tab-${key}" hidden>${content[key]}</section>`).join("")}</div><div class="car-decision-bar"><span>${owned ? "Invested" : "Current price"} <b>${NG.money(owned ? NG.cost(c) : NG.purchaseQuote(c))}</b></span><button data-action="car-tab" data-tab="${owned ? "selling" : "deal"}">${owned ? "Selling options" : "Review purchase"}</button><p class="dialog-feedback" role="alert" hidden></p></div>`;
+    dialog.innerHTML = `<div class="car-window-head"><span class="eyebrow">CAR FILE</span><b>${esc(NG.model(c).name)}</b><button data-action="close" aria-label="Close">×</button></div>${navigation(true)}<div class="car-tabs" role="tablist" aria-label="Car sections">${tabs.map(([key, label]) => `<button role="tab" id="car-tab-${key}" data-action="car-tab" data-tab="${key}" aria-controls="car-panel-${key}" aria-selected="false" tabindex="-1">${label}${key === "selling" && c.offers.length ? ` <b>${c.offers.length}</b>` : ""}</button>`).join("")}</div><div class="car-panel-scroll">${tabs.map(([key, label]) => `<section id="car-panel-${key}" data-car-panel="${key}" role="tabpanel" aria-labelledby="car-tab-${key}" hidden>${content[key]}</section>`).join("")}</div><div class="car-decision-bar"><span>${owned ? "Invested" : "Current price"} <b>${NG.money(owned ? NG.cost(c) : NG.purchaseQuote(c))}</b></span><button data-action="car-tab" data-tab="${owned ? "selling" : "deal"}">${owned ? "Selling options" : "Review purchase"}</button><p class="dialog-feedback" role="alert" hidden></p></div>`;
     restoreDrafts(id);
     compactHelp(dialog);
     carSwitch(tab);
@@ -1106,7 +1085,7 @@
       (q) => q.status === "active" && q.deadline <= state.day,
     );
     pendingCloseDay = state.day;
-    confirm.innerHTML = `<div class="modal-head"><span class="eyebrow">CLOSE BUSINESS DAY</span><button data-action="cancel-next" aria-label="Cancel day closing">×</button></div><h2 id="day-confirm-title">Close ${NG.date(state.day)}?</h2><p>No time passes until you confirm. The next operating bill is ${NG.money(NG.operatingBill(state))}, plus ${NG.money(state.operations.arrears)} overdue. Closing advances existing listings, finishes eligible repairs and brings the next morning’s news.</p>${offers.length ? `<div class="confirm-offer-warning"><h3>${offers.length} pending offer${offers.length === 1 ? "" : "s"} will expire</h3><ul>${offers.map((o) => `<li>${esc(o.car)} / ${esc(o.buyer)}: <strong>${o.stage === "question" ? "INQUIRY" : NG.money(o.price)}</strong>${o.unread ? ' <span class="negative">NOT REVIEWED</span>' : ""}</li>`).join("")}</ul><p>You can review and accept these offers before ending the day.</p><button data-action="confirm-view-offers">Review offers first</button></div>` : '<p class="muted">No pending buyer offers.</p>'}${dueRequests.length ? `<div class="confirm-offer-warning"><h3>Buyer request deadline today</h3><ul>${dueRequests.map((q) => `<li>${esc(NG.requestKinds.find((t) => t.id === q.kind).title)} / closing now misses delivery and costs 1 reputation.</li>`).join("")}</ul><button data-action="confirm-view-requests">Review requests first</button></div>` : ""}${state.business.adActive ? `<p class="fine-print">The newspaper campaign will cost $20 on the next morning${state.cash < NG.operatingBill(state) + state.operations.arrears + 20 ? " and pause if operating bills leave insufficient cash" : ""}.</p>` : ""}<div class="actions"><button class="primary" data-action="cancel-next">Keep playing</button><button class="${offers.length ? "danger" : "primary"}" data-action="confirm-next">${offers.length ? "Close day & expire offers" : "Yes, close day"}</button></div>`;
+    confirm.innerHTML = `<div class="modal-head"><span class="eyebrow">CLOSE BUSINESS DAY</span><button data-action="cancel-next" aria-label="Cancel day closing">×</button></div><h2 id="day-confirm-title">Close ${NG.date(state.day)}?</h2><p>No time passes until you confirm. The next operating bill is ${NG.money(NG.operatingBill(state))}, plus ${NG.money(state.operations.arrears)} overdue. Closing advances existing listings, finishes eligible repairs and brings the next morning’s news.</p><p>Daily earned wages: ${NG.money(Math.ceil(NG.weeklyPayroll(state) / 7))}. Next payday: ${NG.date(state.management.nextPayDay)}. ${state.management.queue.length} queued task(s) may start and charge their approved costs.</p>${offers.length ? `<div class="confirm-offer-warning"><h3>${offers.length} pending offer${offers.length === 1 ? "" : "s"} will expire</h3><ul>${offers.map((o) => `<li>${esc(o.car)} / ${esc(o.buyer)}: <strong>${o.stage === "question" ? "INQUIRY" : NG.money(o.price)}</strong>${o.unread ? ' <span class="negative">NOT REVIEWED</span>' : ""}</li>`).join("")}</ul><p>You can review and accept these offers before ending the day.</p><button data-action="confirm-view-offers">Review offers first</button></div>` : '<p class="muted">No pending buyer offers.</p>'}${dueRequests.length ? `<div class="confirm-offer-warning"><h3>Buyer request deadline today</h3><ul>${dueRequests.map((q) => `<li>${esc(NG.requestKinds.find((t) => t.id === q.kind).title)} / closing now misses delivery and costs 1 reputation.</li>`).join("")}</ul><button data-action="confirm-view-requests">Review requests first</button></div>` : ""}${state.business.adActive ? `<p class="fine-print">The newspaper campaign will cost $20 on the next morning${state.cash < NG.operatingBill(state) + state.operations.arrears + 20 ? " and pause if operating bills leave insufficient cash" : ""}.</p>` : ""}<div class="actions"><button class="primary" data-action="cancel-next">Keep playing</button><button class="${offers.length ? "danger" : "primary"}" data-action="confirm-next">${offers.length ? "Close day & expire offers" : "Yes, close day"}</button></div>`;
     confirm.showModal();
     confirm.querySelector('.actions [data-action="cancel-next"]').focus();
   }
@@ -1216,9 +1195,35 @@
         render();
         return;
       }
+      if (action === "staff-hire") message = NG.hireStaff(state, id);
+      if (action === "staff-fire") message = NG.fireStaff(state, id);
+      if (action === "staff-auto") message = NG.toggleStaff(state, id);
+      if (action === "staff-pay") message = NG.payPayroll(state);
+      if (action === "work-priority") NG.prioritizeWork(state, id);
+      if (action === "work-cancel") NG.cancelWork(state, id);
+      if (action === "work-now" || action === "work-queue") {
+        const carId = document.getElementById("work-car").value;
+        const c = [...state.inventory, ...state.market].find(
+          (c) => String(c.id) === carId,
+        );
+        const kind = document.getElementById("work-kind").value,
+          worker = document.getElementById("work-worker").value,
+          part = document.getElementById("work-part").value;
+        const offer = c?.offers.find(
+          (o) => o.stage === "question" && o.expiresDay >= state.day,
+        );
+        if (kind === "followup" && !offer)
+          throw Error("No active buyer question for this car.");
+        message =
+          action === "work-queue"
+            ? NG.queueWork(state, kind, c.id, worker, part, offer?.id)
+            : NG.performWork(state, kind, c.id, worker, part, offer?.id);
+      }
       if (action === "ops-tab") {
         if (
-          !["today", "workshop", "requests", "business"].includes(b.dataset.tab)
+          !["today", "staff", "workshop", "requests", "business"].includes(
+            b.dataset.tab,
+          )
         )
           return;
         operationsTab = b.dataset.tab;
@@ -1519,15 +1524,15 @@
     if (!tab || !["ArrowLeft", "ArrowRight", "Home", "End"].includes(e.key))
       return;
     e.preventDefault();
-    const tabs = ["today", "workshop", "requests", "business"],
+    const tabs = ["today", "staff", "workshop", "requests", "business"],
       i = tabs.indexOf(operationsTab);
     operationsTab =
       tabs[
         e.key === "Home"
           ? 0
           : e.key === "End"
-            ? 3
-            : (i + (e.key === "ArrowRight" ? 1 : 3)) % 4
+            ? 4
+            : (i + (e.key === "ArrowRight" ? 1 : 4)) % 5
       ];
     render();
     document.getElementById("ops-tab-" + operationsTab).focus();

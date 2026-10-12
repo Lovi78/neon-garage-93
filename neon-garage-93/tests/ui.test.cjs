@@ -37,6 +37,8 @@ for (const name of [
   "trading",
   "legacy-language",
   "state",
+  "management",
+  "management-ui",
   "ui",
 ]) {
   w.eval(fs.readFileSync(path.join(root, "js/" + name + ".js"), "utf8"));
@@ -232,6 +234,8 @@ for (const name of [
   "trading",
   "legacy-language",
   "state",
+  "management",
+  "management-ui",
   "ui",
 ])
   w.eval(fs.readFileSync(path.join(root, "js/" + name + ".js"), "utf8"));
@@ -302,6 +306,8 @@ for (const name of [
   "trading",
   "legacy-language",
   "state",
+  "management",
+  "management-ui",
   "ui",
 ])
   w.eval(fs.readFileSync(path.join(root, "js/" + name + ".js"), "utf8"));
@@ -385,6 +391,8 @@ for (const name of [
   "trading",
   "legacy-language",
   "state",
+  "management",
+  "management-ui",
   "ui",
 ])
   w.eval(fs.readFileSync(path.join(root, "js/" + name + ".js"), "utf8"));
@@ -724,6 +732,8 @@ for (const name of [
   "trading",
   "legacy-language",
   "state",
+  "management",
+  "management-ui",
   "ui",
 ])
   lw.eval(fs.readFileSync(path.join(root, "js", name + ".js"), "utf8"));

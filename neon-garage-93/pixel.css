@@ -2416,3 +2416,80 @@ dialog h3 {
 .car-panel-scroll .price-label { font-size:13px; color:#dce3d4; }
 .retro-nav button:focus-visible,.car-tabs button:focus-visible,.priority-item:focus-visible { outline:2px solid #e2c37f; outline-offset:2px; }
 #car-panel-negotiation .actions { margin-top:12px; }
+
+/* v0.13: keep the garage readable on laptop displays. */
+.management-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 14px 0;
+}
+.management-form label {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+}
+.management-form select {
+  width: 100%;
+  min-width: 0;
+  padding: 9px;
+}
+.enterprise-panel .ops-metrics {
+  flex-wrap: wrap;
+}
+@media (min-width: 900px) and (max-height: 850px) {
+  .game-shell {
+    padding-top: 10px;
+  }
+  .progress-strip {
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+  .priority-item small,
+  .ops-task small {
+    font-size: 12px;
+  }
+}
+@media (max-width: 600px) {
+  .management-form {
+    grid-template-columns: 1fr;
+  }
+}
+.management-panel {
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid #35505b;
+  background: #111f27;
+}
+@media (min-width: 901px) {
+  main.world-frame {
+    width: min(100%, calc((100dvh - 370px) * 1.77778));
+    min-width: min(100%, 640px);
+  }
+  .game-hud {
+    min-height: 84px;
+    padding: 10px 0;
+  }
+  .game-footer {
+    min-height: 80px;
+    padding-top: 12px;
+    padding-bottom: 10px;
+  }
+  .game-logo small,
+  .game-hud .stats small,
+  .hud-day small {
+    font-size: 10px;
+  }
+}
+@media (min-width: 901px) {
+  .desk-window {
+    position: fixed;
+    inset: 160px auto 22px 50%;
+    transform: translateX(-50%);
+    width: min(1040px, 92vw);
+  }
+  .desk-window[data-window-view="operations"] {
+    bottom: 22px;
+    max-height: calc(100dvh - 182px);
+  }
+}

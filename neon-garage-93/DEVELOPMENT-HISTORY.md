@@ -6,6 +6,14 @@ Ez történeti dokumentum. Az alábbi verzióleírások, eredeti javaslatok, st�
 
 A mai működés: [README](README.md). Aktuális prioritások és nyitott tervek: [ROADMAP](ROADMAP.md).
 
+## v0.13 - Run the Lot / 2026. október 12.
+
+A v0.12.3 kereskedési és UI-alap megmaradt. Célzott javítás: tartós unlisted repair teendő, egyetlen elsődleges vevői elfogadás, kevesebb autóablak-navigáció, görgetés nélküli 1366 x 768 kezdőképernyő és nagyobb belső munkapanel.
+
+Új management réteg: négy jelölt két munkakörben, napi munkaidő, delegálás, feladatprioritás, közös saját/ügyfélműhely, rutin értékesítői munka, bérfizetés és eredmény/cash elkülönítés. A régi mentés kulcsa és verziója megmaradt; új mezők csak az explicit alkalmazottat, feladatot és szükséges elszámolást tárolják.
+
+17 új integrációs teszt, management UI-folyamat, meglévő regressziós tesztek; 30 x 180 nap személyzeti és 25 x 200 nap kereskedési szimuláció. A mért stratégiaelőny léptékfüggő; az alacsony forgalmú bot túl korai felvétele komoly bértartozást okoz. A nyers mérés és a fennmaradó balanszkérdések a [v0.13 leírásban](MANAGEMENT-V013.md). A fejlesztés külön ágon készült, automatikus main merge nélkül.
+
 ## v0.12 - The Art of the Deal / 2026. október 11.
 
 A napi teljes piac- és vevőcsere helyett tartós hirdetés, eladói motiváció, információgyűjtés és többnapos, mentett tárgyalás készült. Az átvizsgálás részleges, a vevői kérdés nem automatikusan megvehető ajánlat. A készlettartás közvetlen autóköltség, az átírás $50; rezsi és kamat külön marad. Az eredeti mentési formátum bővítéssel kompatibilis; a régi folyó alku saját szabályait megtartja.
