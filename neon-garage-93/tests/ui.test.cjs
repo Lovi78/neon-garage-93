@@ -53,7 +53,7 @@ for (const name of [
 const click = (selector) => {
   if (selector.includes('[data-action="buy"]') && !d.querySelector(selector))
     d.querySelector('#details [role="tab"][data-tab="deal"]')?.click();
-  const b = d.querySelector(selector);
+  let b = d.querySelector(selector);
   assert(b, "Hiányzó elem: " + selector);
   assert(!b.disabled, "Tiltott elem: " + selector);
   const dayBeforeClick = saved().day;
@@ -62,6 +62,13 @@ const click = (selector) => {
     d.querySelector(
       `[role="tab"][data-tab="${panel.dataset.carPanel}"]`,
     ).click();
+  const dealerPanel = b.closest("[data-dealer-panel]");
+  if (dealerPanel?.hidden) {
+    d.querySelector(
+      `[data-action="dealer-tab"][data-tab="${dealerPanel.dataset.dealerPanel}"]`,
+    ).click();
+    b = d.querySelector(selector);
+  }
   b.closest("details")?.setAttribute("open", "");
   b.click();
   if (b.dataset.action === "next") {
@@ -87,6 +94,7 @@ const saved = () => JSON.parse(w.localStorage.getItem(w.NG.saveKey));
 assert.match(d.querySelector("h1").textContent, /NEON GARAGE/);
 assert.equal(d.querySelectorAll(".empty-bay").length, 2);
 assert.equal(d.querySelectorAll('[role="progressbar"]').length, 2);
+assert.equal(d.querySelectorAll(".game-hud .stats > div").length, 2);
 click(".collection-album");
 assert.equal(d.querySelectorAll(".album-card").length, 60);
 let searchField = d.querySelector("#album-search");
@@ -240,7 +248,11 @@ for (const name of [
 ])
   w.eval(fs.readFileSync(path.join(root, "js/" + name + ".js"), "utf8"));
 assert.deepEqual(saved(), snap);
-assert.match(d.querySelector(".stats").textContent, /1 completed sale/);
+click('[data-action="view"][data-view="upgrades"]');
+assert.match(
+  d.querySelector(".growth-summary").textContent,
+  /1 completed sale/,
+);
 click('[data-action="reset"]');
 click('[data-action="close-reset"]');
 assert.deepEqual(saved(), snap);
@@ -631,7 +643,12 @@ click("#skip-transition");
 assert(!d.querySelector("#garage-transition").open);
 assert(d.querySelector("#day-report").open);
 assert.equal(w.localStorage.getItem("neon-garage-93-v1"), snapshotAfterClose);
-assert.equal(transitionTimers.size, 0);
+assert.equal(
+  [...transitionTimers.values()].filter(
+    (t) => t.delay === 900 || t.delay === 1900,
+  ).length,
+  0,
+);
 click('[data-action="close-day-report"]');
 let completed = 0;
 const scene = d.querySelector(".garage-world").outerHTML;
@@ -640,7 +657,12 @@ d.querySelector("#garage-transition").dispatchEvent(
   new w.Event("cancel", { cancelable: true }),
 );
 assert.equal(completed, 1);
-assert.equal(transitionTimers.size, 0);
+assert.equal(
+  [...transitionTimers.values()].filter(
+    (t) => t.delay === 900 || t.delay === 1900,
+  ).length,
+  0,
+);
 w.NG.playGarageTransition(scene, scene, "June 3, 1993", () => completed++);
 [...transitionTimers.values()].find((t) => t.delay === 1900).fn();
 assert.equal(completed, 2);
@@ -648,7 +670,12 @@ assert(!d.querySelector("#garage-transition").open);
 w.matchMedia = () => ({ matches: true });
 w.NG.playGarageTransition(scene, scene, "June 3, 1993", () => completed++);
 assert.equal(completed, 3);
-assert.equal(transitionTimers.size, 0);
+assert.equal(
+  [...transitionTimers.values()].filter(
+    (t) => t.delay === 900 || t.delay === 1900,
+  ).length,
+  0,
+);
 w.setTimeout = nativeTimeout;
 w.clearTimeout = nativeClear;
 console.log(

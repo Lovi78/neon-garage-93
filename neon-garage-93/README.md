@@ -26,9 +26,15 @@ A **Finance** elkülöníti az eredményt a cash flowtól: Last 7 days, időará
 
 Részletes szabályok, három konkrét játékhelyzet, mérési eredmények és nyitott balanszkérdések: [MANAGEMENT-V013.md](MANAGEMENT-V013.md).
 
+## Premium Retro UX
+
+A jelenlegi fejlesztői ág teljes felületi megújulása: állandó Cash/Garage/dátum és külön XP/REP HUD, hat fő navigációs belépő, füles Dealer, rövid zárolt beruházások és Finance alá rendezett hitel. A garázs és az autóképek megmaradtak, a gazdasági és mentési szabályok változatlanok. [Audit, képek, ellenőrzés és korlátok](UX-REDESIGN.md).
+
+A HUD feliratait egységes pixelikonok rövidítik. Desktopon Garage / My Cars / Dealer ikonos gomb, rámutatásra és billentyűzetes fókuszra felirattal; Market / Deals / Business mellett a név megmarad. Mobilon minden menüpont ikon és szöveg.
+
 ## Navigáció és autófülek
 
-A garázs mellett állandó menü érhető el: **Market, Inventory, Deals, Operations, Finance, Customers**. **More** alatt Dealer File és Collection. A **Today's Priorities** teendői közvetlenül a megfelelő autóra vagy funkcióra vezetnek. A Deals a folyó eladói és vevői beszélgetések közös belépője.
+A főképernyő hat belépője: **Garage, Market, My Cars, Deals, Dealer, Business**. A Business közvetlenül nyitja a Today, Staff, Workshop, Buyer requests, Finance, Customers, Expansions, Tools & marketing és Collection nézetet. A **Dealer** külön Skills / Reputation / Tools & marketing füleket kapott. A **Finance** a hitel egyetlen otthona. A HUD mutatja a Cash, Garage, dátum, Level, XP, REP, következő rang és skillpont adatokat; görgetéskor és a fontos modal ablakokban is elérhető. A garázs üres állapotban hangsúlyos autókeresési gombot ad. A **Today's Priorities** közvetlenül a megfelelő autóra vagy funkcióra vezet. A korábbi főképernyő-kör története a [HOME-UX.md](HOME-UX.md), a jelenlegi megvalósítás az [UX-REDESIGN.md](UX-REDESIGN.md) fájlban olvasható.
 
 Autóvásárlás: **Overview / Inspection / Negotiation / Deal**. Saját autó: **Overview / Workshop / Selling / Finances**. A még el nem küldött, módosított összegek és választások fülváltáskor és fő nézetváltáskor megmaradnak a munkamenetben. Az alsó döntési sávban elérhető a vétel és az adott autó következő nézete. Vevői válasz/elfogadás a vevő kártyáján történik, egyetlen elsődleges gombbal. Az elkészült, de még nem hirdetett javítás későbbi napokon is teendő marad. A részletes leírás: [UX-V0123.md](UX-V0123.md).
 
@@ -65,7 +71,7 @@ Régi, már elkezdett v0.11-es tárgyalások saját mentett korlátaikkal folyta
 
 ## Fejlődés és vállalkozásfejlesztések
 
-Kattints a garázsban a **Dealer File** irodai mappára, vagy a felső fejlődési sávra.
+Kattints a garázsban a **Dealer File** irodai mappára, vagy válaszd a **Business / Dealer File** menüt. Elkölthető skillpont esetén a főképernyő értesítése is ide vezet.
 
 - Lezárt, sikeres vételi és eladási alkuért 20 XP + minden $100 árelőny után 1 XP jár, legfeljebb 40 XP. Vételnél az eredeti hirdetési árhoz, eladásnál a vevő első ajánlatához képest számítjuk az előnyt. XP csak a tényleges tranzakciókor jár, egyszer; elutasításért és azonnali kereskedői eladásért nem.
 - Az első szintlépéshez 80 XP kell, utána szintenként 40-nel nő az igény. A szintlépés 1 skillpontot ad, a többlet-XP megmarad.
@@ -75,7 +81,7 @@ Kattints a garázsban a **Dealer File** irodai mappára, vagy a felső fejlődé
 - **Parts Supplier Deal**: $900, a javítás alkatrészrésze és a feltárt hibák alkatrészköltsége 20%-kal alacsonyabb. Az alapjavítás munkadíj/alkatrész bontása 65/35; a kijelzett és levont ár a kedvezményeket tartalmazza.
 - **Local Newspaper Ad**: $450 egyszeri befektetés. Ezután bekapcsolható és szüneteltethető a kampány: napi $20, +15 százalékpont érdeklődési esély. A napi díj napváltáskor jelentkezik, és pénzhiánynál automatikusan leáll a kampány. Nem keletkezik tartozás.
 
-Reputációs mérföldkövek: 0 **Unknown Dealer**, 5 **Familiar Face**, 15 **Trusted Dealer**, 30 **Established Business**, 50 **Local Legend**. Az érdeklődés bónusza sorrendben 0, 3, 7, 12 és 18 százalékpont. A hirdetési ár továbbra is befolyásolja az érdeklődést; ajánlat nincs garantálva. A reputáció új tárgyalásokban továbbra is segít, legfeljebb 2% árkorlát-bónusszal. A **Dealer File** mutatja a következő célhoz hiányzó pontokat.
+Reputációs mérföldkövek: 0 **Unknown Dealer**, 5 **Familiar Face**, 15 **Trusted Dealer**, 30 **Established Business**, 50 **Local Legend**. Az érdeklődés bónusza sorrendben 0, 3, 7, 12 és 18 százalékpont. A hirdetési ár továbbra is befolyásolja az érdeklődést; ajánlat nincs garantálva. A reputáció új tárgyalásokban továbbra is segít, legfeljebb 2% árkorlát-bónusszal. A **Dealer / Reputation** és a HUD mutatja a következő célhoz hiányzó pontokat.
 
 A régi v0.3-mentések megtartják a készpénzt, autókat és tárgyalásokat. Az új fejlődési adatok 1. szinttel, 0 XP-vel és fejlesztés nélkül indulnak. A korábbi üzletekre nincs utólag kitalált XP-jutalom.
 
@@ -187,7 +193,7 @@ Az összegek és kockázatok játékegyensúly-szabályok, nem valós 1993-as ga
 
 ## Fejlődési sávok és pénzügyi grafikon
 
-A felső sávban az XP és a következő reputációs mérföldkő is követhető. A Dealer File-ban a Negotiation rang, a perk rangkövetelménye és a business upgrade megfizethetősége is sávot kapott. A készpénzsáv azt jelzi, megengedheted-e a fejlesztést; nem jelent félretett pénzt vagy automatikus vásárlást.
+Az XP és a következő reputációs mérföldkő a Dealer File alatt követhető; külön fejlődési sáv nincs a főképernyőn. A Dealer File-ban a Negotiation rang, a perk rangkövetelménye és a business upgrade megfizethetősége is sávot kapott. A készpénzsáv azt jelzi, megengedheted-e a fejlesztést; nem jelent félretett pénzt vagy automatikus vásárlást.
 
 A **Ledger** két vonallal mutatja a **Deal margin** és **Business value** alakulását. A margin az autóüzletek és a lezárt szerviz/nagykereskedelmi munkák eredménye; nem nettó üzleti profit. A nettó vállalkozásérték az üzletági eszközöket, lekötéseket, hitelt és hátralékot is számolja. A pontos képletek a „Nagy vállalkozási döntések” fejezetben szerepelnek. Becsült márkaértéket nem adunk hozzá.
 

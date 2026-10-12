@@ -6,6 +6,12 @@ A jelenlegi működés szabályai a [README-ben](README.md), az eredeti javaslat
 
 **Státuszok:** kész = megvalósult működés; nyitott = még szükséges ellenőrzés vagy döntés; terv = felhasználói cél, még nincs kész; javaslat = ajánlott következő lépés, nem új fejlesztési vállalás. A tesztek nem bizonyítják önmagukban a vizuális minőséget vagy a tartós játékélményt.
 
+## Premium Retro UX - megvalósult felületi kör
+
+Kész: állandó és modal HUD, elkülönített XP/REP, Garage CTA, közvetlen Business-navigáció, Skills/Reputation/Tools fülek, kompakt zárolt és előresorolt elérhető beruházások, Finance-hitel, olvasható közös tipográfia, állapotból számított visszajelzések, reszponzív ablakok és fókuszkezelés. A motor és a mentési séma változatlan. 128 szabályteszt, 30 UI-tesztblokk, 10 400 szimulált nap; 1440/1280/390 pixeles valódi Chromium-próba. [Audit és bizonyíték](UX-REDESIGN.md).
+
+Nyitott: hosszabb emberi játékélmény-próba, Safari/Firefox és fizikai telefon, tényleges felhasználói régi mentés. A változás külön UX-ágon ellenőrizhető, nincs main merge.
+
 ## v0.13 - megvalósult vállalkozásvezetés
 
 Kész: két munkakör, négy jelölt, felvétel/elbocsátás, napi idő és valódi delegált munka, heti bér és hátralék, közös műhely/munkasor, rutin visszahívás és előkészítés, külön eredmény/cash flow, laptop UI-polish. A nagyobb pénzügyi döntéseket a játékos hagyja jóvá. 17 új integrációs teszt, management UI, 30 x 180 nap management és 25 x 200 nap trading szimuláció. Szabályok és mérési korlátok: [MANAGEMENT-V013.md](MANAGEMENT-V013.md).

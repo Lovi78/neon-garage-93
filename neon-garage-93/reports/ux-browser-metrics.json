@@ -1,0 +1,20 @@
+[
+  {
+    "hudTop": 0,
+    "pageWidth": 390,
+    "view": "garage",
+    "viewport": 390
+  },
+  {
+    "hudTop": 0,
+    "pageWidth": 390,
+    "view": "business",
+    "viewport": 390
+  },
+  {
+    "hudTop": 0,
+    "pageWidth": 390,
+    "view": "dealer",
+    "viewport": 390
+  }
+]
