@@ -1,6 +1,6 @@
 # Autóállomány-bővítés - v0.5
 
-**Történeti grafikai gyártási feljegyzés.** A fájlok és promptok megmaradtak. A jelenlegi v0.11 megjelenítés a [v0.7.1-es körvonalmaszkokat](SPRITE-FIX-V071.md) használja; az alább leírt korábbi atlaszkeretek és talajvonal-beállítások a készítéskori állapotot rögzítik.
+**Történeti grafikai gyártási feljegyzés.** A fájlok és promptok megmaradtak. A jelenlegi v0.13 megjelenítés a [v0.7.1-es körvonalmaszkokat](SPRITE-FIX-V071.md) használja; az alább leírt korábbi atlaszkeretek és talajvonal-beállítások a készítéskori állapotot rögzítik.
 
 Dátum: 2026. október 10. Generálás: beépített ImageGen, valódi átlátszó háttérrel. Mindkét új PNG a projektben van, internet nélkül használható.
 

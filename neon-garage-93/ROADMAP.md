@@ -1,6 +1,6 @@
 # Neon Garage '93 - aktuális fejlesztési roadmap
 
-Frissítve: 2026. október 12. Jelenlegi verzió: v0.13.0 / Run the Lot.
+Frissítve: 2026. október 12. Jelenlegi fejlesztői változat: v0.13.0 / Run the Lot + Premium Retro UX és pixelikonok. A [PR #1](https://github.com/Lovi78/neon-garage-93/pull/1) a `codex/v0.13-run-the-lot` ágba került (`23b8a5f`); a main továbbra is v0.11.0.
 
 A jelenlegi működés szabályai a [README-ben](README.md), az eredeti javaslatok és verziónkénti feljegyzések a [DEVELOPMENT-HISTORY.md](DEVELOPMENT-HISTORY.md) dokumentumban vannak. Az előzmények megmaradtak; az ottani régi státuszok nem a mai állapotot jelentik.
 
@@ -8,9 +8,9 @@ A jelenlegi működés szabályai a [README-ben](README.md), az eredeti javaslat
 
 ## Premium Retro UX - megvalósult felületi kör
 
-Kész: állandó és modal HUD, elkülönített XP/REP, Garage CTA, közvetlen Business-navigáció, Skills/Reputation/Tools fülek, kompakt zárolt és előresorolt elérhető beruházások, Finance-hitel, olvasható közös tipográfia, állapotból számított visszajelzések, reszponzív ablakok és fókuszkezelés. A motor és a mentési séma változatlan. 128 szabályteszt, 30 UI-tesztblokk, 10 400 szimulált nap; 1440/1280/390 pixeles valódi Chromium-próba. [Audit és bizonyíték](UX-REDESIGN.md).
+Kész: egységes pixelikonok, desktop ikonos Garage/My Cars/Dealer tooltip, mobilon megmaradó feliratok, csak elkölthető pontnál látható skilljelvény; állandó és modal HUD, elkülönített XP/REP, Garage CTA, közvetlen Business-navigáció, Skills/Reputation/Tools fülek, kompakt zárolt és előresorolt elérhető beruházások, Finance-hitel, olvasható közös tipográfia, állapotból számított visszajelzések, reszponzív ablakok és fókuszkezelés. A motor és a mentési séma változatlan. 128 szabályteszt, 30 UI-tesztblokk, 10 400 szimulált nap; 1440/1280/390 pixeles valódi Chromium-próba. [Audit és bizonyíték](UX-REDESIGN.md).
 
-Nyitott: hosszabb emberi játékélmény-próba, Safari/Firefox és fizikai telefon, tényleges felhasználói régi mentés. A változás külön UX-ágon ellenőrizhető, nincs main merge.
+Nyitott: hosszabb emberi játékélmény-próba, Safari/Firefox és fizikai telefon, tényleges felhasználói régi mentés. Az UX és az ikonok a v0.13-as fejlesztői ágba már beolvadtak. Main merge és éles publikálás nem történt.
 
 ## v0.13 - megvalósult vállalkozásvezetés
 
@@ -65,7 +65,7 @@ Részletes audit, migráció, tesztek és mérési korlátok: [TRADING-V012.md](
 | Nagy beruházások | Service Center $24k, Fleet Workshop $68k, Wholesale Trading Desk $45k; építési idő, reputációs feltétel és rendszeres költség |
 | Új bevételi utak | Saját javítással közös kapacitású ügyfél-/flottamunkák, előfinanszírozás; 5 napos $25k/$50k nagykereskedelmi lekötés, tőkevesztés lehetőségével |
 | Finanszírozás | Reputációhoz kötött $10k/$50k hitelkeret, napi kamat és kézi törlesztés; üzletági szüneteltetés és veszteséges felszámolás |
-| Pénzügyek | Deal margin és vállalkozásérték grafikon, tételes Ledger, lekötött tőke, 7 napos költség és cash flow, bevétel nélküli cash runway |
+| Pénzügyek | Finance: hitel, Deal margin és vállalkozásérték grafikon, Transactions, lekötött tőke; v0.13-ban külön 7 napos Business result / Cash change, bér, cash buffer és bevétel nélküli cash runway |
 | Követhetőség | Napzárás előtti megerősítés és lejárati figyelmeztetés, felugró napi jelentés, ajánlat-/megbízás-/ügyfélmunka-értesítések |
 | Hangulat | Integrált pixel art tárgyak, kattinthatósági jelölések, autóbegurulás, javítási szikrák, kihagyható napzáró/nyitó jelenet, három saját fiktív rádióadó |
 | Mentés | Helyi automatikus mentés, régi állások megtartása, új mezők alapértékei; nincs visszamenőleges becsült XP vagy új üzletági díj |
@@ -128,7 +128,8 @@ A sprite-ok maradjanak helyben, azonos kameraállással, megfelelő talajvonalla
 
 - [x] v0.11-ben 93 szabályteszt és 8 DOM-alapú felületi útvonal sikeres; pénzmozgások, egyszeri jutalmak/kifizetések, kapacitás, határidők és mentés ellenőrizve.
 - [x] A pixel art garázs és az angol felület maradt az alap; a régi mentésekhez nincs kitalált múlt vagy utólagos új üzletági terhelés.
-- [ ] Valódi böngészős vizuális próba: tárgyjelölések, kattintási területek, garázs/autóilleszkedés, ablakok, animáció és kisebb képernyő.
+- [x] Premium Retro UX Chromium-próba: HUD, navigáció, fontos játékosi folyamatok, ablakok, napváltás, 1440/1280/390 pixeles nézet; ikonok, fókusz-tooltip és mobilfeliratok külön ellenőrizve. [Bizonyíték és pontos korlátok](UX-REDESIGN.md).
+- [ ] Több böngésző, fizikai telefon, tényleges régi játékosi mentés és hosszabb új-játékosi próba; teljes katalógus képi minőségellenőrzése.
 - [ ] Rádió meghallgatása valódi böngészőben; a jelenlegi teszt hangkörnyezet-helyettesítéssel működik.
 - [ ] Hosszabb játékosi egyensúlyteszt, különösen a nagy beruházások, üresjárati költségek, hitel és tőkelekötés mellett.
 

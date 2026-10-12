@@ -1,5 +1,7 @@
 # v0.12 - The Art of the Deal
 
+**Korábbi kereskedési fejlesztési kör auditja és mérése.** Az induló branch-állapot és az akkori ellenőrzések történeti adatok. A mai kezelőfelület: [Premium Retro UX](UX-REDESIGN.md); a napi munkaidő és személyzet későbbi v0.13 szabályai: [Run the Lot](MANAGEMENT-V013.md). Az aktuális játékosi útmutató a [README](README.md).
+
 Fejlesztés: 2026. október 11. Alap: `67c1d95`, helyi main és a frissített `origin/main` azonos. Fejlesztői branch: `codex/v0.12-art-of-the-deal`. Offline-first, 60 modell, két beálló, változatlan pixel garázs és rádió.
 
 ## Kiinduló audit

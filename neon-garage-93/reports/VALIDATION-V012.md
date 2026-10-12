@@ -1,5 +1,7 @@
 # v0.12 ellenőrzési feljegyzés
 
+**Történeti ellenőrzési jelentés.** A számok, képek, környezetek és nyitott feladatok az itt megnevezett korábbi fejlesztési körre vonatkoznak. A mai felületi ellenőrzés, 30 UI-tesztblokk és pontos korlátok: [Premium Retro UX](../UX-REDESIGN.md). A régi méréseket nem írjuk át az új kör eredményeire.
+
 Dátum: 2026. október 11. Branch: codex/v0.12-art-of-the-deal. Alap: 67c1d95.
 
 - npm test: exit 0, 111 PASS bejegyzés, ebből 18 új teljes v0.12 integrációs teszt.

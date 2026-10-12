@@ -1,10 +1,16 @@
 # Neon Garage '93 - fejlesztési előzmények
 
-Archiválva: 2026. október 10., v0.11.0.
+Eredeti archívum: 2026. október 10., v0.11.0. Utolsó kiegészítés: 2026. október 12., v0.13.0 + Premium Retro UX és ikonok.
 
 Ez történeti dokumentum. Az alábbi verzióleírások, eredeti javaslatok, státuszok és ellenőrzési számok az akkori fejlesztési állapotot őrzik. Az olyan fordulatok, mint „jelenleg”, „következő kör” vagy „még nincs megvalósítva”, az adott bejegyzésre vonatkoznak, nem a mai játékra. A régi tervek és lezárt döntések megmaradnak, de nem jelentenek új fejlesztési vállalást.
 
 A mai működés: [README](README.md). Aktuális prioritások és nyitott tervek: [ROADMAP](ROADMAP.md).
+
+## 2026. október 12. - jóváhagyott UX- és ikonmerge
+
+A [PR #1](https://github.com/Lovi78/neon-garage-93/pull/1) a `codex/premium-retro-ux` ágból a `codex/v0.13-run-the-lot` fejlesztői ágba olvadt. Merge-commit: `23b8a5f`; ikonos forráscommit: `5963790`. Állandó és modal XP/REP HUD, hat fő belépő, Dealer-fülek, rövid beruházási kártyák, Finance-hitel, állapotfüggő garázssegítség és egységes pixelikonok készültek. Desktop ikon-tooltip, mobilon feliratok; pluszos skilljelvény csak elkölthető pontnál.
+
+A gazdasági és mentési modell változatlan, a verziószám 0.13.0 maradt. 128 szabályteszt, 30 UI-blokk, 10 400 szimulált nap; az ikonok után a 30 UI-blokk újra sikeres. A [részletes audit](UX-REDESIGN.md) elkülöníti a ténylegesen futott böngészős próbát a még nyitott ellenőrzésektől. A main v0.11.0 állapotban maradt, éles publikálás nem történt.
 
 ## v0.13 - Run the Lot / 2026. október 12.
 

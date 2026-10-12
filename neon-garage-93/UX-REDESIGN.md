@@ -1,6 +1,6 @@
 # Premium Retro UX - audit, megvalósítás és ellenőrzés
 
-2026. október 12. A feladatban kért v0.12 UI/UX-csomag a ténylegesen elérhető v0.13.0 / Run the Lot játékra készült. Alap: `fe84539`, `codex/v0.13-run-the-lot`. Felületi ág: `codex/premium-retro-ux`. A main továbbra is külön v0.11.0 állapotban marad.
+2026. október 12. A feladatban kért v0.12 UI/UX-csomag a ténylegesen elérhető v0.13.0 / Run the Lot játékra készült. Alap: `fe84539`, `codex/v0.13-run-the-lot`. Forráság: `codex/premium-retro-ux`. A [PR #1](https://github.com/Lovi78/neon-garage-93/pull/1) 2026. október 12-én beolvadt a `codex/v0.13-run-the-lot` ágba, merge-commit: `23b8a5f`; utolsó ikonos forráscommit: `5963790`. A jelenlegi játékot a v0.13-as célágból kell letölteni. A main külön v0.11.0 állapot, éles publikálás nem történt.
 
 ## Audit - módosítás előtt
 
@@ -87,7 +87,7 @@ További bizonyíték: [szintlépés](reports/ux-level-up.jpg), [mobil hirdetés
 - Valódi régi játékosi mentés nem volt csatolva. A kompatibilitás régi sémát követő fixture-rel és meglévő migrációs tesztekkel ellenőrzött.
 - Safari/Firefox és fizikai telefon nem lett kézzel tesztelve. A 390 pixeles próba asztali Chromium emulált mérete.
 - Nincs új hosszú emberi balanszteszt vagy rádió-meghallgatás ebben a körben. A hangulatassetek és gazdasági szabályok változatlanok; a szimuláció ezt nem helyettesíti.
-- A mainbe történő merge és éles publikálás nincs elvégezve. Először a külön UX PR és a működő helyi előnézet vizsgálandó.
+- A PR #1 a v0.13-as fejlesztői ágba már beolvadt. A mainbe történő merge és éles publikálás külön, még nem elvégzett lépés.
 
 A munkakezdéskor meglévő helyi módosításokat külön baseline commit őrzi. Az eredeti munkamappa diffje az audit előtt elmentett diff-fel bájtra egyezik; ez az ág nem írta felül azt a munkát.
 
@@ -98,4 +98,4 @@ A HUD Cash és Garage capacity feliratait pixelikon váltja; a dátum naptáriko
 
 A [30 UI-tesztblokk újra sikeres](reports/ux-icons-ui-output.txt). Valódi Chromium-próba: 1440 x 900 és 390 x 844, billentyűzetes tooltip és Dealer-belépés. Mobilon dokumentumszélesség = 390 px, nincs vízszintes túlcsordulás. [Desktop](reports/ux-icons-1440.jpg), [tooltip](reports/ux-icons-tooltip.jpg), [mobil](reports/ux-icons-390.jpg). A fenti előtte/utána összehasonlítás az ikonok előtti redesign-kör felvétele.
 
-A felhasználó a kiegészítés után jóváhagyta a merge-et. A [PR #1](https://github.com/Lovi78/neon-garage-93/pull/1) célága `codex/v0.13-run-the-lot`; a main ettől külön marad.
+A jóváhagyott kiegészítés és a teljes redesign a [PR #1](https://github.com/Lovi78/neon-garage-93/pull/1) merge-ével bekerült a `codex/v0.13-run-the-lot` ágba (`23b8a5f`). A main ettől külön marad. A merge és a branch-állapot élő GitHub-visszaolvasással ellenőrzött.

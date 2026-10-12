@@ -1,5 +1,7 @@
 # v0.13.0 - Run the Lot
 
+A vállalkozásvezetési szabályok jelenleg is érvényesek. A mai felület és ikonok leírása: [Premium Retro UX](UX-REDESIGN.md), a PR #1 már a v0.13-as fejlesztői ágba olvadt. A napi áttekintés **Business / Today**, személyzet **Business / Staff**, kiosztás **Business / Workshop**, megbízások **Business / Buyer requests**, beruházások **Business / Expansions**. Hitel: **Business / Finance**; eredmény/bér: **7-day business result & payroll** lenyitható rész. Az alábbi régi képek és böngészőméretek a management-kör idejét rögzítik, nem a legújabb felületet.
+
 2026. október 12. Alap: v0.12.3. Fejlesztési ág: `codex/v0.13-run-the-lot`.
 
 ## Játszható rendszerek

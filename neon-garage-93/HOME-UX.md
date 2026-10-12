@@ -1,6 +1,6 @@
 # Garage-first főképernyő
 
-Ez a korábbi Garage-first kör feljegyzése. A jelenlegi, XP/REP HUD-ot és hat belépőt tartalmazó felületet a [Premium Retro UX](UX-REDESIGN.md) írja le.
+Ez a korábbi Garage-first kör történeti feljegyzése. Az öt kategória, XP nélküli HUD, méretadatok, képek és tesztszámok az akkori állapotot őrzik. A jelenlegi hat belépős, ikonos XP/REP HUD-os felületet a [Premium Retro UX](UX-REDESIGN.md) írja le; ez a PR #1 merge-ével már a v0.13-as fejlesztői ágon van.
 
 2026. október 12. A v0.13 játékmechanikájára épülő, kizárólag felületi finomítás.
 

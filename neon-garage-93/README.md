@@ -4,7 +4,7 @@ Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, f
 
 A teljes játékfelület angol. A korábbi mentések eseményei, hibaleírásai és pénzügyi bejegyzései betöltéskor angolra váltanak, a játékállás megtartásával.
 
-Dokumentáció frissítve: 2026. október 12. Játékverzió: 0.13.0.
+Dokumentáció frissítve: 2026. október 12. Játékverzió: 0.13.0. A Premium Retro UX és az ikonok a [PR #1](https://github.com/Lovi78/neon-garage-93/pull/1) merge-ével a `codex/v0.13-run-the-lot` ágon vannak (`23b8a5f`). A main külön v0.11.0 állapot, nem a jelenlegi fejlesztői változat.
 
 A teljes fejlesztési irány, a következő szakaszok és a nyitott döntések a [ROADMAP.md](ROADMAP.md) dokumentumban vannak rögzítve.
 
@@ -20,9 +20,9 @@ A játék minden változtatás után a böngésző helyi tárhelyére ment. Ugya
 
 ## Vállalkozásvezetés - v0.13
 
-**Operations / Today / Staff / Workshop / Requests / Business**: napi 8 tulajdonosi munkaóra, tényleges feladatot végző szerelő és értékesítő, heti bérfizetés, munkasor és prioritás. Felvétel/elbocsátás, kézi delegálás és Routine ON/OFF. A vásárlás és eladás önmagában nem fogyaszt munkaórát; vizsgálat, javítás, vevői válasz és az első hirdetés előkészítése igen.
+**Business** közvetlen belépői: **Today, Staff, Workshop, Buyer requests, Expansions**. A működés: napi 8 tulajdonosi munkaóra, tényleges feladatot végző szerelő és értékesítő, heti bérfizetés, munkasor és prioritás. Felvétel/elbocsátás, kézi delegálás és Routine ON/OFF. A vásárlás és eladás önmagában nem fogyaszt munkaórát; vizsgálat, javítás, vevői válasz és az első hirdetés előkészítése igen.
 
-A **Finance** elkülöníti az eredményt a cash flowtól: Last 7 days, időarányos bér, heti kifizetés, fizetetlen bér, következő payday és 7 napos cash buffer. A már megszolgált bér a nettó cégértéket is csökkenti. A korábbi mentések dolgozó nélkül, utólagos bérlevonás nélkül indulnak.
+A **Business / Finance** nézetben a hitel közvetlenül elérhető. A **7-day business result & payroll** lenyitható rész elkülöníti az eredményt a cash flowtól: időarányos bér, heti kifizetés, fizetetlen bér, következő payday és 7 napos cash buffer. A már megszolgált bér a nettó cégértéket is csökkenti. A korábbi mentések dolgozó nélkül, utólagos bérlevonás nélkül indulnak.
 
 Részletes szabályok, három konkrét játékhelyzet, mérési eredmények és nyitott balanszkérdések: [MANAGEMENT-V013.md](MANAGEMENT-V013.md).
 
@@ -36,13 +36,15 @@ A HUD feliratait egységes pixelikonok rövidítik. Desktopon Garage / My Cars /
 
 A főképernyő hat belépője: **Garage, Market, My Cars, Deals, Dealer, Business**. A Business közvetlenül nyitja a Today, Staff, Workshop, Buyer requests, Finance, Customers, Expansions, Tools & marketing és Collection nézetet. A **Dealer** külön Skills / Reputation / Tools & marketing füleket kapott. A **Finance** a hitel egyetlen otthona. A HUD mutatja a Cash, Garage, dátum, Level, XP, REP, következő rang és skillpont adatokat; görgetéskor és a fontos modal ablakokban is elérhető. A garázs üres állapotban hangsúlyos autókeresési gombot ad. A **Today's Priorities** közvetlenül a megfelelő autóra vagy funkcióra vezet. A korábbi főképernyő-kör története a [HOME-UX.md](HOME-UX.md), a jelenlegi megvalósítás az [UX-REDESIGN.md](UX-REDESIGN.md) fájlban olvasható.
 
-Autóvásárlás: **Overview / Inspection / Negotiation / Deal**. Saját autó: **Overview / Workshop / Selling / Finances**. A még el nem küldött, módosított összegek és választások fülváltáskor és fő nézetváltáskor megmaradnak a munkamenetben. Az alsó döntési sávban elérhető a vétel és az adott autó következő nézete. Vevői válasz/elfogadás a vevő kártyáján történik, egyetlen elsődleges gombbal. Az elkészült, de még nem hirdetett javítás későbbi napokon is teendő marad. A részletes leírás: [UX-V0123.md](UX-V0123.md).
+Autóvásárlás: **Overview / Inspection / Negotiation / Deal**. Saját autó: **Overview / Workshop / Selling / Finances**. A még el nem küldött, módosított összegek és választások fülváltáskor és fő nézetváltáskor megmaradnak a munkamenetben. Az alsó döntési sávban elérhető a vétel és az adott autó következő nézete. Vevői válasz/elfogadás a vevő kártyáján történik, egyetlen elsődleges gombbal. Az elkészült, de még nem hirdetett javítás későbbi napokon is teendő marad. A jelenlegi navigáció és megjelenítés: [UX-REDESIGN.md](UX-REDESIGN.md). A füles adatlap és draftmegőrzés korábbi megvalósítása: [UX-V0123.md](UX-V0123.md).
 
-## Rövidebb felület - v0.12.2
+## Teendők, részletek és következetes visszalépés
 
-Az **Operations** nyitófüle **Today**: aktuális teendők, következő számla, készpénzfedezet és hátralék. A **Workshop**, **Requests** és **Business** fülek külön mutatják a munkákat, vevői megbízásokat és beruházásokat/hitelt. A füleken számláló jelzi az aktív tételeket. Az ablak rövid nézethez igazítja a magasságát; hosszabb listán belül lehet görgetni.
+A **Business / Today** nyitja az Operations napi áttekintését. A határidők, fizetési problémák, ügyfélmunkák és vállalt megbízások kapnak elsőbbséget; a **Your time & team** külön nyitható. A **Staff**, **Workshop**, **Requests** és **Expansions** fülek a személyzetet, munkákat, autómegbízásokat és nagy beruházásokat kezelik. Mindegyik közvetlenül is nyitható a Business menüből. A hitel a **Business / Finance** nézetben van.
 
-A működési magyarázatok **How it works**, a beszélgetések **Conversation history**, a pénzügyi grafikon és napló külön lenyithatók. Az árak, fizetési kötelezettségek, határidők és kockázati jelzések a döntés mellett látszanak. A Dealer File csak a fejlődést és kisebb fejlesztéseket mutatja; Business gombja az Operations megfelelő fülére vezet. A v0.12.2 UI-kör nem módosította a gazdasági szabályokat; a v0.13 vállalkozásvezetési szabályai fent és a külön leírásban találhatók.
+Az árak, kötelezettségek, határidők és kockázatok a döntés előtt látszanak. A részletes magyarázatok, beszélgetési előzmények, pénzügyi eredmény/bér, grafikon és napló lenyithatók. A **Back** a korábbi nézetre, a bezárás a Garage-ba vezet. A rutin autóművelet visszajelzése a döntési sávban marad; XP, szintlépés, REP és megnyílt üzletág külön értesítést kap.
+
+A v0.12.2-es, korábbi négylapos Operations megoldás története és akkori mérései a [fejlesztési előzményekben](DEVELOPMENT-HISTORY.md) és [régi ellenőrzési jelentésben](reports/VALIDATION-V012.md) maradtak meg.
 
 ## Az első üzleted
 
@@ -71,7 +73,7 @@ Régi, már elkezdett v0.11-es tárgyalások saját mentett korlátaikkal folyta
 
 ## Fejlődés és vállalkozásfejlesztések
 
-Kattints a garázsban a **Dealer File** irodai mappára, vagy válaszd a **Business / Dealer File** menüt. Elkölthető skillpont esetén a főképernyő értesítése is ide vezet.
+Válaszd a **Dealer** ikont vagy a HUD XP-sávját: **Skills**. A garázs irodai mappája is a Dealer nézetet nyitja. A **Reputation** fül a HUD arany reputációs sávjából közvetlenül elérhető. A pénzes kis fejlesztések a **Dealer / Tools & marketing** alatt vannak; a Business menü azonos nevű belépője is ide vezet. Elkölthető skillpont esetén pluszos jelvény és kattintható teendőjelzés látszik.
 
 - Lezárt, sikeres vételi és eladási alkuért 20 XP + minden $100 árelőny után 1 XP jár, legfeljebb 40 XP. Vételnél az eredeti hirdetési árhoz, eladásnál a vevő első ajánlatához képest számítjuk az előnyt. XP csak a tényleges tranzakciókor jár, egyszer; elutasításért és azonnali kereskedői eladásért nem.
 - Az első szintlépéshez 80 XP kell, utána szintenként 40-nel nő az igény. A szintlépés 1 skillpontot ad, a többlet-XP megmarad.
@@ -97,7 +99,7 @@ A Moving markets panel mutatja az irányt. A hirdetés saját ára, a játékos 
 
 ### Új skillágak és perkek
 
-A **Dealer File** két új ágat kapott; mindegyik 0-3 rang, rangonként 1 skillpont.
+A **Dealer / Skills** három ága: Negotiation, Mechanical Knowledge és Market Knowledge. Mindegyik 0-3 rang, rangonként 1 skillpont. A hozzájuk tartozó perk a skillkártya lenyitható részében érhető el.
 
 - **Mechanical Knowledge**: rangonként 15%-kal kisebb átvizsgálási alapdíj és 5%-kal kisebb javítási munkadíj. A meglévő eszközkedvezményekkel szorzódik. Rank 2-től az új normál motor-/váltójavítás is egy nap; a már megkezdett munkák határideje nem módosul.
 - **Sharp Eye**: Mechanical Knowledge 2 után 1 pontért. Vásárlás előtt egy lehetséges rejtett hibára utaló ingyenes jel látszik. A perk nem végzi el az átvizsgálást és nem ad teljes állapotlapot.
@@ -127,7 +129,7 @@ Ezekből valódi választás következik: megvárod a hullámot és kifizeted a 
 
 ## Vevői autómegbízások
 
-Az **Operations / Requests** fülön érhetők el. Jogosult reggelen 25% eséllyel érkezik új megkeresés, legalább négy napos közökkel; egyszerre legfeljebb egy el nem vállalt megkeresés vár döntésre. A feltételek mentődnek, betöltés nem sorsolja őket újra. Új megkeresésről értesítés és napi jelentés szól.
+A **Business / Buyer requests** belépő vagy az Operations **Requests** füle nyitja őket. Jogosult reggelen 25% eséllyel érkezik új megkeresés, legalább négy napos közökkel; egyszerre legfeljebb egy el nem vállalt megkeresés vár döntésre. A feltételek mentődnek, betöltés nem sorsolja őket újra. Új megkeresésről értesítés és napi jelentés szól.
 
 A korábbi nyolc fizetős helyi meghívásból nem generálódik új. A régi mentések függő meghívásai és fizetett hatásai kifutnak; szabályaik a [fejlesztési előzményekben](DEVELOPMENT-HISTORY.md) maradtak meg.
 
@@ -149,7 +151,7 @@ Ezek fiktív vevői autómegbízások. Az ellenőrzött történelmi hírek kül
 
 ## Nagy vállalkozási döntések
 
-Az **Operations / Business** fülön érhetők el a nagy beruházások és a hitel; a Dealer File Business gombja ide vezet. A régi mentés pénze, autói és eredményei megmaradnak: új költség csak vállalt beruházással vagy hitellel keletkezik. A garázs továbbra is két saját autót tart; a bővítés üzletágat és műhelykapacitást nyit, nem új beállókat rajzol.
+A nagy beruházásokat a **Business / Expansions** belépő vagy az Operations **Expansions** füle nyitja. A hitel a **Business / Finance** nézetben van. Az elérhető és meglévő beruházások előre kerülnek; a zárolt kártyák a hiányzó készpénzt, REP-et, függőséget és építkezési korlátot együtt mutatják. A régi mentés pénze, autói és eredményei megmaradnak: új költség csak vállalt beruházással vagy hitellel keletkezik. A garázs továbbra is két saját autót tart; a bővítés üzletágat és műhelykapacitást nyit, nem új beállókat rajzol.
 
 | Beruházás | Induló tőke | Építés | Napi fix költség nyitástól | Új működés |
 | --- | ---: | ---: | ---: | --- |
@@ -159,7 +161,7 @@ Az **Operations / Business** fülön érhetők el a nagy beruházások és a hit
 
 Egy építkezés folyhat egyszerre. A beruházás ára előre kifizetendő; az új fix költség a nyitást követő reggeltől él. A flottaműhely a Service Center költségére rakódik: együtt $500/nap felvett szerelő nélkül. Szerelő felvételével a beépített külsős munkadíj egy része helyettesítődik; a teljes alkalmazotti bér külön, egyszer jelenik meg. A három üzletág összesen $137k beruházás és $750/nap alapüzemeltetési költség explicit alkalmazotti bérek nélkül, a normál rezsi, készlettartás, reklám és hitelkamat előtt.
 
-A beruházás megkezdése előtt külön áttekintés mutatja a maradó pénzt és az új heti fix terhet. Az aktuális 7 napos költség, bevétel nélküli készpénz-fedezet és az elmúlt 7 nap tényleges működési pénzmozgása külön látszik. A 7 napos költség és cash runway az ismert építkezési nyitásokat és hátralékot is figyelembe veszi. A jelenlegi készletet és reklámállapotot feltételezi, további döntéseket vagy befolyó munkadíjat nem. Ez nem garantált jövőbeli pénzállás.
+A beruházás megkezdése előtt külön áttekintés mutatja a maradó pénzt és az új 7 napos fix terhet. Az Operations és Finance mutatja a következő számlát és a bevétel nélküli **Cash runway** jelzést. A Finance **7-day business result & payroll** része a múltbeli eredményt, tényleges cash change-et, bért és **7-day cash buffer** tartalékot mutatja. A runway és a buffer az ismert kötelezettségekből számol, beleértve a személyzet bérét; új eladást vagy további játékosi döntést nem feltételez. Ez nem garantált jövőbeli pénzállás.
 
 ### Szerviz mint második bevételi forrás
 
@@ -183,9 +185,9 @@ Elszámolás: `tőke × (1.10 × záró kereslet / belépési kereslet + végreh
 
 ### Pénzügyi követés
 
-A **Deal margin** az autók lezárt profitját és a szerviz/nagykereskedelem lezárt számlamarginját együtt mutatja. Nem tartalmazza a rezsit, kamatot vagy beruházási veszteséget; ezek a Ledgerben, készpénzben és vállalkozásértékben látszanak. A 7 napos operating cash flow minden tényleges pénzmozgást számít, kivéve tőkeberuházást/felszámolást és hitelfelvételt/tőketörlesztést; a készletvásárlás benne van.
+A **Deal margin** az autók lezárt profitját és a szerviz/nagykereskedelem lezárt számlamarginját együtt mutatja. Nem tartalmazza a rezsit, kamatot vagy beruházási veszteséget; ezek a Transactions naplóban, készpénzben és vállalkozásértékben látszanak. A jelenlegi Finance **Cash change** mutatója az elmúlt hét minden tényleges pénzmozgását tartalmazza, a készletvásárlást, beruházást, hitelfelvételt és törlesztést is. A **Business result** ettől külön számolja az időszaki eredményt és a megszolgált bért; a cash változása önmagában nem nyereség.
 
-A nettó érték: készpénz + saját autók azonnali kereskedői értéke + épülő üzletágak 50%-os/kész üzletágak 40%-os felszámolási értéke + futó munkák előfinanszírozása és nagykereskedelmi tőke bekerülési áron - hiteltőke - számlahátralék. A bekerülési érték nem ígéret a megtérülésre. A napi jelentésben a nyitások, új munkák és lezárt kifizetések is megjelennek.
+A nettó érték: készpénz + saját autók azonnali kereskedői értéke + épülő üzletágak 50%-os/kész üzletágak 40%-os felszámolási értéke + futó munkák előfinanszírozása és nagykereskedelmi tőke bekerülési áron - hiteltőke - számlahátralék - már megszolgált, még ki nem fizetett bér. A bekerülési érték nem ígéret a megtérülésre. A napi jelentésben a nyitások, új munkák és lezárt kifizetések is megjelennek.
 
 Az apró v0.10-es választható helyi eseményekből nem érkezik több. A korábban kifizetett hatás és meglévő meghívás az eredeti feltételekkel kifut; a vevői autómegbízások változatlanul megmaradnak. A következő fejezetek is a jelenlegi működést írják le; a korábbi állapotok külön történeti dokumentumban vannak.
 
@@ -193,9 +195,9 @@ Az összegek és kockázatok játékegyensúly-szabályok, nem valós 1993-as ga
 
 ## Fejlődési sávok és pénzügyi grafikon
 
-Az XP és a következő reputációs mérföldkő a Dealer File alatt követhető; külön fejlődési sáv nincs a főképernyőn. A Dealer File-ban a Negotiation rang, a perk rangkövetelménye és a business upgrade megfizethetősége is sávot kapott. A készpénzsáv azt jelzi, megengedheted-e a fejlesztést; nem jelent félretett pénzt vagy automatikus vásárlást.
+Az XP lila csillagos, a reputáció arany jelvényes HUD-sávon folyamatosan követhető. Látszik a Dealer Level, az aktuális XP/szintküszöb, az elkölthető skillpont és a következő reputációs ranghoz hiányzó REP. A sávokra kattintva a **Dealer / Skills**, illetve **Dealer / Reputation** nyílik meg. A Skills rangsávjai nem automatikus fejlesztések: skillpontot kézzel költesz el. A **Tools & marketing** kártyán az ár és az esetleges blokkolási ok látszik; a korábbi készpénz-megfizethetőségi sáv megszűnt.
 
-A **Ledger** két vonallal mutatja a **Deal margin** és **Business value** alakulását. A margin az autóüzletek és a lezárt szerviz/nagykereskedelmi munkák eredménye; nem nettó üzleti profit. A nettó vállalkozásérték az üzletági eszközöket, lekötéseket, hitelt és hátralékot is számolja. A pontos képletek a „Nagy vállalkozási döntések” fejezetben szerepelnek. Becsült márkaértéket nem adunk hozzá.
+A **Business / Finance / Business over time** lenyitható grafikon két vonallal mutatja a **Deal margin** és **Business value** alakulását. A margin az autóüzletek és a lezárt szerviz/nagykereskedelmi munkák eredménye; nem nettó üzleti profit. A nettó vállalkozásérték az üzletági eszközöket, lekötéseket, hitelt és hátralékot is számolja. A pontos képletek a „Nagy vállalkozási döntések” fejezetben szerepelnek. Becsült márkaértéket nem adunk hozzá.
 
 Naponként egy pont van. A mai pont minden művelet után frissül, a korábbi napok megmaradnak. A pontok fölé vitt egér vagy a billentyűzetes fókusz pontos dátumot és összegeket mutat. Új játékban $5,000 érték és $0 profit az indulópont. Korábbi mentésben a grafikon a mostani játéknaptól indul: hiányzó régi készletértékeket nem becslünk vissza.
 
@@ -307,9 +309,13 @@ Mind a 60 modell saját SVG-körvonalmaszkot kapott. A megjelenítés a tényleg
 - `js/state.js`: új játék, dátum, helyi mentés és visszatöltés.
 - `js/finance.js`: napi érték- és profitsnapshotok, vonaldiagram és fejlődési sávok.
 - `js/progression.js`: XP, szintek, skill, perk, vállalkozásfejlesztések, marketing és reputációs mérföldkövek.
-- `js/ui.js`: ablakok, adatlapok és gombok.
+- `js/ui.js`: közös HUD és pixelikonok, navigáció, Dealer-fülek, ablakok, adatlapok, fókusz és visszajelzések.
 - `js/scene.js`: interaktív garázs, sprite-kiosztás és beállók.
-- `pixel.css`: jelenet, pixel felület és animációk.
+- `pixel.css`: jelenet, korábbi felületi alapok és animációk.
+- `ux.css`: a legutoljára betöltött Premium Retro UI-réteg, tipográfia, HUD, ikonok, navigáció, panelek és reszponzív szabályok.
+- `tests/premium-ux.test.cjs`: a jelenlegi UX integrációja és az engine-eredménnyel összevetett műveletek.
+- `tests/build-ux-fixtures.cjs`, `tests/browser-fixtures/`: elkülönített böngészős QA-állások, saját tárolási kulccsal.
+- `reports/ux-gallery.html`: a redesign-kör előtte/utána összehasonlítása; a végleges ikonos képek az `ux-icons-*` fájlok.
 - `assets/`: helyi grafikai fájlok és a generáláshoz használt promptok.
 - `styles.css`: arculat, garázsjelenet és kisebb képernyőkre igazított elrendezés.
 
@@ -332,7 +338,9 @@ A régi modulok regressziós alaptesztjei mellett az új 18 integrált teszt a t
 
 A kereskedési szimuláció 5 stratégia x 5 véletlenmag x 200 nap. Minden nap készpénz-napló egyeztetés, 25 naponta mentésből folytatás; külön reprodukálhatósági ellenőrzés. Kimenet: [reports/trading-simulation.json](reports/trading-simulation.json). A számok első balanszmérésből származnak; nem történelmi gazdasági adatok.
 
-Valódi böngészős próba helyi kiszolgálással is készült. Ez nem játékfüggőség: a játék továbbra is közvetlen `index.html` megnyitással működik. A rádió hangját és hosszabb emberi játékélményt külön játékosi próba tudja megítélni.
+Legutóbbi megvalósítási ellenőrzés: 128 szabályteszt, 30 UI-tesztblokk (8 új Premium UX integráció), 25 x 200 kereskedési és 30 x 180 management nap, összesen 10 400 szimulált nap. Az ikonos kiegészítés után mind a 30 UI-blokk újra sikeres. [Naplók, böngészős folyamatok és korlátok](UX-REDESIGN.md). Ezek a fejlesztési kör során futott ellenőrzések; a dokumentáció-frissítés nem jelent új tesztfutást.
+
+Valódi Chromium-próba helyi kiszolgálással készült 1440 x 900, 1280 x 720 és 390 x 844 méretben; az ikonos kör 1440 x 900 és 390 x 844 méretet is ellenőrzött. Ez nem játékfüggőség: a játék továbbra is közvetlen `index.html` megnyitással működik. A rádió hangját és hosszabb emberi játékélményt külön játékosi próba tudja megítélni.
 
 ## Korlátok és következő lépések
 
@@ -342,4 +350,5 @@ Valódi böngészős próba helyi kiszolgálással is készült. Ez nem játékf
 - A mentés helyi, ugyanahhoz a böngészőhöz és fájlhelyhez kötődik. Felhőmentés és mentésexport nincs.
 - Az új kis helyi meghívások generálása megszűnt; a vevői megbízások megmaradtak.
 - Valós, dátumhoz kötött történelmi hírek még nincsenek. A rádió fiktív saját zenét játszik.
+- További kézi ellenőrzés: hosszabb játékosi próba, Safari/Firefox, fizikai telefon és tényleges régi játékosi mentés. A régi séma izolált fixture-rel tesztelt; ez nem a játékos valódi régi mentése.
 - A következő javasolt irány a vállalkozási döntések mélyítése és egyensúlyozása, majd a megbízások bővítése. A 150 és több száz autós cél megmarad. A részletek a [roadmapben](ROADMAP.md), az eredeti ötletek és verzióelőzmények a [fejlesztési előzményekben](DEVELOPMENT-HISTORY.md) vannak.
