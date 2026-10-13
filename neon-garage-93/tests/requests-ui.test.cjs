@@ -151,4 +151,22 @@ test("Market and garage cards carry the buyer badge; the car file lists what is 
   );
   dom.window.close();
 });
+test("Closing the day with a new-style request due today warns, then fails it cleanly", () => {
+  const { dom, d, state, click } = boot((N) => {
+    const s = scenario(N);
+    s.inventory = [];
+    s.opportunities.requests[0].deadline = s.day;
+    return s;
+  });
+  click('#app .game-hud [data-action="next"]');
+  const warning = d.querySelector(".confirm-offer-warning");
+  assert(warning, "deadline warning missing");
+  assert.match(warning.textContent, /Weekend fun car \/ closing now misses/);
+  click('[data-action="confirm-next"]');
+  const after = state();
+  assert.equal(after.day, 1);
+  assert.equal(after.opportunities.requests[0].status, "failed");
+  assert(!/Cannot read/.test(d.querySelector("#toast")?.textContent || ""));
+  dom.window.close();
+});
 console.log(count + " request UI tests passed.");
