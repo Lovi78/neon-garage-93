@@ -235,7 +235,7 @@ const winners = SEEDS.map(
 console.log("best strategy per seed:", winners.join(", "));
 const out = process.env.SIM_OUT || "reports/repair-simulation.json"; // latest run; before/after snapshots are kept separately
 fs.writeFileSync(
-  path.join(root, out),
+  path.resolve(root, out),
   JSON.stringify(
     { days: DAYS, seeds: SEEDS, summary, winners, runs },
     null,
