@@ -2013,3 +2013,63 @@ main.world-frame {
   color: var(--muted);
   font-size: 14px;
 }
+
+/* v0.14: one icon-only main navigation; the name appears on hover and keyboard focus. */
+.retro-nav .nav-business > summary.nav-icon-only {
+  position: relative;
+  justify-content: center;
+  width: 46px;
+  min-height: 40px;
+  padding: 9px;
+}
+.retro-nav .nav-business > summary.nav-icon-only::before {
+  content: none;
+}
+.retro-nav .nav-business[open] > summary .game-nav-label {
+  opacity: 0;
+}
+.retro-nav .nav-business > summary.nav-icon-only .game-nav-label {
+  position: absolute;
+  top: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 10px;
+  border: 1px solid #789586;
+  border-radius: 3px;
+  background: #1b2b31;
+  color: #edf3e3;
+  font: 13px/1.4 var(--ui-font);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0 4px 12px #0007;
+  z-index: 30;
+}
+.retro-nav .nav-business > summary.nav-icon-only:hover .game-nav-label,
+.retro-nav .nav-business > summary.nav-icon-only:focus-visible .game-nav-label {
+  opacity: 1;
+}
+.retro-nav .nav-business[open] > summary.nav-icon-only .game-nav-label {
+  opacity: 0;
+}
+.retro-nav .nav-icon-only .ui-icon {
+  width: 18px;
+  height: 18px;
+}
+@media (max-width: 650px) {
+  /* Touch screens have no hover: keep the names visible under the icons. */
+  .retro-nav .nav-business > summary.nav-icon-only {
+    width: auto;
+  }
+  .retro-nav .nav-business > summary.nav-icon-only .game-nav-label {
+    position: static;
+    transform: none;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    opacity: 1;
+    box-shadow: none;
+    color: inherit;
+  }
+}
