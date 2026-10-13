@@ -15,11 +15,12 @@ const tweak = process.env.SIM_TWEAK
 const STRATEGIES = process.env.SIM_ONLY
   ? process.env.SIM_ONLY.split(",")
   : ["never", "quick", "driver", "full", "smart"];
-// 20 seeds: single runs vary by 2-3x, five seeds are not enough to compare policies.
-const SEEDS = [
-  93, 1993, 12, 42, 1234, 7, 77, 777, 5, 55, 555, 8, 88, 888, 3, 33, 333, 9, 99,
-  999,
-];
+// 80 seeds: single runs vary by 2-3x and 20 seeds still moved averages by
+// +/-20% when an unrelated system changed the random stream.
+const SEEDS = Array.from(
+  { length: +(process.env.SIM_SEEDS || 80) },
+  (_, i) => 1000 + i * 7919,
+);
 const DAYS = Number(process.env.SIM_DAYS || 100);
 
 // Target part levels per strategy. Packages are applied as one booking when the
@@ -204,8 +205,8 @@ const runs = STRATEGIES.flatMap((st) =>
 );
 if (STRATEGIES.includes("driver"))
   assert.deepEqual(
-    simulate("driver", 93),
-    runs.find((r) => r.strategy === "driver" && r.seed === 93),
+    simulate("driver", SEEDS[0]),
+    runs.find((r) => r.strategy === "driver" && r.seed === SEEDS[0]),
   );
 const avg = (rs, k) => Math.round(rs.reduce((n, r) => n + r[k], 0) / rs.length);
 const summary = STRATEGIES.map((strategy) => {

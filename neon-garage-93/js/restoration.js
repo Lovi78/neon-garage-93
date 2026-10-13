@@ -31,7 +31,7 @@ window.NG = window.NG || {};
     },
   ];
   // One teardown instead of five: package labor is cheaper than part-by-part.
-  NG.packageLaborShare = 0.45;
+  NG.packageLaborShare = 0.55;
 
   const pkgById = (id) => {
     const p = NG.repairPackages.find((p) => p.id === id);
@@ -125,7 +125,7 @@ window.NG = window.NG || {};
      A flip already ties a garage slot up for a few days (listing, buyers), so
      workshop days are added to that cycle. Raw profit always favoured Full
      restoration, even on cheap cars where it ties the slot up for 3 days. */
-  NG.saleCycleDays = 2; // tuned in tests/repair-simulation.cjs (best of 0-8 days)
+  NG.saleCycleDays = 2; // tuned in tests/repair-simulation.cjs: 1-2 days best (80 seeds)
   NG.packageScore = (q) => q.profitChange / (q.days + NG.saleCycleDays);
   NG.recommendPackage = (s, c, mode = "standard") =>
     NG.repairPackages
