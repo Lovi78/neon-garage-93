@@ -285,12 +285,12 @@ window.NG = window.NG || {};
       : NG.clamp(c.claim - (s.progress?.market || 0) * 2, 30, 95);
     const faults = c.flaws
       .filter((f) => f.revealed && !f.fixed)
-      .reduce((n, f) => n + f.cost * 0.75, 0);
+      .reduce((n, f) => n + f.cost * NG.faultPenalty, 0);
     return Math.max(
       200,
       Math.round(
         (NG.baseValue(c) *
-          (0.3 + (0.7 * observed) / 100) *
+          NG.conditionFactor(observed) *
           (s.demand[NG.model(c).segment] || 1) -
           faults) *
           NG.vehicleFactor(s, c, true),

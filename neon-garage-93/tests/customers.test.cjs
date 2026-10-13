@@ -146,6 +146,12 @@ test("Returning buyers respect preferences and receive a real loyalty uplift", (
     c = s.market[0];
   NG.buy(s, c.id);
   NG.list(s, c.id, Math.round(NG.value(s, c) * 1.4), "as-is");
+  // Pin tomorrow's demand wave: a random -30% crash made this test flaky (~1%).
+  s.marketTrends.next = {
+    segment: NG.model(c).segment,
+    multiplier: 1,
+    duration: 1,
+  };
   const base = JSON.parse(JSON.stringify(s)),
     repeat = JSON.parse(JSON.stringify(s));
   repeat.customers = [

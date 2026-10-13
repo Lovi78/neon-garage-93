@@ -7,9 +7,19 @@ const assert = require("node:assert/strict"),
   fs = require("node:fs"),
   path = require("node:path");
 const { runtime, random, root } = require("./runtime.cjs");
+// Balance experiments only: SIM_TWEAK=path/to/module.cjs exporting (NG) => void.
+const tweak = process.env.SIM_TWEAK
+  ? require(path.resolve(process.env.SIM_TWEAK))
+  : null;
 
-const STRATEGIES = ["never", "quick", "driver", "full", "smart"];
-const SEEDS = [93, 1993, 12, 42, 1234];
+const STRATEGIES = process.env.SIM_ONLY
+  ? process.env.SIM_ONLY.split(",")
+  : ["never", "quick", "driver", "full", "smart"];
+// 20 seeds: single runs vary by 2-3x, five seeds are not enough to compare policies.
+const SEEDS = [
+  93, 1993, 12, 42, 1234, 7, 77, 777, 5, 55, 555, 8, 88, 888, 3, 33, 333, 9, 99,
+  999,
+];
 const DAYS = Number(process.env.SIM_DAYS || 100);
 
 // Target part levels per strategy. Packages are applied as one booking when the
@@ -104,6 +114,7 @@ function workshop(N, s, c, strategy, stats) {
 function simulate(strategy, seed) {
   const rng = random(seed),
     N = runtime(rng);
+  tweak?.(N);
   let s = N.newState();
   s.nextId = 1;
   s.market = N.market(s, rng);
@@ -190,15 +201,23 @@ function simulate(strategy, seed) {
   };
 }
 
-const runs = STRATEGIES.flatMap((st) => SEEDS.map((seed) => simulate(st, seed)));
-assert.deepEqual(simulate("driver", 93), runs.find((r) => r.strategy === "driver" && r.seed === 93));
+const runs = STRATEGIES.flatMap((st) =>
+  SEEDS.map((seed) => simulate(st, seed)),
+);
+if (STRATEGIES.includes("driver"))
+  assert.deepEqual(
+    simulate("driver", 93),
+    runs.find((r) => r.strategy === "driver" && r.seed === 93),
+  );
 const avg = (rs, k) => Math.round(rs.reduce((n, r) => n + r[k], 0) / rs.length);
 const summary = STRATEGIES.map((strategy) => {
   const rs = runs.filter((r) => r.strategy === strategy);
   return {
     strategy,
     sales: +(rs.reduce((n, r) => n + r.sales, 0) / rs.length).toFixed(1),
-    profitable: +(rs.reduce((n, r) => n + r.profitable, 0) / rs.length).toFixed(1),
+    profitable: +(rs.reduce((n, r) => n + r.profitable, 0) / rs.length).toFixed(
+      1,
+    ),
     avgContribution: avg(rs, "avgContribution"),
     repairSpend: avg(rs, "repairSpend"),
     netWorth: avg(rs, "netWorth"),
@@ -209,20 +228,38 @@ const summary = STRATEGIES.map((strategy) => {
 console.table(summary);
 const winners = SEEDS.map(
   (seed) =>
-    runs.filter((r) => r.seed === seed).sort((a, b) => b.netWorth - a.netWorth)[0]
-      .strategy,
+    runs
+      .filter((r) => r.seed === seed)
+      .sort((a, b) => b.netWorth - a.netWorth)[0].strategy,
 );
 console.log("best strategy per seed:", winners.join(", "));
-const out = process.env.SIM_OUT || "reports/repair-simulation.json";
+const out = process.env.SIM_OUT || "reports/repair-simulation.json"; // latest run; before/after snapshots are kept separately
 fs.writeFileSync(
   path.join(root, out),
-  JSON.stringify({ days: DAYS, seeds: SEEDS, summary, winners, runs }, null, 2) + "\n",
+  JSON.stringify(
+    { days: DAYS, seeds: SEEDS, summary, winners, runs },
+    null,
+    2,
+  ) + "\n",
 );
-if (process.env.SIM_ASSERT_BALANCE) {
+// Balance targets from the audit (F/1) apply to engines that have packages, at 100 days.
+if (runtime(random(1)).repairPackage && DAYS === 100 && !tweak) {
   const by = Object.fromEntries(summary.map((r) => [r.strategy, r]));
   const lift = by.driver.netWorth / by.never.netWorth - 1;
-  assert(lift >= 0.1 && lift <= 0.3, "Driver-ready lift " + lift.toFixed(3) + " outside 10-30%");
-  assert(by.full.netWorth < by.driver.netWorth, "Always-full must not beat Driver-ready");
+  assert(
+    lift >= 0.1 && lift <= 0.3,
+    "Driver-ready lift " + lift.toFixed(3) + " outside 10-30%",
+  );
+  assert(
+    by.full.netWorth < by.driver.netWorth,
+    "Always-full must not beat Driver-ready",
+  );
   assert(new Set(winners).size > 1, "One repair strategy wins every seed");
 }
-console.log("PASS " + runs.length + " seeded " + DAYS + "-day repair-strategy runs with daily cash reconciliation.");
+console.log(
+  "PASS " +
+    runs.length +
+    " seeded " +
+    DAYS +
+    "-day repair-strategy runs with daily cash reconciliation.",
+);

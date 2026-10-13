@@ -151,7 +151,14 @@
       ? "Routine work enabled. Sales always require your approval."
       : "Manual assignment enabled.";
   };
-  const hours = { inspect: 2, repair: 3, followup: 1, prepare: 2, service: 3 };
+  const hours = {
+    inspect: 2,
+    repair: 3,
+    restore: 3,
+    followup: 1,
+    prepare: 2,
+    service: 3,
+  };
   function worker(s, id, role) {
     const m = NG.ensureManagement(s);
     if (id === "owner")
@@ -227,6 +234,20 @@
           ) +
           delay;
         c.parts[part] = 95 + Math.floor(r.w.skill / 25);
+      }
+    } else if (kind === "restore") {
+      // v0.14 package: one booking, same hours as a single part repair.
+      const before = c.repairCost;
+      result = NG.applyRepairPackage(s, carId, part, "standard");
+      if (c.repairCost === before) return result;
+      c.assignedWorker = workerId;
+      if (workerId !== "owner") {
+        const delay =
+          (s.day + c.id.toString().length) % 100 >= r.w.reliability ? 1 : 0;
+        c.readyDay =
+          s.day +
+          Math.max(1, NG.packageDays(s, part) - (r.w.speed >= 80 ? 1 : 0)) +
+          delay;
       }
     } else if (kind === "followup") {
       const o = c.offers.find((o) => o.id === offerId);

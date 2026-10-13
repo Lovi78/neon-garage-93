@@ -15,22 +15,42 @@ NG.baseValue = (car) =>
       (1 - (1993 - car.year) * 0.025) *
       NG.clamp(1 - (car.mileage - 60000) / 500000, 0.65, 1.05),
   );
+/* v0.14: condition grades. Buyers pay by grade, so value steps up at each
+   threshold instead of rising in a straight line. */
+NG.conditionGrades = [
+  { id: "rough", label: "Rough", min: 0, base: 0.651, slope: 0.004 },
+  { id: "driver", label: "Driver", min: 55, base: 0.715, slope: 0.004 },
+  { id: "clean", label: "Clean", min: 75, base: 0.846, slope: 0.004 },
+  { id: "excellent", label: "Excellent", min: 90, base: 0.945, slope: 0.004 },
+];
+// Buyers knock a known fault off the price at more than its repair bill.
+NG.faultPenalty = 1.1;
+NG.gradeFor = (condition) =>
+  [...NG.conditionGrades].reverse().find((g) => condition >= g.min);
+NG.grade = (car) => NG.gradeFor(NG.condition(car));
+// Rough is anchored at its top (54) and falls away below it.
+NG.conditionFactor = (condition) => {
+  const g = NG.gradeFor(condition);
+  return g.id === "rough"
+    ? g.base - g.slope * (54 - condition)
+    : g.base + g.slope * (condition - g.min);
+};
 NG.value = (state, car) =>
   Math.max(
     200,
     Math.round(
       NG.baseValue(car) *
-        (0.3 + (0.7 * NG.condition(car)) / 100) *
+        NG.conditionFactor(NG.condition(car)) *
         (state.demand[NG.model(car).segment] || 1) -
         car.flaws
           .filter((f) => !f.fixed)
-          .reduce((a, f) => a + f.cost * 0.75, 0),
+          .reduce((a, f) => a + f.cost * NG.faultPenalty, 0),
     ),
   );
 NG.estimate = (state, car) => {
   const claimed =
     NG.baseValue(car) *
-    (0.3 + (0.7 * car.claim) / 100) *
+    NG.conditionFactor(car.claim) *
     (state.demand[NG.model(car).segment] || 1);
   const insight = (state.progress?.market || 0) * 0.25;
   return Math.round(claimed * (1 - insight) + NG.value(state, car) * insight);

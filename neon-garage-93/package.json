@@ -4,7 +4,7 @@
   "private": true,
   "description": "Offline-first retro car dealership management game",
   "scripts": {
-    "test": "node tests/economy.test.cjs && node tests/progression.test.cjs && node tests/finance-catalog.test.cjs && node tests/collection.test.cjs && node tests/customers.test.cjs && node tests/day-report.test.cjs && node tests/strategy.test.cjs && node tests/ambience.test.cjs && node tests/opportunities.test.cjs && node tests/enterprise.test.cjs && node tests/trading.test.cjs && node tests/management.test.cjs",
+    "test": "node tests/economy.test.cjs && node tests/progression.test.cjs && node tests/finance-catalog.test.cjs && node tests/collection.test.cjs && node tests/customers.test.cjs && node tests/day-report.test.cjs && node tests/strategy.test.cjs && node tests/ambience.test.cjs && node tests/opportunities.test.cjs && node tests/enterprise.test.cjs && node tests/trading.test.cjs && node tests/management.test.cjs && node tests/restoration.test.cjs",
     "test:ui": "node tests/ui.test.cjs && node tests/enterprise-ui.test.cjs && node tests/trading-ui.test.cjs && node tests/operations-ui.test.cjs && node tests/ux-overhaul.test.cjs && node tests/management-ui.test.cjs && node tests/home-ui.test.cjs && node tests/premium-ux.test.cjs",
     "test:simulation": "node tests/trading-simulation.cjs && node tests/management-simulation.cjs && node tests/repair-simulation.cjs"
   },
