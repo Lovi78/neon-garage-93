@@ -218,4 +218,63 @@ test("New invitations arrive more often, up to two at a time, and save cleanly",
     plain(s.opportunities.requests),
   );
 });
+test("A named model is never missing: accept adds a lead, and the lead stays listed", () => {
+  const { N, s } = setup();
+  s.reputation = 12;
+  s.market = s.market.filter((c) => c.model !== "xjs");
+  const q = {
+    id: "request-lead",
+    kind: "custom",
+    status: "offered",
+    day: 0,
+    offerUntil: 2,
+    spec: {
+      tier: "collector",
+      buyer: "Casey L.",
+      title: "Collector wants a Jaguar XJS",
+      days: 9,
+      rep: 2,
+      models: ["xjs"],
+      grade: "excellent",
+      mileage: 130000,
+      records: true,
+      noAccident: true,
+    },
+  };
+  s.opportunities.requests.push(q);
+  assert.match(N.chooseRequest(s, q.id, true), /passed on a lead/);
+  const lead = s.market.find((c) => c.model === "xjs");
+  assert(lead && lead.listing.leadFor === q.id);
+  assert(lead.mileage <= 120000);
+  assert.equal(lead.vehicleHistory.accident, false);
+  assert(N.requestFits(s, q, lead));
+  // Sold-elsewhere and expiry cannot take it while the request is live.
+  for (let d = 0; d < 8; d++) N.nextDay(s, () => 0.001);
+  assert(s.market.includes(lead));
+  // If the lead is bought by someone else anyway, a new one arrives.
+  s.market = s.market.filter((c) => c !== lead);
+  s.day = 3;
+  q.deadline = 9;
+  N.opportunityDay(s, () => 0.1);
+  assert(s.market.some((c) => c.model === "xjs" && c.listing.leadFor === q.id));
+});
+test("Market supply is broad: no two models make up most of a region", () => {
+  const rng = random(5),
+    N = runtime(rng),
+    s = N.newState();
+  const seen = {};
+  let total = 0;
+  for (let d = 0; d < 120; d++) {
+    N.nextDay(s, rng);
+    for (const c of s.market)
+      if (c.listing.createdDay === s.day && !c.listing.leadFor) {
+        seen[c.model] = (seen[c.model] || 0) + 1;
+        total++;
+      }
+  }
+  const top = Object.values(seen).sort((a, b) => b - a);
+  assert(total >= 120, "only " + total + " new listings in 120 days");
+  assert(top[0] + top[1] < total * 0.2, "two models dominate supply");
+  assert(Object.keys(seen).length >= 40);
+});
 console.log(count + " buyer request tests passed.");

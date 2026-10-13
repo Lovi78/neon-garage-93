@@ -243,6 +243,28 @@ NG.requestSpec = (q) => {
   };
 };
 NG.requestCapacity = (s) => ((s.reputation || 0) >= 10 ? 3 : 2);
+/* Leads: a buyer who names one model also knows where one is for sale.
+   Without this, a single model could fail to appear for the whole window. */
+NG.requestHasCar = (s, q) => {
+  const t = NG.requestSpec(q);
+  return (
+    !t?.models ||
+    s.market.some((c) => t.models.includes(c.model)) ||
+    s.inventory.some((c) => NG.requestFits(s, q, c))
+  );
+};
+NG.requestLead = (s, q, rng = NG.factRandom(q.id + ":" + s.day)) => {
+  const t = NG.requestSpec(q),
+    i = NG.catalog.findIndex((m) => m.id === t.models[0]);
+  const c = NG.generateCar(s, i, rng);
+  c.mileage = Math.min(c.mileage, (t.mileage || 999999) - 10000);
+  if (t.noAccident) c.vehicleHistory.accident = false;
+  if (t.records) c.vehicleHistory.records = true;
+  c.listing.leadFor = q.id;
+  c.listing.expiresDay = Math.max(c.listing.expiresDay, q.deadline + 1);
+  s.market.push(c);
+  return c;
+};
 NG.chooseRequest = (s, id, accept) => {
   NG.ensureOpportunities(s);
   const q = s.opportunities.requests.find((q) => q.id === id),
@@ -265,10 +287,16 @@ NG.chooseRequest = (s, id, accept) => {
   q.status = "active";
   q.acceptedDay = s.day;
   q.deadline = s.day + t.days;
+  let lead = "";
+  if (t.models && !NG.requestHasCar(s, q)) {
+    NG.requestLead(s, q);
+    lead = " " + t.buyer + " passed on a lead: one is listed on the market.";
+  }
   return (
     "Request accepted. Deliver by " +
     NG.date(q.deadline) +
-    ". No cash changes hands until delivery."
+    ". No cash changes hands until delivery." +
+    lead
   );
 };
 const gradeRank = (id) => NG.conditionGrades.findIndex((g) => g.id === id);
@@ -562,6 +590,23 @@ NG.opportunityDay = (s, rng = Math.random) => {
         "Buyer request missed: " +
           NG.requestSpec(q).title +
           ". -1 reputation; no cash penalty.",
+      );
+    }
+  }
+  for (const q of o.requests) {
+    if (
+      q.status === "active" &&
+      q.deadline > s.day &&
+      NG.requestSpec(q).models &&
+      !NG.requestHasCar(s, q) &&
+      rng() < 0.4
+    ) {
+      const c = NG.requestLead(s, q);
+      o.notices.push(
+        NG.requestSpec(q).buyer +
+          " sent a lead: a " +
+          NG.model(c).name +
+          " is on the market.",
       );
     }
   }

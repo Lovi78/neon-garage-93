@@ -31,7 +31,7 @@ window.NG = window.NG || {};
     },
   ];
   // One teardown instead of five: package labor is cheaper than part-by-part.
-  NG.packageLaborShare = 0.55;
+  NG.packageLaborShare = 0.58;
 
   const pkgById = (id) => {
     const p = NG.repairPackages.find((p) => p.id === id);

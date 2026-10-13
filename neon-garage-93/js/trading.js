@@ -187,7 +187,9 @@ window.NG = window.NG || {};
       originalAsk: c.ask,
       prices: [{ day: s.day, price: c.ask }],
       status: "active",
-      expiresDay: s.day + 18 + Math.floor(rng() * 24),
+      // v0.14: 8-20 days (was 18-41). Stale listings filled the 14 slots and the
+      // market showed about one new car a day.
+      expiresDay: s.day + 8 + Math.floor(rng() * 13),
       nextReviewDay: s.day + 3,
       callbacks: 0,
     };
@@ -632,6 +634,16 @@ window.NG = window.NG || {};
         status = "sold-elsewhere";
       else if (age > 10 && p.urgency < 0.3 && rng() < 0.025)
         status = "withdrawn";
+      // A lead sent by a buyer stays on the market while that request is live.
+      if (
+        status !== "active" &&
+        l.leadFor &&
+        s.opportunities?.requests.some(
+          (q) =>
+            q.id === l.leadFor && q.status === "active" && q.deadline >= s.day,
+        )
+      )
+        status = "active";
       l.status = status;
       if (status !== "active") {
         s.trading.archive.push({
@@ -684,9 +696,14 @@ window.NG = window.NG || {};
     const listingLimit = s.event.kind === "rare" ? 13 : 14;
     for (let i = 0; i < arrivals && s.market.length < listingLimit; i++) {
       // Common low-cost models remain available in a small city; rare models appear less often.
-      const low = rng() < 0.4,
+      // v0.14: a quarter of arrivals come from every cheap model (was 40% from
+      // Golf, Volvo and CRX only, so two models made up two thirds of Europe).
+      const cheap = NG.catalog
+          .map((m, i) => (m.value <= 4500 ? i : -1))
+          .filter((i) => i >= 0),
+        low = rng() < 0.25,
         iModel = low
-          ? [4, 9, 0][Math.floor(rng() * 3)]
+          ? cheap[Math.floor(rng() * cheap.length)]
           : Math.floor(rng() * NG.catalog.length);
       s.market.push(NG.generateCar(s, iModel, rng));
     }
