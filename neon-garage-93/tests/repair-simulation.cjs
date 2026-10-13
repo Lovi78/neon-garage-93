@@ -54,15 +54,13 @@ function workshop(N, s, c, strategy, stats) {
     if (c.simPackageDone) return false;
     let id = strategy;
     if (strategy === "smart") {
-      const options = N.repairPackages
-        .map((p) => ({ id: p.id, q: N.packageQuote(s, c, p.id) }))
-        .filter((o) => o.q.available && o.q.profitChange > 0)
-        .sort((a, b) => b.q.profitChange - a.q.profitChange);
-      if (!options.length) {
+      // Same recommendation the Workshop UI flags as BEST RETURN.
+      const best = N.recommendPackage(s, c);
+      if (!best) {
         c.simPackageDone = true;
         return false;
       }
-      id = options[0].id;
+      id = best.id;
     }
     const q = N.packageQuote(s, c, id);
     if (!q.available || s.cash < q.cost + 300) {

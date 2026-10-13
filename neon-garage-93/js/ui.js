@@ -975,34 +975,31 @@
       quotes = NG.repairPackages.map((p) =>
         NG.packageQuote(state, c, p.id, repairMode),
       ),
-      best = quotes
-        .filter(
-          (q) =>
-            q.available &&
-            q.profitChange > 0 &&
-            !NG.busy(state, c) &&
-            !c.listed,
-        )
-        .sort((a, b) => b.profitChange - a.profitChange)[0];
+      // Same rule the simulation's best bot follows: profit per day the car is tied up.
+      pick =
+        !NG.busy(state, c) && !c.listed
+          ? NG.recommendPackage(state, c, repairMode)
+          : null,
+      best = pick && quotes.find((q) => q.id === pick.id);
     const note = NG.busy(state, c)
       ? `In the workshop. Ready ${NG.date(c.readyDay)}.`
       : c.listed
         ? "Remove the listing before booking work."
         : best
-          ? `Best expected return: ${best.label}.`
+          ? `Best return per day the car is tied up: ${best.label}.`
           : "No package is expected to pay for itself on this car. Selling as it is can be the right call.";
-    return `<section class="repair-packages" aria-label="Repair packages"><h3>How far do you take it?</h3><p class="fine-print">${esc(note)}</p><div class="package-grid">${quotes
+    return `<section class="repair-packages" aria-label="Repair packages"><h3>How far do you take it?</h3><p class="package-note">${esc(note)}</p><div class="package-grid">${quotes
       .map(
         (q) =>
           `<article class="package-card${q === best ? " recommended" : ""}">${q === best ? '<span class="package-flag">BEST RETURN</span>' : ""}<h4>${esc(q.label)}</h4><small>${esc(q.short)}</small>${
             q.available
-              ? `<div class="package-grade">${gradeChip(q.gradeBefore.min)}<span aria-hidden="true">→</span><span class="sr-only">to</span>${gradeChip(q.gradeAfter.min)}</div><dl><dt>Cost</dt><dd>${NG.money(q.cost)}</dd><dt>Time</dt><dd>${q.days ? q.days + " day" + (q.days === 1 ? "" : "s") : "Same day"}</dd><dt>Expected sale</dt><dd>${NG.money(q.estimateBefore)} → ${NG.money(q.estimateAfter)}</dd><dt>Profit change</dt><dd class="${q.profitChange >= 0 ? "positive" : "negative"}">${signed(q.profitChange)}</dd></dl><button class="${q === best ? "primary" : ""}" data-action="repair-package" data-id="${c.id}" data-package="${q.id}" ${blocked || state.cash < q.cost ? "disabled" : ""}>Book ${esc(q.label)} / ${NG.money(q.cost)}</button>`
+              ? `<div class="package-grade">${gradeChip(q.gradeBefore.min)}<span aria-hidden="true">→</span><span class="sr-only">to</span>${gradeChip(q.gradeAfter.min)}</div><dl><dt>Cost</dt><dd>${NG.money(q.cost)}</dd><dt>Time</dt><dd>${q.days ? q.days + " day" + (q.days === 1 ? "" : "s") : "Same day"}</dd><dt>Expected sale</dt><dd>${NG.money(q.estimateBefore)} → ${NG.money(q.estimateAfter)}</dd><dt>Profit change</dt><dd class="${q.profitChange >= 0 ? "positive" : "negative"}">${signed(q.profitChange)}</dd><dt>Per day</dt><dd class="${q.profitChange >= 0 ? "positive" : "negative"}">${signed(Math.round(NG.packageScore(q)))}</dd></dl><button class="${q === best ? "primary" : ""}" data-action="repair-package" data-id="${c.id}" data-package="${q.id}" ${blocked || state.cash < q.cost ? "disabled" : ""}>Book ${esc(q.label)} / ${NG.money(q.cost)}</button>`
               : `<p class="fine-print">${esc(q.reason)}</p>`
           }</article>`,
       )
       .join(
         "",
-      )}</div><p class="fine-print">One booking, three hours of your time. Expected sale uses what you know: hidden faults in parts the crew opens are found and fixed at parts cost. Profit change includes $5/day holding cost.</p></section>`;
+      )}</div><p class="fine-print">One booking, three hours of your time. Expected sale uses what you know: hidden faults in parts the crew opens are found and fixed at parts cost. Profit change includes $5/day holding cost. Per day spreads it over workshop days plus about ${NG.saleCycleDays} days to sell; a bigger total that takes longer can still be right when your garage is quiet.</p></section>`;
   }
   function mechanicalPanel(c, owned) {
     const id = c.id,

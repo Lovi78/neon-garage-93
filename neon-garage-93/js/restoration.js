@@ -121,6 +121,18 @@ window.NG = window.NG || {};
     };
   };
 
+  /* Recommendation: profit per day the car is tied up, not raw profit.
+     A flip already ties a garage slot up for a few days (listing, buyers), so
+     workshop days are added to that cycle. Raw profit always favoured Full
+     restoration, even on cheap cars where it ties the slot up for 3 days. */
+  NG.saleCycleDays = 2; // tuned in tests/repair-simulation.cjs (best of 0-8 days)
+  NG.packageScore = (q) => q.profitChange / (q.days + NG.saleCycleDays);
+  NG.recommendPackage = (s, c, mode = "standard") =>
+    NG.repairPackages
+      .map((p) => NG.packageQuote(s, c, p.id, mode))
+      .filter((q) => q.available && q.profitChange > 0)
+      .sort((a, b) => NG.packageScore(b) - NG.packageScore(a))[0] || null;
+
   // Core work. Validation mirrors part repairs; time accounting lives in management.js.
   NG.applyRepairPackage = (s, id, pkg, mode = "standard") => {
     const c = s.inventory.find((c) => c.id === id);

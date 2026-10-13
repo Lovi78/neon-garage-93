@@ -2008,3 +2008,8 @@ main.world-frame {
   color: var(--muted);
   margin-bottom: 8px;
 }
+.package-note {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 14px;
+}

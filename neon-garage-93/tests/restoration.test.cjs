@@ -121,6 +121,37 @@ test("Restoring a cheap car loses money; restoring a desirable car pays", () => 
       N.packageQuote(s, supra, "driver").profitChange,
   );
 });
+test("Recommendation weighs days: Driver-ready can beat a bigger but slower Full", () => {
+  const { N, s } = setup();
+  let slowerLoses = 0,
+    fullWins = 0,
+    none = 0;
+  for (const m of N.catalog) {
+    const c = owned(N, s, even(58), m.id);
+    c.year = m.years[1];
+    c.mileage = 90000;
+    const d = N.packageQuote(s, c, "driver"),
+      f = N.packageQuote(s, c, "full"),
+      pick = N.recommendPackage(s, c);
+    if (!pick) none++;
+    else if (pick.id === "full") fullWins++;
+    else if (pick.id === "driver" && f.profitChange > d.profitChange)
+      slowerLoses++;
+    if (pick)
+      assert.equal(
+        pick.id,
+        [d, f, N.packageQuote(s, c, "quick")]
+          .filter((q) => q.profitChange > 0)
+          .sort((a, b) => N.packageScore(b) - N.packageScore(a))[0].id,
+      );
+    N.sell(s, c.id, "dealer");
+  }
+  assert(
+    slowerLoses > 0,
+    "no car where per-day choice differs from raw profit",
+  );
+  assert(fullWins > 0, "Full restoration is never recommended");
+});
 test("A package is one booking: cash, ledger, parts, faults and owner time", () => {
   const { N, s } = setup();
   const c = owned(N, s, even(60));

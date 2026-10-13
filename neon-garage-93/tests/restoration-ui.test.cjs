@@ -61,7 +61,7 @@ const ownedCar = (N, model, level) => {
   return s;
 };
 test("Workshop tab shows three packages with grade, cost, time and profit change", () => {
-  const { dom, d, click } = boot((N) => ownedCar(N, "300zx", 58));
+  const { dom, w, d, click } = boot((N) => ownedCar(N, "300zx", 58));
   click(".parked-car");
   click('[data-action="car-tab"][data-tab="workshop"]');
   const cards = [...d.querySelectorAll(".package-card")];
@@ -74,6 +74,12 @@ test("Workshop tab shows three packages with grade, cost, time and profit change
   assert.match(full, /3 days/);
   assert.match(full, /Profit change\+\$/);
   assert(d.querySelector(".package-card.recommended .package-flag"));
+  const saved = JSON.parse(w.localStorage.getItem(w.NG.saveKey));
+  assert.equal(
+    d.querySelector(".package-card.recommended h4").textContent,
+    w.NG.recommendPackage(saved, saved.inventory[0]).label,
+  );
+  assert.match(full, /Per day\+\$/);
   assert.match(
     d.querySelector('[data-car-panel="workshop"] h3').textContent,
     /58% Driver/,
