@@ -98,7 +98,7 @@ NG.finishDayReport = (s, before) => {
     activeRequests: (s.opportunities?.requests || [])
       .filter((q) => q.status === "active")
       .map((q) => ({
-        title: NG.requestKinds.find((t) => t.id === q.kind).title,
+        title: NG.requestSpec(q).title,
         deadline: q.deadline,
       })),
     operations: s.operations.notice,

@@ -283,6 +283,8 @@ NG.sell = (s, id, offerId) => {
       { buyer: delivery.buyer },
       s.sales[0],
     );
+    if (delivery.rep)
+      NG.changeReputation(s, delivery.rep, "Demanding buyer request delivered");
     delivery.request.status = "fulfilled";
     delivery.request.completedDay = s.day;
     delivery.request.saleId = s.sales[0].id;

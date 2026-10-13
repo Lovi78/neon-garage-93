@@ -196,18 +196,72 @@ NG.chooseLocalEvent = (s, id, accept) => {
   if (t.rep) NG.changeReputation(s, t.rep, t.title);
   return t.title + " accepted. " + t.benefit;
 };
+/* v0.14 buyer requests. Old saves keep their three fixed-price kinds
+   (q.kind in NG.requestKinds). New requests carry their own spec (q.spec):
+   generated from a real catalog model so at least one car qualifies, and they
+   pay the delivered car's estimate plus a tier premium instead of a fixed sum. */
+NG.requestTiers = {
+  easy: { label: "Everyday", premium: 0.12, rep: 0, days: 5 },
+  specific: { label: "Specific", premium: 0.18, rep: 1, days: 7 },
+  collector: { label: "Collector", premium: 0.25, rep: 2, days: 9 },
+};
+NG.requestBuyers = [
+  "Riley S.",
+  "Pat C.",
+  "Lee V.",
+  "Morgan T.",
+  "Dana K.",
+  "Sam O.",
+  "Jordan P.",
+  "Casey L.",
+  "Robin F.",
+  "Avery N.",
+  "Quinn D.",
+  "Jesse M.",
+];
+const SEGMENT_NAMES = {
+  japan: "Japanese",
+  europe: "European",
+  america: "American",
+};
+NG.requestSpec = (q) => {
+  if (q?.spec) return q.spec;
+  const t = NG.requestKinds.find((t) => t.id === q?.kind);
+  if (!t) return null;
+  return {
+    legacy: true,
+    title: t.title,
+    buyer: t.buyer,
+    tier: "easy",
+    segment: t.segment,
+    shapes: t.shapes,
+    condition: t.condition,
+    mileage: t.mileage,
+    days: t.days,
+    price: t.budget + t.bonus,
+    rep: 0,
+  };
+};
+NG.requestCapacity = (s) => ((s.reputation || 0) >= 10 ? 3 : 2);
 NG.chooseRequest = (s, id, accept) => {
   NG.ensureOpportunities(s);
   const q = s.opportunities.requests.find((q) => q.id === id),
-    t = NG.requestKinds.find((t) => t.id === q?.kind);
-  if (!q || q.status !== "offered" || q.offerUntil < s.day)
+    t = NG.requestSpec(q);
+  if (!q || !t || q.status !== "offered" || q.offerUntil < s.day)
     throw Error("This buyer request is no longer available.");
   if (!accept) {
     q.status = "declined";
     return "Request declined. No penalty.";
   }
-  if (s.opportunities.requests.filter((q) => q.status === "active").length >= 2)
-    throw Error("Finish one of your two active requests first.");
+  const cap = NG.requestCapacity(s);
+  if (
+    s.opportunities.requests.filter((q) => q.status === "active").length >= cap
+  )
+    throw Error(
+      "Finish one of your " +
+        (cap === 2 ? "two" : "three") +
+        " active requests first.",
+    );
   q.status = "active";
   q.acceptedDay = s.day;
   q.deadline = s.day + t.days;
@@ -217,30 +271,257 @@ NG.chooseRequest = (s, id, accept) => {
     ". No cash changes hands until delivery."
   );
 };
-NG.requestMatch = (s, q, car) => {
-  const t = NG.requestKinds.find((t) => t.id === q.kind),
-    m = NG.model(car);
-  return (
-    !!t &&
-    q.status === "active" &&
-    q.deadline >= s.day &&
-    m.segment === t.segment &&
-    t.shapes.includes(m.shape) &&
-    car.mileage <= t.mileage &&
-    NG.condition(car) >= t.condition &&
-    car.inspected &&
-    !car.flaws.some((f) => !f.fixed) &&
-    !NG.busy(s, car)
+const gradeRank = (id) => NG.conditionGrades.findIndex((g) => g.id === id);
+const packageForGrade = (id) =>
+  id === "excellent" ? "Full restoration" : "Driver-ready";
+// Checklist used by the engine and the UI. strict=true also counts faults the
+// player has not found: the buyer's own mechanic checks the car at handover.
+NG.requestCriteria = (s, q, car, strict = false) => {
+  const t = NG.requestSpec(q),
+    m = NG.model(car),
+    h = car.vehicleHistory,
+    out = [];
+  if (!t) return [{ id: "spec", label: "Unknown request", ok: false }];
+  const add = (id, label, ok, hint = "", fixed = false) =>
+    out.push({ id, label, ok: !!ok, hint: ok ? "" : hint, fixed });
+  if (t.models)
+    add(
+      "model",
+      t.models
+        .map((id) => NG.catalog.find((m) => m.id === id)?.name)
+        .join(" / "),
+      t.models.includes(car.model),
+      "",
+      true,
+    );
+  if (t.segment)
+    add(
+      "segment",
+      SEGMENT_NAMES[t.segment] + " car",
+      m.segment === t.segment,
+      "",
+      true,
+    );
+  if (t.shapes)
+    add("shape", t.shapes.join(" / "), t.shapes.includes(m.shape), "", true);
+  if (t.mileage)
+    add(
+      "mileage",
+      "≤ " + t.mileage.toLocaleString("en-US") + " miles",
+      car.mileage <= t.mileage,
+      "",
+      true,
+    );
+  add("inspected", "Inspected", car.inspected, "Inspect it first.");
+  if (t.grade) {
+    const g = NG.conditionGrades[gradeRank(t.grade)];
+    add(
+      "grade",
+      g.label + " or better",
+      car.inspected && gradeRank(NG.grade(car).id) >= gradeRank(t.grade),
+      car.inspected
+        ? packageForGrade(t.grade) + " gets it there."
+        : "Inspect to see the grade.",
+    );
+  }
+  if (t.condition)
+    add(
+      "condition",
+      "≥ " + t.condition + "% condition",
+      car.inspected && NG.condition(car) >= t.condition,
+      "Driver-ready gets every part to 75%.",
+    );
+  add(
+    "faults",
+    "No faults",
+    !car.flaws.some((f) => !f.fixed && (strict || f.revealed)),
+    "Quick fix repairs known faults.",
   );
+  if (t.records)
+    add(
+      "records",
+      "Service records",
+      h?.historyChecked && h.records,
+      h?.historyChecked
+        ? "This car has no records."
+        : "Check its records ($35).",
+      h?.historyChecked && !h.records,
+    );
+  if (t.noAccident)
+    add(
+      "accident",
+      "No accident history",
+      h?.historyChecked && !h.accident,
+      h?.historyChecked ? "Accident on record." : "Check its records ($35).",
+      h?.historyChecked && h.accident,
+    );
+  add(
+    "ready",
+    "Out of the workshop",
+    !NG.busy(s, car),
+    "Ready " + NG.date(car.readyDay) + ".",
+  );
+  return out;
+};
+// Could this car ever fit? Only the facts work cannot change (model, mileage, history).
+NG.requestFits = (s, q, car) =>
+  NG.requestCriteria(s, q, car).every((c) => c.ok || !c.fixed);
+NG.requestMatch = (s, q, car) =>
+  !!NG.requestSpec(q) &&
+  q.status === "active" &&
+  q.deadline >= s.day &&
+  NG.requestCriteria(s, q, car, true).every((c) => c.ok);
+NG.requestPayout = (s, q, car) => {
+  const t = NG.requestSpec(q);
+  if (!t) return 0;
+  if (t.legacy) return t.price;
+  const premium = NG.requestTiers[t.tier].premium,
+    price = Math.round((NG.estimate(s, car) * (1 + premium)) / 25) * 25;
+  return t.budget ? Math.min(t.budget, price) : price;
 };
 NG.validateRequestDelivery = (s, id, car) => {
   const q = s.opportunities?.requests.find((q) => q.id === id),
-    t = NG.requestKinds.find((t) => t.id === q?.kind);
+    t = NG.requestSpec(q);
   if (!q || !NG.requestMatch(s, q, car))
     throw Error(
-      "This car does not meet the active request. Inspect it, fix all faults and finish repairs before the deadline.",
+      "This car does not meet the active request. Check the request list on the car.",
     );
-  return { request: q, price: t.budget + t.bonus, buyer: t.buyer };
+  return {
+    request: q,
+    price: NG.requestPayout(s, q, car),
+    buyer: t.buyer,
+    rep: t.rep || 0,
+  };
+};
+// One click from anywhere. A fault you missed is found by the buyer's mechanic:
+// it is revealed (the deal waits) instead of an error that changes nothing.
+NG.deliverRequest = (s, id, carId) => {
+  const q = s.opportunities?.requests.find((q) => q.id === id),
+    car = s.inventory.find((c) => c.id === carId);
+  if (!q || !car) throw Error("This delivery is no longer available.");
+  const hidden = car.flaws.filter((f) => !f.fixed && !f.revealed);
+  if (
+    hidden.length &&
+    NG.requestCriteria(s, q, car).every((c) => c.ok) &&
+    q.status === "active" &&
+    q.deadline >= s.day
+  ) {
+    hidden.forEach((f) => (f.revealed = true));
+    return (
+      NG.requestSpec(q).buyer +
+      "'s mechanic found: " +
+      hidden.map((f) => f.label).join(", ") +
+      ". Fix it, then deliver."
+    );
+  }
+  const t = NG.requestSpec(q),
+    price = NG.requestPayout(s, q, car),
+    profit = NG.sell(s, carId, "request:" + id);
+  return (
+    "Delivered to " +
+    t.buyer +
+    " for " +
+    NG.money(price) +
+    " (" +
+    (profit >= 0 ? "+" : "-") +
+    NG.money(Math.abs(profit)) +
+    " deal margin)."
+  );
+};
+NG.generateRequest = (s, rng = Math.random) => {
+  const pick = (a) => a[Math.min(a.length - 1, Math.floor(rng() * a.length))];
+  const r = rng(),
+    tier =
+      (s.reputation || 0) >= 5 && r < 0.15
+        ? "collector"
+        : r < 0.55
+          ? "easy"
+          : "specific";
+  const pool = NG.catalog.filter((m) =>
+    tier === "collector"
+      ? m.value >= 9000
+      : tier === "specific"
+        ? m.value >= 4000 && m.value <= 12500
+        : m.value <= 7500,
+  );
+  // Single-model requests anchor on a model you can actually find today
+  // (market or your garage); otherwise one specific model rarely appears in time.
+  const seen = new Set([...s.market, ...s.inventory].map((c) => c.model)),
+    findable = pool.filter((m) => seen.has(m.id));
+  const m = pick(tier === "easy" || !findable.length ? pool : findable),
+    canName = findable.length > 0,
+    T = NG.requestTiers[tier],
+    spec = {
+      tier,
+      buyer: pick(NG.requestBuyers),
+      days: T.days + Math.floor(rng() * 2),
+      rep: T.rep,
+    };
+  const seg = SEGMENT_NAMES[m.segment];
+  if (tier === "collector" && canName)
+    Object.assign(spec, {
+      title: "Collector wants a " + m.name,
+      line: "Only the best example. Papers, no stories.",
+      models: [m.id],
+      grade: "excellent",
+      mileage: 130000,
+      records: true,
+      noAccident: true,
+    });
+  else if (tier !== "easy") {
+    if (tier === "collector") {
+      spec.tier = "specific";
+      spec.rep = NG.requestTiers.specific.rep;
+    }
+    const variant = rng();
+    if (variant < 0.55 && canName)
+      Object.assign(spec, {
+        title: "Looking for a " + m.name,
+        line: "It has to be this model, and it has to be clean.",
+        models: [m.id],
+        grade: "clean",
+        mileage: 150000,
+      });
+    else
+      Object.assign(spec, {
+        title: seg + " " + m.shape + " with papers",
+        line: "Documented and never crashed. I will pay for that.",
+        segment: m.segment,
+        shapes: [m.shape],
+        grade: "clean",
+        records: true,
+        noAccident: true,
+      });
+  } else {
+    const variant = rng();
+    if (["sport", "roadster"].includes(m.shape) && variant < 0.5)
+      Object.assign(spec, {
+        title: "Weekend fun car",
+        line: "Something fun for Sundays. It just needs to run right.",
+        shapes: ["sport", "roadster"],
+        grade: "driver",
+        mileage: 160000,
+      });
+    else if (m.shape === "hatch" && variant < 0.7)
+      Object.assign(spec, {
+        title: "First car for my kid",
+        line: "Safe, cheap to run, with records.",
+        shapes: ["hatch"],
+        grade: "driver",
+        records: true,
+        budget: 4500,
+      });
+    else
+      Object.assign(spec, {
+        title: seg + " daily driver",
+        line: "Reliable for the commute. Nothing fancy.",
+        segment: m.segment,
+        shapes: [m.shape],
+        grade: "driver",
+        mileage: 170000,
+      });
+  }
+  return spec;
 };
 NG.abandonRequest = (s, id) => {
   const q = s.opportunities?.requests.find((q) => q.id === id);
@@ -279,41 +560,30 @@ NG.opportunityDay = (s, rng = Math.random) => {
       NG.changeReputation(s, -1, "Missed buyer request deadline");
       o.notices.push(
         "Buyer request missed: " +
-          NG.requestKinds.find((t) => t.id === q.kind).title +
+          NG.requestSpec(q).title +
           ". -1 reputation; no cash penalty.",
       );
     }
   }
-  // Local invitations retired in v0.11; existing paid benefits expire normally.
+  // Local invitations retired in v0.11. Up to two invitations wait at once.
   if (
     s.day >= o.nextRequestDay &&
-    !o.requests.some((q) => q.status === "offered") &&
-    o.requests.filter((q) => q.status === "active").length < 2 &&
-    rng() < 0.25
+    o.requests.filter((q) => q.status === "offered").length < 2 &&
+    rng() < 0.35
   ) {
-    const candidates = NG.requestKinds.filter(
-      (t) =>
-        !o.requests.some(
-          (q) => ["active", "offered"].includes(q.status) && q.kind === t.id,
-        ),
+    const spec = NG.generateRequest(s, rng);
+    o.requests.push({
+      id: "request-" + s.nextId++,
+      kind: "custom",
+      spec,
+      status: "offered",
+      day: s.day,
+      offerUntil: s.day + 2,
+    });
+    o.nextRequestDay = s.day + 3;
+    o.notices.push(
+      "Buyer request: " + spec.title + ". Reply by " + NG.date(s.day + 2) + ".",
     );
-    const t =
-      candidates[
-        Math.min(candidates.length - 1, Math.floor(rng() * candidates.length))
-      ];
-    if (t) {
-      o.requests.push({
-        id: "request-" + s.nextId++,
-        kind: t.id,
-        status: "offered",
-        day: s.day,
-        offerUntil: s.day + 2,
-      });
-      o.nextRequestDay = s.day + 4;
-      o.notices.push(
-        "Buyer request: " + t.title + ". Reply by " + NG.date(s.day + 2) + ".",
-      );
-    }
   }
   // Keep all live commitments and a bounded history.
   o.events = o.events.filter(
