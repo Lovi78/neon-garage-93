@@ -38,6 +38,7 @@ for (const name of [
   "legacy-language",
   "state",
   "management",
+  "restoration",
   "management-ui",
   "ui",
 ]) {
@@ -243,6 +244,7 @@ for (const name of [
   "legacy-language",
   "state",
   "management",
+  "restoration",
   "management-ui",
   "ui",
 ])
@@ -319,6 +321,7 @@ for (const name of [
   "legacy-language",
   "state",
   "management",
+  "restoration",
   "management-ui",
   "ui",
 ])
@@ -404,6 +407,7 @@ for (const name of [
   "legacy-language",
   "state",
   "management",
+  "restoration",
   "management-ui",
   "ui",
 ])
@@ -760,6 +764,7 @@ for (const name of [
   "legacy-language",
   "state",
   "management",
+  "restoration",
   "management-ui",
   "ui",
 ])

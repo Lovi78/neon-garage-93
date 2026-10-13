@@ -10,6 +10,16 @@ A teljes fejlesztési irány, a következő szakaszok és a nyitott döntések a
 
 A kattintható tárgyakat állandó, finom mentazöld pixel sarokjelölés emeli ki. Rámutatáskor vagy billentyűzetes kijelöléskor aranyszínű lesz és megjelenik a funkció neve. A saját autók sziluettje is enyhe jelölést kap. Az alsó súgó a számítógéphez irányítja az első játékost; a napváltási jelenetben a jelölések nem látszanak.
 
+## Felújítási gazdaság - v0.14 (fejlesztés alatt, `codex/v0.14-cut-and-flow`)
+
+Az irány az [AUDIT-2026-10.md](AUDIT-2026-10.md) F/1 pontja. A javítás eddig minden stratégiában pénzt vesztett; most a "mennyire hozzam rendbe?" a fő döntés.
+
+- **Állapotfokozatok:** Rough (<55), Driver (55-74), Clean (75-89), Excellent (90+). Az érték a küszöböknél ugrik; a fokozatok közepén a régi értékgörbén marad.
+- **Három csomag a Workshop fülön, egy foglalás (3 munkaóra):** Quick fix (ismert hibák + detailing, aznap), Driver-ready (minden alkatrész 75+, Clean, 1 nap), Full restoration (minden 95, Excellent, 3 nap). Kártyánként költség, idő, fokozat előtte/utána, várható eladási ár és profitváltozás. Az alkatrészenkénti javítás lenyitható haladó opció.
+- **Vevők:** a rajongó +7%-ot fizet Excellent sportautóért/roadsterért; a budget vevő Driver felett nem fizet többet.
+- **Mérés:** `node tests/repair-simulation.cjs` (20 mag x 100 nap). v0.13: Driver-ready $507 vs. soha ne javíts $13,994. v0.14: Driver-ready $18,240 vs. $14,677 (+24%). Előtte/utána adatok: `reports/repair-*.json`.
+- A v0.13 mentések betöltenek (két valódi mentés a `tests/fixtures/` alatt).
+
 ## Indítás
 
 Nyisd meg az `index.html` fájlt Chrome-ban, Edge-ben, Firefoxban vagy Safariban. Nincs szükség telepítésre, regisztrációra, adatbázisra vagy játékszerverre.

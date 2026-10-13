@@ -959,17 +959,64 @@
     return `<div class="offer buyer-offer" id="buyer-offer-${o.id}"><div class="offer-summary"><span>${esc(o.buyer)}${o.profile ? `<small>${esc(o.profile.name)} / ${esc(o.profile.focus)}</small>` : ""}${o.returning ? '<small class="positive">RETURNING CUSTOMER</small>' : ""}<strong>${question ? "INQUIRY" : NG.money(o.price)}</strong>${!question ? `<small>Deal margin: ${signed(o.price - NG.cost(c))}</small>` : ""}<small>${o.expiresDay != null ? "Valid through " + NG.date(o.expiresDay) : "Today only"}</small></span><div class="offer-actions">${!question ? `<button class="primary" data-action="sell" data-id="${c.id}" data-offer="${o.id}">Accept</button>` : ""}<button data-action="reject" data-id="${c.id}" data-offer="${o.id}">Decline</button></div></div><div class="negotiation-dialogue"><span>${esc(o.buyer)} / ${esc({ question: "Question", agreed: "Agreed", offer: "Offer" }[o.stage] || "Offer")}</span>${o.negotiation?.history?.length ? `<p class="player-line">You asked <b>${NG.money(o.negotiation.history.at(-1).price)}</b></p>` : ""}<p>${esc(o.negotiation?.message || o.message || "Here is my offer.")}</p></div>${question ? `<label class="price-label" for="buyer-answer-${o.id}">Your reply</label><select id="buyer-answer-${o.id}"><option value="condition">Share inspected condition</option><option value="records">Provide service records</option><option value="as-is">Explain uncertainty honestly</option></select><button data-action="answer-buyer" data-id="${c.id}" data-offer="${o.id}">Answer inquiry</button>` : ""}${canCounter ? `<label class="price-label" for="counter-price-${o.id}">Your counteroffer ($)</label><div class="haggle-controls"><input id="counter-price-${o.id}" aria-describedby="offer-feedback-${o.id}" inputmode="numeric" type="number" min="${o.price + 1}" max="${c.listPrice}" step="1" value="${Math.min(c.listPrice, Math.round(o.price * 1.06))}"><button data-action="haggle-sell" data-id="${c.id}" data-offer="${o.id}">Counteroffer</button></div><select id="sale-tactic-${o.id}" aria-label="Selling argument"><option value="price">Discuss price</option><option value="records">Documented service history</option><option value="reliability">Inspected reliability</option></select><p class="offer-feedback" id="offer-feedback-${o.id}" role="alert" hidden></p><p class="fine-print">Use evidence this buyer values.</p>` : ""}</div>`;
   }
 
+  function gradeChip(condition) {
+    const g = NG.gradeFor(condition);
+    return `<span class="grade-chip grade-${g.id}">${g.label}</span>`;
+  }
+  // v0.14: three packages are the main repair decision; part-by-part stays for advanced players.
+  function repairPackagesPanel(c) {
+    const blocked =
+        NG.busy(state, c) ||
+        c.listed ||
+        state.operations.arrears > 0 ||
+        (repairMode === "standard" &&
+          (NG.workshopBusy(state) >= NG.workshopCapacity(state) ||
+            NG.localWorkshopBlocked(state))),
+      quotes = NG.repairPackages.map((p) =>
+        NG.packageQuote(state, c, p.id, repairMode),
+      ),
+      best = quotes
+        .filter(
+          (q) =>
+            q.available &&
+            q.profitChange > 0 &&
+            !NG.busy(state, c) &&
+            !c.listed,
+        )
+        .sort((a, b) => b.profitChange - a.profitChange)[0];
+    const note = NG.busy(state, c)
+      ? `In the workshop. Ready ${NG.date(c.readyDay)}.`
+      : c.listed
+        ? "Remove the listing before booking work."
+        : best
+          ? `Best expected return: ${best.label}.`
+          : "No package is expected to pay for itself on this car. Selling as it is can be the right call.";
+    return `<section class="repair-packages" aria-label="Repair packages"><h3>How far do you take it?</h3><p class="fine-print">${esc(note)}</p><div class="package-grid">${quotes
+      .map(
+        (q) =>
+          `<article class="package-card${q === best ? " recommended" : ""}">${q === best ? '<span class="package-flag">BEST RETURN</span>' : ""}<h4>${esc(q.label)}</h4><small>${esc(q.short)}</small>${
+            q.available
+              ? `<div class="package-grade">${gradeChip(q.gradeBefore.min)}<span aria-hidden="true">→</span><span class="sr-only">to</span>${gradeChip(q.gradeAfter.min)}</div><dl><dt>Cost</dt><dd>${NG.money(q.cost)}</dd><dt>Time</dt><dd>${q.days ? q.days + " day" + (q.days === 1 ? "" : "s") : "Same day"}</dd><dt>Expected sale</dt><dd>${NG.money(q.estimateBefore)} → ${NG.money(q.estimateAfter)}</dd><dt>Profit change</dt><dd class="${q.profitChange >= 0 ? "positive" : "negative"}">${signed(q.profitChange)}</dd></dl><button class="${q === best ? "primary" : ""}" data-action="repair-package" data-id="${c.id}" data-package="${q.id}" ${blocked || state.cash < q.cost ? "disabled" : ""}>Book ${esc(q.label)} / ${NG.money(q.cost)}</button>`
+              : `<p class="fine-print">${esc(q.reason)}</p>`
+          }</article>`,
+      )
+      .join(
+        "",
+      )}</div><p class="fine-print">One booking, three hours of your time. Expected sale uses what you know: hidden faults in parts the crew opens are found and fixed at parts cost. Profit change includes $5/day holding cost.</p></section>`;
+  }
   function mechanicalPanel(c, owned) {
     const id = c.id,
       known = c.inspected || owned;
-    return `${owned && !c.listed ? `<label class="price-label" for="repair-mode">Workshop booking</label><select id="repair-mode"><option value="standard" ${repairMode === "standard" ? "selected" : ""}>In-house / one job slot</option><option value="rush" ${repairMode === "rush" ? "selected" : ""}>Outsourced rush / +25%, min $80</option></select>` : ""}${owned && NG.localWorkshopBlocked(state) ? '<p class="workshop-note">Today’s local event closes in-house bookings. Choose outsourced rush or wait until tomorrow.</p>' : ""}<h3>Mechanical condition <span>${known ? NG.condition(c) : c.claim}%</span></h3><p class="fine-print">${owned && !c.inspected ? "Workshop assessment / inspect for hidden faults." : c.inspected ? "Inspected / intermittent faults may remain." : "Seller claim / unverified."}</p>${Object.entries(
+    return `${owned && !c.listed ? `<label class="price-label" for="repair-mode">Workshop booking</label><select id="repair-mode"><option value="standard" ${repairMode === "standard" ? "selected" : ""}>In-house / one job slot</option><option value="rush" ${repairMode === "rush" ? "selected" : ""}>Outsourced rush / +25%, min $80</option></select>` : ""}${owned && NG.localWorkshopBlocked(state) ? '<p class="workshop-note">Today’s local event closes in-house bookings. Choose outsourced rush or wait until tomorrow.</p>' : ""}<h3>Mechanical condition <span>${known ? NG.condition(c) : c.claim}% ${gradeChip(known ? NG.condition(c) : c.claim)}</span></h3><p class="fine-print">${owned && !c.inspected ? "Workshop assessment / inspect for hidden faults." : c.inspected ? "Inspected / intermittent faults may remain." : "Seller claim / unverified."}</p>${owned && NG.repairPackages ? repairPackagesPanel(c) + '<details class="single-part-repairs"><summary>Single-part repairs (advanced)</summary>' : ""}${Object.entries(
       NG.parts,
     )
       .map(([p, d]) => {
         const n = known ? c.parts[p] : c.claim;
         return `<div class="part-row"><span>${d.label}</span><div class="meter"><i style="width:${n}%"></i></div><b>${n}%</b>${owned ? `<button data-action="repair" data-id="${id}" data-part="${p}" ${NG.busy(state, c) || c.listed || state.operations.arrears > 0 || (repairMode === "standard" && (NG.workshopBusy(state) >= NG.workshopCapacity(state) || NG.localWorkshopBlocked(state))) || (c.parts[p] >= 95 && !c.flaws.some((f) => f.part === p && f.revealed && !f.fixed)) ? "disabled" : ""}>${c.parts[p] >= 95 && !c.flaws.some((f) => f.part === p && f.revealed && !f.fixed) ? "Done" : NG.money(NG.repairQuote(c, p, state, repairMode))}</button>` : ""}</div>`;
       })
-      .join("")}<div class="faults">${
+      .join(
+        "",
+      )}${owned && NG.repairPackages ? "</details>" : ""}<div class="faults">${
       c.flaws
         .filter((f) => f.revealed)
         .map(
@@ -978,7 +1025,7 @@
         )
         .join("") ||
       `<p>${c.inspected ? "No additional faults detected. This is not a guarantee." : "? Hidden faults: not fully inspected."}</p>`
-    }</div>${!c.inspected ? `<button data-action="inspect" data-id="${id}">Mechanical inspection · ${NG.money(NG.inspectionPrice(state))}</button>` : ""}${!c.vehicleHistory?.deepChecked ? `<button data-action="inspect-deep" data-id="${id}">Specialist examination / ${NG.money(NG.inspectionPrice(state) * 2)}</button>` : ""}${owned ? '<p class="fine-print">Repairs restore a part to 95%. Normal engine/transmission work takes 2 days (1 at Mechanical rank 2 or with an active visiting mechanic); other jobs and rush work take 1 day. If a hidden fault is found, you get a revised quote before paying.</p>' : ""}`;
+    }</div>${!c.inspected ? `<button data-action="inspect" data-id="${id}">Mechanical inspection · ${NG.money(NG.inspectionPrice(state))}</button>` : ""}${!c.vehicleHistory?.deepChecked ? `<button data-action="inspect-deep" data-id="${id}">Specialist examination / ${NG.money(NG.inspectionPrice(state) * 2)}</button>` : ""}${owned ? '<p class="fine-print">Grades: Rough under 55%, Driver 55-74%, Clean 75-89%, Excellent 90%+. Buyers pay by grade. Single-part repairs restore one part to 95% and cost more than a package; if they find a hidden fault, you get a revised quote before paying.</p>' : ""}`;
   }
   function carSwitch(tab, focus = false) {
     const panel = dialog.querySelector(`[data-car-panel="${tab}"]`);
@@ -1665,6 +1712,8 @@
         message = "Your car has arrived in the garage.";
       }
       if (action === "repair") message = NG.repair(state, id, part, repairMode);
+      if (action === "repair-package")
+        message = NG.repairPackage(state, id, b.dataset.package, repairMode);
       if (action === "list") {
         NG.list(
           state,
