@@ -83,9 +83,14 @@ test("Friday morning strip reports the new rank and the unlock", () => {
   for (let i = 0; i < 3; i++) click('#app .game-hud [data-action="next"]');
   assert.equal(state().day, 3);
   const strip = d.querySelector(".morning-strip").textContent;
-  assert.match(strip, /Silver Palms ranking: #5 of 7 \(up 1\)/);
+  assert.match(strip, /#5 of 7 ▲1/);
   assert.match(strip, /Unlocked: Auction tips/);
-  assert.match(strip, /Season goal done: .*Break into the Silver Palms Top 5/);
+  assert.match(strip, /✓ 2 season goals done/);
+  assert(
+    !/Silver Palms ranking:/.test(strip),
+    "long ranking text stays in the report",
+  );
+  assert(d.querySelector('.morning-strip .ms-rank[data-view="rankings"]'));
   click(".hud-rank");
   assert.equal(d.querySelectorAll(".rank-unlocks .reached").length, 1);
   assert(d.querySelector(".season-goals li.done"));

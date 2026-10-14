@@ -115,6 +115,12 @@ test("Active request tracker shows on the garage screen and delivers in one clic
     q = before.opportunities.requests[0],
     pay = w.NG.requestPayout(before, q, before.inventory[0]);
   assert.match(chip.textContent, new RegExp("Deliver Mazda MX-5"));
+  assert(
+    !/Get your car ready/.test(
+      d.querySelector(".garage-guide")?.textContent || "",
+    ),
+    "no prep hint for a car that is ready to hand over",
+  );
   click('.request-tracker [data-action="request-deliver"]');
   const after = state();
   assert.equal(after.cash, before.cash + pay);

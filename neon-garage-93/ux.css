@@ -2714,3 +2714,58 @@ main.world-frame {
     padding: 6px 8px;
   }
 }
+.morning-strip .ms-body {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  min-width: 0;
+}
+.morning-strip .ms-body p {
+  flex: 0 1 auto;
+}
+.morning-strip .ms-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 26px;
+  padding: 2px 9px;
+  font-size: 12px;
+  border-radius: 13px;
+  background: #ffd16614;
+  border: 1px solid #ffd16666;
+  color: #ffe3a1;
+  box-shadow: none;
+}
+.morning-strip .ms-chip .ui-icon {
+  width: 13px;
+  height: 13px;
+}
+.morning-strip .ms-chip b.up {
+  color: var(--teal);
+}
+.morning-strip .ms-chip b.down {
+  color: var(--pink);
+}
+.morning-strip .ms-goal {
+  background: #9edac614;
+  border-color: #9edac666;
+  color: var(--teal);
+}
+@media (max-width: 650px) {
+  .morning-strip {
+    flex-wrap: wrap;
+    gap: 6px 8px;
+  }
+  .morning-strip .eyebrow {
+    flex: 1 0 auto;
+  }
+  .morning-strip .ms-body {
+    order: 3;
+    flex-basis: 100%;
+  }
+  .morning-strip .ms-chip {
+    text-align: left;
+  }
+}

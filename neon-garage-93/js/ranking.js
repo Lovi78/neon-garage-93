@@ -192,8 +192,10 @@ window.NG = window.NG || {};
             ")"
           : ""),
     ];
+    const unlocks = [];
     for (const u of NG.rankUnlocks)
       if (z.best <= u.rank && !z.unlocked[u.id]) {
+        unlocks.push(u.title);
         z.unlocked[u.id] = s.day;
         if (u.id === "first")
           NG.changeReputation(s, 5, "Top dealer in Silver Palms");
@@ -204,6 +206,14 @@ window.NG = window.NG || {};
       bits.push("Season 1 final standing: #" + rank);
     }
     z.notice = bits.join(". ") + ".";
+    // Compact form for the morning strip.
+    z.news = {
+      rank,
+      size: z.table.length,
+      move: before ? before - rank : 0,
+      unlocks,
+      final: week === NG.seasonWeeks,
+    };
     return z.notice;
   };
 
@@ -332,12 +342,14 @@ window.NG = window.NG || {};
     const report = nextDay(s, rng);
     const z = NG.ensureSeason(s);
     z.notice = "";
+    z.news = null;
     if (NG.isRentDay(s.day) && !(s.operations?.arrears > 0))
       z.flags.rentPaid = true;
     NG.updateRanking(s);
     const fresh = NG.checkSeasonGoals(s);
     if (s.dayReport && s.dayReport.day === s.day) {
       s.dayReport.ranking = z.notice;
+      s.dayReport.rankNews = z.news;
       s.dayReport.seasonGoals = fresh.map(
         (g) => g.title + " (" + g.reward + ")",
       );

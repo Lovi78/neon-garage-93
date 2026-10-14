@@ -426,7 +426,16 @@
       return "";
     if (!state.inventory.length)
       return `<aside class="garage-guide"><span class="eyebrow">${state.sold ? "YOUR NEXT DEAL" : "WELCOME TO SILVER PALMS"}</span><h2>${state.sold ? "Make room for a new story." : "Two bays. Your first big break."}</h2><p>Buy smart, repair what matters, sell for a profit.</p><button class="primary" data-action="view" data-view="market">Find ${state.sold ? "your next" : "your first"} car ↗</button><details><summary>Dealer's quick guide</summary><p>Call a seller and negotiate. Inspect before committing, then list your car and advance the day for buyers.</p><p><b>✦ XP:</b> close a negotiated deal with a price advantage to earn experience. Each level gives one skill point.</p><p><b>◆ Reputation:</b> honest sales build trust, attract buyers and help unlock credit and expansions. Complaints can hurt it.</p></details></aside>`;
-    const ready = state.inventory.find((c) => !c.listed && !NG.busy(state, c));
+    const deliverable = new Set(
+      activeRequests().flatMap((q) =>
+        requestCandidates(q)
+          .filter((x) => !x.missing.length)
+          .map((x) => x.c.id),
+      ),
+    );
+    const ready = state.inventory.find(
+      (c) => !c.listed && !NG.busy(state, c) && !deliverable.has(c.id),
+    );
     if (ready)
       return `<aside class="garage-guide compact"><span class="eyebrow">NEXT MOVE</span><h2>Get your car ready for its next owner.</h2><p>Inspect and repair if needed, then choose your asking price.</p><button class="primary" data-action="detail" data-id="${ready.id}" data-tab="selling">Review ${esc(NG.model(ready).name)} ↗</button></aside>`;
     return "";
@@ -692,14 +701,26 @@
       bits.push(
         `${r.offers.length} new buyer contact${r.offers.length === 1 ? "" : "s"}`,
       );
-    if (r.completedRepairs.length)
-      bits.push("Workshop done: " + r.completedRepairs.join(", "));
+    // Finished repairs already show as a "Repair completed" alert below.
     if (r.operations) bits.push(r.operations);
-    if (r.ranking) bits.push(r.ranking);
+    if (!bits.length && !r.rankNews && !r.seasonGoals?.length)
+      bits.push("A quiet night. " + r.event.title);
+    // F/4: ranking news and goals as short chips, details in the Ranking window.
+    const n = r.rankNews,
+      chips = [];
+    if (n)
+      chips.push(
+        `<button class="ms-chip ms-rank" data-action="view" data-view="rankings" title="${esc(r.ranking || "")}">${icon("trophy")}#${n.rank} of ${n.size}${n.move > 0 ? ` <b class="up">▲${n.move}</b>` : n.move < 0 ? ` <b class="down">▼${-n.move}</b>` : ""}${n.final ? " / final" : ""}</button>`,
+      );
+    if (n?.unlocks.length)
+      chips.push(
+        `<button class="ms-chip ms-unlock" data-action="view" data-view="rankings">Unlocked: ${esc(n.unlocks.join(", "))}</button>`,
+      );
     if (r.seasonGoals?.length)
-      bits.push("Season goal done: " + r.seasonGoals.join(", "));
-    if (!bits.length) bits.push("A quiet night. " + r.event.title);
-    return `<section class="morning-strip" role="status" aria-label="Morning summary"><span class="eyebrow">${NG.date(r.day)}</span><p>${bits.map(esc).join(" · ")}</p><button data-action="show-day-report">Full report</button><button data-action="dismiss-morning" aria-label="Dismiss morning summary">×</button></section>`;
+      chips.push(
+        `<button class="ms-chip ms-goal" data-action="view" data-view="rankings" title="${esc(r.seasonGoals.join("\n"))}">✓ ${r.seasonGoals.length === 1 ? "Season goal: " + esc(r.seasonGoals[0].replace(/ \(.*\)$/, "")) : r.seasonGoals.length + " season goals done"}</button>`,
+      );
+    return `<section class="morning-strip" role="status" aria-label="Morning summary"><span class="eyebrow">${NG.date(r.day)}</span><div class="ms-body">${bits.length ? `<p>${bits.map(esc).join(" · ")}</p>` : ""}${chips.join("")}</div><button data-action="show-day-report">Full report</button><button data-action="dismiss-morning" aria-label="Dismiss morning summary">×</button></section>`;
   }
   function requestTracker() {
     const active = activeRequests();
