@@ -58,6 +58,10 @@ test("Next Day is one click: no confirmation, no report window, a morning strip"
   assert(state().dayReport.read);
   click('[data-action="show-day-report"]');
   assert(d.querySelector("#day-report").open, "full report stays available");
+  assert(
+    !d.querySelector("#day-report .game-hud"),
+    "no HUD repeated in the report",
+  );
   dom.window.close();
 });
 test("An unseen offer that would expire still asks first", () => {
