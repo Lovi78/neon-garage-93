@@ -481,6 +481,25 @@ window.NG = window.NG || {};
     if (tactic === "cash") allowance += c.ask * 0.035 * p.urgency;
     if (tactic === "inspection" && c.inspected)
       allowance += c.ask * 0.015 * p.trust;
+    // v0.14: the seller's reply tells you how the approach landed.
+    const react =
+      tactic === "fault"
+        ? newEvidence > 0
+          ? "Fine, the report does show that. "
+          : "I need proof of that fault. "
+        : tactic === "cash"
+          ? p.urgency >= 0.85
+            ? "Cash today helps me a lot. "
+            : p.urgency >= 0.55
+              ? "Quick cash is nice. "
+              : "I am in no rush, cash or not. "
+          : tactic === "inspection"
+            ? !c.inspected
+              ? "What report? "
+              : p.trust >= 0.6
+                ? "Fair, I read your report. "
+                : "Reports can say anything. "
+            : "";
     const skilled =
       c.ask *
       ((s.progress?.negotiation || 0) * 0.008 +
@@ -534,6 +553,7 @@ window.NG = window.NG || {};
           d.resumeDay = s.day + 1;
           if (compareOtherBuyer) d.competitionConsidered = true;
           d.message =
+            (s.flow ? react : "") +
             (compareOtherBuyer
               ? "I will compare the other interest overnight. "
               : "Let us take a break until tomorrow. ") +
@@ -543,7 +563,8 @@ window.NG = window.NG || {};
         } else {
           d.status = "active";
           d.message =
-            (tactic === "fault" && !newEvidence
+            (s.flow ? react : "") +
+            (tactic === "fault" && !newEvidence && !s.flow
               ? "I need proof of that fault. "
               : p.competitors && !d.competitionConsidered
                 ? "There is other interest, so I have less room. "

@@ -2769,3 +2769,62 @@ main.world-frame {
     text-align: left;
   }
 }
+
+/* v0.14 purchase approach: facts, not verdicts */
+.tactic-picker {
+  border: 0;
+  padding: 0;
+  margin: 10px 0 4px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.tactic-picker legend {
+  margin-bottom: 6px;
+}
+.tactic-option {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  cursor: pointer;
+  background: #ffffff05;
+}
+.tactic-option:has(input:checked) {
+  border-color: var(--teal);
+  background: #9edac612;
+}
+.tactic-option {
+  position: relative;
+}
+.tactic-option input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+}
+.tactic-option:has(input:focus-visible) {
+  outline: 2px solid var(--teal);
+  outline-offset: 2px;
+}
+.tactic-option b {
+  display: block;
+  font-size: 14px;
+}
+.tactic-option small {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+.tactic-option.tactic-risk small {
+  color: var(--pink);
+}
+@media (max-width: 650px) {
+  .tactic-picker {
+    grid-template-columns: 1fr;
+  }
+}

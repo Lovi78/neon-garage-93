@@ -344,6 +344,41 @@
       .join("");
     return `<div class="season-head"><div><span class="eyebrow">SEASON 1 / SUMMER OF '93</span><h3>${z.final ? `Season over: you finished #${z.final.rank} of ${size}` : z.week ? `Week ${z.week} of ${NG.seasonWeeks}` : "Opening week"}</h3><small>${z.final ? "The table keeps moving until Season 2." : `Final standings ${NG.date(NG.seasonEndDay(state))}.`}</small></div><div class="season-rank"><b>#${z.rank}</b><small>of ${size}</small></div></div>${target}<ol class="rank-table">${rows}</ol><div class="rank-unlocks">${NG.rankUnlocks.map((u) => `<div class="${z.unlocked[u.id] ? "reached" : ""}"><span>${u.rank === 1 ? "#1" : "TOP " + u.rank}${z.unlocked[u.id] ? " ✓" : ""}</span><b>${esc(u.title)}</b><small>${esc(u.text)}</small></div>`).join("")}</div><section class="season-goals"><h3>Season goals <span>${prog.done} / ${prog.total}</span></h3><ul>${NG.seasonGoals.map((g) => `<li class="${z.goals[g.id] ? "done" : ""}"><span>${z.goals[g.id] ? "✓" : "◇"} ${esc(g.title)}</span><small>${esc(g.reward)}</small></li>`).join("")}</ul></section><p class="fine-print">Score is business value: cash, your cars at dealer price and business assets, minus credit and overdue bills. Rivals post their numbers on Fridays and the table locks then; your figure above is live. Rank rewards use the best Friday rank you reach, so a bad week never takes them back.</p>`;
   }
+  // Purchase approach. v0.14 shows what each approach leans on and what you
+  // hold right now, but never picks or scores one: reading the seller is the game.
+  function tacticPicker(c, p, n) {
+    if (!state.flow)
+      return `<label class="price-label" for="purchase-tactic">Your approach</label><select id="purchase-tactic"><option value="direct">Direct offer</option><option value="cash">Quick, certain cash payment</option><option value="fault">Point to documented faults</option><option value="inspection">Use the inspection report</option></select>`;
+    const proof = Math.max(0, NG.evidence(c) - (n?.evidenceUsed || 0)),
+      mood = p.trust >= 0.6 ? "warm" : p.trust >= 0.35 ? "neutral" : "wary",
+      last = n?.history?.at(-1)?.tactic || "direct",
+      said = p.contacted
+        ? NG.sellerKinds.find((k) => k.id === p.kind)?.line
+        : "";
+    const options = [
+      ["direct", "Direct offer", "Just your number. No leverage."],
+      [
+        "cash",
+        "Quick cash",
+        "Leans on the seller's hurry." + (said ? ` They said: “${said}”` : ""),
+      ],
+      [
+        "fault",
+        "Point to faults",
+        proof
+          ? `Leans on proof. Unused: ${NG.money(proof)} of documented problems.`
+          : "Leans on proof. You have none on file yet, so it is a bluff and costs trust.",
+      ],
+      [
+        "inspection",
+        "Inspection report",
+        c.inspected
+          ? `Leans on trust. Seller mood: ${mood}.`
+          : "Needs an inspection first. Nothing to show yet.",
+      ],
+    ];
+    return `<fieldset class="tactic-picker"><legend class="price-label">Your approach</legend>${options.map(([id, label, hint]) => `<label class="tactic-option${id === "fault" && !proof ? " tactic-risk" : ""}"><input type="radio" name="purchase-tactic" value="${id}" ${id === last ? "checked" : ""}><span><b>${label}</b><small>${esc(hint)}</small></span></label>`).join("")}</fieldset>`;
+  }
   function deals() {
     return `${activeDeals()}<section class="deals-inbox"><h3>Buyer conversations</h3>${
       state.inventory
@@ -1203,7 +1238,7 @@
       p = c.seller,
       summary = NG.dealSummary(state, c);
     const paused = n && ["waiting", "callback", "walked"].includes(n.status);
-    return `<div class="seller-header"><div><h3>${esc(p.name)}</h3><small>${p.contacted ? esc(p.reason) : "Private seller"} / listed ${state.day - c.listing.createdDay} days</small></div>${!p.contacted ? `<button data-action="contact-seller" data-id="${c.id}">Call seller</button>` : !p.detailsAsked ? `<button data-action="seller-details" data-id="${c.id}">Ask about the car</button>` : ""}</div>${p.contacted ? `<p class="seller-story">${esc(NG.sellerKinds.find((k) => k.id === p.kind).line)}${p.detailsLine ? ` <span class="seller-answer">About the car: “${esc(p.detailsLine)}”</span>` : ""}</p>` : ""}<details class="price-history"><summary>Price history / original ${NG.money(c.listing.originalAsk)}</summary><p>${c.listing.prices.map((x) => NG.date(x.day) + ": " + NG.money(x.price)).join(" / ")}</p></details><div class="negotiation-dialogue"><span>PHONE / ${esc({ waiting: "Call back tomorrow", callback: "Incoming call", agreed: "Agreed", walked: "Call ended", active: "Negotiating" }[n?.status] || "Connected")}</span>${n?.lastBid ? `<p class="player-line">You offered <b>${NG.money(n.lastBid)}</b></p>` : ""}<small>${esc(p.name)} / current ${NG.money(quote)}</small><p>${esc(n?.message || (n ? "My current price is " + NG.money(quote) : "Asking " + NG.money(c.ask)) + ". What did you have in mind?")}</p>${n?.status === "waiting" && n.resumeDay != null ? `<small>Call back on ${NG.date(n.resumeDay)} / advance to the next day.</small>` : ""}</div>${negotiationHistory(n)}${n?.status === "callback" ? `<button data-action="resume-deal" data-id="${c.id}">Return seller’s call</button>` : ""}${!n?.closed && !paused ? `<label class="price-label" for="purchase-bid">Your offer ($)</label><div class="haggle-controls"><input id="purchase-bid" type="number" min="100" max="${Math.min(state.cash - 50, quote - 1)}" step="1" value="${Math.max(100, Math.min(state.cash - 50, quote - 1, n?.lastBid ? Math.max(n.lastBid + 1, Math.round((n.lastBid + quote) / 2)) : Math.round(quote * 0.9)))}"><button data-action="haggle-buy" data-id="${c.id}" ${state.inventory.length >= state.capacity || state.cash < 150 ? "disabled" : ""}>Make offer</button></div>${state.flow && state.cash - 50 < quote * 0.75 ? `<p class="negative budget-hint">Out of reach for now: you have ${NG.money(state.cash)}. Offers far below the asking price (under about ${NG.money(Math.round(quote * 0.63))}) end the call.</p>` : ""}<label class="price-label" for="purchase-tactic">Your approach</label><select id="purchase-tactic"><option value="direct">Direct offer</option><option value="cash">Quick, certain cash payment</option><option value="fault">Point to documented faults</option><option value="inspection">Use the inspection report</option></select><div class="actions"><button data-action="wait-deal" data-id="${c.id}">Think overnight</button><button data-action="walk-deal" data-id="${c.id}">End the call</button></div><p class="fine-print">Nothing reserved until agreement.</p>` : ""}${paused && n?.status !== "callback" ? `<button data-action="next">Close day & wait</button>` : ""}`;
+    return `<div class="seller-header"><div><h3>${esc(p.name)}</h3><small>${p.contacted ? esc(p.reason) : "Private seller"} / listed ${state.day - c.listing.createdDay} days</small></div>${!p.contacted ? `<button data-action="contact-seller" data-id="${c.id}">Call seller</button>` : !p.detailsAsked ? `<button data-action="seller-details" data-id="${c.id}">Ask about the car</button>` : ""}</div>${p.contacted ? `<p class="seller-story">${esc(NG.sellerKinds.find((k) => k.id === p.kind).line)}${p.detailsLine ? ` <span class="seller-answer">About the car: “${esc(p.detailsLine)}”</span>` : ""}</p>` : ""}<details class="price-history"><summary>Price history / original ${NG.money(c.listing.originalAsk)}</summary><p>${c.listing.prices.map((x) => NG.date(x.day) + ": " + NG.money(x.price)).join(" / ")}</p></details><div class="negotiation-dialogue"><span>PHONE / ${esc({ waiting: "Call back tomorrow", callback: "Incoming call", agreed: "Agreed", walked: "Call ended", active: "Negotiating" }[n?.status] || "Connected")}</span>${n?.lastBid ? `<p class="player-line">You offered <b>${NG.money(n.lastBid)}</b></p>` : ""}<small>${esc(p.name)} / current ${NG.money(quote)}</small><p>${esc(n?.message || (n ? "My current price is " + NG.money(quote) : "Asking " + NG.money(c.ask)) + ". What did you have in mind?")}</p>${n?.status === "waiting" && n.resumeDay != null ? `<small>Call back on ${NG.date(n.resumeDay)} / advance to the next day.</small>` : ""}</div>${negotiationHistory(n)}${n?.status === "callback" ? `<button data-action="resume-deal" data-id="${c.id}">Return seller’s call</button>` : ""}${!n?.closed && !paused ? `<label class="price-label" for="purchase-bid">Your offer ($)</label><div class="haggle-controls"><input id="purchase-bid" type="number" min="100" max="${Math.min(state.cash - 50, quote - 1)}" step="1" value="${Math.max(100, Math.min(state.cash - 50, quote - 1, n?.lastBid ? Math.max(n.lastBid + 1, Math.round((n.lastBid + quote) / 2)) : Math.round(quote * 0.9)))}"><button data-action="haggle-buy" data-id="${c.id}" ${state.inventory.length >= state.capacity || state.cash < 150 ? "disabled" : ""}>Make offer</button></div>${state.flow && state.cash - 50 < quote * 0.75 ? `<p class="negative budget-hint">Out of reach for now: you have ${NG.money(state.cash)}. Offers far below the asking price (under about ${NG.money(Math.round(quote * 0.63))}) end the call.</p>` : ""}${tacticPicker(c, p, n)}<div class="actions"><button data-action="wait-deal" data-id="${c.id}">Think overnight</button><button data-action="walk-deal" data-id="${c.id}">End the call</button></div><p class="fine-print">Nothing reserved until agreement.</p>` : ""}${paused && n?.status !== "callback" ? `<button data-action="next">Close day & wait</button>` : ""}`;
   }
 
   function offerCard(c, o) {
@@ -2043,7 +2078,10 @@
           id,
           Number(document.querySelector("#purchase-bid").value),
           Math.random,
-          document.querySelector("#purchase-tactic").value,
+          (
+            document.querySelector('input[name="purchase-tactic"]:checked') ||
+            document.querySelector("#purchase-tactic")
+          ).value,
         );
       }
       if (action === "haggle-sell") {

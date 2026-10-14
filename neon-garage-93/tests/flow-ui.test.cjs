@@ -183,4 +183,52 @@ test("F/3: market shows cars first with demand folded into one line", () => {
   assert.match(strip.querySelector("summary").textContent, /Japan \d+%/);
   dom.window.close();
 });
+test("Purchase approach shows what each option leans on; the seller's reply tells how it landed", () => {
+  const { dom, d, state, click } = boot((N) => {
+    const s = fresh(N);
+    s.cash = 20000;
+    return s;
+  });
+  click('#app [data-view="market"]');
+  click(".market-row");
+  const options = [...d.querySelectorAll('input[name="purchase-tactic"]')];
+  assert.deepEqual(
+    options.map((o) => o.value),
+    ["direct", "cash", "fault", "inspection"],
+  );
+  assert.equal(
+    d.querySelector('input[name="purchase-tactic"]:checked').value,
+    "direct",
+  );
+  const fault = d
+    .querySelector('.tactic-option input[value="fault"]')
+    .closest("label");
+  assert(fault.classList.contains("tactic-risk"));
+  assert.match(fault.textContent, /none on file yet/);
+  assert.match(
+    d.querySelector('.tactic-option input[value="cash"]').closest("label")
+      .textContent,
+    /They said: “/,
+  );
+  assert(
+    !d.querySelector(".tactic-option .best, .tactic-option [data-best]"),
+    "no verdict",
+  );
+  d.querySelector('input[name="purchase-tactic"][value="cash"]').checked = true;
+  const ask = state().market[0].ask;
+  d.querySelector("#purchase-bid").value = String(Math.round(ask * 0.85));
+  click('[data-action="haggle-buy"]');
+  const n = state().market[0].negotiation;
+  assert.equal(n.history.at(-1).tactic, "cash");
+  if (n.status === "active" || n.status === "waiting")
+    assert.match(
+      n.message,
+      /^(Cash today helps me a lot|Quick cash is nice|I am in no rush)/,
+    );
+  assert.equal(
+    d.querySelector('input[name="purchase-tactic"]:checked')?.value ?? "cash",
+    "cash",
+  );
+  dom.window.close();
+});
 console.log(count + " day rhythm UI tests passed.");
