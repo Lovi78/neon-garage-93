@@ -23,6 +23,8 @@ const files = [...html.matchAll(/src="(js\/[^" ]+)"/g)].map(
 );
 for (const file of files.filter((f) => !f.endsWith("/ui.js")))
   w.eval(fs.readFileSync(path.join(root, file), "utf8"));
+// v0.13 day closing (confirmation + report window); v0.14 flow is tested separately.
+w.NG.newGameFlow = false;
 const fixture = w.NG.newState();
 fixture.cash = 104259;
 fixture.reputation = 57;

@@ -19,6 +19,8 @@ function open(scenario, customize) {
     this.open = false;
   };
   for (const file of scripts) {
+    // v0.13 day closing; v0.14 flow is tested separately.
+    if (w.NG?.flowDefaults) w.NG.newGameFlow = false;
     if (file.endsWith("/ui.js") && customize) {
       const fixture = w.NG.practiceScenario(scenario);
       customize(fixture);

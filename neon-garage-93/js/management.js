@@ -185,7 +185,9 @@
       ),
       cost = hours[kind];
     const cap = id === "owner" ? 8 : NG.workerHours(w);
-    if (w.used + cost > cap)
+    // v0.14 solo play: the owner's own time is no longer rationed.
+    const unlimited = id === "owner" && s.flow && s.flow.ownerHours === false;
+    if (!unlimited && w.used + cost > cap)
       throw Error(
         (w.id === "owner" ? "You have" : w.name + " has") +
           " no work time left today. Queue it or outsource.",

@@ -20,6 +20,8 @@ function boot(make = (N) => N.newState()) {
   };
   for (const f of scripts.filter((f) => f !== "js/ui.js"))
     w.eval(fs.readFileSync(path.join(root, f), "utf8"));
+  // v0.13 day closing; v0.14 flow has its own tests.
+  w.NG.newGameFlow = false;
   w.NG.save(make(w.NG));
   const initial = w.localStorage.getItem(w.NG.saveKey);
   w.eval(fs.readFileSync(path.join(root, "js/ui.js"), "utf8"));

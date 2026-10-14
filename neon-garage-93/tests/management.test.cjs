@@ -8,8 +8,10 @@ function test(name, fn) {
 }
 function setup(seed = 42) {
   const rng = random(seed),
-    N = runtime(rng),
-    s = N.newState();
+    N = runtime(rng);
+  // v0.13 work-hour and payroll rules: new v0.14 games switch them off.
+  N.newGameFlow = false;
+  const s = N.newState();
   return { N, s, rng };
 }
 function car(N, s) {

@@ -468,6 +468,8 @@ function bootNotificationFixture(fixture) {
         "utf8",
       ),
     );
+  // Later fixtures in this file pin the v0.13 day closing.
+  w.NG.newGameFlow = false;
 }
 bootNotificationFixture(notificationFixture);
 assert.equal(d.querySelectorAll('.priorities [data-tab="selling"]').length, 2);

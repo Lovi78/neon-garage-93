@@ -5,8 +5,10 @@ const assert = require("node:assert/strict"),
 const { runtime, random, root } = require("./runtime.cjs");
 function run(strategy, seed, scale) {
   const rng = random(seed),
-    N = runtime(rng),
-    s = N.newState();
+    N = runtime(rng);
+  // Staff economics are a v0.13 system; v0.14 new games hide it until M3.
+  N.newGameFlow = false;
+  const s = N.newState();
   if (scale === "growing") {
     s.cash = 35000;
     s.capacity = 6;

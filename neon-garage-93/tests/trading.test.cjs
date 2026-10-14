@@ -1,6 +1,8 @@
 const assert = require("node:assert/strict");
 const { runtime, random } = require("./runtime.cjs");
 const NG = runtime();
+// These tests pin the v0.13 daily-bill rules; v0.14 flow has its own tests.
+NG.newGameFlow = false;
 let count = 0;
 const test = (name, f) => {
   f();

@@ -17,7 +17,11 @@ w.HTMLDialogElement.prototype.showModal = function () {
 w.HTMLDialogElement.prototype.close = function () {
   this.open = false;
 };
-for (const f of scripts) w.eval(fs.readFileSync(path.join(root, f), "utf8"));
+for (const f of scripts) {
+  // v0.13 staff screens: v0.14 new games hide them until the lot grows.
+  if (f.endsWith("/ui.js")) w.NG.newGameFlow = false;
+  w.eval(fs.readFileSync(path.join(root, f), "utf8"));
+}
 const click = (q) => {
   const b = d.querySelector(q);
   assert(b, q);

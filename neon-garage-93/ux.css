@@ -2173,3 +2173,46 @@ main.world-frame {
 .package-card .request-hint {
   color: #edc77f;
 }
+
+/* v0.14 day rhythm: one-click day, skip button, rent line, morning strip */
+.hud-day-actions {
+  display: flex;
+  gap: 6px;
+}
+.hud-day .hud-wait {
+  min-width: 44px;
+  padding: 9px 10px;
+  font-weight: 700;
+}
+.hud-rent {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  text-align: right;
+  white-space: nowrap;
+}
+.morning-strip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 6px 0 8px;
+  padding: 8px 10px 8px 14px;
+  background: #1c2730;
+  border: 1px solid #4a5d66;
+  border-left: 4px solid #a9b7ff;
+  border-radius: 5px;
+}
+.morning-strip p {
+  flex: 1;
+  margin: 0;
+  font-size: 14px;
+}
+.morning-strip .eyebrow {
+  white-space: nowrap;
+}
+.morning-strip button {
+  min-height: 32px;
+  padding: 6px 10px;
+  font-size: 13px;
+}

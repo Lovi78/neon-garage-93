@@ -983,6 +983,47 @@ window.NG = window.NG || {};
     const holding = s.inventory.length * 5;
     for (const c of s.inventory) c.holdingCost = (c.holdingCost || 0) + 5;
     o.lastBill = NG.operatingBill(s);
+    if (s.flow?.weeklyRent) {
+      // v0.14: the same bills accrue daily and leave cash once, on Friday.
+      const w = (o.weekBreakdown ||= { holding: 0, interest: 0, overhead: 0 });
+      o.weekDue = (o.weekDue || 0) + o.lastBill;
+      w.holding += holding;
+      w.interest += interest;
+      w.overhead += o.lastBill - holding - interest;
+      if (!NG.isRentDay(s.day)) {
+        o.lastPaid = 0;
+        o.notice =
+          "Rent due " +
+          NG.date(NG.nextRentDay(s)) +
+          ": " +
+          NG.money(NG.rentForecast(s)) +
+          " expected" +
+          (o.arrears
+            ? ". " +
+              NG.money(o.arrears) +
+              " overdue: purchases and repairs are blocked."
+            : ".");
+        return;
+      }
+      o.arrears += o.weekDue;
+      for (const k of ["holding", "interest", "overhead"]) {
+        o.dueBreakdown[k] += w[k];
+        w[k] = 0;
+      }
+      const rent = o.weekDue;
+      o.weekDue = 0;
+      NG.payBillParts(s);
+      o.notice =
+        "Weekly rent: " +
+        NG.money(Math.min(rent, o.lastPaid)) +
+        " paid" +
+        (o.arrears
+          ? ", " +
+            NG.money(o.arrears) +
+            " overdue. New purchases and repairs are blocked."
+          : ".");
+      return;
+    }
     o.arrears += o.lastBill;
     o.dueBreakdown.holding += holding;
     o.dueBreakdown.interest += interest;

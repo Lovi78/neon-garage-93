@@ -1,0 +1,131 @@
+/* v0.14 day rhythm and cuts in the real UI. */
+const assert = require("node:assert/strict"),
+  fs = require("node:fs"),
+  path = require("node:path");
+const { JSDOM } = require("jsdom");
+const { root, html, scripts } = require("./runtime.cjs");
+function boot(make) {
+  const dom = new JSDOM(html, {
+      url: "https://flow-ui.test/",
+      runScripts: "outside-only",
+    }),
+    w = dom.window,
+    d = w.document;
+  w.scrollTo = () => {};
+  w.Math.random = () => 0.99;
+  w.HTMLDialogElement.prototype.showModal = function () {
+    this.open = true;
+  };
+  w.HTMLDialogElement.prototype.close = function () {
+    this.open = false;
+  };
+  for (const f of scripts.filter((f) => f !== "js/ui.js"))
+    w.eval(fs.readFileSync(path.join(root, f), "utf8"));
+  w.NG.save(make(w.NG));
+  w.eval(fs.readFileSync(path.join(root, "js/ui.js"), "utf8"));
+  const state = () => JSON.parse(w.localStorage.getItem(w.NG.saveKey));
+  const click = (q) => {
+    const el = d.querySelector(q);
+    assert(el, q);
+    assert(!el.disabled, q);
+    el.closest("details")?.setAttribute("open", "");
+    el.click();
+  };
+  return { dom, w, d, state, click };
+}
+let count = 0;
+function test(name, run) {
+  run();
+  count++;
+  console.log("PASS " + name);
+}
+const fresh = (N) => {
+  const s = N.newState();
+  s.market = s.market.slice(0, 3);
+  return s;
+};
+test("Next Day is one click: no confirmation, no report window, a morning strip", () => {
+  const { dom, d, state, click } = boot(fresh);
+  click('#app .game-hud [data-action="next"]');
+  assert.equal(state().day, 1);
+  assert(!d.querySelector("#day-confirm").open);
+  assert(!d.querySelector("#day-report").open);
+  const strip = d.querySelector(".morning-strip");
+  assert.match(strip.textContent, /June 2, 1993/);
+  assert.match(strip.textContent, /Rent due/);
+  click('.morning-strip [data-action="dismiss-morning"]');
+  assert(!d.querySelector(".morning-strip"));
+  assert(state().dayReport.read);
+  click('[data-action="show-day-report"]');
+  assert(d.querySelector("#day-report").open, "full report stays available");
+  dom.window.close();
+});
+test("An unseen offer that would expire still asks first", () => {
+  const { dom, d, state, click } = boot((N) => {
+    const s = fresh(N);
+    s.cash = 20000;
+    const c = s.market[0];
+    N.buy(s, c.id);
+    N.list(s, c.id, 5000, "as-is");
+    c.offers = [
+      { id: "o-x", buyer: "Pat C.", price: 3000, expiresDay: 0, seen: false },
+    ];
+    return s;
+  });
+  click('#app .game-hud [data-action="next"]');
+  assert.equal(state().day, 0);
+  assert(d.querySelector("#day-confirm").open);
+  dom.window.close();
+});
+test("Skip button jumps to the finished repair and says why", () => {
+  const { dom, d, state, click } = boot((N) => {
+    const s = fresh(N);
+    s.cash = 20000;
+    const c = s.market[0];
+    N.buy(s, c.id);
+    c.readyDay = 3;
+    c.repairMode = "rush";
+    return s;
+  });
+  click('#app .game-hud [data-action="wait-event"]');
+  assert.equal(state().day, 3);
+  assert.match(
+    d.querySelector(".morning-strip").textContent,
+    /Skipped 3 days: A repair is finished\./,
+  );
+  dom.window.close();
+});
+test("HUD shows the Friday rent; staff, wholesale and fleet are tucked away; Books leads Business", () => {
+  const { dom, d, click } = boot(fresh);
+  assert.match(d.querySelector(".hud-rent").textContent, /Rent June 4: \$60/);
+  const business = [
+    ...d.querySelectorAll("#app .nav-business > div button"),
+  ].map((b) => b.textContent);
+  assert.equal(business[0], "Books");
+  assert(!business.includes("Staff"));
+  click(
+    '#app .nav-business > div button[data-view="operations"][data-tab="business"]',
+  );
+  assert(!d.querySelector('[role="tab"][data-tab="staff"]'));
+  const projects = d.querySelector(".enterprise-projects").textContent;
+  assert(!/Wholesale|Fleet/.test(projects), projects.slice(0, 200));
+  click('#app .nav-business > div button[data-view="finances"]');
+  assert.match(d.querySelector(".finance-overview").textContent, /Rent due/);
+  assert(d.querySelector("details.finance-details"));
+  dom.window.close();
+});
+test("An old save keeps its rules until the player switches in Options", () => {
+  const { dom, d, state, click } = boot((N) => {
+    N.newGameFlow = false;
+    const s = fresh(N);
+    N.newGameFlow = true;
+    return s;
+  });
+  assert(!d.querySelector(".hud-rent"));
+  click('[data-action="adopt-flow"]');
+  assert(state().flow.weeklyRent);
+  assert(d.querySelector(".hud-rent"));
+  assert(!d.querySelector('[data-action="adopt-flow"]'));
+  dom.window.close();
+});
+console.log(count + " day rhythm UI tests passed.");
