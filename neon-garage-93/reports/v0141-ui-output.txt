@@ -1,0 +1,60 @@
+
+> neon-garage-93@0.14.1 test:ui
+> node tests/ui.test.cjs && node tests/enterprise-ui.test.cjs && node tests/trading-ui.test.cjs && node tests/operations-ui.test.cjs && node tests/ux-overhaul.test.cjs && node tests/management-ui.test.cjs && node tests/home-ui.test.cjs && node tests/premium-ux.test.cjs && node tests/restoration-ui.test.cjs && node tests/requests-ui.test.cjs && node tests/flow-ui.test.cjs && node tests/ranking-ui.test.cjs
+
+PASS Teljes DOM-játékmenet: piac, adatlap, vizsgálat, vétel, javítás, napváltás, hirdetés, ajánlat, eladás, pénzügyek, visszatöltés, reset megszakítása és új játék.
+Ez szerkezet- és interakcióteszt, nem vizuális böngészőteszt.
+PASS UI listing description, customer contact, delayed complaint, notification, contribution and financial readback.
+PASS UI daily modal, advance guard, unread reload, acknowledgement, reopen and view offers.
+PASS UI explicit day confirmation, lossless cancel/Escape, pending-offer warning, stale/double confirm guard, persistent notifications and per-car review.
+PASS UI operating bills, two new skills/perks, diagnostics, workshop contention, paid rush work, completed-job report, forecast and discounted inspection.
+PASS UI radio settings, unchanged save, closing/dawn/report sequence, skip, Escape, automatic completion and reduced motion.
+PASS UI opportunity notification, terms, fee, request acceptance, delivery, bonus, reputation, single sale and ledger.
+PASS UI late-game migration, capital review, credit, construction, service work, shared slots, blocked shutdown, pause/reopen, wholesale settlement, repayment and financial readback.
+PASS practice A: seller call, cash negotiation, inspection, listing, day close, sale and separate save.
+PASS practice B: public information stays hidden until paid investigations change the deal.
+PASS practice C: lower the stale stock asking price without losing the investment history.
+PASS UI competitor counteroffer remains actionable and shows dated player/seller conversation.
+PASS UI screenshot regression: invalid counter is visible inside the dialog; $14,000 counter receives a saved buyer reply without changing cash.
+PASS UI counteroffer withdrawal displays the buyer’s reason instead of silently ignoring the button.
+PASS compact UI: actionable Today, four tabs, debt warning, client acceptance, request payout, wholesale risk, keyboard navigation, unchanged save and accessible trading controls.
+PASS UX complete trade: all navigation destinations, focused panels, draft preservation across tabs/routes/inspection, agreement, listing, priority deep link, buyer counter and sale.
+PASS UX priorities: bounded list, correct debt/request/question/repair destinations, no cash or mechanical mutation, no UI fields added to the save.
+PASS UX legacy save: original limits and cash retained, old negotiation still works, drafts and keyboard tabs work.
+PASS management UI: hire, delegation, real inspection, queue/cancel, dismissal, finance and persistent priorities.
+PASS garage-first home: six categories, persistent progress, all destinations in one/two clicks, keyboard menus and unchanged save.
+PASS progression stays in Dealer File; available skill point alert persists until spent.
+PASS actionable notifications: read offer persists, paid wages clear, closed sale clears, completed unlisted repair persists.
+PASS Fresh garage guides the first purchase and HUD exposes XP and next reputation rank without mutating saves
+PASS Dealer tabs and HUD deep links preserve state and support keyboard navigation
+PASS Locked expansions list cash, trust and dependency gaps; credit has one Finance home
+PASS Eligible expansion precedes locked projects and UI investment matches engine state exactly
+PASS Closed negotiated sale shows actual XP, level, point and REP milestone with no duplicated or invented award
+PASS Reputation loss displays negative feedback; old saves retain progression and finances
+PASS Skill and upgrade transactions remain identical to engine results and clear actionable alerts
+PASS Routine car feedback stays next to the decision and modal HUD navigation cancels day closing safely
+8 premium UX integration tests passed.
+PASS Workshop tab shows three packages with grade, cost, time and profit change
+PASS Booking a package charges the quote and puts the car in the workshop
+PASS A cheap car gets an honest 'sell as it is' hint when no package pays
+3 restoration UI tests passed.
+PASS Main navigation is icon-only with an accessible name and hover label on every entry
+PASS Active request tracker shows on the garage screen and delivers in one click
+PASS Market and garage cards carry the buyer badge; the car file lists what is missing
+PASS Closing the day with a new-style request due today warns, then fails it cleanly
+4 request UI tests passed.
+PASS Next Day is one click: no confirmation, no report window, a morning strip
+PASS An unseen offer that would expire still asks first
+PASS Skip button jumps to the finished repair and says why
+PASS HUD shows the Friday rent; staff, wholesale and fleet are tucked away; Books leads Business
+PASS An old save keeps its rules until the player switches in Options
+PASS F/3: one-screen car file, seller reason on open, buy from the bar
+PASS F/3: market shows cars first with demand folded into one line
+PASS Purchase approach shows what each option leans on; the seller's reply tells how it landed
+8 day rhythm UI tests passed.
+PASS HUD shows your rank and the next dealer; it opens the ranking window
+PASS Ranking sits in the icon navigation
+PASS Friday morning strip reports the new rank and the unlock
+PASS A profitable sale toasts the season goal with its reward
+PASS Auction-tip cars are labelled in the market
+5 ranking UI tests passed.

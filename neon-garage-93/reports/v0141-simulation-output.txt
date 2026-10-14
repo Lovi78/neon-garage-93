@@ -1,0 +1,32 @@
+
+> neon-garage-93@0.14.1 test:simulation
+> node tests/trading-simulation.cjs && node tests/management-simulation.cjs && node tests/repair-simulation.cjs
+
+┌─────────┬─────────────────┬───────┬────────────┬────────────┬────────┬──────────────┬──────────────┬────────────┬────────────────────┬──────────┐
+│ (index) │ strategy        │ sales │ daysToSale │ profitable │ losses │ contribution │ shortageDays │ listingAge │ negotiationSuccess │ netWorth │
+├─────────┼─────────────────┼───────┼────────────┼────────────┼────────┼──────────────┼──────────────┼────────────┼────────────────────┼──────────┤
+│ 0       │ 'quick'         │ 35.4  │ 4.3        │ 15.6       │ 19.8   │ -51.8        │ 23.2         │ 5.72       │ 1                  │ -268.4   │
+│ 1       │ 'cautious'      │ 66.2  │ 2.49       │ 50.6       │ 15.4   │ 507.4        │ 4.4          │ 5.71       │ 1                  │ 28910    │
+│ 2       │ 'aggressive'    │ 72.2  │ 3.94       │ 42.4       │ 29.4   │ 90           │ 18.6         │ 5.64       │ 1                  │ 13595.8  │
+│ 3       │ 'high-price'    │ 5.8   │ 39.15      │ 1.6        │ 4.2    │ -359.4       │ 68.2         │ 5.9        │ 1                  │ -426.4   │
+│ 4       │ 'capital-heavy' │ 23.2  │ 10.06      │ 10.8       │ 12.4   │ -94.4        │ 38.8         │ 5.85       │ 1                  │ -98.6    │
+└─────────┴─────────────────┴───────┴────────────┴────────────┴────────┴──────────────┴──────────────┴────────────┴────────────────────┴──────────┘
+PASS 25 seeded 200-day runs, cash reconciliation each day, persistence and reproducibility.
+starter solo average net worth 7969 sales 17
+starter early-staff average net worth 150 sales 15
+starter outsource average net worth 18248 sales 21
+growing solo average net worth 168108 sales 92
+growing early-staff average net worth 203658 sales 109
+growing outsource average net worth 178063 sales 93
+PASS 30 seeded management simulations / 5,400 trading days: finite cash, bounded employee work and save readback.
+┌─────────┬──────────┬───────┬────────────┬─────────────────┬─────────────┬──────────┬─────────────┬─────────────┐
+│ (index) │ strategy │ sales │ profitable │ avgContribution │ repairSpend │ netWorth │ minNetWorth │ maxNetWorth │
+├─────────┼──────────┼───────┼────────────┼─────────────────┼─────────────┼──────────┼─────────────┼─────────────┤
+│ 0       │ 'never'  │ 37.7  │ 31.2       │ 515             │ 0           │ 18802    │ 679         │ 43501       │
+│ 1       │ 'quick'  │ 37.8  │ 31.4       │ 534             │ 3829        │ 19951    │ 836         │ 46533       │
+│ 2       │ 'driver' │ 29.6  │ 23.6       │ 668             │ 17061       │ 22436    │ 364         │ 63050       │
+│ 3       │ 'full'   │ 20.5  │ 13.3       │ 378             │ 16568       │ 10372    │ 620         │ 45637       │
+│ 4       │ 'smart'  │ 29.1  │ 24.5       │ 803             │ 17335       │ 23595    │ 503         │ 78873       │
+└─────────┴──────────┴───────┴────────────┴─────────────────┴─────────────┴──────────┴─────────────┴─────────────┘
+best strategy per seed: driver, quick, full, full, smart, full, driver, smart, never, driver, driver, quick, quick, quick, quick, smart, driver, smart, quick, smart, smart, driver, full, full, quick, never, smart, never, never, full, driver, driver, driver, smart, never, quick, quick, smart, driver, never, smart, smart, quick, never, smart, smart, driver, driver, smart, driver, driver, quick, driver, quick, smart, quick, smart, driver, never, quick, smart, driver, smart, driver, smart, quick, full, never, driver, smart, driver, smart, quick, driver, driver, driver, full, quick, smart, driver
+PASS 400 seeded 100-day repair-strategy runs with daily cash reconciliation.
