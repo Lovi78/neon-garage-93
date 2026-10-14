@@ -59,8 +59,8 @@ window.NG = window.NG || {};
     {
       id: "top5",
       rank: 5,
-      title: "Auction tips",
-      text: "Dealers in the Top 5 hear about pricier, rarer cars first. Extra listings marked TIP show up on your market.",
+      title: "Buyer networks & auction tips",
+      text: "Choose a buyer audience when listing a car: enthusiast, family, budget or commuter. Focused ads cost $35 and reach fewer buyers. Pricier TIP listings also become available.",
     },
     {
       id: "top3",
@@ -274,7 +274,7 @@ window.NG = window.NG || {};
     {
       id: "top5",
       title: "Break into the Silver Palms Top 5",
-      reward: "Auction tips",
+      reward: "Buyer networks + auction tips",
       done: (s) => NG.rankUnlocked(s, "top5"),
     },
     {

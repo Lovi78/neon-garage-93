@@ -1,3 +1,5 @@
+> Aktuális v0.14.2 célkártya, modellkarakter, biztosított megbízás és vevőközönség: [PURPOSE-V0142.md](PURPOSE-V0142.md).
+
 > Aktuális v0.14.1 felület és ellenőrzés: [STABILITY-V0141.md](STABILITY-V0141.md). Az alábbi v0.13 képek és leírások történeti bizonyítékok; a jelenlegi kétoszlopos autólap, kompakt ranglista és ismételt navigáció nélküli ablak friss képei az új jelentésben vannak.
 
 # Premium Retro UX - audit, megvalósítás és ellenőrzés

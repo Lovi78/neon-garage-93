@@ -101,6 +101,13 @@ window.NG = window.NG || {};
       return "A new buyer request arrived.";
     if (q.some((r) => r.status === "active" && r.deadline <= s.day))
       return "A buyer request is due today.";
+    if (
+      (s.opportunities?.requests || []).some(
+        (q) =>
+          q.supply && !before.supplies?.includes(q.id + ":" + q.supply.carId),
+      )
+    )
+      return "A secured buyer lead is ready.";
     if ((s.claims || []).some((c) => !before.claims.includes(c.id)))
       return "A customer complaint needs an answer.";
     if (s.market.some((c) => c.negotiation?.status === "callback"))
@@ -124,6 +131,9 @@ window.NG = window.NG || {};
     busy: s.inventory.filter((c) => NG.busy(s, c)).map((c) => c.id),
     requests: (s.opportunities?.requests || []).map((r) => r.id),
     claims: (s.claims || []).map((c) => c.id),
+    supplies: (s.opportunities?.requests || [])
+      .filter((q) => q.supply)
+      .map((q) => q.id + ":" + q.supply.carId),
     level: s.progress?.level || 0,
   });
   // Run before EVERY skipped day, even for decisions the player has seen.
@@ -143,10 +153,32 @@ window.NG = window.NG || {};
     if (
       (s.opportunities?.requests || []).some(
         (q) =>
-          ["active", "offered"].includes(q.status) && q.deadline <= s.day + 1,
+          (q.status === "offered" && q.offerUntil <= s.day + 1) ||
+          (q.status === "active" &&
+            q.deadline <= s.day + 1 &&
+            !NG.requestCanWaitForRepair?.(s, q)),
       )
     )
       return "A buyer request deadline is approaching.";
+    if (
+      (s.opportunities?.requests || []).some((q) => {
+        if (q.status !== "active" || !q.supply) return false;
+        const c = [...s.market, ...s.inventory].find(
+            (c) => c.id === q.supply.carId,
+          ),
+          plan = c && NG.requestPreparation?.(s, q, c);
+        if (
+          plan &&
+          s.inventory.includes(c) &&
+          NG.busy(s, c) &&
+          plan.package === "none" &&
+          c.readyDay <= q.deadline
+        )
+          return false;
+        return plan && q.deadline - s.day <= plan.days + 1;
+      })
+    )
+      return "A buyer request needs preparation time. Review its secured lead.";
     if ((s.claims || []).some((c) => c.status === "open"))
       return "A customer complaint needs an answer.";
     if (

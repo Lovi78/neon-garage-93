@@ -1,0 +1,283 @@
+{
+  "results": [
+    {
+      "size": {
+        "width": 1440,
+        "height": 900
+      },
+      "layout": {
+        "width": 1440,
+        "height": 900,
+        "hud": 114.296875,
+        "garage": {
+          "x": 175.21875,
+          "y": 186.296875,
+          "width": 1089.546875,
+          "height": 612.859375,
+          "top": 186.296875,
+          "right": 1264.765625,
+          "bottom": 799.15625,
+          "left": 175.21875
+        }
+      },
+      "carLayout": {
+        "bar": {
+          "x": 231,
+          "y": 751.671875,
+          "width": 978,
+          "height": 63,
+          "top": 751.671875,
+          "right": 1209,
+          "bottom": 814.671875,
+          "left": 231
+        },
+        "panel": {
+          "x": 231,
+          "y": 225.671875,
+          "width": 978,
+          "height": 526,
+          "top": 225.671875,
+          "right": 1209,
+          "bottom": 751.671875,
+          "left": 231
+        }
+      }
+    },
+    {
+      "size": {
+        "width": 1280,
+        "height": 800
+      },
+      "layout": {
+        "width": 1280,
+        "height": 800,
+        "hud": 114.296875,
+        "garage": {
+          "x": 184.109375,
+          "y": 186.296875,
+          "width": 911.765625,
+          "height": 512.859375,
+          "top": 186.296875,
+          "right": 1095.875,
+          "bottom": 699.15625,
+          "left": 184.109375
+        }
+      },
+      "carLayout": {
+        "bar": {
+          "x": 151,
+          "y": 654.671875,
+          "width": 978,
+          "height": 63,
+          "top": 654.671875,
+          "right": 1129,
+          "bottom": 717.671875,
+          "left": 151
+        },
+        "panel": {
+          "x": 151,
+          "y": 222.671875,
+          "width": 978,
+          "height": 432,
+          "top": 222.671875,
+          "right": 1129,
+          "bottom": 654.671875,
+          "left": 151
+        }
+      }
+    },
+    {
+      "size": {
+        "width": 390,
+        "height": 844
+      },
+      "layout": {
+        "width": 390,
+        "height": 844,
+        "hud": 235.90625,
+        "garage": {
+          "x": 13,
+          "y": 351.90625,
+          "width": 364,
+          "height": 204.75,
+          "top": 351.90625,
+          "right": 377,
+          "bottom": 556.65625,
+          "left": 13
+        }
+      },
+      "carLayout": {
+        "bar": {
+          "x": 9,
+          "y": 728.28125,
+          "width": 372,
+          "height": 59,
+          "top": 728.28125,
+          "right": 381,
+          "bottom": 787.28125,
+          "left": 9
+        },
+        "panel": {
+          "x": 9,
+          "y": 248.046875,
+          "width": 372,
+          "height": 480.234375,
+          "top": 248.046875,
+          "right": 381,
+          "bottom": 728.28125,
+          "left": 9
+        }
+      }
+    },
+    {
+      "size": {
+        "width": 375,
+        "height": 844
+      },
+      "layout": {
+        "width": 375,
+        "height": 844,
+        "hud": 235.90625,
+        "garage": {
+          "x": 13,
+          "y": 351.90625,
+          "width": 349,
+          "height": 196.3125,
+          "top": 351.90625,
+          "right": 362,
+          "bottom": 548.21875,
+          "left": 13
+        }
+      },
+      "carLayout": {
+        "bar": {
+          "x": 9,
+          "y": 728.28125,
+          "width": 357,
+          "height": 59,
+          "top": 728.28125,
+          "right": 366,
+          "bottom": 787.28125,
+          "left": 9
+        },
+        "panel": {
+          "x": 9,
+          "y": 248.046875,
+          "width": 357,
+          "height": 480.234375,
+          "top": 248.046875,
+          "right": 366,
+          "bottom": 728.28125,
+          "left": 9
+        }
+      }
+    },
+    {
+      "flip": {
+        "profit": 104,
+        "goals": [
+          "flip"
+        ],
+        "log": {
+          "version": 1,
+          "started": 1791994198029,
+          "durationMs": 1125,
+          "firstPurchaseMs": 226,
+          "firstProfitableSaleMs": 1125,
+          "clicks": 10,
+          "manualDays": 0,
+          "automaticDays": 2,
+          "eventlessDays": 0,
+          "repairs": [],
+          "goals": [
+            {
+              "id": "flip",
+              "ms": 1125
+            }
+          ],
+          "routes": [
+            {
+              "ms": 38,
+              "action": "view",
+              "destination": "market"
+            },
+            {
+              "ms": 71,
+              "action": "detail",
+              "destination": "car"
+            },
+            {
+              "ms": 255,
+              "action": "detail",
+              "destination": "car"
+            },
+            {
+              "ms": 1088,
+              "action": "detail",
+              "destination": "car"
+            }
+          ],
+          "flips": [
+            {
+              "ms": 1125,
+              "clicks": 9,
+              "profit": 104,
+              "scope": "all meaningful clicks during this car cycle"
+            }
+          ],
+          "events": [
+            {
+              "ms": 38,
+              "action": "view"
+            },
+            {
+              "ms": 71,
+              "action": "detail"
+            },
+            {
+              "ms": 106,
+              "action": "inspect"
+            },
+            {
+              "ms": 154,
+              "action": "choose-control"
+            },
+            {
+              "ms": 188,
+              "action": "haggle-buy"
+            },
+            {
+              "ms": 222,
+              "action": "buy"
+            },
+            {
+              "ms": 255,
+              "action": "detail"
+            },
+            {
+              "ms": 288,
+              "action": "list"
+            },
+            {
+              "ms": 321,
+              "action": "wait-event"
+            },
+            {
+              "ms": 1037,
+              "action": "close-day-report"
+            },
+            {
+              "ms": 1088,
+              "action": "detail"
+            },
+            {
+              "ms": 1121,
+              "action": "sell"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "errors": []
+}

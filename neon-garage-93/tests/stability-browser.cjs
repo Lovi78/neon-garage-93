@@ -1,6 +1,12 @@
 const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
 const assert = require("node:assert/strict"),
   fs = require("node:fs");
+const reportPath = (name) =>
+  require("node:path").join(
+    __dirname,
+    "../reports",
+    name.replace(/^v0141/, process.env.REPORT_PREFIX || "v0142-stability"),
+  );
 (async () => {
   const browser = await chromium.launch({
     headless: true,
@@ -46,7 +52,7 @@ const assert = require("node:assert/strict"),
     assert(layout.width <= size.width);
     results.push({ size, layout });
     await page.screenshot({
-      path: out + `v0141-garage-${size.width}.png`,
+      path: reportPath(`v0141-garage-${size.width}.png`),
       fullPage: false,
     });
     await page
@@ -81,7 +87,7 @@ const assert = require("node:assert/strict"),
       /Choose your approach/,
     );
     await page.screenshot({
-      path: out + `v0141-purchase-${size.width}.png`,
+      path: reportPath(`v0141-purchase-${size.width}.png`),
       fullPage: false,
     });
     await page.locator('#details [data-action="close"]').click();
@@ -129,7 +135,7 @@ const assert = require("node:assert/strict"),
     const c = await page.evaluate(() => NG.load().inventory[0]);
     assert(c.pendingRepair);
     await page.screenshot({
-      path: out + "v0141-repair-1440.png",
+      path: reportPath("v0141-repair-1440.png"),
       fullPage: false,
     });
     await page.locator('.car-decision-bar [data-action="next"]').click();
@@ -170,7 +176,7 @@ const assert = require("node:assert/strict"),
   assert(s.sales[0].profit > 0);
   const log = await page.evaluate(() => NG.sessionLog.data);
   fs.writeFileSync(
-    out + "v0141-browser-session.json",
+    reportPath("v0141-browser-session.json"),
     JSON.stringify(log, null, 2),
   );
   assert(log.clicks <= 12);
@@ -232,7 +238,7 @@ const assert = require("node:assert/strict"),
     await qa.reload();
     await qa.locator(".parked-car").first().click();
     await qa.screenshot({
-      path: out + `v0141-repair-${size.width}.png`,
+      path: reportPath(`v0141-repair-${size.width}.png`),
       fullPage: false,
     });
     assert(
@@ -244,7 +250,7 @@ const assert = require("node:assert/strict"),
   }
   assert.deepEqual(errors, []);
   fs.writeFileSync(
-    out + "v0141-browser-results.json",
+    reportPath("v0141-browser-results.json"),
     JSON.stringify({ results, errors }, null, 2),
   );
   console.log(

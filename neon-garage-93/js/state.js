@@ -109,6 +109,16 @@ NG.decodeSave = (raw) => {
       (c) =>
         !NG.model(c) ||
         !c.parts ||
+        (c.marketingCost != null &&
+          (!Number.isFinite(c.marketingCost) || c.marketingCost < 0)) ||
+        (c.audience != null &&
+          !["open", "enthusiast", "family", "budget", "commuter"].includes(
+            c.audience,
+          )) ||
+        (c.character &&
+          (!object(c.character) ||
+            typeof c.character.label !== "string" ||
+            typeof c.character.story !== "string")) ||
         Object.keys(NG.parts).some(
           (p) =>
             !Number.isFinite(c.parts[p]) || c.parts[p] < 0 || c.parts[p] > 100,
@@ -137,6 +147,19 @@ NG.decodeSave = (raw) => {
   for (const car of [...s.inventory, ...s.market]) {
     for (const flaw of car.flaws)
       flaw.label = NG.translateSavedText(flaw.label);
+  }
+  for (const q of s.opportunities?.requests || []) {
+    if (
+      q.supply &&
+      (!object(q.supply) ||
+        typeof q.supply.carId !== "string" ||
+        !Number.isInteger(q.supply.day) ||
+        !Number.isInteger(q.supply.preparationDays) ||
+        q.supply.preparationDays < 1)
+    )
+      throw Error("Invalid request supply data.");
+    if (q.waitingSupply != null && typeof q.waitingSupply !== "boolean")
+      throw Error("Invalid supply search state.");
   }
   NG.ensureTrading?.(s);
   if (

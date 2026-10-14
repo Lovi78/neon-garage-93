@@ -1,0 +1,9 @@
+{
+  "checks": [
+    "Original player save imported without changing cash, reputation, sales or market facts.",
+    "Four viewport sizes: goal, car character, scrolling and accessible decision bar.",
+    "Actual player-stage request accepted, secured source inspected/bought/repaired and delivered through UI.",
+    "Top 5 audience choice used and charged exactly once; desktop/mobile screenshots."
+  ],
+  "errors": []
+}

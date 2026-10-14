@@ -1,0 +1,843 @@
+{
+  "summary": {
+    "simulatedDays": 107,
+    "runs": 120,
+    "fulfilled": 112,
+    "unavailableWithoutPenalty": 8,
+    "profitable": 105
+  },
+  "results": [
+    {
+      "seed": 1,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 517
+    },
+    {
+      "seed": 2,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 235
+    },
+    {
+      "seed": 3,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 118
+    },
+    {
+      "seed": 4,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 965
+    },
+    {
+      "seed": 5,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 154
+    },
+    {
+      "seed": 6,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 185
+    },
+    {
+      "seed": 7,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 485
+    },
+    {
+      "seed": 8,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 288
+    },
+    {
+      "seed": 9,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 188
+    },
+    {
+      "seed": 10,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 590
+    },
+    {
+      "seed": 11,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 884
+    },
+    {
+      "seed": 12,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 181
+    },
+    {
+      "seed": 13,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 390
+    },
+    {
+      "seed": 14,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 100
+    },
+    {
+      "seed": 15,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 2,
+      "profit": 2328
+    },
+    {
+      "seed": 16,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": -90
+    },
+    {
+      "seed": 17,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 744
+    },
+    {
+      "seed": 18,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 1497
+    },
+    {
+      "seed": 19,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": -75
+    },
+    {
+      "seed": 20,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 385
+    },
+    {
+      "seed": 21,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 641
+    },
+    {
+      "seed": 22,
+      "tier": "collector",
+      "status": "fulfilled",
+      "days": 3,
+      "profit": 535
+    },
+    {
+      "seed": 23,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 88
+    },
+    {
+      "seed": 24,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 267
+    },
+    {
+      "seed": 25,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 180
+    },
+    {
+      "seed": 26,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 616
+    },
+    {
+      "seed": 27,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 609
+    },
+    {
+      "seed": 28,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 2732
+    },
+    {
+      "seed": 29,
+      "tier": "collector",
+      "status": "fulfilled",
+      "days": 3,
+      "profit": 3436
+    },
+    {
+      "seed": 30,
+      "tier": "collector",
+      "status": "fulfilled",
+      "days": 3,
+      "profit": 4120
+    },
+    {
+      "seed": 31,
+      "tier": "collector",
+      "status": "fulfilled",
+      "days": 3,
+      "profit": 2976
+    },
+    {
+      "seed": 32,
+      "tier": "collector",
+      "status": "fulfilled",
+      "days": 3,
+      "profit": 6492
+    },
+    {
+      "seed": 33,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": -98
+    },
+    {
+      "seed": 34,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 1990
+    },
+    {
+      "seed": 35,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 610
+    },
+    {
+      "seed": 36,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 435
+    },
+    {
+      "seed": 37,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 260
+    },
+    {
+      "seed": 38,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 653
+    },
+    {
+      "seed": 39,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 328
+    },
+    {
+      "seed": 40,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 812
+    },
+    {
+      "seed": 41,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 1029
+    },
+    {
+      "seed": 42,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 110
+    },
+    {
+      "seed": 43,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 310
+    },
+    {
+      "seed": 44,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 1508
+    },
+    {
+      "seed": 45,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 2628
+    },
+    {
+      "seed": 46,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 2138
+    },
+    {
+      "seed": 47,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 71
+    },
+    {
+      "seed": 48,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 110
+    },
+    {
+      "seed": 49,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 672
+    },
+    {
+      "seed": 50,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 618
+    },
+    {
+      "seed": 51,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": -75
+    },
+    {
+      "seed": 52,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 1405
+    },
+    {
+      "seed": 53,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 535
+    },
+    {
+      "seed": 54,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 1472
+    },
+    {
+      "seed": 55,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 110
+    },
+    {
+      "seed": 56,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 210
+    },
+    {
+      "seed": 57,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": -24
+    },
+    {
+      "seed": 58,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 534
+    },
+    {
+      "seed": 59,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 385
+    },
+    {
+      "seed": 60,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": -52
+    },
+    {
+      "seed": 61,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 174
+    },
+    {
+      "seed": 62,
+      "tier": "specific",
+      "status": "unavailable",
+      "days": 3
+    },
+    {
+      "seed": 63,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 127
+    },
+    {
+      "seed": 64,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 385
+    },
+    {
+      "seed": 65,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 149
+    },
+    {
+      "seed": 66,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 1831
+    },
+    {
+      "seed": 67,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 200
+    },
+    {
+      "seed": 68,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 360
+    },
+    {
+      "seed": 69,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 692
+    },
+    {
+      "seed": 70,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 1338
+    },
+    {
+      "seed": 71,
+      "tier": "collector",
+      "status": "fulfilled",
+      "days": 3,
+      "profit": 3539
+    },
+    {
+      "seed": 72,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": -135
+    },
+    {
+      "seed": 73,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 217
+    },
+    {
+      "seed": 74,
+      "tier": "collector",
+      "status": "unavailable",
+      "days": 3
+    },
+    {
+      "seed": 75,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 863
+    },
+    {
+      "seed": 76,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 563
+    },
+    {
+      "seed": 77,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 3030
+    },
+    {
+      "seed": 78,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 725
+    },
+    {
+      "seed": 79,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 383
+    },
+    {
+      "seed": 80,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 341
+    },
+    {
+      "seed": 81,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 150
+    },
+    {
+      "seed": 82,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 1135
+    },
+    {
+      "seed": 83,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 69
+    },
+    {
+      "seed": 84,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 410
+    },
+    {
+      "seed": 85,
+      "tier": "collector",
+      "status": "unavailable",
+      "days": 3
+    },
+    {
+      "seed": 86,
+      "tier": "collector",
+      "status": "unavailable",
+      "days": 3
+    },
+    {
+      "seed": 87,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 458
+    },
+    {
+      "seed": 88,
+      "tier": "collector",
+      "status": "unavailable",
+      "days": 3
+    },
+    {
+      "seed": 89,
+      "tier": "collector",
+      "status": "fulfilled",
+      "days": 3,
+      "profit": 4648
+    },
+    {
+      "seed": 90,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 660
+    },
+    {
+      "seed": 91,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 502
+    },
+    {
+      "seed": 92,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 535
+    },
+    {
+      "seed": 93,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 400
+    },
+    {
+      "seed": 94,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 1440
+    },
+    {
+      "seed": 95,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 389
+    },
+    {
+      "seed": 96,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 235
+    },
+    {
+      "seed": 97,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 54
+    },
+    {
+      "seed": 98,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 506
+    },
+    {
+      "seed": 99,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 116
+    },
+    {
+      "seed": 100,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 2181
+    },
+    {
+      "seed": 101,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 434
+    },
+    {
+      "seed": 102,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 180
+    },
+    {
+      "seed": 103,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 1246
+    },
+    {
+      "seed": 104,
+      "tier": "collector",
+      "status": "unavailable",
+      "days": 3
+    },
+    {
+      "seed": 105,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 235
+    },
+    {
+      "seed": 106,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 1130
+    },
+    {
+      "seed": 107,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 1692
+    },
+    {
+      "seed": 108,
+      "tier": "specific",
+      "status": "unavailable",
+      "days": 3
+    },
+    {
+      "seed": 109,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 131
+    },
+    {
+      "seed": 110,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 274
+    },
+    {
+      "seed": 111,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 1310
+    },
+    {
+      "seed": 112,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 1349
+    },
+    {
+      "seed": 113,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 210
+    },
+    {
+      "seed": 114,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 2213
+    },
+    {
+      "seed": 115,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 1450
+    },
+    {
+      "seed": 116,
+      "tier": "specific",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 249
+    },
+    {
+      "seed": 117,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 85
+    },
+    {
+      "seed": 118,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 1,
+      "profit": 850
+    },
+    {
+      "seed": 119,
+      "tier": "easy",
+      "status": "fulfilled",
+      "days": 0,
+      "profit": 2708
+    },
+    {
+      "seed": 120,
+      "tier": "specific",
+      "status": "unavailable",
+      "days": 3
+    }
+  ]
+}
