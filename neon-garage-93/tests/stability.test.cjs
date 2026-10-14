@@ -245,4 +245,13 @@ test("v0.11 and v0.12 schema reconstructions migrate without changing cash, cars
     assert(Number.isFinite(imported.cash));
   }
 });
+test("A same-day Quick fix also stops skipping until the car is listed", () => {
+  const { N, s, c } = setup();
+  N.repairPackage(s, c.id, "quick");
+  assert.equal(c.readyDay, 0);
+  assert(!N.busy(s, c));
+  assert.equal(N.waitForEvent(s, () => 0.99).days, 0);
+  N.list(s, c.id, N.listingValue(s, c), "honest");
+  assert.equal(N.waitForEvent(s, () => 0.99, 1).days, 1);
+});
 console.log(count + " stability regression tests passed.");

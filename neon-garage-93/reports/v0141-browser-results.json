@@ -180,10 +180,10 @@
         ],
         "log": {
           "version": 1,
-          "started": 1791986378861,
-          "durationMs": 1126,
-          "firstPurchaseMs": 209,
-          "firstProfitableSaleMs": 1126,
+          "started": 1791986608812,
+          "durationMs": 1123,
+          "firstPurchaseMs": 208,
+          "firstProfitableSaleMs": 1122,
           "clicks": 10,
           "manualDays": 0,
           "automaticDays": 2,
@@ -192,7 +192,7 @@
           "goals": [
             {
               "id": "flip",
-              "ms": 1126
+              "ms": 1123
             }
           ],
           "routes": [
@@ -202,24 +202,24 @@
               "destination": "market"
             },
             {
-              "ms": 71,
+              "ms": 69,
               "action": "detail",
               "destination": "car"
             },
             {
-              "ms": 238,
+              "ms": 237,
               "action": "detail",
               "destination": "car"
             },
             {
-              "ms": 1088,
+              "ms": 1086,
               "action": "detail",
               "destination": "car"
             }
           ],
           "flips": [
             {
-              "ms": 1126,
+              "ms": 1123,
               "clicks": 9,
               "profit": 104,
               "scope": "all meaningful clicks during this car cycle"
@@ -231,47 +231,47 @@
               "action": "view"
             },
             {
-              "ms": 71,
+              "ms": 69,
               "action": "detail"
             },
             {
-              "ms": 105,
+              "ms": 103,
               "action": "inspect"
             },
             {
-              "ms": 138,
+              "ms": 135,
               "action": "choose-control"
             },
             {
-              "ms": 171,
+              "ms": 170,
               "action": "haggle-buy"
             },
             {
-              "ms": 206,
+              "ms": 204,
               "action": "buy"
             },
             {
-              "ms": 238,
+              "ms": 237,
               "action": "detail"
             },
             {
-              "ms": 271,
+              "ms": 270,
               "action": "list"
             },
             {
-              "ms": 304,
+              "ms": 303,
               "action": "wait-event"
             },
             {
-              "ms": 1038,
+              "ms": 1036,
               "action": "close-day-report"
             },
             {
-              "ms": 1088,
+              "ms": 1086,
               "action": "detail"
             },
             {
-              "ms": 1121,
+              "ms": 1119,
               "action": "sell"
             }
           ]

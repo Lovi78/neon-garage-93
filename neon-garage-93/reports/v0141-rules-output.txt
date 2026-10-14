@@ -10,7 +10,7 @@ PASS Hirdetés, ajánlat, elutasítás és érvényesség
 PASS Profit = bevétel - vétel - vizsgálat - javítás
 PASS Piaci hullám több napig él, és valóban módosítja az értéket
 PASS Mentés és újratöltés adatvesztés nélkül
-Üzletek: 308 nyereséges, 692 veszteséges.
+Üzletek: 304 nyereséges, 696 veszteséges.
 PASS 1000 üzlet: pénzmegmaradás, nyereség és veszteség
 PASS A korábbi magyar mentés angolra vált, a játékállás megmarad
 PASS Vételi alku: elfogadás, pontos ár és profit
@@ -209,4 +209,5 @@ PASS Dev log counts first purchase, profitable sale, goals and day modes without
 PASS Employee Quick fix keeps the original condition until its scheduled completion
 PASS Malformed nested data and numbers are rejected before replacing a valid save
 PASS v0.11 and v0.12 schema reconstructions migrate without changing cash, cars or parts
-15 stability regression tests passed.
+PASS A same-day Quick fix also stops skipping until the car is listed
+16 stability regression tests passed.

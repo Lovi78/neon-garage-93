@@ -10,7 +10,7 @@ A jelenlegi működés szabályai a [README-ben](README.md), az eredeti javaslat
 
 Megvalósult és automatizáltan ellenőrzött: gyors napátugrás döntésvédelme, késleltetett javítási eredmény és régi foglalások kompatibilitása, vevőbónusz duplikációjának javítása, védett betöltés/export/import/backup, semleges javítási címkék, tudatos alkuválasztás, kompakt ranglista és ismételt navigáció nélküli autólap. Opt-in Development Session Log JSON/CSV exporttal.
 
-191 szabályteszt, 50 UI-teszt, 50 400 szimulált nap; Chromium 1440/1280/390/375 px, valódi import-export és helyreállítás. Egy friss játékos scripted flip: 10 kattintás, $104 profit. [Teljes bizonyíték és korlátok](STABILITY-V0141.md).
+192 szabályteszt, 50 UI-teszt, 50 400 szimulált nap; Chromium 1440/1280/390/375 px, valódi import-export és helyreállítás. Egy friss játékos scripted flip: 10 kattintás, $104 profit. [Teljes bizonyíték és korlátok](STABILITY-V0141.md).
 
 Nyitott: 20-30 perces emberi próba, első vétel/eladás ideje, 3 Season-cél 30 perc alatt, a következő lépés megértése és két eltérő stratégia tudatos indoklása. A fejlesztői ág nincs automatikusan mainbe merge-elve.
 

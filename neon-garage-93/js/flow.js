@@ -149,7 +149,14 @@ window.NG = window.NG || {};
       return "A buyer request deadline is approaching.";
     if ((s.claims || []).some((c) => c.status === "open"))
       return "A customer complaint needs an answer.";
-    if (s.inventory.some((c) => !c.listed && c.readyDay > 0 && !NG.busy(s, c)))
+    if (
+      s.inventory.some(
+        (c) =>
+          !c.listed &&
+          (c.pendingCollectionRepair || c.readyDay > 0) &&
+          !NG.busy(s, c),
+      )
+    )
       return "A repair is finished.";
     if (s.operations.arrears > 0 || (s.management?.unpaid || 0) > 0)
       return "Bills are overdue.";

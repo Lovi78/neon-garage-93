@@ -33,7 +33,7 @@ Méri a munkamenet időtartamát, az első vételt és nyereséges eladást, ér
 
 ## Működési bizonyíték
 
-- `npm test`: 191 sikeres szabályteszt, ebből 15 új stabilitási regresszió. [Teljes napló](reports/v0141-rules-output.txt).
+- `npm test`: 192 sikeres szabályteszt, ebből 16 új stabilitási regresszió. [Teljes napló](reports/v0141-rules-output.txt).
 - `npm run test:ui`: 50 sikeres DOM-folyamatteszt. [Napló](reports/v0141-ui-output.txt).
 - `npm run test:simulation`: 25 x 200 kereskedési, 30 x 180 management, 400 x 100 javításstratégiai nap, összesen 50 400 szimulált nap. Napi pénzegyeztetés, mentés-visszaolvasás, egyszeri XP/REP/szezonjutalmak és véges értékek. [Napló](reports/v0141-simulation-output.txt), [javításadatok](reports/v0141-repair-simulation.json).
 - Chromium külön ideiglenes profillal: 1440 x 900, 1280 x 800, 390 x 844 és 375 x 844. Dokumentumszélesség, adatlap belső görgetése, ténylegesen kattintható gombok és viewporton belüli döntési sáv ellenőrizve. Nincs JavaScript-hiba. [Eredmények](reports/v0141-browser-results.json).
