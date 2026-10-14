@@ -1,14 +1,14 @@
 # Neon Garage '93 - aktuális fejlesztési roadmap
 
-Frissítve: 2026. október 14. Jelenlegi fejlesztői változat: v0.14.0 / Cut & Flow a `codex/v0.14-cut-and-flow` ágon (a `codex/v0.13-run-the-lot`-ból). Irány: [AUDIT-2026-10.md](AUDIT-2026-10.md). A main továbbra is v0.11.0; a v0.14 még nincs beolvasztva.
+Frissítve: 2026. október 14. Jelenlegi változat: v0.14.0 / Cut & Flow a `main` ágon (2026. október 14-én beolvasztva; a v0.12, Premium Retro UX, v0.13 és v0.14 ágak mind benne vannak). Irány: [AUDIT-2026-10.md](AUDIT-2026-10.md).
 
 A jelenlegi működés szabályai a [README-ben](README.md), az eredeti javaslatok és verziónkénti feljegyzések a [DEVELOPMENT-HISTORY.md](DEVELOPMENT-HISTORY.md) dokumentumban vannak. Az előzmények megmaradtak; az ottani régi státuszok nem a mai állapotot jelentik.
 
 **Státuszok:** kész = megvalósult működés; nyitott = még szükséges ellenőrzés vagy döntés; terv = felhasználói cél, még nincs kész; javaslat = ajánlott következő lépés, nem új fejlesztési vállalás. A tesztek nem bizonyítják önmagukban a vizuális minőséget vagy a tartós játékélményt.
 
-## v0.14 - Cut & Flow (fejlesztés alatt)
+## v0.14 - Cut & Flow
 
-Az audit M1 mérföldköve. Szabályok: [README](README.md#v014---cut--flow-fejlesztés-alatt-codexv014-cut-and-flow).
+Az audit M1 mérföldköve. Szabályok: [README](README.md#v014---cut--flow).
 
 Kész:
 - **F/1 javítási gazdaság:** Project / Runner / Clean / Showroom fokozatok, három javítási csomag, BEST RETURN napi profit alapján, értéklétra, 80 magos balanszszimuláció (Driver-ready +19% a "soha ne javíts"-hoz képest).

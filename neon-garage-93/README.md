@@ -1,16 +1,16 @@
-# Neon Garage '93 - v0.14 / Cut & Flow (fejlesztés alatt)
+# Neon Garage '93 - v0.14 / Cut & Flow
 
 Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, fiktív kaliforniai város, 1993. június 1., $5,000 kezdőtőke, két férőhely.
 
 A teljes játékfelület angol. A korábbi mentések eseményei, hibaleírásai és pénzügyi bejegyzései betöltéskor angolra váltanak, a játékállás megtartásával.
 
-Dokumentáció frissítve: 2026. október 14. Játékverzió: 0.14.0 (fejlesztői), ág: `codex/v0.14-cut-and-flow` (a `codex/v0.13-run-the-lot`-ból, utolsó commit `3f4f5e2`). Az irányt az [AUDIT-2026-10.md](AUDIT-2026-10.md) adja; az F/1-F/5 pontok elkészültek. A main külön v0.11.0 állapot, nem a jelenlegi fejlesztői változat. A v0.13-as leírások lent változatlanul a régi mentésekre és a v0.13 szabályokra vonatkoznak.
+Dokumentáció frissítve: 2026. október 14. Játékverzió: 0.14.0, a `main` ágon (beolvasztva 2026. október 14-én a `codex/v0.14-cut-and-flow` ágból). Az irányt az [AUDIT-2026-10.md](AUDIT-2026-10.md) adja; az F/1-F/5 pontok elkészültek. A v0.13-as leírások lent változatlanul a régi mentésekre és a v0.13 szabályokra vonatkoznak.
 
 A teljes fejlesztési irány, a következő szakaszok és a nyitott döntések a [ROADMAP.md](ROADMAP.md) dokumentumban vannak rögzítve.
 
 A kattintható tárgyakat állandó, finom mentazöld pixel sarokjelölés emeli ki. Rámutatáskor vagy billentyűzetes kijelöléskor aranyszínű lesz és megjelenik a funkció neve. A saját autók sziluettje is enyhe jelölést kap. Az alsó súgó a számítógéphez irányítja az első játékost; a napváltási jelenetben a jelölések nem látszanak.
 
-## v0.14 - Cut & Flow (fejlesztés alatt, `codex/v0.14-cut-and-flow`)
+## v0.14 - Cut & Flow
 
 Az irány az [AUDIT-2026-10.md](AUDIT-2026-10.md) F/1 pontja. A javítás eddig minden stratégiában pénzt vesztett; most a "mennyire hozzam rendbe?" a fő döntés.
 

@@ -1,10 +1,14 @@
 # Neon Garage '93 - fejlesztési előzmények
 
-Eredeti archívum: 2026. október 10., v0.11.0. Utolsó kiegészítés: 2026. október 14., v0.14.0 / Cut & Flow (fejlesztés alatt).
+Eredeti archívum: 2026. október 10., v0.11.0. Utolsó kiegészítés: 2026. október 14., v0.14.0 / Cut & Flow, beolvasztva a mainbe.
 
 Ez történeti dokumentum. Az alábbi verzióleírások, eredeti javaslatok, státuszok és ellenőrzési számok az akkori fejlesztési állapotot őrzik. Az olyan fordulatok, mint „jelenleg”, „következő kör” vagy „még nincs megvalósítva”, az adott bejegyzésre vonatkoznak, nem a mai játékra. A régi tervek és lezárt döntések megmaradnak, de nem jelentenek új fejlesztési vállalást.
 
 A mai működés: [README](README.md). Aktuális prioritások és nyitott tervek: [ROADMAP](ROADMAP.md).
+
+## 2026. október 14. - beolvasztás a mainbe
+
+A `main` (`67c1d95`, v0.11.0) a `codex/v0.14-cut-and-flow` ág no-ff merge-ével v0.14.0 lett. Mivel a v0.14 ág a v0.13-ból, az a v0.12-ből és a Premium Retro UX ágból épült, a merge mindegyiket behozza. A fejlesztői ágak megmaradnak történeti hivatkozásnak.
 
 ## v0.14 - Cut & Flow / 2026. október 13-14.
 
