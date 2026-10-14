@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "started": 1791994198029,
+  "durationMs": 1125,
+  "firstPurchaseMs": 226,
+  "firstProfitableSaleMs": 1125,
+  "clicks": 10,
+  "manualDays": 0,
+  "automaticDays": 2,
+  "eventlessDays": 0,
+  "repairs": [],
+  "goals": [
+    {
+      "id": "flip",
+      "ms": 1125
+    }
+  ],
+  "routes": [
+    {
+      "ms": 38,
+      "action": "view",
+      "destination": "market"
+    },
+    {
+      "ms": 71,
+      "action": "detail",
+      "destination": "car"
+    },
+    {
+      "ms": 255,
+      "action": "detail",
+      "destination": "car"
+    },
+    {
+      "ms": 1088,
+      "action": "detail",
+      "destination": "car"
+    }
+  ],
+  "flips": [
+    {
+      "ms": 1125,
+      "clicks": 9,
+      "profit": 104,
+      "scope": "all meaningful clicks during this car cycle"
+    }
+  ],
+  "events": [
+    {
+      "ms": 38,
+      "action": "view"
+    },
+    {
+      "ms": 71,
+      "action": "detail"
+    },
+    {
+      "ms": 106,
+      "action": "inspect"
+    },
+    {
+      "ms": 154,
+      "action": "choose-control"
+    },
+    {
+      "ms": 188,
+      "action": "haggle-buy"
+    },
+    {
+      "ms": 222,
+      "action": "buy"
+    },
+    {
+      "ms": 255,
+      "action": "detail"
+    },
+    {
+      "ms": 288,
+      "action": "list"
+    },
+    {
+      "ms": 321,
+      "action": "wait-event"
+    },
+    {
+      "ms": 1037,
+      "action": "close-day-report"
+    },
+    {
+      "ms": 1088,
+      "action": "detail"
+    },
+    {
+      "ms": 1121,
+      "action": "sell"
+    }
+  ]
+}

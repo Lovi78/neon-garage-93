@@ -1,10 +1,18 @@
 # Neon Garage '93 - aktuális fejlesztési roadmap
 
-Frissítve: 2026. október 14. Jelenlegi fejlesztői változat: v0.14.1 / Stability & UX Improvement a `codex/v0.14.1-stability-ux` ágon. A main: v0.14.0 / Cut & Flow (2026. október 14-én beolvasztva; a v0.12, Premium Retro UX, v0.13 és v0.14 ágak mind benne vannak). Irány: [AUDIT-2026-10.md](AUDIT-2026-10.md).
+Frissítve: 2026. október 14. Jelenlegi fejlesztői változat: v0.14.2 / Purpose & Fair Requests a `codex/v0.14.2-purpose-and-fair-requests` ágon. A main: v0.14.0 / Cut & Flow (2026. október 14-én beolvasztva; a v0.12, Premium Retro UX, v0.13 és v0.14 ágak mind benne vannak). Irány: [AUDIT-2026-10.md](AUDIT-2026-10.md).
 
 A jelenlegi működés szabályai a [README-ben](README.md), az eredeti javaslatok és verziónkénti feljegyzések a [DEVELOPMENT-HISTORY.md](DEVELOPMENT-HISTORY.md) dokumentumban vannak. Az előzmények megmaradtak; az ottani régi státuszok nem a mai állapotot jelentik.
 
 **Státuszok:** kész = megvalósult működés; nyitott = még szükséges ellenőrzés vagy döntés; terv = felhasználói cél, még nincs kész; javaslat = ajánlott következő lépés, nem új fejlesztési vállalás. A tesztek nem bizonyítják önmagukban a vizuális minőséget vagy a tartós játékélményt.
+
+## v0.14.2 - Purpose & Fair Requests
+
+Megvalósult: alkalmasság- és finanszírozhatóság-ellenőrzött, védett megbízási kínálat; valódi felkészítési idő; büntetés nélküli lezárás elérhetőség hiányában; közvetlen tippmegnyitás. Következő cél kártyája pénteki előrejelzéssel és feloldással. 16 modell első karakterprofilja, mentett történet új példányokon, eltérő vevőösszetétel. Top 5 után célzott vevőközönség a hirdetésnél, valós költséggel és elérési kompromisszummal.
+
+Ellenőrzött: 211 szabályteszt, 54 UI-teszt, 120 megbízásos szimuláció és a meglévő teljes szimulációs csomag; négy Chromium nézetméret és a tényleges játékosi mentésből induló megbízásátadás. [Bizonyítékok](PURPOSE-V0142.md).
+
+Nyitott: új emberi 20-30 perces próba. Meg kell nézni, érthetőbb-e a következő lépés, tényleg eltérnek-e a választott javítási/értékesítési utak, és kevésbé ismétlődik-e a játék. V0.15-ben a már elkezdett modellkarakterre épülhet modellismeret és mélyebb, emlékezetesebb helyzetek; a teljes v0.15 nincs kész.
 
 ## v0.14.1 - Stability & UX Improvement
 

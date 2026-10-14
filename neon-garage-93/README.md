@@ -1,14 +1,20 @@
-# Neon Garage '93 - v0.14.1 / Stability & UX Improvement
+# Neon Garage '93 - v0.14.2 / Purpose & Fair Requests
 
 Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, fiktív kaliforniai város, 1993. június 1., $5,000 kezdőtőke, két férőhely.
 
 A teljes játékfelület angol. A korábbi mentések eseményei, hibaleírásai és pénzügyi bejegyzései betöltéskor angolra váltanak, a játékállás megtartásával.
 
-Dokumentáció frissítve: 2026. október 14. Fejlesztői verzió: 0.14.1, a `codex/v0.14.1-stability-ux` ágon. A main jelenleg v0.14.0. Az irányt az [AUDIT-2026-10.md](AUDIT-2026-10.md) adja; az F/1-F/5 pontok elkészültek. A v0.13-as leírások lent változatlanul a régi mentésekre és a v0.13 szabályokra vonatkoznak.
+Dokumentáció frissítve: 2026. október 14. Fejlesztői verzió: 0.14.2, a `codex/v0.14.2-purpose-and-fair-requests` ágon. Alap: v0.14.1. A main jelenleg v0.14.0. Az irányt az [AUDIT-2026-10.md](AUDIT-2026-10.md) adja; az F/1-F/5 pontok elkészültek. A v0.13-as leírások lent változatlanul a régi mentésekre és a v0.13 szabályokra vonatkoznak.
 
 A teljes fejlesztési irány, a következő szakaszok és a nyitott döntések a [ROADMAP.md](ROADMAP.md) dokumentumban vannak rögzítve.
 
 A kattintható tárgyakat állandó, finom mentazöld pixel sarokjelölés emeli ki. Rámutatáskor vagy billentyűzetes kijelöléskor aranyszínű lesz és megjelenik a funkció neve. A saját autók sziluettje is enyhe jelölést kap. Az alsó súgó a számítógéphez irányítja az első játékost; a napváltási jelenetben a jelölések nem látszanak.
+
+## v0.14.2 - Purpose & Fair Requests
+
+A garázs a tényleges állapotból mutatja a következő célt, a pénteki előrejelzést és a feloldható lehetőséget. 16 meglévő modell játékbeli karaktert és eltérő vevőközönséget kapott; régi példányok adatai változatlanok. Top 5 után célzott hirdetéssel választható vevőközönség, $35 egyszeri autónkénti kampánydíjjal és szűkebb eléréssel.
+
+Az új megbízások megfelelő, finanszírozható és védett beszerzési lehetőséget kapnak, felkészítési idővel. A nem megfelelő autó nem blokkol új tippet. Kínálat hiányában védett keresés és büntetés nélküli lezárás működik; a megkapott lehetőség elmulasztása továbbra is következménnyel jár. [Szabályok, ellenőrzések és friss képek](PURPOSE-V0142.md).
 
 ## v0.14.1 - Stability & UX Improvement
 
