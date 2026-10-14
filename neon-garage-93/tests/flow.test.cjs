@@ -118,9 +118,12 @@ test("Skip to next event stops on a finished repair, at most seven days", () => 
   c.readyDay = 4;
   c.repairMode = "rush";
   const r = N.waitForEvent(s, () => 0.99);
+  assert.equal(s.day, 3);
+  assert.equal(r.days, 3);
+  assert.match(r.reason, /financial event/);
+  const finished = N.waitForEvent(s, () => 0.99);
   assert.equal(s.day, 4);
-  assert.equal(r.days, 4);
-  assert.match(r.reason, /repair is finished/);
+  assert.match(finished.reason, /repair is finished/);
   const r2 = N.waitForEvent(s, () => 0.99);
   assert(r2.days <= 7);
   assert.equal(s.dayReport.skippedFrom, 4);

@@ -6,16 +6,15 @@ const html = fs.readFileSync(path.join(root, "index.html"), "utf8");
 const scripts = [...html.matchAll(/src="(js\/[^" ]+)"/g)].map(
   (m) => m[1].split("?")[0],
 );
-function runtime(rng) {
-  const storage = new Map(),
-    context = vm.createContext({
-      console,
-      Math: Object.create(Math),
-      localStorage: {
-        getItem: (k) => storage.get(k) || null,
-        setItem: (k, v) => storage.set(k, v),
-      },
-    });
+function runtime(rng, storage = new Map()) {
+  const context = vm.createContext({
+    console,
+    Math: Object.create(Math),
+    localStorage: {
+      getItem: (k) => storage.get(k) || null,
+      setItem: (k, v) => storage.set(k, v),
+    },
+  });
   context.window = context;
   if (rng) context.Math.random = rng;
   for (const file of scripts.filter(

@@ -235,12 +235,12 @@
             NG.repairDuration(s, part, "standard") - (r.w.speed >= 80 ? 1 : 0),
           ) +
           delay;
-        c.parts[part] = 95 + Math.floor(r.w.skill / 25);
+        c.pendingRepair.parts[part] = 95 + Math.floor(r.w.skill / 25);
       }
     } else if (kind === "restore") {
       // v0.14 package: one booking, same hours as a single part repair.
       const before = c.repairCost;
-      result = NG.applyRepairPackage(s, carId, part, "standard");
+      result = NG.applyRepairPackage(s, carId, part, "standard", true);
       if (c.repairCost === before) return result;
       c.assignedWorker = workerId;
       if (workerId !== "owner") {
@@ -280,6 +280,7 @@
       result =
         "Photos and sale paperwork ready. Review price and publish the listing.";
     } else throw Error("Unknown task.");
+    if (kind === "restore") NG.completeRepair(s, c);
     consume(s, r);
     NG.managementLog(
       s,

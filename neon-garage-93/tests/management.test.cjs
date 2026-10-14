@@ -107,7 +107,8 @@ test("Mechanic repairs use the existing bay and retain assigned worker and quali
   const cash = s.cash;
   N.performWork(s, "repair", c.id, "jo", "engine");
   assert.equal(c.assignedWorker, "jo");
-  assert.equal(c.parts.engine, 98);
+  assert.equal(c.parts.engine, 40);
+  assert.equal(c.pendingRepair.parts.engine, 98);
   assert.equal(s.cash, cash - cost);
   assert.equal(c.readyDay, s.day + 1);
   assert.equal(s.management.staff[0].used, 3);
@@ -116,6 +117,7 @@ test("Mechanic repairs use the existing bay and retain assigned worker and quali
   assert.equal(N.load().inventory[0].assignedWorker, "jo");
   N.nextDay(s, rng);
   assert.equal(N.workshopBusy(s), 0);
+  assert.equal(c.parts.engine, 98);
 });
 test("Queued repairs wait for a bay, can be reprioritized and charge only at start", () => {
   const { N, s, rng } = setup();

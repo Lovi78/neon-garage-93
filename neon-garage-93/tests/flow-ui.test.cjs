@@ -196,10 +196,7 @@ test("Purchase approach shows what each option leans on; the seller's reply tell
     options.map((o) => o.value),
     ["direct", "cash", "fault", "inspection"],
   );
-  assert.equal(
-    d.querySelector('input[name="purchase-tactic"]:checked').value,
-    "direct",
-  );
+  assert.equal(d.querySelector('input[name="purchase-tactic"]:checked'), null);
   const fault = d
     .querySelector('.tactic-option input[value="fault"]')
     .closest("label");
@@ -213,6 +210,13 @@ test("Purchase approach shows what each option leans on; the seller's reply tell
   assert(
     !d.querySelector(".tactic-option .best, .tactic-option [data-best]"),
     "no verdict",
+  );
+  const unchanged = state().market[0].negotiation;
+  click('[data-action="haggle-buy"]');
+  assert.deepEqual(state().market[0].negotiation, unchanged);
+  assert.match(
+    d.querySelector(".dialog-feedback").textContent,
+    /Choose your approach/,
   );
   d.querySelector('input[name="purchase-tactic"][value="cash"]').checked = true;
   const ask = state().market[0].ask;

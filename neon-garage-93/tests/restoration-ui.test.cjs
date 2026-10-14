@@ -73,13 +73,9 @@ test("Workshop tab shows three packages with grade, cost, time and profit change
   assert.match(full, /Runner.*Showroom/);
   assert.match(full, /3 days/);
   assert.match(full, /Profit change\+\$/);
-  assert(d.querySelector(".package-card.recommended .package-flag"));
-  const saved = JSON.parse(w.localStorage.getItem(w.NG.saveKey));
-  assert.equal(
-    d.querySelector(".package-card.recommended h4").textContent,
-    w.NG.recommendPackage(saved, saved.inventory[0]).label,
-  );
-  assert.match(full, /Per day\+\$/);
+  assert(!d.querySelector(".package-card.recommended"));
+  assert.match(cards[0].textContent, /Lowest cost.*Fastest turnaround/);
+  assert.match(cards[2].textContent, /Highest potential value/);
   assert.match(
     d.querySelector('[data-car-panel="workshop"] h3').textContent,
     /58% Runner/,
@@ -116,7 +112,8 @@ test("Booking a package charges the quote and puts the car in the workshop", () 
   assert.equal(after.cash, before.cash - quote.cost);
   assert.equal(c.repairPackage, "driver");
   assert.equal(c.readyDay, after.day + 1);
-  assert(Object.values(c.parts).every((p) => p >= 75));
+  assert(Object.values(c.parts).every((p) => p === 58));
+  assert(c.pendingRepair);
   assert.match(
     d.querySelector(".dialog-feedback").textContent,
     /Driver-ready booked/,
@@ -134,7 +131,7 @@ test("A cheap car gets an honest 'sell as it is' hint when no package pays", () 
   // One-screen car file (v0.14): the workshop section is already visible.
   const panel = d.querySelector(".repair-packages").textContent;
   if (!d.querySelector(".package-card.recommended"))
-    assert.match(panel, /Selling as it is can be the right call/);
+    assert.match(panel, /Selling as it is/);
   assert.match(
     d.querySelector(".package-card:nth-child(3)").textContent,
     /Profit change-\$/,

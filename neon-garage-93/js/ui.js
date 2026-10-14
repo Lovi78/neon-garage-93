@@ -32,6 +32,14 @@
           "'": "&#39;",
         })[c],
     );
+  function download(name, data, type) {
+    const url = URL.createObjectURL(new Blob([data], { type }));
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = name;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
   const signed = (n) => (n >= 0 ? "+" : "-") + NG.money(Math.abs(n));
   const tag = (c) =>
     NG.busy(state, c)
@@ -351,7 +359,7 @@
       return `<label class="price-label" for="purchase-tactic">Your approach</label><select id="purchase-tactic"><option value="direct">Direct offer</option><option value="cash">Quick, certain cash payment</option><option value="fault">Point to documented faults</option><option value="inspection">Use the inspection report</option></select>`;
     const proof = Math.max(0, NG.evidence(c) - (n?.evidenceUsed || 0)),
       mood = p.trust >= 0.6 ? "warm" : p.trust >= 0.35 ? "neutral" : "wary",
-      last = n?.history?.at(-1)?.tactic || "direct",
+      last = "",
       said = p.contacted
         ? NG.sellerKinds.find((k) => k.id === p.kind)?.line
         : "";
@@ -488,7 +496,7 @@
       rankings: "SILVER PALMS RANKING",
     };
     const alerts = priorities();
-    app.innerHTML = `<div class="game-shell">${hud()}${navigation()}${NG.storageError ? '<div class="storage-warning">Your browser is blocking saves. Enable local storage to keep your progress.</div>' : ""}${state.practice ? `<div class="case-banner"><span>PRACTICE ${esc(state.practice)} / SEPARATE SAVE</span><a href="?">Return to your dealership</a></div>` : ""}<main class="world-frame"><div class="scene-overlay">${morningStrip()}${alerts}${requestTracker()}</div>${NG.garageScene(state, arrival)}${garageGuide()}${view !== "garage" ? `<section class="desk-window" aria-label="${names[view]}" data-window-view="${view}"><header class="window-title"><span><i></i> ${names[view]}</span><button data-action="view" data-view="garage" aria-label="Back to garage">&times;</button></header><div class="window-body" tabindex="-1"><div class="section-heading"><div><span class="eyebrow">NEON GARAGE / ${names[view]}</span><h2>${view === "market" ? "Car market" : view === "deals" ? "Deals" : view === "inventory" ? "Your cars" : view === "upgrades" ? "Dealer file" : view === "collection" ? "Car collection" : view === "customers" ? "Customers" : view === "operations" ? "Operations" : view === "rankings" ? "Dealer ranking" : state.flow ? "Books" : "Finances"}</h2></div><button class="text-button" data-action="view-back">&lt; BACK</button></div>${view === "market" ? market() : view === "deals" ? deals() : view === "inventory" ? inventory() : view === "upgrades" ? growth() : view === "collection" ? album() : view === "customers" ? customers() : view === "operations" ? operations() : view === "rankings" ? rankings() : finances()}</div></section>` : ""}</main><footer class="game-footer">${radioConsole()}<details class="radio-news"><summary><span>MARKET WIRE</span><strong>${esc(state.event.title)}</strong></summary><p>${esc(state.event.text)}</p></details><div class="footer-controls"><span>${NG.storageError ? "SAVING UNAVAILABLE" : "AUTO-SAVED"}</span>${state.dayReport ? '<button data-action="show-day-report">DAY REPORT</button>' : ""}<details class="footer-tools"><summary>Options</summary><div><button data-action="reset">NEW GAME</button>${state.flow || !NG.flowBlockers ? "" : `<button data-action="adopt-flow" ${NG.flowBlockers(state).length ? "disabled" : ""} title="${esc(NG.flowBlockers(state).join(", ") || "Weekly rent, no work-hour limit, staff and side businesses tucked away")}">Switch to v0.14 rules</button>`}<small>v0.14 / CUT & FLOW</small><span class="practice-links">Practice: <a href="?scenario=A">A / Moving seller</a> · <a href="?scenario=B">B / Suspicious car</a> · <a href="?scenario=C">C / Slow stock</a></span></div></details></div></footer></div>`;
+    app.innerHTML = `<div class="game-shell">${hud()}${navigation()}${NG.loadError ? '<div class="storage-warning" role="alert">Save could not be loaded. Original data is protected. Export it or restore a previous save in Options. Progress is not being saved.</div>' : ""}${NG.storageError ? '<div class="storage-warning">Your browser is blocking saves. Enable local storage to keep your progress.</div>' : ""}${state.practice ? `<div class="case-banner"><span>PRACTICE ${esc(state.practice)} / SEPARATE SAVE</span><a href="?">Return to your dealership</a></div>` : ""}<main class="world-frame"><div class="scene-overlay">${morningStrip()}${alerts}${requestTracker()}</div>${NG.garageScene(state, arrival)}${garageGuide()}${view !== "garage" ? `<section class="desk-window" aria-label="${names[view]}" data-window-view="${view}"><header class="window-title"><span><i></i> ${names[view]}</span><button data-action="view" data-view="garage" aria-label="Back to garage">&times;</button></header><div class="window-body" tabindex="-1"><div class="section-heading"><div><span class="eyebrow">NEON GARAGE / ${names[view]}</span><h2>${view === "market" ? "Car market" : view === "deals" ? "Deals" : view === "inventory" ? "Your cars" : view === "upgrades" ? "Dealer file" : view === "collection" ? "Car collection" : view === "customers" ? "Customers" : view === "operations" ? "Operations" : view === "rankings" ? "Dealer ranking" : state.flow ? "Books" : "Finances"}</h2></div><button class="text-button" data-action="view-back">&lt; BACK</button></div>${view === "market" ? market() : view === "deals" ? deals() : view === "inventory" ? inventory() : view === "upgrades" ? growth() : view === "collection" ? album() : view === "customers" ? customers() : view === "operations" ? operations() : view === "rankings" ? rankings() : finances()}</div></section>` : ""}</main><footer class="game-footer">${radioConsole()}<details class="radio-news"><summary><span>MARKET WIRE</span><strong>${esc(state.event.title)}</strong></summary><p>${esc(state.event.text)}</p></details><div class="footer-controls"><span>${NG.loadError ? "SAVE PROTECTED" : NG.storageError ? "SAVING UNAVAILABLE" : "AUTO-SAVED"}</span>${state.dayReport ? '<button data-action="show-day-report">DAY REPORT</button>' : ""}<details class="footer-tools"><summary>Options</summary><div><button data-action="export-save">Export Save</button><button data-action="import-save">Import Save</button><button data-action="restore-save">Restore Previous Save</button>${NG.sessionLog ? `<button data-action="session-json">Session JSON</button><button data-action="session-csv">Session CSV</button><small>Development Session Log active</small>` : ""}<button data-action="reset">NEW GAME</button>${state.flow || !NG.flowBlockers ? "" : `<button data-action="adopt-flow" ${NG.flowBlockers(state).length ? "disabled" : ""} title="${esc(NG.flowBlockers(state).join(", ") || "Weekly rent, no work-hour limit, staff and side businesses tucked away")}">Switch to v0.14 rules</button>`}<small>v0.14.1 / STABILITY & UX</small><span class="practice-links">Practice: <a href="?scenario=A">A / Moving seller</a> · <a href="?scenario=B">B / Suspicious car</a> · <a href="?scenario=C">C / Slow stock</a></span></div></details></div></footer></div>`;
     compactHelp(app);
     updateLayout();
     const body = app.querySelector(".window-body");
@@ -1308,31 +1316,39 @@
       quotes = NG.repairPackages.map((p) =>
         NG.packageQuote(state, c, p.id, repairMode),
       ),
-      // Same rule the simulation's best bot follows: profit per day the car is tied up.
-      pick =
-        !NG.busy(state, c) && !c.listed
-          ? NG.recommendPackage(state, c, repairMode)
-          : null,
-      best = pick && quotes.find((q) => q.id === pick.id);
+      // Describe options without choosing the player's strategy.
+      pick = quotes.filter((q) => q.available),
+      labels = (q) =>
+        [
+          q.cost === Math.min(...pick.map((x) => x.cost)) ? "Lowest cost" : "",
+          q.days === Math.min(...pick.map((x) => x.days))
+            ? "Fastest turnaround"
+            : "",
+          q.estimateAfter === Math.max(...pick.map((x) => x.estimateAfter))
+            ? "Highest potential value"
+            : "",
+        ]
+          .filter(Boolean)
+          .join(" / ");
     const note = NG.busy(state, c)
-      ? `In the workshop. Ready ${NG.date(c.readyDay)}.`
+      ? `In the workshop. Ready ${NG.date(c.readyDay)}. Planned result: ${c.pendingRepair ? NG.gradeFor(NG.condition({ ...c, parts: { ...c.parts, ...c.pendingRepair.parts } })).label : NG.grade(c).label}. Current condition changes when work finishes.`
       : c.listed
         ? "Remove the listing before booking work."
-        : best
-          ? `Best return per day the car is tied up: ${best.label}.`
+        : quotes.some((q) => q.available && q.profitChange > 0)
+          ? "Compare cost, time and potential value. Selling as it is is also an option."
           : "No package is expected to pay for itself on this car. Selling as it is can be the right call.";
     return `<section class="repair-packages" aria-label="Repair packages"><h3>How far do you take it?</h3>${gradeLadder(c)}<p class="package-note">${esc(note)}</p><div class="package-grid">${quotes
       .map(
         (q) =>
-          `<article class="package-card${q === best ? " recommended" : ""}">${q === best ? '<span class="package-flag">BEST RETURN</span>' : ""}<h4>${esc(q.label)}</h4><small>${esc(q.short)}</small>${
+          `<article class="package-card">${q.available ? `<span class="package-flag">${labels(q)}</span>` : ""}<h4>${esc(q.label)}</h4><small>${esc(q.short)}</small>${
             q.available
-              ? `<div class="package-grade">${gradeChip(q.gradeBefore.min)}<span aria-hidden="true">→</span><span class="sr-only">to</span>${gradeChip(q.gradeAfter.min)}</div><dl><dt>Cost</dt><dd>${NG.money(q.cost)}</dd><dt>Time</dt><dd>${q.days ? q.days + " day" + (q.days === 1 ? "" : "s") : "Same day"}</dd><dt>Expected sale</dt><dd>${NG.money(q.estimateBefore)} → ${NG.money(q.estimateAfter)}</dd>${requestGradeHint(c, q)}<dt>Profit change</dt><dd class="${q.profitChange >= 0 ? "positive" : "negative"}">${signed(q.profitChange)}</dd><dt>Per day</dt><dd class="${q.profitChange >= 0 ? "positive" : "negative"}">${signed(Math.round(NG.packageScore(q)))}</dd></dl><button class="${q === best ? "primary" : ""}" data-action="repair-package" data-id="${c.id}" data-package="${q.id}" ${blocked || state.cash < q.cost ? "disabled" : ""}>Book ${esc(q.label)} / ${NG.money(q.cost)}</button>`
+              ? `<div class="package-grade">${gradeChip(q.gradeBefore.min)}<span aria-hidden="true">→</span><span class="sr-only">to</span>${gradeChip(q.gradeAfter.min)}</div><dl><dt>Cost</dt><dd>${NG.money(q.cost)}</dd><dt>Time</dt><dd>${q.days ? q.days + " day" + (q.days === 1 ? "" : "s") : "Same day"}</dd><dt>Expected sale</dt><dd>${NG.money(q.estimateBefore)} → ${NG.money(q.estimateAfter)}</dd>${requestGradeHint(c, q)}<dt>Profit change</dt><dd class="${q.profitChange >= 0 ? "positive" : "negative"}">${signed(q.profitChange)}</dd></dl><button data-action="repair-package" data-id="${c.id}" data-package="${q.id}" ${blocked || state.cash < q.cost ? "disabled" : ""}>Book ${esc(q.label)} / ${NG.money(q.cost)}</button>`
               : `<p class="fine-print">${esc(q.reason)}</p>`
           }</article>`,
       )
       .join(
         "",
-      )}</div><p class="fine-print">One booking, three hours of your time. Expected sale uses what you know: hidden faults in parts the crew opens are found and fixed at parts cost. Profit change includes $5/day holding cost. Per day spreads it over workshop days plus about ${NG.saleCycleDays} days to sell; a bigger total that takes longer can still be right when your garage is quiet.</p></section>`;
+      )}</div><details><summary>How estimates and hidden faults work</summary><p class="fine-print">${state.flow ? "One workshop booking." : "One booking, three hours of your time."} Expected sale uses what you know: hidden faults in parts the crew opens are found and fixed at parts cost. Profit change includes $5/day holding cost. Per day spreads it over workshop days plus about ${NG.saleCycleDays} days to sell; a bigger total that takes longer can still be right when your garage is quiet.</p></details></section>`;
   }
   function mechanicalPanel(c, owned) {
     const id = c.id,
@@ -1392,6 +1408,24 @@
         bar.classList.remove("primary");
         bar.textContent = paused ? "Return to seller" : "Review purchase";
       }
+    }
+    if (
+      car &&
+      bar &&
+      state.flow &&
+      state.inventory.includes(car) &&
+      (NG.busy(state, car) || (car.listed && !car.offers.length))
+    ) {
+      bar.disabled = false;
+      bar.classList.add("primary");
+      bar.dataset.action = NG.busy(state, car) ? "next" : "wait-event";
+      delete bar.dataset.id;
+      delete bar.dataset.offer;
+      delete bar.dataset.tab;
+      bar.textContent = NG.busy(state, car)
+        ? "Next Day / repair in progress"
+        : "Wait for buyer / up to 7 days";
+      return;
     }
     if (car && bar && state.inventory.includes(car)) {
       const offer = car.offers.length === 1 ? car.offers[0] : null;
@@ -1586,7 +1620,7 @@
           deal: purchaseDeal(c),
         };
     dialog.setAttribute("aria-label", NG.model(c).name + " car file");
-    dialog.innerHTML = `${hud(true)}<div class="car-window-head"><span class="eyebrow">CAR FILE</span><b>${esc(NG.model(c).name)}</b><button data-action="close" aria-label="Close">×</button></div>${navigation(true)}${single ? singleCarLayout(owned, content) : `<div class="car-tabs" role="tablist" aria-label="Car sections">${tabs.map(([key, label]) => `<button role="tab" id="car-tab-${key}" data-action="car-tab" data-tab="${key}" aria-controls="car-panel-${key}" aria-selected="false" tabindex="-1">${label}${key === "selling" && c.offers.length ? ` <b>${c.offers.length}</b>` : ""}</button>`).join("")}</div><div class="car-panel-scroll">${tabs.map(([key, label]) => `<section id="car-panel-${key}" data-car-panel="${key}" role="tabpanel" aria-labelledby="car-tab-${key}" hidden>${content[key]}</section>`).join("")}</div>`}<div class="car-decision-bar"><span>${owned ? "Invested" : "Current price"} <b>${NG.money(owned ? NG.cost(c) : NG.purchaseQuote(c))}</b></span><button data-action="car-tab" data-tab="${owned ? "selling" : "deal"}">${owned ? "Selling options" : "Review purchase"}</button><p class="dialog-feedback" role="alert" hidden></p></div>`;
+    dialog.innerHTML = `${hud(true)}<div class="car-window-head"><span class="eyebrow">CAR FILE</span><b>${esc(NG.model(c).name)}</b><button data-action="close" aria-label="Close">×</button></div>${single ? "" : navigation(true)}${single ? singleCarLayout(owned, content) : `<div class="car-tabs" role="tablist" aria-label="Car sections">${tabs.map(([key, label]) => `<button role="tab" id="car-tab-${key}" data-action="car-tab" data-tab="${key}" aria-controls="car-panel-${key}" aria-selected="false" tabindex="-1">${label}${key === "selling" && c.offers.length ? ` <b>${c.offers.length}</b>` : ""}</button>`).join("")}</div><div class="car-panel-scroll">${tabs.map(([key, label]) => `<section id="car-panel-${key}" data-car-panel="${key}" role="tabpanel" aria-labelledby="car-tab-${key}" hidden>${content[key]}</section>`).join("")}</div>`}<div class="car-decision-bar"><span>${owned ? "Invested" : "Current price"} <b>${NG.money(owned ? NG.cost(c) : NG.purchaseQuote(c))}</b></span><button data-action="car-tab" data-tab="${owned ? "selling" : "deal"}">${owned ? "Selling options" : "Review purchase"}</button><p class="dialog-feedback" role="alert" hidden></p></div>`;
     restoreDrafts(id);
     compactHelp(dialog);
     carSwitch(tab);
@@ -1807,11 +1841,59 @@
         .map((c) => c.id),
       offers: state.inventory.flatMap((c) => c.offers.map((o) => o.id)),
     };
+    NG.sessionLog?.click(b.dataset, state);
     try {
       let message = "",
         openReport = false,
         beforeScene = "",
         closingDate = "";
+      if (action === "export-save") {
+        download(
+          "neon-garage-save.json",
+          NG.exportSave(state),
+          "application/json",
+        );
+        return;
+      }
+      if (action === "import-save") {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = ".json,application/json";
+        input.onchange = async () => {
+          try {
+            const file = input.files[0];
+            if (!file) return;
+            if (file.size > 5000000) throw Error("Save file is too large.");
+            state = NG.importSave(await file.text());
+            drafts.clear();
+            carTabs.clear();
+            selected = null;
+            dialog.close();
+            render();
+            toast("Save imported and validated.");
+          } catch (error) {
+            toast("Import rejected: " + error.message);
+          }
+        };
+        input.click();
+        return;
+      }
+      if (action === "restore-save") {
+        state = NG.restoreSave();
+        drafts.clear();
+        carTabs.clear();
+        selected = null;
+        dialog.close();
+        message = "Previous save restored.";
+      }
+      if (action === "session-json" || action === "session-csv") {
+        download(
+          "neon-session." + (action === "session-json" ? "json" : "csv"),
+          NG.sessionLog.export(action === "session-json" ? "json" : "csv"),
+          action === "session-json" ? "application/json" : "text/csv",
+        );
+        return;
+      }
       if (action.startsWith("radio-")) {
         if (action === "radio-open") showRadio();
         if (action === "radio-close")
@@ -1938,6 +2020,7 @@
         state = state.practice
           ? NG.practiceScenario(state.practice)
           : NG.newState();
+        state = NG.importSave(JSON.stringify(state));
         view = "garage";
         document.querySelector("#reset-dialog").close();
         dialog.close();
@@ -1994,8 +2077,16 @@
         view = "garage";
         if (skipConfirm === "wait-event") {
           const r = NG.waitForEvent(state);
+          if (!r.days) {
+            render();
+            toast(r.reason);
+            return;
+          }
           state.dayReport.waited = { days: r.days, reason: r.reason };
-        } else NG.nextDay(state);
+        } else {
+          NG.nextDay(state);
+          NG.sessionLog?.day(state.dayReport, "manual");
+        }
         openReport = true;
         message =
           state.claimNotice ||
@@ -2078,10 +2169,14 @@
           id,
           Number(document.querySelector("#purchase-bid").value),
           Math.random,
-          (
-            document.querySelector('input[name="purchase-tactic"]:checked') ||
-            document.querySelector("#purchase-tactic")
-          ).value,
+          (() => {
+            const choice =
+              document.querySelector('input[name="purchase-tactic"]:checked') ||
+              document.querySelector("#purchase-tactic");
+            if (!choice)
+              throw Error("Choose your approach before making an offer.");
+            return choice.value;
+          })(),
         );
       }
       if (action === "haggle-sell") {
@@ -2205,6 +2300,8 @@
           notice.setAttribute("role", "alert");
         } else toast(error.message);
       } else toast(error.message);
+    } finally {
+      NG.sessionLog?.observe(state);
     }
   });
   document.addEventListener("keydown", (e) => {
@@ -2330,5 +2427,7 @@
   )
     showDayReport();
   if (NG.loadError)
-    toast("Your previous save could not be read. A new game has started.");
+    toast(
+      "Save could not be loaded. Original data is protected. Use Options to export or restore it.",
+    );
 })();

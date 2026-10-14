@@ -2550,7 +2550,22 @@ main.world-frame {
 
 /* v0.14 F/4: Silver Palms ranking */
 .driver-progress:has(.hud-rank) {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+}
+.hud-rank {
+  max-width: 150px;
+}
+.hud-rank .progress-label {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+.hud-rank b {
+  white-space: nowrap;
+}
+.hud-rank .hud-meter,
+.hud-rank small {
+  display: none;
 }
 .hud-rank b {
   color: #ffd166;
