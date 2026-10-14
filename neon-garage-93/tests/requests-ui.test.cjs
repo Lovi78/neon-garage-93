@@ -132,7 +132,7 @@ test("Market and garage cards carry the buyer badge; the car file lists what is 
   });
   click('#app [data-action="view"][data-view="market"]');
   assert(
-    [...d.querySelectorAll(".car-card")].some((c) =>
+    [...d.querySelectorAll(".car-card, .market-row")].some((c) =>
       /FOR RILEY S\./.test(c.textContent),
     ),
   );

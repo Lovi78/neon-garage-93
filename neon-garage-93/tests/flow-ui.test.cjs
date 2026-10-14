@@ -135,7 +135,7 @@ test("F/3: one-screen car file, seller reason on open, buy from the bar", () => 
     return s;
   });
   click('#app [data-view="market"]');
-  click(".car-card");
+  click(".market-row");
   assert(d.querySelector("#details").classList.contains("single-car"));
   assert(!d.querySelector('#details [role="tablist"]'), "no tab bar");
   for (const key of ["overview", "inspection", "negotiation", "deal"])
@@ -169,6 +169,11 @@ test("F/3: one-screen car file, seller reason on open, buy from the bar", () => 
 test("F/3: market shows cars first with demand folded into one line", () => {
   const { dom, d, click } = boot(fresh);
   click('#app [data-view="market"]');
+  const row = d.querySelector(".market-row");
+  assert(row, "listing rows instead of picture cards");
+  assert.match(row.textContent, /Est\. value \$[\d,]+ · [+-]\$[\d,]+ margin/);
+  assert(row.querySelector(".row-seller").textContent.length > 3);
+  assert(row.querySelector(".grade-chip"));
   const strip = d.querySelector("details.market-strip");
   assert(strip && !strip.open);
   assert.match(strip.querySelector("summary").textContent, /Japan \d+%/);

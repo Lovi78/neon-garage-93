@@ -435,6 +435,33 @@
   function event() {
     return `<section class="event"><div class="event-icon">↗</div><div><span class="eyebrow">AROUND TOWN TODAY / ${state.event.kind === "start" ? "JUNE 1" : "MARKET NEWS"}</span><h3>${state.event.title}</h3><p>${state.event.text}</p></div><span class="event-frequency">THE DAILY<br><b>PALMS</b></span></section>`;
   }
+  // v0.14: listing rows show what decides a click (seller, condition, price
+  // cut, margin, budget, buyer fit) so only interesting cars get opened.
+  function marketRow(c) {
+    const m = NG.model(c),
+      ask = NG.purchaseQuote(c),
+      est = NG.estimate(state, c),
+      margin = est - ask - 50,
+      shown = c.inspected ? NG.condition(c) : c.claim,
+      cut = c.listing.originalAsk > ask,
+      days = state.day - c.listing.createdDay,
+      over = ask + 50 > state.cash,
+      known = c.flaws.filter((f) => f.revealed && !f.fixed).length,
+      h = c.vehicleHistory;
+    const chips = [
+      { japan: "JPN", europe: "EUR", america: "USA" }[m.segment],
+      m.shape,
+      c.mileage.toLocaleString("en-US") + " mi",
+      (c.inspected ? "" : "claims ") + shown + "%",
+    ];
+    if (h?.historyChecked)
+      chips.push(
+        h.records ? "Records" : "No records",
+        h.accident ? "Accident" : "No accident",
+      );
+    if (known) chips.push(known + " known fault" + (known === 1 ? "" : "s"));
+    return `<button class="market-row${over ? " over-budget" : ""}" data-action="detail" data-id="${c.id}"><div class="row-art">${NG.carArt(c)}<span>${days ? days + " day" + (days === 1 ? "" : "s") + " listed" : "New today"}</span></div><div class="row-body"><span class="row-seller">${esc(c.seller?.reason || "Private seller")}${c.inspected ? " · inspected" : ""}</span><h3>${esc(m.name)} <small>${c.year} / ${esc(m.trim)}</small></h3><div class="row-chips">${chips.map((x) => `<span>${esc(x)}</span>`).join("")}${gradeChip(shown)}</div><div class="row-price"><strong>${NG.money(ask)}</strong>${cut ? `<em class="price-cut">Price cut</em><s>${NG.money(c.listing.originalAsk)}</s>` : ""}${over ? '<em class="over">Over budget</em>' : ""}</div><div class="row-deal">Est. value ${NG.money(est)} · <b class="${margin >= 0 ? "positive" : "negative"}">${signed(margin)}</b> margin</div></div>${requestTag(c)}</button>`;
+  }
   function market() {
     let cars = state.market.filter(
       (c) => filter === "all" || NG.model(c).segment === filter,
@@ -474,7 +501,7 @@
       )
       .join(
         "",
-      )}</select></div></div><div class="car-grid">${cars.map((c) => card(c)).join("")}</div><p class="fine-print">Estimates are uncertain. Listings and buyer deadlines persist.</p>`;
+      )}</select></div></div>${state.flow ? `<div class="market-list">${cars.map(marketRow).join("")}</div>` : `<div class="car-grid">${cars.map((c) => card(c)).join("")}</div>`}<p class="fine-print">Estimates are uncertain. Listings and buyer deadlines persist.</p>`;
   }
   function activeDeals() {
     const deals = state.market.filter((c) => c.negotiation);

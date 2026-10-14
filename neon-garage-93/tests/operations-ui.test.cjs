@@ -121,7 +121,7 @@ assert.equal(
 );
 click('[data-action="view"][data-view="garage"]');
 click(".computer");
-click(".car-card");
+click(".market-row, .car-card"); // v0.14 market rows
 assert(d.querySelector('[data-action="haggle-buy"]'));
 assert(d.querySelector('[data-action="inspect"]'));
 assert(d.querySelector(".inline-help:not([open])"));
