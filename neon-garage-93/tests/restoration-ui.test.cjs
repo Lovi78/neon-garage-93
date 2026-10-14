@@ -63,7 +63,7 @@ const ownedCar = (N, model, level) => {
 test("Workshop tab shows three packages with grade, cost, time and profit change", () => {
   const { dom, w, d, click } = boot((N) => ownedCar(N, "300zx", 58));
   click(".parked-car");
-  click('[data-action="car-tab"][data-tab="workshop"]');
+  // One-screen car file (v0.14): the workshop section is already visible.
   const cards = [...d.querySelectorAll(".package-card")];
   assert.deepEqual(
     cards.map((c) => c.querySelector("h4").textContent),
@@ -93,7 +93,7 @@ test("Workshop tab shows three packages with grade, cost, time and profit change
 test("Booking a package charges the quote and puts the car in the workshop", () => {
   const { dom, w, d, state, click } = boot((N) => ownedCar(N, "300zx", 58));
   click(".parked-car");
-  click('[data-action="car-tab"][data-tab="workshop"]');
+  // One-screen car file (v0.14): the workshop section is already visible.
   const before = state(),
     quote = w.NG.packageQuote(before, before.inventory[0], "driver");
   click('[data-action="repair-package"][data-package="driver"]');
@@ -117,7 +117,7 @@ test("Booking a package charges the quote and puts the car in the workshop", () 
 test("A cheap car gets an honest 'sell as it is' hint when no package pays", () => {
   const { dom, d, click } = boot((N) => ownedCar(N, "volvo", 74));
   click(".parked-car");
-  click('[data-action="car-tab"][data-tab="workshop"]');
+  // One-screen car file (v0.14): the workshop section is already visible.
   const panel = d.querySelector(".repair-packages").textContent;
   if (!d.querySelector(".package-card.recommended"))
     assert.match(panel, /Selling as it is can be the right call/);

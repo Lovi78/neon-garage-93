@@ -142,6 +142,17 @@ test("F/3: one-screen car file, seller reason on open, buy from the bar", () => 
     assert(!d.querySelector(`[data-car-panel="${key}"]`).hidden, key);
   const id = state().market[0].id;
   assert(state().market[0].seller.contacted, "seller reason shown on open");
+  assert(
+    state().market[0].seller.detailsAsked,
+    "the seller question is asked on open",
+  );
+  assert(!d.querySelector('[data-action="seller-details"]'));
+  assert(
+    ![...d.querySelectorAll('#details [data-action="car-tab"]')].some((b) =>
+      /Talk to seller|Inspect first/.test(b.textContent),
+    ),
+    "no scroll-only buttons on one screen",
+  );
   assert(!d.querySelector('[data-action="contact-seller"]'));
   click('.car-decision-bar [data-action="buy"]');
   assert(state().inventory.some((c) => c.id === id));
