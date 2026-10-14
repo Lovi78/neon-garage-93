@@ -1,10 +1,35 @@
 # Neon Garage '93 - aktuális fejlesztési roadmap
 
-Frissítve: 2026. október 12. Jelenlegi fejlesztői változat: v0.13.0 / Run the Lot + Premium Retro UX és pixelikonok. A [PR #1](https://github.com/Lovi78/neon-garage-93/pull/1) a `codex/v0.13-run-the-lot` ágba került (`23b8a5f`); a main továbbra is v0.11.0.
+Frissítve: 2026. október 14. Jelenlegi fejlesztői változat: v0.14.0 / Cut & Flow a `codex/v0.14-cut-and-flow` ágon (a `codex/v0.13-run-the-lot`-ból). Irány: [AUDIT-2026-10.md](AUDIT-2026-10.md). A main továbbra is v0.11.0; a v0.14 még nincs beolvasztva.
 
 A jelenlegi működés szabályai a [README-ben](README.md), az eredeti javaslatok és verziónkénti feljegyzések a [DEVELOPMENT-HISTORY.md](DEVELOPMENT-HISTORY.md) dokumentumban vannak. Az előzmények megmaradtak; az ottani régi státuszok nem a mai állapotot jelentik.
 
 **Státuszok:** kész = megvalósult működés; nyitott = még szükséges ellenőrzés vagy döntés; terv = felhasználói cél, még nincs kész; javaslat = ajánlott következő lépés, nem új fejlesztési vállalás. A tesztek nem bizonyítják önmagukban a vizuális minőséget vagy a tartós játékélményt.
+
+## v0.14 - Cut & Flow (fejlesztés alatt)
+
+Az audit M1 mérföldköve. Szabályok: [README](README.md#v014---cut--flow-fejlesztés-alatt-codexv014-cut-and-flow).
+
+Kész:
+- **F/1 javítási gazdaság:** Project / Runner / Clean / Showroom fokozatok, három javítási csomag, BEST RETURN napi profit alapján, értéklétra, 80 magos balanszszimuláció (Driver-ready +19% a "soha ne javíts"-hoz képest).
+- **Vevői kérések:** 6 archetípus, 3 szint, értékalapú prémium, lead-ek, tracker minden képernyőn.
+- **F/2 napritmus:** egy kattintásos Next Day, reggeli sáv chipekkel, ">>" ugrás, heti bérleti díj péntekenként.
+- **F/3 egyképernyős autólap:** eladó oka megnyitáskor, vétel az alsó sávból, automatikus vevőválasz, Market információs sorok.
+- **F/4 ok a játékra:** Silver Palms ranglista 6 fiktív riválissal, rangsor-feloldások (Top 5 / Top 3 / #1), Season 1 13 hét és 8 cél.
+- **F/5 kivágás új játékban:** nincs munkaóra-limit, Staff/Wholesale/Fleet rejtve, Books nézet elöl.
+- **Alku megközelítés:** kártyák a tényekkel (eladó mondata, bizonyíték, hangulat), ajánlás nélkül; az eladó reakciója tanít.
+
+Döntések: a 3. beálló nem szezoncél és most nem készül; a választás a játékosé marad (nincs automatikus "legjobb" alkuopció).
+
+Nyitott:
+- Emberi játékteszt az audit elfogadási kritériumai szerint (első vétel < 3 perc, flip <= 12 kattintás, 30 percen belül 3 szezoncél).
+- M0 session log (kattintás/perc mérés) még nincs.
+- A vevői kérések bevétele nincs a bot-szimulációban; a ranglista kalibrációja kérések nélküli botokon alapul.
+- Rivális értékek finomhangolása játékteszt alapján; Season 2 tartalma.
+- 4 férőhelyes v0.13 mentésben a garage-guide panel eltakarja a 3. autót.
+- Régi mentés magas heti díja (v0.13 költségek) ellenőrzésre vár.
+
+Következő javaslat: emberi teszt, utána M2 "Cars with Character" (15-20 hős modell, autó-hookok, modellismeret a Collectionből).
 
 ## Premium Retro UX - megvalósult felületi kör
 

@@ -1,10 +1,23 @@
 # Neon Garage '93 - fejlesztési előzmények
 
-Eredeti archívum: 2026. október 10., v0.11.0. Utolsó kiegészítés: 2026. október 12., v0.13.0 + Premium Retro UX és ikonok.
+Eredeti archívum: 2026. október 10., v0.11.0. Utolsó kiegészítés: 2026. október 14., v0.14.0 / Cut & Flow (fejlesztés alatt).
 
 Ez történeti dokumentum. Az alábbi verzióleírások, eredeti javaslatok, státuszok és ellenőrzési számok az akkori fejlesztési állapotot őrzik. Az olyan fordulatok, mint „jelenleg”, „következő kör” vagy „még nincs megvalósítva”, az adott bejegyzésre vonatkoznak, nem a mai játékra. A régi tervek és lezárt döntések megmaradnak, de nem jelentenek új fejlesztési vállalást.
 
 A mai működés: [README](README.md). Aktuális prioritások és nyitott tervek: [ROADMAP](ROADMAP.md).
+
+## v0.14 - Cut & Flow / 2026. október 13-14.
+
+A [2026. októberi audit](AUDIT-2026-10.md) alapján, a `codex/v0.14-cut-and-flow` ágon (`dd7c5f0`-`3f4f5e2`). Cél: kevesebb kattintás, működő felújítási döntés és 30 percen belüli cél.
+
+- Javítási gazdaság: az előtte mérés szerint a v0.13-ban a javítás minden stratégiában pénzt vesztett (Driver-ready $432 vs. soha $15,079 nettó érték 100 nap után). Fokozatok, három csomag, újrahangolt munkadíjak; 20 mag helyett 80, mert 20 magon a független RNG-változások ±20%-ot mozgattak.
+- Vevői kérések újraírása a játékteszt után (monoton kínálat, soha meg nem jelenő kért modell): generált kérések, lead-ek, rövidebb hirdetési élettartam, szélesebb olcsó kínálat.
+- Napritmus és kivágás (F/2, F/5) `s.flow` jelzővel; régi mentés az Options alatt vált.
+- Egyképernyős autólap (F/3), majd Bence kérésére: felesleges gombok ki, státuszsávok a jelenet fölé, Market sorok, nagyobb autóképek, érthetőbb fokozatnevek.
+- Ranglista és Season 1 (F/4). A "$1,000 árrés" cél eredeti jutalma (ingyen Better Tools) a javítási liftet 32%-ra tolta; helyette ingyen újsághirdetés.
+- Játékteszt utáni finomítás: tömör pénteki sáv, HUD nélküli napi riport, alku-megközelítés kártyák ajánlás nélkül.
+
+Ellenőrzés: 176 szabályteszt, 50 UI-teszt, 25 x 200 kereskedési, 30 x 180 management, 400 x 100 javítási szimulált nap. A felhős munkamenet nem tudott pusholni, a commitok git bundle-ön keresztül, a játékos Mac-jéről kerültek fel.
 
 ## 2026. október 12. - jóváhagyott UX- és ikonmerge
 

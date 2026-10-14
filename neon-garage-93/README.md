@@ -1,29 +1,32 @@
-# Neon Garage '93 - v0.13.0 / Run the Lot
+# Neon Garage '93 - v0.14 / Cut & Flow (fejlesztés alatt)
 
 Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, fiktív kaliforniai város, 1993. június 1., $5,000 kezdőtőke, két férőhely.
 
 A teljes játékfelület angol. A korábbi mentések eseményei, hibaleírásai és pénzügyi bejegyzései betöltéskor angolra váltanak, a játékállás megtartásával.
 
-Dokumentáció frissítve: 2026. október 12. Játékverzió: 0.13.0. A Premium Retro UX és az ikonok a [PR #1](https://github.com/Lovi78/neon-garage-93/pull/1) merge-ével a `codex/v0.13-run-the-lot` ágon vannak (`23b8a5f`). A main külön v0.11.0 állapot, nem a jelenlegi fejlesztői változat.
+Dokumentáció frissítve: 2026. október 14. Játékverzió: 0.14.0 (fejlesztői), ág: `codex/v0.14-cut-and-flow` (a `codex/v0.13-run-the-lot`-ból, utolsó commit `3f4f5e2`). Az irányt az [AUDIT-2026-10.md](AUDIT-2026-10.md) adja; az F/1-F/5 pontok elkészültek. A main külön v0.11.0 állapot, nem a jelenlegi fejlesztői változat. A v0.13-as leírások lent változatlanul a régi mentésekre és a v0.13 szabályokra vonatkoznak.
 
 A teljes fejlesztési irány, a következő szakaszok és a nyitott döntések a [ROADMAP.md](ROADMAP.md) dokumentumban vannak rögzítve.
 
 A kattintható tárgyakat állandó, finom mentazöld pixel sarokjelölés emeli ki. Rámutatáskor vagy billentyűzetes kijelöléskor aranyszínű lesz és megjelenik a funkció neve. A saját autók sziluettje is enyhe jelölést kap. Az alsó súgó a számítógéphez irányítja az első játékost; a napváltási jelenetben a jelölések nem látszanak.
 
-## Felújítási gazdaság - v0.14 (fejlesztés alatt, `codex/v0.14-cut-and-flow`)
+## v0.14 - Cut & Flow (fejlesztés alatt, `codex/v0.14-cut-and-flow`)
 
 Az irány az [AUDIT-2026-10.md](AUDIT-2026-10.md) F/1 pontja. A javítás eddig minden stratégiában pénzt vesztett; most a "mennyire hozzam rendbe?" a fő döntés.
 
 - **Állapotfokozatok:** Project (<55), Runner (55-74), Clean (75-89), Showroom (90+). Az érték a küszöböknél ugrik; a fokozatok közepén a régi értékgörbén marad.
-- **Három csomag a Workshop fülön, egy foglalás (3 munkaóra):** Quick fix (ismert hibák + detailing, aznap), Driver-ready (minden alkatrész 75+, Clean, 1 nap), Full restoration (minden 95, Excellent, 3 nap). Kártyánként költség, idő, fokozat előtte/utána, várható eladási ár és profitváltozás. Az alkatrészenkénti javítás lenyitható haladó opció.
+- **Három csomag a Workshop fülön, egy foglalás (3 munkaóra):** Quick fix (ismert hibák + detailing, aznap), Driver-ready (minden alkatrész 75+, Clean, 1 nap), Full restoration (minden 95, Showroom, 3 nap). A csomagok fölött értéklétra mutatja, mit érne az autó az egyes fokozatokon; a fokozatjelvényeken rámutatásra tartomány és jelentés. Kártyánként költség, idő, fokozat előtte/utána, várható eladási ár és profitváltozás. Az alkatrészenkénti javítás lenyitható haladó opció.
 - **Vevők:** a rajongó +7%-ot fizet Showroom sportautóért/roadsterért; a budget vevő Runner felett nem fizet többet.
-- **Mérés:** `node tests/repair-simulation.cjs` (80 mag x 100 nap, nettó érték). v0.13: soha ne javíts $15,079, Driver-ready $432. v0.14: soha ne javíts $17,032, Driver-ready $21,777 (+28%), a "BEST RETURN" jelölést követő bot $23,945 (+41%). A jelölés napi profit alapján dönt (műhelynapok + kb. 2 nap eladás). Előtte/utána adatok: `reports/repair-*.json`.
+- **Mérés:** `node tests/repair-simulation.cjs` (80 mag x 100 nap, nettó érték). v0.13: soha ne javíts $15,079, Driver-ready $432. v0.14 (rangsor-feloldásokkal, 2026-10-14): soha ne javíts $18,802, Quick $19,951, Driver-ready $22,436 (+19%), Full mindenre $11,428, a "BEST RETURN" jelölést követő bot $23,536 (+25%). Balanszcél assertként: Driver-ready lift 10-30%, Full < Driver-ready, több nyerő stratégia. A jelölés napi profit alapján dönt (műhelynapok + kb. 2 nap eladás). Előtte/utána adatok: `reports/repair-*.json`.
 - **Buyer requestek:** 6 típus 3 szinten (Everyday / Specific / Collector 5 REP-től), a katalógus valódi modelljeiből generálva; a modellre szóló kérés mindig olyan modellt kér, ami épp a piacon vagy a garázsban van. A fizetés a leszállított autó becsült értéke +12 / 18 / 25%, a Specific/Collector +1/+2 REP. Az aktív kérések minden képernyőn látszanak (egy kattintásos átadás), a piaci és garázs autókon "FOR <vevő>" jelvény, az autólapon ellenőrzőlista. Átadáskor a vevő szerelője megtalálja a rejtett hibát. 10 REP-től 3 aktív kérés. Ha a vevő egy konkrét modellt kér, és az nincs a piacon, elfogadáskor (és később naponta 40% eséllyel) küld egy "lead"-et: egy ilyen autót, ami a kérés idejére a piacon marad. A régi fix árú kérések a régi szabályokkal futnak ki.
 - **Piac:** a hirdetések 8-20 napig élnek (eddig 18-41), így naponta több új autó jön. Az olcsó kínálat mind a ~15 olcsó modellből jön (eddig 40% csak Golf/Volvo/CRX).
 - **Napritmus (F/2):** a Next Day egy kattintás; megerősítést csak akkor kér, ha egy meg nem nézett ajánlat vagy egy határidős kérés elveszne. A reggeli összefoglaló egy sáv a menü alatt, a teljes jelentés ablakként csak panasznál vagy kérés-hírnél jön (különben "Full report"). Új **>>** gomb: átugorja a csendes napokat, amíg vevő jelentkezik, kész a javítás, kérés érkezik vagy lejár, panasz jön vagy számla késik (max 7 nap). A napi számlák **péntekenként, heti bérleti díjként** mennek le (ugyanannyi pénz, egy fizetés), a HUD mutatja: "Rent June 4: $60".
 - **Kivágás (F/5), új játékban:** nincs napi 8 órás munkaidő-korlát, a Staff, a Wholesale Desk és a Fleet Workshop rejtve (M3-ig), a Business menü elején a **Books** nézet (cash, pénteki bérleti díj, heti eredmény, hitel; a részletes könyvelés lenyitható). Régi mentés a régi szabályokkal fut, amíg az Options alatt a "Switch to v0.14 rules" gombbal át nem váltasz (ha nincs alkalmazott vagy futó wholesale/fleet).
 - **Egyképernyős autólap (F/3):** nincs Overview/Inspection/Negotiation/Deal fül; bal oldalt az autó, az állapot és a csomagok, jobb oldalt az eladó és az alku, illetve eladásnál a hirdetés és a vevők. Az eladó oka megnyitáskor látszik, a vételt az alsó sávból egy kattintással intézed. A vevői kérdésekre a játék a legerősebb igazolható válasszal felel. Vétel után nincs Specialist gomb. A Marketen elöl az autók, a keresleti hullám egy sorba csukva.
 - **Silver Palms ranglista és Season 1 (F/4):** 6 kitalált helyi kereskedő (Coral Bay Classics, Sal's Auto Row, Palm Coast Imports, Big Ray's Motors, Westside Wheels, Duke's Discount Cars) és te, business value szerint rangsorolva. A rangsor péntekenként zár; a riválisok heti értéke a hét számából számolt, nem nyúl a játék véletlen-sorozatához. Új játék a 6. helyről indul. Feloldások a valaha elért legjobb pénteki helyezés alapján: **Top 5** Auction tips (naponta 30% eséllyel egy $9,000+ modell "DEALER TIP" jelöléssel a piacon), **Top 3** Collector network (gyakoribb Collector kérés, $25,000 hitelkeret), **#1** szezongyőzelem +5 REP. Season 1 "Summer of '93" 13 hétig tart (záró rangsor: 1993. augusztus 27.), utána a tábla tovább mozog. 8 szezoncél jutalommal (pl. első nyereséges eladás +30 XP, első teljesített kérés +1 skillpont, $1,000 árrés ingyen újsághirdetés). HUD: "Rank #6 of 7" és a következő rivális előnye; új ikon a menüben (Ranking). Régi mentés a betöltés napjától indul a szezonba. A 100 napos javítási szimuláció a feloldásokkal: soha ne javíts $18,802, Driver-ready $22,436 (+19%).
+- **Market sorok:** a piac információs sorokban jelenik meg (eladó oka, állapotjelvény, árcsökkentés, keret felett, becsült érték és árrés, kérés-jelvény, nagy autókép), így csak az érdekes autóra kell rákattintani.
+- **Reggeli sáv (F/4 után):** pénteken a rangsor, a feloldások és a teljesített célok rövid chipként jelennek meg, kattintásra a Ranking ablak nyílik; a hosszú szöveg a Full reportban marad. A kész javítást a "Repair completed" jelzés mutatja, a "Next move" doboz nem kér előkészítést olyan autóra, ami azonnal átadható egy kérésnek. A napi riport ablakban nincs ismételt HUD.
+- **Alku megközelítés:** a legördülő lista helyett négy kártya (Direct / Quick cash / Point to faults / Inspection report). Mindegyik kiírja, mire épít és mi van a kezedben: az eladó saját mondata, a fel nem használt dokumentált hibák értéke, az eladó hangulata (wary / neutral / warm). Nincs ajánlott vagy előre választott opció; az eladó válasza elején reagál a megközelítésre ("Cash today helps me a lot.", "I need proof of that fault."). Bizonyíték nélküli hibára hivatkozás blöff: bizalomvesztés. Régi szabályú mentésben a régi lista marad.
 - A főmenü asztali nézetben csak ikon, a név rámutatáskor/fókuszkor jelenik meg.
 - A v0.13 mentések betöltenek (két valódi mentés a `tests/fixtures/` alatt).
 
@@ -304,6 +307,11 @@ Mind a 60 modell saját SVG-körvonalmaszkot kapott. A megjelenítés a tényleg
 
 ## Felépítés
 
+- `js/restoration.js` (v0.14): javítási csomagok, árajánlat, BEST RETURN ajánlás, fokozatfüggő vevőreakció.
+- `js/flow.js` (v0.14): `s.flow` szabályok, heti bérleti díj, ">>" ugrás, automatikus vevőválasz, napzárási figyelmeztetések, régi mentés átváltása.
+- `js/ranking.js` (v0.14): Silver Palms riválisok, pénteki rangsor, feloldások, Season 1 célok.
+- `tests/repair-simulation.cjs` (v0.14): javítási stratégiák 80 magon, balanszcélok assertként (`SIM_SEEDS`, `SIM_DAYS`, `SIM_ONLY`, `SIM_OUT`, `SIM_TWEAK`).
+- `tests/fixtures/`: két valódi v0.13 mentés a kompatibilitási tesztekhez.
 - `js/enterprise.js`: tőkeberuházások, külső szerviz/flottamunkák, nagykereskedelmi lekötések, hitel, likviditás és üzletági érték.
 - `js/opportunities.js`: vevői autómegbízások és a korábbi mentések kifutó helyi eseményei.
 - `js/ambience.js`: napváltási jelenet, kihagyás és mozgáscsökkentés.
@@ -355,17 +363,21 @@ A régi modulok regressziós alaptesztjei mellett az új 18 integrált teszt a t
 
 A kereskedési szimuláció 5 stratégia x 5 véletlenmag x 200 nap. Minden nap készpénz-napló egyeztetés, 25 naponta mentésből folytatás; külön reprodukálhatósági ellenőrzés. Kimenet: [reports/trading-simulation.json](reports/trading-simulation.json). A számok első balanszmérésből származnak; nem történelmi gazdasági adatok.
 
-Legutóbbi megvalósítási ellenőrzés: 128 szabályteszt, 30 UI-tesztblokk (8 új Premium UX integráció), 25 x 200 kereskedési és 30 x 180 management nap, összesen 10 400 szimulált nap. Az ikonos kiegészítés után mind a 30 UI-blokk újra sikeres. [Naplók, böngészős folyamatok és korlátok](UX-REDESIGN.md). Ezek a fejlesztési kör során futott ellenőrzések; a dokumentáció-frissítés nem jelent új tesztfutást.
+v0.14 ellenőrzés (2026-10-14): 176 szabályteszt (`npm test`), 50 UI-teszt (`npm run test:ui`), `npm run test:simulation` (25 x 200 kereskedési, 30 x 180 management és 400 x 100 napos javítási futás) - mind zöld. Új tesztfájlok: `restoration`, `requests`, `flow`, `ranking` (+ UI-párjaik) és `repair-simulation.cjs`. Böngészős képek: Chromium 1440 x 900 és 390 x 844, `reports/v014-*.png`.
+
+v0.13-as megvalósítási ellenőrzés: 128 szabályteszt, 30 UI-tesztblokk (8 új Premium UX integráció), 25 x 200 kereskedési és 30 x 180 management nap, összesen 10 400 szimulált nap. Az ikonos kiegészítés után mind a 30 UI-blokk újra sikeres. [Naplók, böngészős folyamatok és korlátok](UX-REDESIGN.md). Ezek a fejlesztési kör során futott ellenőrzések; a dokumentáció-frissítés nem jelent új tesztfutást.
 
 Valódi Chromium-próba helyi kiszolgálással készült 1440 x 900, 1280 x 720 és 390 x 844 méretben; az ikonos kör 1440 x 900 és 390 x 844 méretet is ellenőrzött. Ez nem játékfüggőség: a játék továbbra is közvetlen `index.html` megnyitással működik. A rádió hangját és hosszabb emberi játékélményt külön játékosi próba tudja megítélni.
 
 ## Korlátok és következő lépések
 
-- 60 modell és két saját autóbeálló. A nagy beruházások kapacitást és üzletágat nyitnak, külön új telephelygrafika nincs.
+- 60 modell és két saját autóbeálló. A 3. beálló nem szezoncél (2026-10-14-i döntés); a nagy beruházások kapacitást és üzletágat nyitnak, külön új telephelygrafika nincs.
+- A Silver Palms riválisai fiktívek és determinisztikusak (hét alapú érték, kis ingadozás); nem reagálnak a játékos lépéseire. Season 2 tartalma még nincs eldöntve.
+- A vevői kérések bevétele nincs benne a bot-szimulációban, és a játékidő-mérés (session log) még nem készült el.
 - A személyzet valós munkát végez; négy jelölt közül két munkakörben alkalmazott vehető fel és osztható be; további HR-rendszer nincs.
 - Nincs automatikus csődvége. Készleteladás, hitel és a kötelezettségektől függő üzletági felszámolás segíthet a likviditási gondokon.
 - A mentés helyi, ugyanahhoz a böngészőhöz és fájlhelyhez kötődik. Felhőmentés és mentésexport nincs.
 - Az új kis helyi meghívások generálása megszűnt; a vevői megbízások megmaradtak.
 - Valós, dátumhoz kötött történelmi hírek még nincsenek. A rádió fiktív saját zenét játszik.
 - További kézi ellenőrzés: hosszabb játékosi próba, Safari/Firefox, fizikai telefon és tényleges régi játékosi mentés. A régi séma izolált fixture-rel tesztelt; ez nem a játékos valódi régi mentése.
-- A következő javasolt irány a vállalkozási döntések mélyítése és egyensúlyozása, majd a megbízások bővítése. A 150 és több száz autós cél megmarad. A részletek a [roadmapben](ROADMAP.md), az eredeti ötletek és verzióelőzmények a [fejlesztési előzményekben](DEVELOPMENT-HISTORY.md) vannak.
+- A következő javasolt irány az emberi játékteszt a v0.14 elfogadási kritériumai szerint (audit E/M1), majd az M2 "Cars with Character" (hős modellek, autó-hookok, modellismeret). A 150 és több száz autós cél megmarad. A részletek a [roadmapben](ROADMAP.md), az eredeti ötletek és verzióelőzmények a [fejlesztési előzményekben](DEVELOPMENT-HISTORY.md) vannak.
