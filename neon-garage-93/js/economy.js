@@ -18,17 +18,46 @@ NG.baseValue = (car) =>
 /* v0.14: condition grades. Buyers pay by grade, so value steps up at each
    threshold instead of rising in a straight line. */
 NG.conditionGrades = [
-  { id: "rough", label: "Rough", min: 0, base: 0.651, slope: 0.004 },
-  { id: "driver", label: "Driver", min: 55, base: 0.715, slope: 0.004 },
-  { id: "clean", label: "Clean", min: 75, base: 0.846, slope: 0.004 },
-  { id: "excellent", label: "Excellent", min: 90, base: 0.945, slope: 0.004 },
+  // Ids stay stable for saves; labels are dealer slang a player reads at a glance.
+  {
+    id: "rough",
+    label: "Project",
+    min: 0,
+    base: 0.651,
+    slope: 0.004,
+    blurb: "Needs real work. Cheap to buy, hard to sell.",
+  },
+  {
+    id: "driver",
+    label: "Runner",
+    min: 55,
+    base: 0.715,
+    slope: 0.004,
+    blurb: "Runs and drives, shows its age. The everyday used car.",
+  },
+  {
+    id: "clean",
+    label: "Clean",
+    min: 75,
+    base: 0.846,
+    slope: 0.004,
+    blurb: "Tidy and sorted. Buyers pay a clear step more.",
+  },
+  {
+    id: "excellent",
+    label: "Showroom",
+    min: 90,
+    base: 0.945,
+    slope: 0.004,
+    blurb: "Near perfect. Enthusiasts pay a premium for sports cars.",
+  },
 ];
 // Buyers knock a known fault off the price at more than its repair bill.
 NG.faultPenalty = 1.1;
 NG.gradeFor = (condition) =>
   [...NG.conditionGrades].reverse().find((g) => condition >= g.min);
 NG.grade = (car) => NG.gradeFor(NG.condition(car));
-// Rough is anchored at its top (54) and falls away below it.
+// Project (rough) is anchored at its top (54) and falls away below it.
 NG.conditionFactor = (condition) => {
   const g = NG.gradeFor(condition);
   return g.id === "rough"

@@ -213,8 +213,8 @@ window.NG = window.NG || {};
   };
 
   /* Buyers react to grades, not to single points.
-     Enthusiasts pay extra for an Excellent sports car or roadster.
-     Budget shoppers will not pay for anything above Driver condition. */
+     Enthusiasts pay extra for a Showroom (excellent) sports car or roadster.
+     Budget shoppers will not pay for anything above Runner condition. */
   NG.gradeReaction = (s, c, kind) => {
     const condition = NG.condition(c),
       g = NG.gradeFor(condition),

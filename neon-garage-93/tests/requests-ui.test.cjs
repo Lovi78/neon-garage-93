@@ -137,10 +137,10 @@ test("Market and garage cards carry the buyer badge; the car file lists what is 
     ),
   );
   const chip = d.querySelector(".request-tracker .request-chip");
-  assert.match(chip.textContent, /Mazda MX-5: Driver or better/);
+  assert.match(chip.textContent, /Mazda MX-5: Runner or better/);
   click('.request-tracker [data-action="detail"]');
   const checklist = d.querySelector(".car-request .request-checklist");
-  assert.match(checklist.textContent, /✗ Driver or better/);
+  assert.match(checklist.textContent, /✗ Runner or better/);
   assert.match(checklist.textContent, /Driver-ready gets it there\./);
   assert(!d.querySelector('.car-request [data-action="request-deliver"]'));
   // Workshop card tells which package satisfies the request.

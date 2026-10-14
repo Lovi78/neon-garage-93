@@ -45,13 +45,13 @@ test("Grades follow the published thresholds", () => {
   const { N } = setup();
   const g = (c) => N.gradeFor(c).label;
   assert.deepEqual([54, 55, 74, 75, 89, 90, 95].map(g), [
-    "Rough",
-    "Driver",
-    "Driver",
+    "Project",
+    "Runner",
+    "Runner",
     "Clean",
     "Clean",
-    "Excellent",
-    "Excellent",
+    "Showroom",
+    "Showroom",
   ]);
 });
 test("Value jumps at a grade threshold more than inside a grade", () => {
@@ -91,7 +91,7 @@ test("Packages raise the right parts and cost less than part-by-part work", () =
   ]);
   assert(full.plan.every((w) => w.to === 95));
   assert.equal(driver.gradeAfter.label, "Clean");
-  assert.equal(full.gradeAfter.label, "Excellent");
+  assert.equal(full.gradeAfter.label, "Showroom");
   assert(quick.cost < driver.cost && driver.cost < full.cost);
   assert.deepEqual([quick.days, driver.days, full.days], [0, 1, 3]);
   const partByPart = Object.keys(N.parts).reduce(
@@ -231,7 +231,7 @@ test("Blocked bookings charge nothing", () => {
   assert.equal(s.ledger.filter((l) => l.type === "repair").length, 0);
   assert(cash > 0);
 });
-test("Buyers react to grades: budget shoppers cap at Driver, enthusiasts pay for Excellent", () => {
+test("Buyers react to grades: budget shoppers cap at Runner, enthusiasts pay for Showroom", () => {
   const { N, s } = setup();
   const sport = owned(N, s, even(95), "supra"),
     sedan = owned(N, s, even(95), "volvo");

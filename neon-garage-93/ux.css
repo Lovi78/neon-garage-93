@@ -2490,3 +2490,60 @@ main.world-frame {
     height: 200px;
   }
 }
+
+/* v0.14 grade ladder: where the car is and what each grade is worth */
+.grade-ladder {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  margin: 6px 0 10px;
+}
+.grade-ladder .rung {
+  display: grid;
+  gap: 1px;
+  padding: 6px 8px;
+  border: 1px solid #3a4852;
+  border-top: 3px solid currentColor;
+  border-radius: 4px;
+  background: #1a222a;
+  font-size: 12px;
+}
+.grade-ladder .rung b {
+  font-size: 13px;
+}
+.grade-ladder .rung small,
+.grade-ladder .rung span {
+  color: var(--muted);
+}
+.grade-ladder .rung.here {
+  background: #24323a;
+  border-color: currentColor;
+}
+.grade-ladder .rung.here span {
+  color: var(--text);
+  font-weight: 700;
+}
+.grade-chip {
+  cursor: help;
+}
+/* bigger car in market rows: crop the sprite's empty square, label may overlap */
+.market-row {
+  grid-template-columns: 210px 1fr;
+}
+.row-art {
+  position: relative;
+  height: 122px;
+  display: block;
+}
+.row-art .car-art {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 212px;
+  height: auto;
+  max-height: none;
+  transform: translate(-50%, -56.6%);
+}
+.row-art > span {
+  z-index: 1;
+}

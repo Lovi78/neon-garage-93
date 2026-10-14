@@ -1149,9 +1149,38 @@
     return `<div class="offer buyer-offer" id="buyer-offer-${o.id}"><div class="offer-summary"><span>${esc(o.buyer)}${o.profile ? `<small>${esc(o.profile.name)} / ${esc(o.profile.focus)}</small>` : ""}${o.returning ? '<small class="positive">RETURNING CUSTOMER</small>' : ""}<strong>${question ? "INQUIRY" : NG.money(o.price)}</strong>${!question ? `<small>Deal margin: ${signed(o.price - NG.cost(c))}</small>` : ""}<small>${o.expiresDay != null ? "Valid through " + NG.date(o.expiresDay) : "Today only"}</small></span><div class="offer-actions">${!question ? `<button class="primary" data-action="sell" data-id="${c.id}" data-offer="${o.id}">Accept</button>` : ""}<button data-action="reject" data-id="${c.id}" data-offer="${o.id}">Decline</button></div></div><div class="negotiation-dialogue"><span>${esc(o.buyer)} / ${esc({ question: "Question", agreed: "Agreed", offer: "Offer" }[o.stage] || "Offer")}</span>${o.negotiation?.history?.length ? `<p class="player-line">You asked <b>${NG.money(o.negotiation.history.at(-1).price)}</b></p>` : ""}<p>${esc(o.negotiation?.message || o.message || "Here is my offer.")}</p></div>${question ? `<label class="price-label" for="buyer-answer-${o.id}">Your reply</label><select id="buyer-answer-${o.id}"><option value="condition">Share inspected condition</option><option value="records">Provide service records</option><option value="as-is">Explain uncertainty honestly</option></select><button data-action="answer-buyer" data-id="${c.id}" data-offer="${o.id}">Answer inquiry</button>` : ""}${canCounter ? `<label class="price-label" for="counter-price-${o.id}">Your counteroffer ($)</label><div class="haggle-controls"><input id="counter-price-${o.id}" aria-describedby="offer-feedback-${o.id}" inputmode="numeric" type="number" min="${o.price + 1}" max="${c.listPrice}" step="1" value="${Math.min(c.listPrice, Math.round(o.price * 1.06))}"><button data-action="haggle-sell" data-id="${c.id}" data-offer="${o.id}">Counteroffer</button></div><select id="sale-tactic-${o.id}" aria-label="Selling argument"><option value="price">Discuss price</option><option value="records">Documented service history</option><option value="reliability">Inspected reliability</option></select><p class="offer-feedback" id="offer-feedback-${o.id}" role="alert" hidden></p><p class="fine-print">Use evidence this buyer values.</p>` : ""}</div>`;
   }
 
+  const gradeRange = (g) => {
+    const i = NG.conditionGrades.indexOf(g),
+      next = NG.conditionGrades[i + 1];
+    return next
+      ? g.min
+        ? g.min + "-" + (next.min - 1) + "%"
+        : "under " + next.min + "%"
+      : g.min + "%+";
+  };
   function gradeChip(condition) {
     const g = NG.gradeFor(condition);
-    return `<span class="grade-chip grade-${g.id}">${g.label}</span>`;
+    return `<span class="grade-chip grade-${g.id}" title="${esc(g.label + " (" + gradeRange(g) + " condition): " + g.blurb)}">${g.label}</span>`;
+  }
+  // Workshop ladder: where this car is, and what each grade is worth for it.
+  function gradeLadder(c) {
+    const now = NG.condition(c),
+      here = NG.gradeFor(now),
+      est = NG.estimate(state, c),
+      // Typical condition a car shows at each grade (Full restoration reaches 95%).
+      typical = { rough: 45, driver: 65, clean: 80, excellent: 95 },
+      at = (g) =>
+        Math.round(
+          (est * NG.conditionFactor(g === here ? now : typical[g.id])) /
+            NG.conditionFactor(now) /
+            25,
+        ) * 25;
+    return `<div class="grade-ladder" aria-label="Condition grades">${NG.conditionGrades
+      .map(
+        (g) =>
+          `<div class="rung grade-${g.id}${g === here ? " here" : ""}" title="${esc(g.blurb)}"><b>${g.label}</b><small>${gradeRange(g)}</small><span>${g === here ? "now " : "≈ "}${NG.money(at(g))}</span></div>`,
+      )
+      .join("")}</div>`;
   }
   // v0.14: three packages are the main repair decision; part-by-part stays for advanced players.
   // Workshop card: say when a package reaches the grade an active request needs.
@@ -1194,7 +1223,7 @@
         : best
           ? `Best return per day the car is tied up: ${best.label}.`
           : "No package is expected to pay for itself on this car. Selling as it is can be the right call.";
-    return `<section class="repair-packages" aria-label="Repair packages"><h3>How far do you take it?</h3><p class="package-note">${esc(note)}</p><div class="package-grid">${quotes
+    return `<section class="repair-packages" aria-label="Repair packages"><h3>How far do you take it?</h3>${gradeLadder(c)}<p class="package-note">${esc(note)}</p><div class="package-grid">${quotes
       .map(
         (q) =>
           `<article class="package-card${q === best ? " recommended" : ""}">${q === best ? '<span class="package-flag">BEST RETURN</span>' : ""}<h4>${esc(q.label)}</h4><small>${esc(q.short)}</small>${
@@ -1228,7 +1257,7 @@
         )
         .join("") ||
       `<p>${c.inspected ? "No additional faults detected. This is not a guarantee." : "? Hidden faults: not fully inspected."}</p>`
-    }</div>${!c.inspected ? `<button data-action="inspect" data-id="${id}">Mechanical inspection · ${NG.money(NG.inspectionPrice(state))}</button>` : ""}${!c.vehicleHistory?.deepChecked && !(owned && state.flow) ? `<button data-action="inspect-deep" data-id="${id}">Specialist examination / ${NG.money(NG.inspectionPrice(state) * 2)}</button>` : ""}${owned ? '<p class="fine-print">Grades: Rough under 55%, Driver 55-74%, Clean 75-89%, Excellent 90%+. Buyers pay by grade. Single-part repairs restore one part to 95% and cost more than a package; if they find a hidden fault, you get a revised quote before paying.</p>' : ""}`;
+    }</div>${!c.inspected ? `<button data-action="inspect" data-id="${id}">Mechanical inspection · ${NG.money(NG.inspectionPrice(state))}</button>` : ""}${!c.vehicleHistory?.deepChecked && !(owned && state.flow) ? `<button data-action="inspect-deep" data-id="${id}">Specialist examination / ${NG.money(NG.inspectionPrice(state) * 2)}</button>` : ""}${owned ? '<p class="fine-print">Grades: Project under 55%, Runner 55-74%, Clean 75-89%, Showroom 90%+. Buyers pay by grade. Single-part repairs restore one part to 95% and cost more than a package; if they find a hidden fault, you get a revised quote before paying.</p>' : ""}`;
   }
   function syncDecisionBar(tab) {
     // One screen shows the deal at once: the bar can buy straight away.

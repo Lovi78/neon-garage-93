@@ -70,7 +70,7 @@ test("Workshop tab shows three packages with grade, cost, time and profit change
     ["Quick fix", "Driver-ready", "Full restoration"],
   );
   const full = cards[2].textContent;
-  assert.match(full, /Driver.*Excellent/);
+  assert.match(full, /Runner.*Showroom/);
   assert.match(full, /3 days/);
   assert.match(full, /Profit change\+\$/);
   assert(d.querySelector(".package-card.recommended .package-flag"));
@@ -82,7 +82,21 @@ test("Workshop tab shows three packages with grade, cost, time and profit change
   assert.match(full, /Per day\+\$/);
   assert.match(
     d.querySelector('[data-car-panel="workshop"] h3').textContent,
-    /58% Driver/,
+    /58% Runner/,
+  );
+  // Grades explain themselves: tooltip with range and meaning, and a value ladder.
+  assert.match(
+    d.querySelector('[data-car-panel="workshop"] h3 .grade-chip').title,
+    /Runner \(55-74% condition\): Runs and drives/,
+  );
+  const rungs = [...d.querySelectorAll(".grade-ladder .rung")];
+  assert.deepEqual(
+    rungs.map((r) => r.querySelector("b").textContent),
+    ["Project", "Runner", "Clean", "Showroom"],
+  );
+  assert.match(
+    d.querySelector(".grade-ladder .rung.here").textContent,
+    /Runner55-74%now \$/,
   );
   // Single-part repairs are still there, folded away for advanced players.
   const advanced = d.querySelector("details.single-part-repairs");
