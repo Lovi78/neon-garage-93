@@ -177,4 +177,21 @@ for (const file of ["v013-solo-save.json", "v013-staff-save.json"])
       assert.throws(() => N.adoptFlowRules(s), /already/);
     }
   });
+test("F/3: buyer questions are answered with the best answer you can prove", () => {
+  const { N, s } = setup();
+  s.cash = 20000;
+  const c = s.market[0];
+  N.buy(s, c.id);
+  assert.equal(N.bestBuyerAnswer(c), "as-is");
+  c.inspected = true;
+  assert.equal(N.bestBuyerAnswer(c), "condition");
+  N.list(s, c.id, Math.round(N.listingValue(s, c) * 0.8), "honest");
+  let asked = 0;
+  for (let i = 0; i < 20 && !asked; i++) {
+    N.nextDay(s, random(100 + i));
+    asked = c.offers.filter((o) => o.autoAnswered).length;
+    assert(c.offers.every((o) => o.stage !== "question"));
+  }
+  assert(asked > 0, "no inquiry arrived in 20 days");
+});
 console.log(count + " day rhythm tests passed.");

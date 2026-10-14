@@ -447,7 +447,13 @@
         (a, b) =>
           NG.estimate(state, b) - b.ask - (NG.estimate(state, a) - a.ask),
       );
-    return `${trendBoard()}${event()}<div class="section-heading"><h2>Today’s listings <span>${state.market.length} listings / ${NG.catalog.length} models</span></h2><div class="filters"><select id="segment-filter" aria-label="Filter cars">${[
+    // v0.14: cars first; demand waves fold into one line.
+    const d = state.demand,
+      pct = (k) => Math.round(d[k] * 100) + "%";
+    const top = state.flow
+      ? `<details class="market-strip"><summary><b>Markets</b> Japan ${pct("japan")} · Europe ${pct("europe")} · America ${pct("america")}<span>${esc(state.event.title)}</span></summary>${trendBoard()}${event()}</details>`
+      : `${trendBoard()}${event()}`;
+    return `${top}<div class="section-heading"><h2>Today’s listings <span>${state.market.length} listings / ${NG.catalog.length} models</span></h2><div class="filters"><select id="segment-filter" aria-label="Filter cars">${[
       ["all", "All cars"],
       ["japan", "Japanese"],
       ["europe", "European"],
@@ -1195,29 +1201,16 @@
         )
         .join("") ||
       `<p>${c.inspected ? "No additional faults detected. This is not a guarantee." : "? Hidden faults: not fully inspected."}</p>`
-    }</div>${!c.inspected ? `<button data-action="inspect" data-id="${id}">Mechanical inspection · ${NG.money(NG.inspectionPrice(state))}</button>` : ""}${!c.vehicleHistory?.deepChecked ? `<button data-action="inspect-deep" data-id="${id}">Specialist examination / ${NG.money(NG.inspectionPrice(state) * 2)}</button>` : ""}${owned ? '<p class="fine-print">Grades: Rough under 55%, Driver 55-74%, Clean 75-89%, Excellent 90%+. Buyers pay by grade. Single-part repairs restore one part to 95% and cost more than a package; if they find a hidden fault, you get a revised quote before paying.</p>' : ""}`;
+    }</div>${!c.inspected ? `<button data-action="inspect" data-id="${id}">Mechanical inspection · ${NG.money(NG.inspectionPrice(state))}</button>` : ""}${!c.vehicleHistory?.deepChecked && !(owned && state.flow) ? `<button data-action="inspect-deep" data-id="${id}">Specialist examination / ${NG.money(NG.inspectionPrice(state) * 2)}</button>` : ""}${owned ? '<p class="fine-print">Grades: Rough under 55%, Driver 55-74%, Clean 75-89%, Excellent 90%+. Buyers pay by grade. Single-part repairs restore one part to 95% and cost more than a package; if they find a hidden fault, you get a revised quote before paying.</p>' : ""}`;
   }
-  function carSwitch(tab, focus = false) {
-    const panel = dialog.querySelector(`[data-car-panel="${tab}"]`);
-    if (!panel) return;
-    carTabs.set(selected, tab);
-    dialog.querySelector(".car-panel-scroll").scrollTop = 0;
-    const c = state.inventory.find((c) => c.id === selected);
-    if (c && tab === "selling" && c.offers.some((o) => o.seen !== true)) {
-      c.offers.forEach((o) => (o.seen = true));
-      NG.save(state);
-      render();
-    }
-    dialog
-      .querySelectorAll("[data-car-panel]")
-      .forEach((el) => (el.hidden = el !== panel));
-    dialog
-      .querySelectorAll('[data-action="car-tab"][role="tab"]')
-      .forEach((el) => {
-        const active = el.dataset.tab === tab;
-        el.setAttribute("aria-selected", String(active));
-        el.tabIndex = active ? 0 : -1;
-      });
+  function syncDecisionBar(tab) {
+    // One screen shows the deal at once: the bar can buy straight away.
+    if (
+      dialog.classList.contains("single-car") &&
+      tab !== "selling" &&
+      tab !== "finances"
+    )
+      tab = "deal";
     const car = [...state.market, ...state.inventory].find(
         (c) => c.id === selected,
       ),
@@ -1257,6 +1250,45 @@
       bar.textContent =
         tab === "selling" ? "Review investment" : "Selling options";
     }
+  }
+  function singleCarLayout(owned, content) {
+    const box = (key, label) =>
+      `<section id="car-panel-${key}" data-car-panel="${key}" aria-label="${label}">${content[key]}</section>`;
+    return owned
+      ? `<div class="car-panel-scroll single-columns"><div class="car-col">${box("overview", "Overview")}${box("workshop", "Workshop")}</div><div class="car-col car-actions">${box("selling", "Selling")}<details class="car-money"><summary>Money in this car</summary>${box("finances", "Finances")}</details></div></div>`
+      : `<div class="car-panel-scroll single-columns"><div class="car-col">${box("overview", "Overview")}${box("inspection", "Inspection")}</div><div class="car-col car-actions">${box("negotiation", "Negotiation")}${box("deal", "Deal")}</div></div>`;
+  }
+  function carSwitch(tab, focus = false) {
+    const panel = dialog.querySelector(`[data-car-panel="${tab}"]`);
+    if (!panel) return;
+    if (dialog.classList.contains("single-car")) {
+      // One screen: bring the section into view, keep everything visible.
+      panel.closest("details")?.setAttribute("open", "");
+      if (focus || carTabs.get(selected) !== tab)
+        panel.scrollIntoView?.({ block: "start" });
+      carTabs.set(selected, tab);
+      syncDecisionBar(tab);
+      return;
+    }
+    carTabs.set(selected, tab);
+    dialog.querySelector(".car-panel-scroll").scrollTop = 0;
+    const c = state.inventory.find((c) => c.id === selected);
+    if (c && tab === "selling" && c.offers.some((o) => o.seen !== true)) {
+      c.offers.forEach((o) => (o.seen = true));
+      NG.save(state);
+      render();
+    }
+    dialog
+      .querySelectorAll("[data-car-panel]")
+      .forEach((el) => (el.hidden = el !== panel));
+    dialog
+      .querySelectorAll('[data-action="car-tab"][role="tab"]')
+      .forEach((el) => {
+        const active = el.dataset.tab === tab;
+        el.setAttribute("aria-selected", String(active));
+        el.tabIndex = active ? 0 : -1;
+      });
+    syncDecisionBar(tab);
     if (focus) dialog.querySelector(`[role="tab"][data-tab="${tab}"]`).focus();
   }
   function carWarnings(c, owned) {
@@ -1315,7 +1347,7 @@
   function carSelling(c) {
     const id = c.id,
       value = NG.value(state, c);
-    return `${carRequests(c, true)}<h3>Sell your car</h3><p class="fine-print">${c.prepared ? "Sale preparation complete. Listing uses no further work time." : "First listing includes two hours of your work. Delegate sale preparation in Operations to free that time."}</p>${NG.busy(state, c) ? `<p class="workshop-note">Repair in progress. Ready ${NG.date(c.readyDay)}.</p>` : c.listed ? `${listingDescription(c)}<div class="selling-price"><b>Listed ${NG.money(c.listPrice)}</b><button data-action="unlist" data-id="${id}">Change / remove listing</button></div>${c.marketAdvice ? `<p class="negative">${esc(c.marketAdvice)}</p>` : ""}${c.buyerMessage ? `<div class="negotiation-dialogue"><p>${esc(c.buyerMessage)}</p></div>` : ""}<div class="buyer-conversations">${c.offers.map((o) => offerCard(c, o)).join("") || "<p>No buyers yet. Close the day to attract interest.</p>"}</div>` : listingForm(c, value, id)}<details class="dealer-exit"><summary>Instant dealer exit / ${NG.money(Math.round(value * 0.72))}</summary><p>Deal margin ${signed(Math.round(value * 0.72) - NG.cost(c))}. Fixed price.</p><button data-action="sell" data-id="${id}" data-offer="dealer" ${NG.busy(state, c) ? "disabled" : ""}>Sell to dealer</button></details>`;
+    return `${carRequests(c, true)}<h3>Sell your car</h3>${state.flow ? "" : `<p class="fine-print">${c.prepared ? "Sale preparation complete. Listing uses no further work time." : "First listing includes two hours of your work. Delegate sale preparation in Operations to free that time."}</p>`}${NG.busy(state, c) ? `<p class="workshop-note">Repair in progress. Ready ${NG.date(c.readyDay)}.</p>` : c.listed ? `${listingDescription(c)}<div class="selling-price"><b>Listed ${NG.money(c.listPrice)}</b><button data-action="unlist" data-id="${id}">Change / remove listing</button></div>${c.marketAdvice ? `<p class="negative">${esc(c.marketAdvice)}</p>` : ""}${c.buyerMessage ? `<div class="negotiation-dialogue"><p>${esc(c.buyerMessage)}</p></div>` : ""}<div class="buyer-conversations">${c.offers.map((o) => offerCard(c, o)).join("") || "<p>No buyers yet. Close the day to attract interest.</p>"}</div>` : listingForm(c, value, id)}<details class="dealer-exit"><summary>Instant dealer exit / ${NG.money(Math.round(value * 0.72))}</summary><p>Deal margin ${signed(Math.round(value * 0.72) - NG.cost(c))}. Fixed price.</p><button data-action="sell" data-id="${id}" data-offer="dealer" ${NG.busy(state, c) ? "disabled" : ""}>Sell to dealer</button></details>`;
   }
   function carFinances(c) {
     return `<h3>Investment in this car</h3>${opsMetrics([
@@ -1342,6 +1374,22 @@
       return;
     }
     dialog.classList.add("car-mode");
+    // v0.14 (F/3): one screen, no tabs; the seller's reason shows on open.
+    const single = !!state.flow;
+    dialog.classList.toggle("single-car", single);
+    if (single && c.seller && !c.seller.contacted && state.market.includes(c)) {
+      NG.contactSeller(state, c.id, "contact");
+      NG.save(state);
+    }
+    if (
+      single &&
+      state.inventory.includes(c) &&
+      c.offers.some((o) => o.seen !== true)
+    ) {
+      c.offers.forEach((o) => (o.seen = true));
+      NG.save(state);
+      render();
+    }
     const owned = state.inventory.includes(c),
       tabs = owned
         ? [
@@ -1381,7 +1429,7 @@
           deal: purchaseDeal(c),
         };
     dialog.setAttribute("aria-label", NG.model(c).name + " car file");
-    dialog.innerHTML = `${hud(true)}<div class="car-window-head"><span class="eyebrow">CAR FILE</span><b>${esc(NG.model(c).name)}</b><button data-action="close" aria-label="Close">×</button></div>${navigation(true)}<div class="car-tabs" role="tablist" aria-label="Car sections">${tabs.map(([key, label]) => `<button role="tab" id="car-tab-${key}" data-action="car-tab" data-tab="${key}" aria-controls="car-panel-${key}" aria-selected="false" tabindex="-1">${label}${key === "selling" && c.offers.length ? ` <b>${c.offers.length}</b>` : ""}</button>`).join("")}</div><div class="car-panel-scroll">${tabs.map(([key, label]) => `<section id="car-panel-${key}" data-car-panel="${key}" role="tabpanel" aria-labelledby="car-tab-${key}" hidden>${content[key]}</section>`).join("")}</div><div class="car-decision-bar"><span>${owned ? "Invested" : "Current price"} <b>${NG.money(owned ? NG.cost(c) : NG.purchaseQuote(c))}</b></span><button data-action="car-tab" data-tab="${owned ? "selling" : "deal"}">${owned ? "Selling options" : "Review purchase"}</button><p class="dialog-feedback" role="alert" hidden></p></div>`;
+    dialog.innerHTML = `${hud(true)}<div class="car-window-head"><span class="eyebrow">CAR FILE</span><b>${esc(NG.model(c).name)}</b><button data-action="close" aria-label="Close">×</button></div>${navigation(true)}${single ? singleCarLayout(owned, content) : `<div class="car-tabs" role="tablist" aria-label="Car sections">${tabs.map(([key, label]) => `<button role="tab" id="car-tab-${key}" data-action="car-tab" data-tab="${key}" aria-controls="car-panel-${key}" aria-selected="false" tabindex="-1">${label}${key === "selling" && c.offers.length ? ` <b>${c.offers.length}</b>` : ""}</button>`).join("")}</div><div class="car-panel-scroll">${tabs.map(([key, label]) => `<section id="car-panel-${key}" data-car-panel="${key}" role="tabpanel" aria-labelledby="car-tab-${key}" hidden>${content[key]}</section>`).join("")}</div>`}<div class="car-decision-bar"><span>${owned ? "Invested" : "Current price"} <b>${NG.money(owned ? NG.cost(c) : NG.purchaseQuote(c))}</b></span><button data-action="car-tab" data-tab="${owned ? "selling" : "deal"}">${owned ? "Selling options" : "Review purchase"}</button><p class="dialog-feedback" role="alert" hidden></p></div>`;
     restoreDrafts(id);
     compactHelp(dialog);
     carSwitch(tab);

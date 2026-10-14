@@ -128,4 +128,39 @@ test("An old save keeps its rules until the player switches in Options", () => {
   assert(!d.querySelector('[data-action="adopt-flow"]'));
   dom.window.close();
 });
+test("F/3: one-screen car file, seller reason on open, buy from the bar", () => {
+  const { dom, d, state, click } = boot((N) => {
+    const s = fresh(N);
+    s.cash = 20000;
+    return s;
+  });
+  click('#app [data-view="market"]');
+  click(".car-card");
+  assert(d.querySelector("#details").classList.contains("single-car"));
+  assert(!d.querySelector('#details [role="tablist"]'), "no tab bar");
+  for (const key of ["overview", "inspection", "negotiation", "deal"])
+    assert(!d.querySelector(`[data-car-panel="${key}"]`).hidden, key);
+  const id = state().market[0].id;
+  assert(state().market[0].seller.contacted, "seller reason shown on open");
+  assert(!d.querySelector('[data-action="contact-seller"]'));
+  click('.car-decision-bar [data-action="buy"]');
+  assert(state().inventory.some((c) => c.id === id));
+  click(".parked-car");
+  for (const key of ["overview", "workshop", "selling"])
+    assert(!d.querySelector(`[data-car-panel="${key}"]`).hidden, key);
+  assert(d.querySelector(".repair-packages"));
+  assert(
+    !d.querySelector('[data-action="inspect-deep"]'),
+    "no specialist exam after purchase",
+  );
+  dom.window.close();
+});
+test("F/3: market shows cars first with demand folded into one line", () => {
+  const { dom, d, click } = boot(fresh);
+  click('#app [data-view="market"]');
+  const strip = d.querySelector("details.market-strip");
+  assert(strip && !strip.open);
+  assert.match(strip.querySelector("summary").textContent, /Japan \d+%/);
+  dom.window.close();
+});
 console.log(count + " day rhythm UI tests passed.");

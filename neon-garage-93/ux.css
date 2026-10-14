@@ -2216,3 +2216,65 @@ main.world-frame {
   padding: 6px 10px;
   font-size: 13px;
 }
+
+/* v0.14 F/3: one-screen car file */
+.single-car .single-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+.single-car .car-col {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+.single-car .car-col > section,
+.single-car .car-money {
+  padding: 12px 14px;
+  background: #1a222a;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+.single-car .car-actions {
+  position: sticky;
+  top: 0;
+}
+.single-car .car-money > section {
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.single-car .car-money summary {
+  cursor: pointer;
+  color: var(--muted);
+}
+.single-car [data-car-panel="overview"] .detail-grid {
+  grid-template-columns: 1fr;
+}
+@media (max-width: 820px) {
+  .single-car .single-columns {
+    grid-template-columns: 1fr;
+  }
+  .single-car .car-actions {
+    position: static;
+  }
+}
+.market-strip {
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  background: #1c2730;
+  border: 1px solid #4a5d66;
+  border-radius: 5px;
+}
+.market-strip summary {
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+.market-strip summary span {
+  color: var(--muted);
+  font-size: 13px;
+}

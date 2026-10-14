@@ -133,6 +133,25 @@ window.NG = window.NG || {};
     };
   };
 
+  /* F/3: buyer questions are answered at once with the strongest true
+     answer you can back up, so the player sees offers, not homework. */
+  NG.bestBuyerAnswer = (c) =>
+    c.inspected
+      ? "condition"
+      : c.vehicleHistory?.historyChecked && c.vehicleHistory.records
+        ? "records"
+        : "as-is";
+  const advanceBuyers = NG.advanceBuyers;
+  NG.advanceBuyers = (s, c, rng) => {
+    const r = advanceBuyers(s, c, rng);
+    if (s.flow)
+      for (const o of c.offers)
+        if (o.stage === "question" && o.expiresDay >= s.day) {
+          NG.answerBuyer(s, c.id, o.id, NG.bestBuyerAnswer(c));
+          o.autoAnswered = true;
+        }
+    return r;
+  };
   // A closing needs the player's confirmation only when something is lost.
   NG.closeDayWarnings = (s) => ({
     offers: s.inventory.flatMap((c) =>
