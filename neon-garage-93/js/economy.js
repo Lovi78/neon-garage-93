@@ -140,7 +140,10 @@ NG.generateCar = (state, modelIndex, rng = Math.random) => {
     readyDay: 0,
   };
   if (rng() < (m.faultChance ?? 0.4)) {
-    const f = NG.flaws[Math.floor(rng() * NG.flaws.length)];
+    const roll = rng(),
+      f = NG.characterFlaw
+        ? NG.characterFlaw(m, roll)
+        : NG.flaws[Math.floor(roll * NG.flaws.length)];
     car.flaws.push({
       ...f,
       cost: Math.round(f.cost * (m.service || 1)),
@@ -148,6 +151,7 @@ NG.generateCar = (state, modelIndex, rng = Math.random) => {
       revealed: false,
     });
   }
+  NG.applyCharacter?.(car);
   car.claim = NG.clamp(NG.condition(car) + Math.round(rng() * 20), 30, 95);
   car.ask =
     Math.round((NG.value(state, car) * (0.69 + rng() * 0.39)) / 25) * 25;

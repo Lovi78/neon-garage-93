@@ -84,7 +84,7 @@ test("Friday morning strip reports the new rank and the unlock", () => {
   assert.equal(state().day, 3);
   const strip = d.querySelector(".morning-strip").textContent;
   assert.match(strip, /#5 of 7 ▲1/);
-  assert.match(strip, /Unlocked: Auction tips/);
+  assert.match(strip, /Unlocked: Buyer networks & auction tips/);
   assert.match(strip, /✓ 2 season goals done/);
   assert(
     !/Silver Palms ranking:/.test(strip),

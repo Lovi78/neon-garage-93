@@ -2843,3 +2843,61 @@ main.world-frame {
     grid-template-columns: 1fr;
   }
 }
+
+/* Purpose card: two-slot garage stays the visual focus. */
+.objective-guide {
+  max-width: 390px;
+  padding: 14px 18px;
+}
+.objective-guide h2 {
+  font-size: 20px;
+}
+.objective-guide p {
+  font-size: 13px;
+  line-height: 1.45;
+  margin: 7px 0;
+}
+.objective-guide strong,
+.objective-guide small {
+  display: block;
+}
+.objective-guide small {
+  font-size: 11px;
+  color: var(--muted);
+}
+.objective-reward {
+  color: #edc77f;
+}
+.car-character {
+  padding: 10px 12px;
+  border-left: 2px solid #edc77f;
+  background: #22302b;
+  margin-top: 10px;
+}
+.car-character p {
+  margin: 4px 0;
+}
+@media (max-width: 900px) {
+  .objective-guide {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    width: 100%;
+    max-width: none;
+    margin-top: 10px;
+  }
+}
+
+.objective-guide.has-stock {
+  position: relative;
+  left: auto;
+  bottom: auto;
+  max-width: none;
+  margin-top: 12px;
+}
+.row-character {
+  display: block;
+  color: #edc77f;
+  font-size: 12px;
+  margin: 4px 0;
+}

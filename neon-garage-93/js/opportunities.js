@@ -243,27 +243,213 @@ NG.requestSpec = (q) => {
   };
 };
 NG.requestCapacity = (s) => ((s.reputation || 0) >= 10 ? 3 : 2);
-/* Leads: a buyer who names one model also knows where one is for sale.
-   Without this, a single model could fail to appear for the whole window. */
-NG.requestHasCar = (s, q) => {
-  const t = NG.requestSpec(q);
+/* A source must be able to meet immutable requirements, not just match a name.
+   This internal supply check uses actual history; UI inspection still gates disclosure. */
+NG.requestSupplyFits = (s, q, c) => {
+  const t = NG.requestSpec(q),
+    m = NG.model(c),
+    h = c.vehicleHistory;
   return (
-    !t?.models ||
-    s.market.some((c) => t.models.includes(c.model)) ||
-    s.inventory.some((c) => NG.requestFits(s, q, c))
+    !!t &&
+    !!m &&
+    (!t.models || t.models.includes(c.model)) &&
+    (!t.segment || t.segment === m.segment) &&
+    (!t.shapes || t.shapes.includes(m.shape)) &&
+    (!t.mileage || c.mileage <= t.mileage) &&
+    (!t.records || !!h?.records) &&
+    (!t.noAccident || !h?.accident) &&
+    !c.negotiation?.walked
   );
 };
-NG.requestLead = (s, q, rng = NG.factRandom(q.id + ":" + s.day)) => {
+// Include title, inspection, records, all faults and minimum repair time in feasibility.
+NG.requestPreparation = (s, q, c) => {
+  if (!NG.requestSupplyFits(s, q, c)) return null;
   const t = NG.requestSpec(q),
-    i = NG.catalog.findIndex((m) => m.id === t.models[0]);
-  const c = NG.generateCar(s, i, rng);
-  c.mileage = Math.min(c.mileage, (t.mileage || 999999) - 10000);
-  if (t.noAccident) c.vehicleHistory.accident = false;
-  if (t.records) c.vehicleHistory.records = true;
-  c.listing.leadFor = q.id;
-  c.listing.expiresDay = Math.max(c.listing.expiresDay, q.deadline + 1);
-  s.market.push(c);
-  return c;
+    owned = s.inventory.includes(c);
+  if (owned && NG.requestCriteria(s, q, c, true).every((x) => x.ok))
+    return { cost: 0, days: 1, package: "none", affordable: true };
+  if (s.operations?.arrears > 0) return null;
+  const after = JSON.parse(JSON.stringify(c));
+  if (after.pendingRepair) {
+    Object.assign(after.parts, after.pendingRepair.parts);
+    after.pendingRepair.faults.forEach((i) => (after.flaws[i].fixed = true));
+  }
+  after.inspected = true;
+  after.flaws.forEach((f) => (f.revealed = true));
+  after.vehicleHistory.historyChecked = true;
+  after.readyDay = s.day;
+  const fees =
+    (c.inspected ? 0 : NG.inspectionPrice(s)) +
+    ((t.records || t.noAccident) && !c.vehicleHistory.historyChecked ? 35 : 0);
+  const plans = [{ cost: 0, days: 0, id: "none", after }];
+  for (const p of NG.repairPackages) {
+    const quote = NG.packageQuote(s, after, p.id);
+    if (!quote.available) continue;
+    const result = JSON.parse(JSON.stringify(after));
+    quote.plan.forEach((w) => {
+      result.parts[w.part] = w.to;
+      w.faults.forEach(
+        (f) => (result.flaws[after.flaws.indexOf(f)].fixed = true),
+      );
+    });
+    plans.push({ cost: quote.cost, days: quote.days, id: p.id, after: result });
+  }
+  const plan = plans
+    .filter((p) => NG.requestCriteria(s, q, p.after, true).every((x) => x.ok))
+    .sort((a, b) => a.cost - b.cost || a.days - b.days)[0];
+  if (!plan) return null;
+  const delay = Math.max(0, c.readyDay - s.day);
+  const jobs = [
+    ...s.inventory.filter((car) => NG.busy(s, car)),
+    ...(s.enterprise?.orders || []).filter((j) => j.status === "working"),
+  ];
+  const queue =
+    !delay && plan.days && NG.workshopBusy(s) >= NG.workshopCapacity(s)
+      ? Math.max(
+          1,
+          Math.min(...jobs.map((j) => j.readyDay - s.day).filter((n) => n > 0)),
+        )
+      : 0;
+  const blockedDay = plan.id !== "none" && NG.localWorkshopBlocked?.(s) ? 1 : 0;
+  const days =
+    delay + (Number.isFinite(queue) ? queue : 1) + plan.days + blockedDay + 1;
+  const hiddenReserve = s.business?.supplier
+    ? c.flaws
+        .filter((f) => !f.revealed && !f.fixed)
+        .reduce((n, f) => n + f.cost * 0.2, 0)
+    : 0;
+  const cost =
+    (owned ? 0 : NG.purchaseQuote(c) + 50) +
+    fees +
+    plan.cost +
+    Math.ceil(hiddenReserve);
+  const bills =
+    Array.from({ length: days }, (_, i) =>
+      NG.knownDailyBills(s, s.day + i + 1),
+    ).reduce((a, b) => a + b, 0) + (owned ? 0 : days * 5);
+  return { cost, days, package: plan.id, affordable: cost + bills <= s.cash };
+};
+NG.requestCanWaitForRepair = (s, q) => {
+  const c = s.inventory.find((c) => c.id === q.supply?.carId);
+  return (
+    !!c &&
+    NG.busy(s, c) &&
+    c.readyDay <= q.deadline &&
+    NG.requestPreparation(s, q, c)?.package === "none"
+  );
+};
+NG.requestSource = (s, q) =>
+  [...s.inventory, ...s.market].find((c) => {
+    const p = NG.requestPreparation(s, q, c);
+    return p && p.affordable;
+  });
+NG.requestHasCar = (s, q) => !!NG.requestSource(s, q);
+NG.requestLead = (s, q, rng = NG.factRandom(q.id + ":" + s.day)) => {
+  const t = NG.requestSpec(q);
+  if (!t) return null;
+  const pool = NG.catalog
+    .filter(
+      (m) =>
+        (!t.models || t.models.includes(m.id)) &&
+        (!t.segment || m.segment === t.segment) &&
+        (!t.shapes || t.shapes.includes(m.shape)),
+    )
+    .sort((a, b) => a.value - b.value);
+  for (const m of pool.slice(0, 12))
+    for (let attempt = 0; attempt < 3; attempt++) {
+      const scratch = { ...s, nextId: s.nextId },
+        c = NG.generateCar(scratch, NG.catalog.indexOf(m), rng);
+      c.mileage = Math.min(
+        c.mileage,
+        Math.max(0, (t.mileage || 999999) - 10000),
+      );
+      if (t.noAccident) c.vehicleHistory.accident = false;
+      if (t.records) c.vehicleHistory.records = true;
+      // Reprice genuine facts once, never discount to manufacture a profitable request.
+      c.ask =
+        Math.round(
+          (NG.value(s, c) *
+            c.seller.expectation *
+            (1.04 - c.seller.urgency * 0.17)) /
+            25,
+        ) * 25;
+      c.seller.reservation = Math.max(
+        100,
+        Math.round(c.ask * (1 - c.seller.flexibility)),
+      );
+      c.listing.originalAsk = c.ask;
+      c.listing.prices = [{ day: s.day, price: c.ask }];
+      const plan = NG.requestPreparation(s, q, c);
+      if (!plan?.affordable) continue;
+      s.nextId = scratch.nextId;
+      c.listing.leadFor = q.id;
+      c.listing.expiresDay = Math.max(c.listing.expiresDay, q.deadline + 1);
+      s.market.push(c);
+      return c;
+    }
+  return null;
+};
+NG.secureRequestSupply = (s, q) => {
+  const source = NG.requestSource(s, q) || NG.requestLead(s, q);
+  if (!source) return null;
+  const plan = NG.requestPreparation(s, q, source);
+  q.supply = { carId: source.id, day: s.day, preparationDays: plan.days };
+  q.deadline = Math.max(
+    q.deadline,
+    s.day + NG.requestSpec(q).days,
+    s.day + plan.days + 1,
+  );
+  q.waitingSupply = false;
+  return source;
+};
+// Deadline protection is for unavailable supply, not spending money or reselling a source.
+NG.maintainRequestSupply = (s, q) => {
+  if (!q.spec || q.status !== "active") return;
+  if (s.day > q.deadline && !q.waitingSupply) return; // Do not rewrite overdue historical commitments.
+  if (!q.supply) {
+    const source = NG.secureRequestSupply(s, q);
+    if (source)
+      s.opportunities.notices.push(
+        NG.requestSpec(q).buyer +
+          " has a suitable lead: " +
+          NG.model(source).name +
+          ". Deliver by " +
+          NG.date(q.deadline) +
+          ".",
+      );
+    else {
+      q.waitingSupply = true;
+      q.supplyWaitStarted ??= s.day;
+      if (s.day - q.supplyWaitStarted >= 3 || s.day > q.deadline) {
+        q.status = "unavailable";
+        s.opportunities.notices.push(
+          "Request closed: no viable supply for " +
+            NG.requestSpec(q).title +
+            ". No reputation or cash penalty.",
+        );
+      }
+    }
+    return;
+  }
+  const exists = [...s.inventory, ...s.market].some(
+    (c) => c.id === q.supply.carId,
+  );
+  const resold = s.sales.some((sale) => sale.carId === q.supply.carId);
+  if (!exists && !resold) {
+    if (!NG.secureRequestSupply(s, q)) {
+      q.status = "unavailable";
+      s.opportunities.notices.push(
+        "Supply was lost for " +
+          NG.requestSpec(q).title +
+          ". Request closed without penalty.",
+      );
+    } else
+      s.opportunities.notices.push(
+        "Replacement lead secured. Deadline extended for preparation: " +
+          NG.date(q.deadline) +
+          ".",
+      );
+  }
 };
 NG.chooseRequest = (s, id, accept) => {
   NG.ensureOpportunities(s);
@@ -288,9 +474,21 @@ NG.chooseRequest = (s, id, accept) => {
   q.acceptedDay = s.day;
   q.deadline = s.day + t.days;
   let lead = "";
-  if (t.models && !NG.requestHasCar(s, q)) {
-    NG.requestLead(s, q);
-    lead = " " + t.buyer + " passed on a lead: one is listed on the market.";
+  if (q.spec) {
+    const source = NG.secureRequestSupply(s, q);
+    if (source)
+      lead =
+        " " +
+        t.buyer +
+        " passed on a lead: " +
+        NG.model(source).name +
+        " is available. Time for preparation is included.";
+    else {
+      q.waitingSupply = true;
+      q.supplyWaitStarted = s.day;
+      lead =
+        " No viable affordable source yet. The supply search is protected: no penalty if we cannot find one within three days.";
+    }
   }
   return (
     "Request accepted. Deliver by " +
@@ -555,6 +753,10 @@ NG.abandonRequest = (s, id) => {
   const q = s.opportunities?.requests.find((q) => q.id === id);
   if (!q || q.status !== "active")
     throw Error("This request is no longer active.");
+  if (q.waitingSupply) {
+    q.status = "unavailable";
+    return "Supply search cancelled. No reputation or cash penalty.";
+  }
   q.status = "abandoned";
   NG.changeReputation(s, -1, "Accepted buyer request abandoned");
   return "Request abandoned. -1 reputation; no cash penalty.";
@@ -583,6 +785,7 @@ NG.opportunityDay = (s, rng = Math.random) => {
   }
   for (const q of o.requests) {
     if (q.status === "offered" && q.offerUntil < s.day) q.status = "expired";
+    NG.maintainRequestSupply(s, q);
     if (q.status === "active" && q.deadline < s.day) {
       q.status = "failed";
       NG.changeReputation(s, -1, "Missed buyer request deadline");
@@ -590,23 +793,6 @@ NG.opportunityDay = (s, rng = Math.random) => {
         "Buyer request missed: " +
           NG.requestSpec(q).title +
           ". -1 reputation; no cash penalty.",
-      );
-    }
-  }
-  for (const q of o.requests) {
-    if (
-      q.status === "active" &&
-      q.deadline > s.day &&
-      NG.requestSpec(q).models &&
-      !NG.requestHasCar(s, q) &&
-      rng() < 0.4
-    ) {
-      const c = NG.requestLead(s, q);
-      o.notices.push(
-        NG.requestSpec(q).buyer +
-          " sent a lead: a " +
-          NG.model(c).name +
-          " is on the market.",
       );
     }
   }

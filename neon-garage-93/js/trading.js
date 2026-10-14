@@ -304,7 +304,8 @@ window.NG = window.NG || {};
     (c.inspectionCost || 0) +
     (c.repairCost || 0) +
     (c.transactionCost || 0) +
-    (c.holdingCost || 0);
+    (c.holdingCost || 0) +
+    (c.marketingCost || 0);
   NG.dealSummary = (s, c) => {
     const estimate = NG.estimate(s, c),
       uncertainty = c.vehicleHistory?.deepChecked
@@ -658,10 +659,11 @@ window.NG = window.NG || {};
       // A lead sent by a buyer stays on the market while that request is live.
       if (
         status !== "active" &&
-        l.leadFor &&
         s.opportunities?.requests.some(
           (q) =>
-            q.id === l.leadFor && q.status === "active" && q.deadline >= s.day,
+            (q.id === l.leadFor || q.supply?.carId === c.id) &&
+            q.status === "active" &&
+            q.deadline >= s.day,
         )
       )
         status = "active";
@@ -748,7 +750,9 @@ window.NG = window.NG || {};
       )?.buyerProfile,
       k =
         NG.buyerKinds.find((x) => x.id === previous?.id) ||
-        NG.buyerKinds[Math.min(3, Math.floor(rng() * 4))],
+        (NG.pickBuyerKind
+          ? NG.pickBuyerKind(c, rng())
+          : NG.buyerKinds[Math.min(3, Math.floor(rng() * 4))]),
       m = NG.model(c),
       h = c.vehicleHistory;
     const fit =
@@ -812,7 +816,10 @@ window.NG = window.NG || {};
       0.01,
       0.9,
     );
-    if (c.offers.length < 3 && rng() < chance)
+    if (
+      c.offers.length < 3 &&
+      rng() < chance * (c.audience && c.audience !== "open" ? 0.75 : 1)
+    )
       c.offers.push(NG.makeBuyer(s, c, rng));
     c.marketAdvice =
       age > 7 && ratio > 1.15
@@ -963,6 +970,7 @@ window.NG = window.NG || {};
     sale.inspectionCost = c.inspectionCost;
     sale.transactionCost = c.transactionCost || 0;
     sale.holdingCost = c.holdingCost || 0;
+    sale.marketingCost = c.marketingCost || 0;
     sale.daysInStock = s.day - (c.acquiredDay ?? s.day);
     return profit;
   };
