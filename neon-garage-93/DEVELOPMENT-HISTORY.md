@@ -1,10 +1,85 @@
 # Neon Garage '93 - fejlesztési előzmények
 
-Archiválva: 2026. október 10., v0.11.0.
+Eredeti archívum: 2026. október 10., v0.11.0. Utolsó kiegészítés: 2026. október 14., v0.14.0 / Cut & Flow, beolvasztva a mainbe.
 
 Ez történeti dokumentum. Az alábbi verzióleírások, eredeti javaslatok, státuszok és ellenőrzési számok az akkori fejlesztési állapotot őrzik. Az olyan fordulatok, mint „jelenleg”, „következő kör” vagy „még nincs megvalósítva”, az adott bejegyzésre vonatkoznak, nem a mai játékra. A régi tervek és lezárt döntések megmaradnak, de nem jelentenek új fejlesztési vállalást.
 
 A mai működés: [README](README.md). Aktuális prioritások és nyitott tervek: [ROADMAP](ROADMAP.md).
+
+## 2026. október 14. - beolvasztás a mainbe
+
+A `main` (`67c1d95`, v0.11.0) a `codex/v0.14-cut-and-flow` ág no-ff merge-ével v0.14.0 lett. Mivel a v0.14 ág a v0.13-ból, az a v0.12-ből és a Premium Retro UX ágból épült, a merge mindegyiket behozza. A fejlesztői ágak megmaradnak történeti hivatkozásnak.
+
+## v0.14 - Cut & Flow / 2026. október 13-14.
+
+A [2026. októberi audit](AUDIT-2026-10.md) alapján, a `codex/v0.14-cut-and-flow` ágon (`dd7c5f0`-`3f4f5e2`). Cél: kevesebb kattintás, működő felújítási döntés és 30 percen belüli cél.
+
+- Javítási gazdaság: az előtte mérés szerint a v0.13-ban a javítás minden stratégiában pénzt vesztett (Driver-ready $432 vs. soha $15,079 nettó érték 100 nap után). Fokozatok, három csomag, újrahangolt munkadíjak; 20 mag helyett 80, mert 20 magon a független RNG-változások ±20%-ot mozgattak.
+- Vevői kérések újraírása a játékteszt után (monoton kínálat, soha meg nem jelenő kért modell): generált kérések, lead-ek, rövidebb hirdetési élettartam, szélesebb olcsó kínálat.
+- Napritmus és kivágás (F/2, F/5) `s.flow` jelzővel; régi mentés az Options alatt vált.
+- Egyképernyős autólap (F/3), majd Bence kérésére: felesleges gombok ki, státuszsávok a jelenet fölé, Market sorok, nagyobb autóképek, érthetőbb fokozatnevek.
+- Ranglista és Season 1 (F/4). A "$1,000 árrés" cél eredeti jutalma (ingyen Better Tools) a javítási liftet 32%-ra tolta; helyette ingyen újsághirdetés.
+- Játékteszt utáni finomítás: tömör pénteki sáv, HUD nélküli napi riport, alku-megközelítés kártyák ajánlás nélkül.
+
+Ellenőrzés: 176 szabályteszt, 50 UI-teszt, 25 x 200 kereskedési, 30 x 180 management, 400 x 100 javítási szimulált nap. A felhős munkamenet nem tudott pusholni, a commitok git bundle-ön keresztül, a játékos Mac-jéről kerültek fel.
+
+## 2026. október 12. - jóváhagyott UX- és ikonmerge
+
+A [PR #1](https://github.com/Lovi78/neon-garage-93/pull/1) a `codex/premium-retro-ux` ágból a `codex/v0.13-run-the-lot` fejlesztői ágba olvadt. Merge-commit: `23b8a5f`; ikonos forráscommit: `5963790`. Állandó és modal XP/REP HUD, hat fő belépő, Dealer-fülek, rövid beruházási kártyák, Finance-hitel, állapotfüggő garázssegítség és egységes pixelikonok készültek. Desktop ikon-tooltip, mobilon feliratok; pluszos skilljelvény csak elkölthető pontnál.
+
+A gazdasági és mentési modell változatlan, a verziószám 0.13.0 maradt. 128 szabályteszt, 30 UI-blokk, 10 400 szimulált nap; az ikonok után a 30 UI-blokk újra sikeres. A [részletes audit](UX-REDESIGN.md) elkülöníti a ténylegesen futott böngészős próbát a még nyitott ellenőrzésektől. A main v0.11.0 állapotban maradt, éles publikálás nem történt.
+
+## v0.13 - Run the Lot / 2026. október 12.
+
+A v0.12.3 kereskedési és UI-alap megmaradt. Célzott javítás: tartós unlisted repair teendő, egyetlen elsődleges vevői elfogadás, kevesebb autóablak-navigáció, görgetés nélküli 1366 x 768 kezdőképernyő és nagyobb belső munkapanel.
+
+Új management réteg: négy jelölt két munkakörben, napi munkaidő, delegálás, feladatprioritás, közös saját/ügyfélműhely, rutin értékesítői munka, bérfizetés és eredmény/cash elkülönítés. A régi mentés kulcsa és verziója megmaradt; új mezők csak az explicit alkalmazottat, feladatot és szükséges elszámolást tárolják.
+
+17 új integrációs teszt, management UI-folyamat, meglévő regressziós tesztek; 30 x 180 nap személyzeti és 25 x 200 nap kereskedési szimuláció. A mért stratégiaelőny léptékfüggő; az alacsony forgalmú bot túl korai felvétele komoly bértartozást okoz. A nyers mérés és a fennmaradó balanszkérdések a [v0.13 leírásban](MANAGEMENT-V013.md). A fejlesztés külön ágon készült, automatikus main merge nélkül.
+
+## v0.12 - The Art of the Deal / 2026. október 11.
+
+A napi teljes piac- és vevőcsere helyett tartós hirdetés, eladói motiváció, információgyűjtés és többnapos, mentett tárgyalás készült. Az átvizsgálás részleges, a vevői kérdés nem automatikusan megvehető ajánlat. A készlettartás közvetlen autóköltség, az átírás $50; rezsi és kamat külön marad. Az eredeti mentési formátum bővítéssel kompatibilis; a régi folyó alku saját szabályait megtartja.
+
+A meglévő garázs, rádió, katalógus, javítás, reputáció, XP, megbízások, vállalkozások és hitelek megmaradtak. A teljes játék betöltési sorrendjéből futó új 15 integrált teszt, meglévő és új UI-tesztek, 25 reprodukálható 200 napos szimuláció készült. A vevői kérdés megválaszolása hozzáadódott a korábbi UI-játékmenet tesztjéhez. A régi modulok önálló alaptesztjei továbbra is kompatibilitási regressziót ellenőriznek.
+
+A szimuláció első változatában a kevésbé óvatos kereskedés erősen veszteséges volt. A buyer opening offer átvizsgált autónál a mentett fizetési keret 96%-ára, egyébként 94%-ára került: a vizsgálat vevői bizalmi értéket is kapott. Ez mérésből következő hangolás, nem garantált nyereség. A végső eredmények és korlátaik a [v0.12 dokumentációban](TRADING-V012.md) vannak.
+
+A fejlesztés külön branchen készült; nincs automatikus main merge vagy közzététel. A feltételes vizsgálati szerződés, teljes könyvelés/adózás és komplex banki/beszámítási folyamat későbbre maradt.
+
+## v0.12 javítás - folytatható alku és látható előzmények
+
+A másik érdeklődő jelzője korábban minden el nem fogadott ajánlatot azonnal WAITING állapotba tett. A későbbi visszahívás után a teljes korábbi körszám türelmi korlátként működött, újabb azonnali várakozást okozva. Az eladói ellenajánlat most az első körben is érdemi válasz; a konkurens érdeklődő csak közeli ajánlatok több lépéses tárgyalásakor kérhet egyszeri összehasonlító éjszakát. A visszahívás új beszélgetési türelmet ad, a teljes előzményt és régi ajánlatokat megtartva.
+
+Betöltés egyszer helyreállítja a régi hibás konkurens WAITING állapotot. A felület dátumozott játékosi ajánlatot, taktikát és eladói választ mutat, nem pusztán bejegyzésszámot. Régi bejegyzésben nem tárolt válaszszöveg helyett a mentett eredmény és ellenajánlat jelenik meg. Új regresszióteszt: 5% nyitó alku, másnapi folytatás, hat régi bejegyzés migrációja és látható UI-előzmények.
+
+## v0.12.1 - ellenajánlat mező és látható visszajelzés
+
+A régi `.offer > div` stílus oszloposra állította az ellenajánlat vezérlőit, a nullás szélességű összegmező így 65 pixelre zsugorodott és levágta az ötjegyű összeget. A vezérlő most célzottan soros, tördelhető, legalább 150 pixeles mezővel. Érvénytelen ellenajánlat esetén a hiba közvetlenül az ajánlatkártyán látszik; a modal mögötti toast helyett a tényleges alsó/felső határt mutatja. A vevő fizetési logikája változatlan.
+
+A pixel.css verziózott hivatkozást kapott, hogy normál frissítéskor se maradjon a gyorsítótárban az elrontott elrendezés. Automatikus UI-regresszió: $12,137 nyitó ajánlat, $14,625 hirdetés, érvénytelen $1,400 és érvényes $14,000 ellenajánlat, mentett vevői válasz, valamint vevői visszalépés látható indoklással. Böngészős ellenőrzés: az összegmező asztali nézetben 246 pixel, 390 pixeles nézetben 183 pixel, a dialogon belül marad. Külön tesztmentés, valódi játékállás módosítása nélkül.
+
+## v0.12.2 - rövid, teendőközpontú felület
+
+Operations: Today, Workshop, Requests, Business fülek. Today csak aktuális teendőt, számlát, hátralékot és likviditási jelzést mutat. Külön lapra került a műhely, a megbízás, a beruházás, a hitel és a nagykereskedés; a fontos pénzügyi adatok és kockázatok továbbra is a döntés mellett látszanak. Az ablak rövid nézetnél kisebb, hosszú listánál korlátozottan görgethető. A Dealer File-ból megszűnt a teljes vállalati panel ismétlése.
+
+Rövidebb feliratok, státuszok és adatmezők a többi fő nézetben. A magyarázatok és régi beszélgetések lenyithatók. A pénzügyi grafikon és teljes tételes napló megmaradt, külön nyitható. Billentyűzetes fülnavigáció, feladathoz vezető értesítések. UI-only: gazdaság, NPC, pénzmozgás és mentési modell változatlan.
+
+Azonos késői tesztállás böngészős összehasonlítása: Operations nyitóképernyő 932 helyett 59 szó; régi tartalommagasság 3317 pixel, új asztali nyitónézet 370 pixel. Belső görgetés nélküli nézet asztalon és 390 pixeles mobilméreten. Az értékek kontrollált fixture-re vonatkoznak, nem minden játékállásra. A régi UI-tesztek a tényleges új fülnavigációval folytatódnak; új teszt ellenőrzi a teendőket, hátralék miatti blokkolást, a pénzügyi kockázat láthatóságát és az érintetlen mentést.
+
+## GitHub-szinkron ellenőrzés - 2026. október 11.
+
+A friss GitHub-állapot ellenőrzésekor csak a `main` ág létezett, `67c1d95` commiton, v0.11.0 verzióval. A helyi munkamappa tiszta volt; a `codex/v0.12-art-of-the-deal` ág négy fejlesztői committal járt előrébb: `b65a9ee` (kereskedési rendszer), `567a684` (vételi alku és előzmények), `74490b7` (ellenajánlat és látható validáció), `730782b` (rövid felület és Operations fülek). Ezek korábban csak helyben voltak commitolva.
+
+A tényleges aktuális verzió v0.12.2 marad. A README külön feltünteti a fejlesztői branch elérését és a main külön állapotát; a játék lábléce is a teljes v0.12.2 verziót mutatja. A működési, UI- és 25 darab 200 napos szimulációs ellenőrzés újra lefutott a szinkron előtt. A feltöltés normál push a külön fejlesztői ágra; main merge és force push nem része ennek a szinkronnak.
+
+## v0.12.3 - UI / UX Overhaul / lezárva 2026. október 12.
+
+Öt fókusz: állandó navigáció, napi teendők, füles autóadatlap, szerkesztett draftok megtartása, egyértelmű ajánlat/válasz és következő döntés. A pixel garázs, autóképek, rádió és retro ablakstílus megmaradt. Az eredeti műveletek ugyanazokat a gazdasági függvényeket hívják; új mentési struktúra vagy framework nincs.
+
+A fő nézetekhez Market / Inventory / Deals / Operations / Finance / Customers menü vezet; Dealer File és Collection More alatt. Today's Priorities a meglévő állapotból legfeljebb négy elsődleges teendőt mutat, a többi lenyitható. Vásárlás: Overview / Inspection / Negotiation / Deal. Saját autó: Overview / Workshop / Selling / Finances. A ténylegesen szerkesztett mezők a munkamenetben visszatérnek; a nem szerkesztett alapérték frissülhet, például vizsgálat után. A rögzített döntési sáv hosszabb lapon is elérhető.
+
+Új UX-regresszióteszt: teljes vétel-eladás, navigáció és vissza, draftok fül/nézet/vizsgálat közti megőrzése, prioritásból célba jutás, read-only navigáció, régi mentés és billentyűzetes tabkezelés. A korábbi UI-tesztek az új fülek valós megnyitásával ellenőrzik ugyanazokat a műveleteket. Dokumentáció: [UX-V0123.md](UX-V0123.md).
 
 ## A kivezetett v0.10-es helyi meghívások szabályai
 
@@ -466,3 +541,8 @@ Elfogadási feltételek:
 Új döntést ide kell rögzíteni, megkülönböztetve az ötletet, a véglegesített szabályt és a megvalósult funkciót. Egy tétel csak ellenőrzött megvalósítás után jelölhető késznek. A [README](README.md) a jelenlegi játék indítását és működését írja le; ez a roadmap a jövőbeli fejlesztés közös hivatkozási pontja.
 
 A még nyitott tételek továbbra is tervek. A v0.4 fent részletezett szabályai már működnek; a későbbi bővítések előtt az új döntéseket külön kell rögzíteni.
+
+
+## 2026. október 12. - Premium Retro UX
+
+A v0.12 UI/UX-feladat a munkakezdéskor tényleges v0.13-as játékra épült. A meglévő Garage-first helyi munkát külön baseline commit őrzi. Közös állandó/modal HUD, XP/REP, Dealer-fülek, közvetlen Business-navigáció, Finance-hitel, zárolási feltételek, állapotfüggő garázssegítség, közös olvasható stílus és visszajelzések készültek. A gazdaság és a mentési modell változatlan. Részletek és korlátok: [UX-REDESIGN.md](UX-REDESIGN.md). Külön branch/PR, main merge nélkül.

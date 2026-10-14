@@ -347,11 +347,11 @@ NG.catalog.push(
   ],
 );
 NG.parts = {
-  engine: { label: "Engine", rate: 18 },
-  transmission: { label: "Transmission", rate: 14 },
-  suspension: { label: "Suspension", rate: 8 },
-  body: { label: "Bodywork", rate: 10 },
-  cosmetic: { label: "Detailing", rate: 4 },
+  engine: { label: "Engine", rate: 11 },
+  transmission: { label: "Transmission", rate: 8 },
+  suspension: { label: "Suspension", rate: 5 },
+  body: { label: "Bodywork", rate: 6 },
+  cosmetic: { label: "Detailing", rate: 3 },
 };
 NG.flaws = [
   { part: "engine", label: "Leaking head gasket", cost: 420 },

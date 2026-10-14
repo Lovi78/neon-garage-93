@@ -1,10 +1,66 @@
 # Neon Garage '93 - aktuális fejlesztési roadmap
 
-Frissítve: 2026. október 10. Jelenlegi verzió: v0.11.0 / Business Empire.
+Frissítve: 2026. október 14. Jelenlegi változat: v0.14.0 / Cut & Flow a `main` ágon (2026. október 14-én beolvasztva; a v0.12, Premium Retro UX, v0.13 és v0.14 ágak mind benne vannak). Irány: [AUDIT-2026-10.md](AUDIT-2026-10.md).
 
 A jelenlegi működés szabályai a [README-ben](README.md), az eredeti javaslatok és verziónkénti feljegyzések a [DEVELOPMENT-HISTORY.md](DEVELOPMENT-HISTORY.md) dokumentumban vannak. Az előzmények megmaradtak; az ottani régi státuszok nem a mai állapotot jelentik.
 
 **Státuszok:** kész = megvalósult működés; nyitott = még szükséges ellenőrzés vagy döntés; terv = felhasználói cél, még nincs kész; javaslat = ajánlott következő lépés, nem új fejlesztési vállalás. A tesztek nem bizonyítják önmagukban a vizuális minőséget vagy a tartós játékélményt.
+
+## v0.14 - Cut & Flow
+
+Az audit M1 mérföldköve. Szabályok: [README](README.md#v014---cut--flow).
+
+Kész:
+- **F/1 javítási gazdaság:** Project / Runner / Clean / Showroom fokozatok, három javítási csomag, BEST RETURN napi profit alapján, értéklétra, 80 magos balanszszimuláció (Driver-ready +19% a "soha ne javíts"-hoz képest).
+- **Vevői kérések:** 6 archetípus, 3 szint, értékalapú prémium, lead-ek, tracker minden képernyőn.
+- **F/2 napritmus:** egy kattintásos Next Day, reggeli sáv chipekkel, ">>" ugrás, heti bérleti díj péntekenként.
+- **F/3 egyképernyős autólap:** eladó oka megnyitáskor, vétel az alsó sávból, automatikus vevőválasz, Market információs sorok.
+- **F/4 ok a játékra:** Silver Palms ranglista 6 fiktív riválissal, rangsor-feloldások (Top 5 / Top 3 / #1), Season 1 13 hét és 8 cél.
+- **F/5 kivágás új játékban:** nincs munkaóra-limit, Staff/Wholesale/Fleet rejtve, Books nézet elöl.
+- **Alku megközelítés:** kártyák a tényekkel (eladó mondata, bizonyíték, hangulat), ajánlás nélkül; az eladó reakciója tanít.
+
+Döntések: a 3. beálló nem szezoncél és most nem készül; a választás a játékosé marad (nincs automatikus "legjobb" alkuopció).
+
+Nyitott:
+- Emberi játékteszt az audit elfogadási kritériumai szerint (első vétel < 3 perc, flip <= 12 kattintás, 30 percen belül 3 szezoncél).
+- M0 session log (kattintás/perc mérés) még nincs.
+- A vevői kérések bevétele nincs a bot-szimulációban; a ranglista kalibrációja kérések nélküli botokon alapul.
+- Rivális értékek finomhangolása játékteszt alapján; Season 2 tartalma.
+- 4 férőhelyes v0.13 mentésben a garage-guide panel eltakarja a 3. autót.
+- Régi mentés magas heti díja (v0.13 költségek) ellenőrzésre vár.
+
+Következő javaslat: emberi teszt, utána M2 "Cars with Character" (15-20 hős modell, autó-hookok, modellismeret a Collectionből).
+
+## Premium Retro UX - megvalósult felületi kör
+
+Kész: egységes pixelikonok, desktop ikonos Garage/My Cars/Dealer tooltip, mobilon megmaradó feliratok, csak elkölthető pontnál látható skilljelvény; állandó és modal HUD, elkülönített XP/REP, Garage CTA, közvetlen Business-navigáció, Skills/Reputation/Tools fülek, kompakt zárolt és előresorolt elérhető beruházások, Finance-hitel, olvasható közös tipográfia, állapotból számított visszajelzések, reszponzív ablakok és fókuszkezelés. A motor és a mentési séma változatlan. 128 szabályteszt, 30 UI-tesztblokk, 10 400 szimulált nap; 1440/1280/390 pixeles valódi Chromium-próba. [Audit és bizonyíték](UX-REDESIGN.md).
+
+Nyitott: hosszabb emberi játékélmény-próba, Safari/Firefox és fizikai telefon, tényleges felhasználói régi mentés. Az UX és az ikonok a v0.13-as fejlesztői ágba már beolvadtak. Main merge és éles publikálás nem történt.
+
+## v0.13 - megvalósult vállalkozásvezetés
+
+Kész: két munkakör, négy jelölt, felvétel/elbocsátás, napi idő és valódi delegált munka, heti bér és hátralék, közös műhely/munkasor, rutin visszahívás és előkészítés, külön eredmény/cash flow, laptop UI-polish. A nagyobb pénzügyi döntéseket a játékos hagyja jóvá. 17 új integrációs teszt, management UI, 30 x 180 nap management és 25 x 200 nap trading szimuláció. Szabályok és mérési korlátok: [MANAGEMENT-V013.md](MANAGEMENT-V013.md).
+
+Nyitott: hosszabb emberi játék, alacsony forgalomnál alkalmazotti megtérülés, szerelő sebességelőnye a nagy műhelyben, facility munkadíj-helyettesítés, értékesítő haszna és többféle rutinszabály. A következő kör elsősorban ezek balansza, nem új munkakörök vagy HR-komplexitás.
+
+## v0.12.3 - megvalósult célzott UX-kör
+
+Állandó retro navigáció, kompakt Today's Priorities, füles autóadatlap, módosított draftok munkameneti megőrzése, aktuális ajánlat/partner-válasz elkülönítése, rögzített döntési sáv. A gazdasági és mentési modell változatlan. Részletek: [UX-V0123.md](UX-V0123.md). Következő nagy irány: vállalkozásüzemeltetés; annak új mechanikái a v0.13 külön rétegében valósultak meg.
+
+## v0.12 - megvalósított kereskedési alap
+
+- v0.12.2 kész: Today / Workshop / Requests / Business Operations fülek, rövid teendőkártyák, lenyitható magyarázatok és pénzügyi részletek; változatlan gazdasági szabályok.
+
+- Kész: tartós hirdetések, árnapló, lejárat/külső eladás/visszavonás; lassabb keresleti folyamatok.
+- Kész: nyolc gazdasági motiváció, mentett eladók, taktikák, bizonyíték, kivárás és visszahívás.
+- Kész: előéletkeresés, részleges/szakvizsgálat, becsült üzleti és kockázati kép.
+- Kész: vevői preferenciák, kérdésből ajánlat, több lépéses ellenajánlat, tartós határidő és visszatérő preferencia.
+- Kész: $50 átírás, autónkénti holding, külön közös költség/kamat, régi mentés migrációja.
+- Kész: automatizált integráció és UI, 25 x 200 nap szimuláció; három elkülönített gyakorlóhelyzet.
+- Nyitott: hosszabb emberi egyensúlypróba és a vizsgálati költség/nyereség további hangolása.
+- Későbbre: vizsgálathoz kötött feltételes szerződés, foglaló, tesztvezetés, beszámítás, részletfizetés, teljes adózás és eredménykimutatás.
+
+Részletes audit, migráció, tesztek és mérési korlátok: [TRADING-V012.md](TRADING-V012.md). A következő táblázat a v0.11-ből megtartott alapokat foglalja össze; a módosított piaci/alkuszabályok helyett a v0.12 leírás az érvényes.
 
 ## Termékirány és elfogadott prioritások
 
@@ -18,7 +74,7 @@ A jelenlegi működés szabályai a [README-ben](README.md), az eredeti javaslat
 - A megbízások jó irány. Az apró, alacsony hatású fizetős események jelenlegi formáját elvetettük.
 - Később releváns, ellenőrzött történelmi események a valódi naptári dátumukon.
 
-## Kész rendszerek v0.11-ben
+## Megtartott v0.11 alapok
 
 | Terület | Jelenlegi megvalósítás |
 | --- | --- |
@@ -29,12 +85,12 @@ A jelenlegi működés szabályai a [README-ben](README.md), az eredeti javaslat
 | Perkek | One More Shot, Sharp Eye, Trend Spotter; mindegyik a hozzá tartozó skill 2. rangja után 1 pontért |
 | Kis fejlesztések | Better Tools $600, Parts Supplier Deal $900, Local Newspaper Ad $450, Diagnostic Equipment $1,000 |
 | Reputáció | 0/5/15/30/50 mérföldkő, érdeklődési és alkubónusz, visszatérő vevők, bizalom, hibaközlés és reklamáció; üzletági és hitelfeltételek |
-| Piac és üzemeltetés | Napi új, 2-4 napos régiós keresleti hullámok; rezsi, készlettartás, hátralék, közös műhelykapacitás és fizetett rush |
+| Piac és üzemeltetés | v0.12-ben tartós kínálat és lassabb régiós folyamatok; rezsi, készlettartás, hátralék, közös műhelykapacitás és fizetett rush |
 | Autómegbízások | Három vevői igény, fix vételár és bónusz, vállalási és szállítási határidő, követhető készültség, reputációs következmény |
 | Nagy beruházások | Service Center $24k, Fleet Workshop $68k, Wholesale Trading Desk $45k; építési idő, reputációs feltétel és rendszeres költség |
 | Új bevételi utak | Saját javítással közös kapacitású ügyfél-/flottamunkák, előfinanszírozás; 5 napos $25k/$50k nagykereskedelmi lekötés, tőkevesztés lehetőségével |
 | Finanszírozás | Reputációhoz kötött $10k/$50k hitelkeret, napi kamat és kézi törlesztés; üzletági szüneteltetés és veszteséges felszámolás |
-| Pénzügyek | Deal margin és vállalkozásérték grafikon, tételes Ledger, lekötött tőke, 7 napos költség és cash flow, bevétel nélküli cash runway |
+| Pénzügyek | Finance: hitel, Deal margin és vállalkozásérték grafikon, Transactions, lekötött tőke; v0.13-ban külön 7 napos Business result / Cash change, bér, cash buffer és bevétel nélküli cash runway |
 | Követhetőség | Napzárás előtti megerősítés és lejárati figyelmeztetés, felugró napi jelentés, ajánlat-/megbízás-/ügyfélmunka-értesítések |
 | Hangulat | Integrált pixel art tárgyak, kattinthatósági jelölések, autóbegurulás, javítási szikrák, kihagyható napzáró/nyitó jelenet, három saját fiktív rádióadó |
 | Mentés | Helyi automatikus mentés, régi állások megtartása, új mezők alapértékei; nincs visszamenőleges becsült XP vagy új üzletági díj |
@@ -64,7 +120,8 @@ Ez ajánlott sorrend. A konkrét következő fejlesztési csomag, ára és szab�
 
 ### Vállalkozás és reputáció
 
-- [ ] Üzletági fejlődési fokozatok és eltérő stratégiák; egyedi személyzet, ha valódi döntést ad.
+- [x] Egyedi szerelő és értékesítő, tényleges munkával és bérrel.
+- [ ] További üzletági fejlődési fokozatok és eltérő stratégiák.
 - [ ] Detailing Station és Showroom Presentation: eredeti jelöltek, még nincsenek megvalósítva.
 - [ ] Alkatrészszállítási várakozás/hiány, garázsbővítés és új telephelyek: későbbi lehetőségek, nem a mostani fő prioritás.
 - [ ] Vevői ajánlások, ismerősi megkeresések, gyűjtők, beszámítás és különleges magánhirdetések.
@@ -96,7 +153,8 @@ A sprite-ok maradjanak helyben, azonos kameraállással, megfelelő talajvonalla
 
 - [x] v0.11-ben 93 szabályteszt és 8 DOM-alapú felületi útvonal sikeres; pénzmozgások, egyszeri jutalmak/kifizetések, kapacitás, határidők és mentés ellenőrizve.
 - [x] A pixel art garázs és az angol felület maradt az alap; a régi mentésekhez nincs kitalált múlt vagy utólagos új üzletági terhelés.
-- [ ] Valódi böngészős vizuális próba: tárgyjelölések, kattintási területek, garázs/autóilleszkedés, ablakok, animáció és kisebb képernyő.
+- [x] Premium Retro UX Chromium-próba: HUD, navigáció, fontos játékosi folyamatok, ablakok, napváltás, 1440/1280/390 pixeles nézet; ikonok, fókusz-tooltip és mobilfeliratok külön ellenőrizve. [Bizonyíték és pontos korlátok](UX-REDESIGN.md).
+- [ ] Több böngésző, fizikai telefon, tényleges régi játékosi mentés és hosszabb új-játékosi próba; teljes katalógus képi minőségellenőrzése.
 - [ ] Rádió meghallgatása valódi böngészőben; a jelenlegi teszt hangkörnyezet-helyettesítéssel működik.
 - [ ] Hosszabb játékosi egyensúlyteszt, különösen a nagy beruházások, üresjárati költségek, hitel és tőkelekötés mellett.
 

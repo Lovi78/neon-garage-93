@@ -1,0 +1,5412 @@
+{
+  "days": 200,
+  "seeds": [
+    1000,
+    8919,
+    16838,
+    24757,
+    32676,
+    40595,
+    48514,
+    56433,
+    64352,
+    72271,
+    80190,
+    88109,
+    96028,
+    103947,
+    111866,
+    119785,
+    127704,
+    135623,
+    143542,
+    151461,
+    159380,
+    167299,
+    175218,
+    183137,
+    191056,
+    198975,
+    206894,
+    214813,
+    222732,
+    230651,
+    238570,
+    246489,
+    254408,
+    262327,
+    270246,
+    278165,
+    286084,
+    294003,
+    301922,
+    309841,
+    317760,
+    325679,
+    333598,
+    341517,
+    349436,
+    357355,
+    365274,
+    373193,
+    381112,
+    389031,
+    396950,
+    404869,
+    412788,
+    420707,
+    428626,
+    436545,
+    444464,
+    452383,
+    460302,
+    468221,
+    476140,
+    484059,
+    491978,
+    499897,
+    507816,
+    515735,
+    523654,
+    531573,
+    539492,
+    547411,
+    555330,
+    563249,
+    571168,
+    579087,
+    587006,
+    594925,
+    602844,
+    610763,
+    618682,
+    626601
+  ],
+  "summary": [
+    {
+      "strategy": "never",
+      "sales": 76,
+      "profitable": 64.3,
+      "avgContribution": 539,
+      "repairSpend": 0,
+      "netWorth": 36882,
+      "minNetWorth": -1421,
+      "maxNetWorth": 72991
+    },
+    {
+      "strategy": "quick",
+      "sales": 74.2,
+      "profitable": 62.5,
+      "avgContribution": 568,
+      "repairSpend": 7631,
+      "netWorth": 38565,
+      "minNetWorth": -1264,
+      "maxNetWorth": 77499
+    },
+    {
+      "strategy": "driver",
+      "sales": 58.7,
+      "profitable": 47.8,
+      "avgContribution": 704,
+      "repairSpend": 34219,
+      "netWorth": 44927,
+      "minNetWorth": -1737,
+      "maxNetWorth": 100727
+    },
+    {
+      "strategy": "full",
+      "sales": 36.3,
+      "profitable": 25.1,
+      "avgContribution": 499,
+      "repairSpend": 33242,
+      "netWorth": 24527,
+      "minNetWorth": -1480,
+      "maxNetWorth": 101940
+    },
+    {
+      "strategy": "smart",
+      "sales": 61.6,
+      "profitable": 52.8,
+      "avgContribution": 983,
+      "repairSpend": 38696,
+      "netWorth": 59178,
+      "minNetWorth": -1560,
+      "maxNetWorth": 144772
+    }
+  ],
+  "winners": [
+    "smart",
+    "driver",
+    "never",
+    "smart",
+    "smart",
+    "quick",
+    "smart",
+    "smart",
+    "driver",
+    "smart",
+    "driver",
+    "quick",
+    "smart",
+    "smart",
+    "driver",
+    "smart",
+    "smart",
+    "smart",
+    "driver",
+    "driver",
+    "driver",
+    "full",
+    "smart",
+    "driver",
+    "quick",
+    "never",
+    "driver",
+    "never",
+    "driver",
+    "quick",
+    "driver",
+    "smart",
+    "smart",
+    "never",
+    "smart",
+    "smart",
+    "smart",
+    "smart",
+    "smart",
+    "quick",
+    "driver",
+    "quick",
+    "smart",
+    "never",
+    "smart",
+    "smart",
+    "full",
+    "smart",
+    "smart",
+    "full",
+    "smart",
+    "quick",
+    "driver",
+    "smart",
+    "smart",
+    "smart",
+    "smart",
+    "smart",
+    "driver",
+    "quick",
+    "smart",
+    "smart",
+    "driver",
+    "driver",
+    "driver",
+    "full",
+    "full",
+    "smart",
+    "driver",
+    "quick",
+    "smart",
+    "driver",
+    "full",
+    "quick",
+    "smart",
+    "smart",
+    "full",
+    "smart",
+    "smart",
+    "smart"
+  ],
+  "runs": [
+    {
+      "strategy": "never",
+      "seed": 1000,
+      "days": 200,
+      "sales": 74,
+      "profitable": 63,
+      "avgContribution": 473,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 24886
+    },
+    {
+      "strategy": "never",
+      "seed": 8919,
+      "days": 200,
+      "sales": 87,
+      "profitable": 72,
+      "avgContribution": 613,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 44943
+    },
+    {
+      "strategy": "never",
+      "seed": 16838,
+      "days": 200,
+      "sales": 80,
+      "profitable": 69,
+      "avgContribution": 903,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 63273
+    },
+    {
+      "strategy": "never",
+      "seed": 24757,
+      "days": 200,
+      "sales": 12,
+      "profitable": 8,
+      "avgContribution": 71,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": -876
+    },
+    {
+      "strategy": "never",
+      "seed": 32676,
+      "days": 200,
+      "sales": 87,
+      "profitable": 76,
+      "avgContribution": 671,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 50338
+    },
+    {
+      "strategy": "never",
+      "seed": 40595,
+      "days": 200,
+      "sales": 89,
+      "profitable": 80,
+      "avgContribution": 737,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 58277
+    },
+    {
+      "strategy": "never",
+      "seed": 48514,
+      "days": 200,
+      "sales": 84,
+      "profitable": 78,
+      "avgContribution": 754,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 53752
+    },
+    {
+      "strategy": "never",
+      "seed": 56433,
+      "days": 200,
+      "sales": 79,
+      "profitable": 67,
+      "avgContribution": 450,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 25067
+    },
+    {
+      "strategy": "never",
+      "seed": 64352,
+      "days": 200,
+      "sales": 100,
+      "profitable": 88,
+      "avgContribution": 566,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 48758
+    },
+    {
+      "strategy": "never",
+      "seed": 72271,
+      "days": 200,
+      "sales": 9,
+      "profitable": 6,
+      "avgContribution": 21,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": -1045
+    },
+    {
+      "strategy": "never",
+      "seed": 80190,
+      "days": 200,
+      "sales": 78,
+      "profitable": 69,
+      "avgContribution": 864,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 57456
+    },
+    {
+      "strategy": "never",
+      "seed": 88109,
+      "days": 200,
+      "sales": 81,
+      "profitable": 72,
+      "avgContribution": 649,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 44341
+    },
+    {
+      "strategy": "never",
+      "seed": 96028,
+      "days": 200,
+      "sales": 78,
+      "profitable": 67,
+      "avgContribution": 667,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 41559
+    },
+    {
+      "strategy": "never",
+      "seed": 103947,
+      "days": 200,
+      "sales": 18,
+      "profitable": 12,
+      "avgContribution": 139,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": -349
+    },
+    {
+      "strategy": "never",
+      "seed": 111866,
+      "days": 200,
+      "sales": 93,
+      "profitable": 79,
+      "avgContribution": 613,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 49743
+    },
+    {
+      "strategy": "never",
+      "seed": 119785,
+      "days": 200,
+      "sales": 103,
+      "profitable": 85,
+      "avgContribution": 686,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 64291
+    },
+    {
+      "strategy": "never",
+      "seed": 127704,
+      "days": 200,
+      "sales": 79,
+      "profitable": 67,
+      "avgContribution": 566,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 35825
+    },
+    {
+      "strategy": "never",
+      "seed": 135623,
+      "days": 200,
+      "sales": 83,
+      "profitable": 71,
+      "avgContribution": 694,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 47927
+    },
+    {
+      "strategy": "never",
+      "seed": 143542,
+      "days": 200,
+      "sales": 77,
+      "profitable": 65,
+      "avgContribution": 561,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 33363
+    },
+    {
+      "strategy": "never",
+      "seed": 151461,
+      "days": 200,
+      "sales": 13,
+      "profitable": 6,
+      "avgContribution": -10,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": -990
+    },
+    {
+      "strategy": "never",
+      "seed": 159380,
+      "days": 200,
+      "sales": 85,
+      "profitable": 69,
+      "avgContribution": 464,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 30575
+    },
+    {
+      "strategy": "never",
+      "seed": 167299,
+      "days": 200,
+      "sales": 82,
+      "profitable": 66,
+      "avgContribution": 523,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 33081
+    },
+    {
+      "strategy": "never",
+      "seed": 175218,
+      "days": 200,
+      "sales": 87,
+      "profitable": 76,
+      "avgContribution": 721,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 54933
+    },
+    {
+      "strategy": "never",
+      "seed": 183137,
+      "days": 200,
+      "sales": 35,
+      "profitable": 22,
+      "avgContribution": 120,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": -139
+    },
+    {
+      "strategy": "never",
+      "seed": 191056,
+      "days": 200,
+      "sales": 79,
+      "profitable": 60,
+      "avgContribution": 411,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 21432
+    },
+    {
+      "strategy": "never",
+      "seed": 198975,
+      "days": 200,
+      "sales": 87,
+      "profitable": 69,
+      "avgContribution": 566,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 40621
+    },
+    {
+      "strategy": "never",
+      "seed": 206894,
+      "days": 200,
+      "sales": 80,
+      "profitable": 73,
+      "avgContribution": 805,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 54118
+    },
+    {
+      "strategy": "never",
+      "seed": 214813,
+      "days": 200,
+      "sales": 92,
+      "profitable": 83,
+      "avgContribution": 777,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 63592
+    },
+    {
+      "strategy": "never",
+      "seed": 222732,
+      "days": 200,
+      "sales": 84,
+      "profitable": 71,
+      "avgContribution": 714,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 50618
+    },
+    {
+      "strategy": "never",
+      "seed": 230651,
+      "days": 200,
+      "sales": 81,
+      "profitable": 67,
+      "avgContribution": 568,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 37070
+    },
+    {
+      "strategy": "never",
+      "seed": 238570,
+      "days": 200,
+      "sales": 70,
+      "profitable": 55,
+      "avgContribution": 330,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 14321
+    },
+    {
+      "strategy": "never",
+      "seed": 246489,
+      "days": 200,
+      "sales": 83,
+      "profitable": 75,
+      "avgContribution": 708,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 50115
+    },
+    {
+      "strategy": "never",
+      "seed": 254408,
+      "days": 200,
+      "sales": 77,
+      "profitable": 66,
+      "avgContribution": 726,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 46454
+    },
+    {
+      "strategy": "never",
+      "seed": 262327,
+      "days": 200,
+      "sales": 95,
+      "profitable": 82,
+      "avgContribution": 834,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 72991
+    },
+    {
+      "strategy": "never",
+      "seed": 270246,
+      "days": 200,
+      "sales": 81,
+      "profitable": 70,
+      "avgContribution": 650,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 42882
+    },
+    {
+      "strategy": "never",
+      "seed": 278165,
+      "days": 200,
+      "sales": 93,
+      "profitable": 81,
+      "avgContribution": 670,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 54128
+    },
+    {
+      "strategy": "never",
+      "seed": 286084,
+      "days": 200,
+      "sales": 85,
+      "profitable": 74,
+      "avgContribution": 538,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 35381
+    },
+    {
+      "strategy": "never",
+      "seed": 294003,
+      "days": 200,
+      "sales": 105,
+      "profitable": 83,
+      "avgContribution": 500,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 44924
+    },
+    {
+      "strategy": "never",
+      "seed": 301922,
+      "days": 200,
+      "sales": 25,
+      "profitable": 20,
+      "avgContribution": 192,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 71
+    },
+    {
+      "strategy": "never",
+      "seed": 309841,
+      "days": 200,
+      "sales": 74,
+      "profitable": 62,
+      "avgContribution": 508,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 28566
+    },
+    {
+      "strategy": "never",
+      "seed": 317760,
+      "days": 200,
+      "sales": 84,
+      "profitable": 73,
+      "avgContribution": 461,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 28959
+    },
+    {
+      "strategy": "never",
+      "seed": 325679,
+      "days": 200,
+      "sales": 93,
+      "profitable": 78,
+      "avgContribution": 716,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 57818
+    },
+    {
+      "strategy": "never",
+      "seed": 333598,
+      "days": 200,
+      "sales": 76,
+      "profitable": 65,
+      "avgContribution": 639,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 39323
+    },
+    {
+      "strategy": "never",
+      "seed": 341517,
+      "days": 200,
+      "sales": 94,
+      "profitable": 82,
+      "avgContribution": 748,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 62486
+    },
+    {
+      "strategy": "never",
+      "seed": 349436,
+      "days": 200,
+      "sales": 79,
+      "profitable": 71,
+      "avgContribution": 567,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 36796
+    },
+    {
+      "strategy": "never",
+      "seed": 357355,
+      "days": 200,
+      "sales": 82,
+      "profitable": 76,
+      "avgContribution": 772,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 54822
+    },
+    {
+      "strategy": "never",
+      "seed": 365274,
+      "days": 200,
+      "sales": 89,
+      "profitable": 70,
+      "avgContribution": 596,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 45593
+    },
+    {
+      "strategy": "never",
+      "seed": 373193,
+      "days": 200,
+      "sales": 27,
+      "profitable": 21,
+      "avgContribution": 94,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": -79
+    },
+    {
+      "strategy": "never",
+      "seed": 381112,
+      "days": 200,
+      "sales": 88,
+      "profitable": 69,
+      "avgContribution": 528,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 36390
+    },
+    {
+      "strategy": "never",
+      "seed": 389031,
+      "days": 200,
+      "sales": 84,
+      "profitable": 72,
+      "avgContribution": 624,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 42709
+    },
+    {
+      "strategy": "never",
+      "seed": 396950,
+      "days": 200,
+      "sales": 98,
+      "profitable": 79,
+      "avgContribution": 615,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 52868
+    },
+    {
+      "strategy": "never",
+      "seed": 404869,
+      "days": 200,
+      "sales": 8,
+      "profitable": 4,
+      "avgContribution": 7,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": -1421
+    },
+    {
+      "strategy": "never",
+      "seed": 412788,
+      "days": 200,
+      "sales": 87,
+      "profitable": 73,
+      "avgContribution": 663,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 49732
+    },
+    {
+      "strategy": "never",
+      "seed": 420707,
+      "days": 200,
+      "sales": 71,
+      "profitable": 59,
+      "avgContribution": 508,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 25842
+    },
+    {
+      "strategy": "never",
+      "seed": 428626,
+      "days": 200,
+      "sales": 90,
+      "profitable": 72,
+      "avgContribution": 608,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 47950
+    },
+    {
+      "strategy": "never",
+      "seed": 436545,
+      "days": 200,
+      "sales": 81,
+      "profitable": 75,
+      "avgContribution": 736,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 50654
+    },
+    {
+      "strategy": "never",
+      "seed": 444464,
+      "days": 200,
+      "sales": 84,
+      "profitable": 70,
+      "avgContribution": 483,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 32014
+    },
+    {
+      "strategy": "never",
+      "seed": 452383,
+      "days": 200,
+      "sales": 72,
+      "profitable": 52,
+      "avgContribution": 355,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 14305
+    },
+    {
+      "strategy": "never",
+      "seed": 460302,
+      "days": 200,
+      "sales": 73,
+      "profitable": 61,
+      "avgContribution": 520,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 28014
+    },
+    {
+      "strategy": "never",
+      "seed": 468221,
+      "days": 200,
+      "sales": 75,
+      "profitable": 62,
+      "avgContribution": 584,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 34590
+    },
+    {
+      "strategy": "never",
+      "seed": 476140,
+      "days": 200,
+      "sales": 88,
+      "profitable": 68,
+      "avgContribution": 426,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 28792
+    },
+    {
+      "strategy": "never",
+      "seed": 484059,
+      "days": 200,
+      "sales": 84,
+      "profitable": 75,
+      "avgContribution": 500,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 32555
+    },
+    {
+      "strategy": "never",
+      "seed": 491978,
+      "days": 200,
+      "sales": 88,
+      "profitable": 75,
+      "avgContribution": 506,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 36781
+    },
+    {
+      "strategy": "never",
+      "seed": 499897,
+      "days": 200,
+      "sales": 85,
+      "profitable": 72,
+      "avgContribution": 516,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 35824
+    },
+    {
+      "strategy": "never",
+      "seed": 507816,
+      "days": 200,
+      "sales": 88,
+      "profitable": 73,
+      "avgContribution": 554,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 39505
+    },
+    {
+      "strategy": "never",
+      "seed": 515735,
+      "days": 200,
+      "sales": 27,
+      "profitable": 18,
+      "avgContribution": 144,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 168
+    },
+    {
+      "strategy": "never",
+      "seed": 523654,
+      "days": 200,
+      "sales": 13,
+      "profitable": 7,
+      "avgContribution": -31,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": -1136
+    },
+    {
+      "strategy": "never",
+      "seed": 531573,
+      "days": 200,
+      "sales": 91,
+      "profitable": 80,
+      "avgContribution": 601,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 46220
+    },
+    {
+      "strategy": "never",
+      "seed": 539492,
+      "days": 200,
+      "sales": 73,
+      "profitable": 63,
+      "avgContribution": 507,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 26251
+    },
+    {
+      "strategy": "never",
+      "seed": 547411,
+      "days": 200,
+      "sales": 87,
+      "profitable": 78,
+      "avgContribution": 595,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 42570
+    },
+    {
+      "strategy": "never",
+      "seed": 555330,
+      "days": 200,
+      "sales": 79,
+      "profitable": 74,
+      "avgContribution": 625,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 39102
+    },
+    {
+      "strategy": "never",
+      "seed": 563249,
+      "days": 200,
+      "sales": 88,
+      "profitable": 74,
+      "avgContribution": 664,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 50673
+    },
+    {
+      "strategy": "never",
+      "seed": 571168,
+      "days": 200,
+      "sales": 87,
+      "profitable": 81,
+      "avgContribution": 816,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 64800
+    },
+    {
+      "strategy": "never",
+      "seed": 579087,
+      "days": 200,
+      "sales": 88,
+      "profitable": 76,
+      "avgContribution": 568,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 41767
+    },
+    {
+      "strategy": "never",
+      "seed": 587006,
+      "days": 200,
+      "sales": 80,
+      "profitable": 76,
+      "avgContribution": 570,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 36457
+    },
+    {
+      "strategy": "never",
+      "seed": 594925,
+      "days": 200,
+      "sales": 86,
+      "profitable": 69,
+      "avgContribution": 670,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 47874
+    },
+    {
+      "strategy": "never",
+      "seed": 602844,
+      "days": 200,
+      "sales": 83,
+      "profitable": 67,
+      "avgContribution": 383,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 22292
+    },
+    {
+      "strategy": "never",
+      "seed": 610763,
+      "days": 200,
+      "sales": 77,
+      "profitable": 70,
+      "avgContribution": 581,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 35520
+    },
+    {
+      "strategy": "never",
+      "seed": 618682,
+      "days": 200,
+      "sales": 81,
+      "profitable": 64,
+      "avgContribution": 386,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 21988
+    },
+    {
+      "strategy": "never",
+      "seed": 626601,
+      "days": 200,
+      "sales": 84,
+      "profitable": 73,
+      "avgContribution": 676,
+      "repairSpend": 0,
+      "packages": {},
+      "netWorth": 46928
+    },
+    {
+      "strategy": "quick",
+      "seed": 1000,
+      "days": 200,
+      "sales": 27,
+      "profitable": 18,
+      "avgContribution": 109,
+      "repairSpend": 2665,
+      "packages": {
+        "quick": 21
+      },
+      "netWorth": -285
+    },
+    {
+      "strategy": "quick",
+      "seed": 8919,
+      "days": 200,
+      "sales": 80,
+      "profitable": 64,
+      "avgContribution": 754,
+      "repairSpend": 10160,
+      "packages": {
+        "quick": 73
+      },
+      "netWorth": 52710
+    },
+    {
+      "strategy": "quick",
+      "seed": 16838,
+      "days": 200,
+      "sales": 77,
+      "profitable": 62,
+      "avgContribution": 864,
+      "repairSpend": 7909,
+      "packages": {
+        "quick": 71
+      },
+      "netWorth": 57476
+    },
+    {
+      "strategy": "quick",
+      "seed": 24757,
+      "days": 200,
+      "sales": 11,
+      "profitable": 8,
+      "avgContribution": 86,
+      "repairSpend": 845,
+      "packages": {
+        "quick": 10
+      },
+      "netWorth": -782
+    },
+    {
+      "strategy": "quick",
+      "seed": 32676,
+      "days": 200,
+      "sales": 77,
+      "profitable": 66,
+      "avgContribution": 666,
+      "repairSpend": 9856,
+      "packages": {
+        "quick": 70
+      },
+      "netWorth": 41965
+    },
+    {
+      "strategy": "quick",
+      "seed": 40595,
+      "days": 200,
+      "sales": 92,
+      "profitable": 87,
+      "avgContribution": 928,
+      "repairSpend": 8648,
+      "packages": {
+        "quick": 75
+      },
+      "netWorth": 77499
+    },
+    {
+      "strategy": "quick",
+      "seed": 48514,
+      "days": 200,
+      "sales": 90,
+      "profitable": 80,
+      "avgContribution": 574,
+      "repairSpend": 13753,
+      "packages": {
+        "quick": 81
+      },
+      "netWorth": 41827
+    },
+    {
+      "strategy": "quick",
+      "seed": 56433,
+      "days": 200,
+      "sales": 77,
+      "profitable": 66,
+      "avgContribution": 489,
+      "repairSpend": 6206,
+      "packages": {
+        "quick": 63
+      },
+      "netWorth": 26180
+    },
+    {
+      "strategy": "quick",
+      "seed": 64352,
+      "days": 200,
+      "sales": 86,
+      "profitable": 68,
+      "avgContribution": 589,
+      "repairSpend": 7032,
+      "packages": {
+        "quick": 74
+      },
+      "netWorth": 41275
+    },
+    {
+      "strategy": "quick",
+      "seed": 72271,
+      "days": 200,
+      "sales": 79,
+      "profitable": 65,
+      "avgContribution": 474,
+      "repairSpend": 7820,
+      "packages": {
+        "quick": 68
+      },
+      "netWorth": 29121
+    },
+    {
+      "strategy": "quick",
+      "seed": 80190,
+      "days": 200,
+      "sales": 70,
+      "profitable": 63,
+      "avgContribution": 836,
+      "repairSpend": 8703,
+      "packages": {
+        "quick": 64
+      },
+      "netWorth": 47949
+    },
+    {
+      "strategy": "quick",
+      "seed": 88109,
+      "days": 200,
+      "sales": 93,
+      "profitable": 80,
+      "avgContribution": 758,
+      "repairSpend": 8096,
+      "packages": {
+        "quick": 80
+      },
+      "netWorth": 62555
+    },
+    {
+      "strategy": "quick",
+      "seed": 96028,
+      "days": 200,
+      "sales": 90,
+      "profitable": 77,
+      "avgContribution": 553,
+      "repairSpend": 8398,
+      "packages": {
+        "quick": 80
+      },
+      "netWorth": 40762
+    },
+    {
+      "strategy": "quick",
+      "seed": 103947,
+      "days": 200,
+      "sales": 80,
+      "profitable": 72,
+      "avgContribution": 606,
+      "repairSpend": 9028,
+      "packages": {
+        "quick": 65
+      },
+      "netWorth": 38906
+    },
+    {
+      "strategy": "quick",
+      "seed": 111866,
+      "days": 200,
+      "sales": 83,
+      "profitable": 75,
+      "avgContribution": 856,
+      "repairSpend": 10091,
+      "packages": {
+        "quick": 73
+      },
+      "netWorth": 63569
+    },
+    {
+      "strategy": "quick",
+      "seed": 119785,
+      "days": 200,
+      "sales": 88,
+      "profitable": 74,
+      "avgContribution": 677,
+      "repairSpend": 9041,
+      "packages": {
+        "quick": 71
+      },
+      "netWorth": 50490
+    },
+    {
+      "strategy": "quick",
+      "seed": 127704,
+      "days": 200,
+      "sales": 88,
+      "profitable": 72,
+      "avgContribution": 585,
+      "repairSpend": 10993,
+      "packages": {
+        "quick": 79
+      },
+      "netWorth": 43895
+    },
+    {
+      "strategy": "quick",
+      "seed": 135623,
+      "days": 200,
+      "sales": 69,
+      "profitable": 57,
+      "avgContribution": 326,
+      "repairSpend": 5051,
+      "packages": {
+        "quick": 56
+      },
+      "netWorth": 13094
+    },
+    {
+      "strategy": "quick",
+      "seed": 143542,
+      "days": 200,
+      "sales": 84,
+      "profitable": 67,
+      "avgContribution": 635,
+      "repairSpend": 8402,
+      "packages": {
+        "quick": 64
+      },
+      "netWorth": 43371
+    },
+    {
+      "strategy": "quick",
+      "seed": 151461,
+      "days": 200,
+      "sales": 9,
+      "profitable": 3,
+      "avgContribution": -32,
+      "repairSpend": 1013,
+      "packages": {
+        "quick": 9
+      },
+      "netWorth": -1264
+    },
+    {
+      "strategy": "quick",
+      "seed": 159380,
+      "days": 200,
+      "sales": 82,
+      "profitable": 71,
+      "avgContribution": 761,
+      "repairSpend": 6859,
+      "packages": {
+        "quick": 73
+      },
+      "netWorth": 54016
+    },
+    {
+      "strategy": "quick",
+      "seed": 167299,
+      "days": 200,
+      "sales": 77,
+      "profitable": 63,
+      "avgContribution": 545,
+      "repairSpend": 8098,
+      "packages": {
+        "quick": 68
+      },
+      "netWorth": 31535
+    },
+    {
+      "strategy": "quick",
+      "seed": 175218,
+      "days": 200,
+      "sales": 89,
+      "profitable": 72,
+      "avgContribution": 659,
+      "repairSpend": 9032,
+      "packages": {
+        "quick": 75
+      },
+      "netWorth": 49816
+    },
+    {
+      "strategy": "quick",
+      "seed": 183137,
+      "days": 200,
+      "sales": 23,
+      "profitable": 14,
+      "avgContribution": 61,
+      "repairSpend": 1557,
+      "packages": {
+        "quick": 19
+      },
+      "netWorth": -446
+    },
+    {
+      "strategy": "quick",
+      "seed": 191056,
+      "days": 200,
+      "sales": 82,
+      "profitable": 65,
+      "avgContribution": 428,
+      "repairSpend": 8805,
+      "packages": {
+        "quick": 71
+      },
+      "netWorth": 26236
+    },
+    {
+      "strategy": "quick",
+      "seed": 198975,
+      "days": 200,
+      "sales": 80,
+      "profitable": 63,
+      "avgContribution": 500,
+      "repairSpend": 7011,
+      "packages": {
+        "quick": 68
+      },
+      "netWorth": 31348
+    },
+    {
+      "strategy": "quick",
+      "seed": 206894,
+      "days": 200,
+      "sales": 76,
+      "profitable": 68,
+      "avgContribution": 822,
+      "repairSpend": 7500,
+      "packages": {
+        "quick": 55
+      },
+      "netWorth": 53126
+    },
+    {
+      "strategy": "quick",
+      "seed": 214813,
+      "days": 200,
+      "sales": 89,
+      "profitable": 76,
+      "avgContribution": 603,
+      "repairSpend": 8761,
+      "packages": {
+        "quick": 80
+      },
+      "netWorth": 45791
+    },
+    {
+      "strategy": "quick",
+      "seed": 222732,
+      "days": 200,
+      "sales": 88,
+      "profitable": 70,
+      "avgContribution": 514,
+      "repairSpend": 8659,
+      "packages": {
+        "quick": 79
+      },
+      "netWorth": 35590
+    },
+    {
+      "strategy": "quick",
+      "seed": 230651,
+      "days": 200,
+      "sales": 89,
+      "profitable": 79,
+      "avgContribution": 642,
+      "repairSpend": 7004,
+      "packages": {
+        "quick": 73
+      },
+      "netWorth": 48407
+    },
+    {
+      "strategy": "quick",
+      "seed": 238570,
+      "days": 200,
+      "sales": 71,
+      "profitable": 59,
+      "avgContribution": 410,
+      "repairSpend": 5411,
+      "packages": {
+        "quick": 56
+      },
+      "netWorth": 20531
+    },
+    {
+      "strategy": "quick",
+      "seed": 246489,
+      "days": 200,
+      "sales": 81,
+      "profitable": 69,
+      "avgContribution": 710,
+      "repairSpend": 8993,
+      "packages": {
+        "quick": 73
+      },
+      "netWorth": 46758
+    },
+    {
+      "strategy": "quick",
+      "seed": 254408,
+      "days": 200,
+      "sales": 83,
+      "profitable": 72,
+      "avgContribution": 649,
+      "repairSpend": 9359,
+      "packages": {
+        "quick": 77
+      },
+      "netWorth": 44442
+    },
+    {
+      "strategy": "quick",
+      "seed": 262327,
+      "days": 200,
+      "sales": 76,
+      "profitable": 66,
+      "avgContribution": 825,
+      "repairSpend": 10083,
+      "packages": {
+        "quick": 66
+      },
+      "netWorth": 54658
+    },
+    {
+      "strategy": "quick",
+      "seed": 270246,
+      "days": 200,
+      "sales": 94,
+      "profitable": 81,
+      "avgContribution": 707,
+      "repairSpend": 15327,
+      "packages": {
+        "quick": 83
+      },
+      "netWorth": 59707
+    },
+    {
+      "strategy": "quick",
+      "seed": 278165,
+      "days": 200,
+      "sales": 84,
+      "profitable": 76,
+      "avgContribution": 836,
+      "repairSpend": 10866,
+      "packages": {
+        "quick": 72
+      },
+      "netWorth": 59997
+    },
+    {
+      "strategy": "quick",
+      "seed": 286084,
+      "days": 200,
+      "sales": 95,
+      "profitable": 81,
+      "avgContribution": 677,
+      "repairSpend": 9422,
+      "packages": {
+        "quick": 84
+      },
+      "netWorth": 55785
+    },
+    {
+      "strategy": "quick",
+      "seed": 294003,
+      "days": 200,
+      "sales": 83,
+      "profitable": 73,
+      "avgContribution": 645,
+      "repairSpend": 6523,
+      "packages": {
+        "quick": 70
+      },
+      "netWorth": 44357
+    },
+    {
+      "strategy": "quick",
+      "seed": 301922,
+      "days": 200,
+      "sales": 83,
+      "profitable": 72,
+      "avgContribution": 503,
+      "repairSpend": 6356,
+      "packages": {
+        "quick": 71
+      },
+      "netWorth": 34231
+    },
+    {
+      "strategy": "quick",
+      "seed": 309841,
+      "days": 200,
+      "sales": 76,
+      "profitable": 61,
+      "avgContribution": 602,
+      "repairSpend": 6258,
+      "packages": {
+        "quick": 62
+      },
+      "netWorth": 35309
+    },
+    {
+      "strategy": "quick",
+      "seed": 317760,
+      "days": 200,
+      "sales": 79,
+      "profitable": 67,
+      "avgContribution": 541,
+      "repairSpend": 10352,
+      "packages": {
+        "quick": 66
+      },
+      "netWorth": 32776
+    },
+    {
+      "strategy": "quick",
+      "seed": 325679,
+      "days": 200,
+      "sales": 93,
+      "profitable": 78,
+      "avgContribution": 732,
+      "repairSpend": 8885,
+      "packages": {
+        "quick": 74
+      },
+      "netWorth": 59269
+    },
+    {
+      "strategy": "quick",
+      "seed": 333598,
+      "days": 200,
+      "sales": 90,
+      "profitable": 78,
+      "avgContribution": 493,
+      "repairSpend": 7920,
+      "packages": {
+        "quick": 76
+      },
+      "netWorth": 35706
+    },
+    {
+      "strategy": "quick",
+      "seed": 341517,
+      "days": 200,
+      "sales": 16,
+      "profitable": 9,
+      "avgContribution": 115,
+      "repairSpend": 858,
+      "packages": {
+        "quick": 14
+      },
+      "netWorth": -514
+    },
+    {
+      "strategy": "quick",
+      "seed": 349436,
+      "days": 200,
+      "sales": 87,
+      "profitable": 72,
+      "avgContribution": 573,
+      "repairSpend": 7072,
+      "packages": {
+        "quick": 72
+      },
+      "netWorth": 40685
+    },
+    {
+      "strategy": "quick",
+      "seed": 357355,
+      "days": 200,
+      "sales": 88,
+      "profitable": 72,
+      "avgContribution": 647,
+      "repairSpend": 8763,
+      "packages": {
+        "quick": 78
+      },
+      "netWorth": 47933
+    },
+    {
+      "strategy": "quick",
+      "seed": 365274,
+      "days": 200,
+      "sales": 78,
+      "profitable": 64,
+      "avgContribution": 557,
+      "repairSpend": 6591,
+      "packages": {
+        "quick": 68
+      },
+      "netWorth": 33434
+    },
+    {
+      "strategy": "quick",
+      "seed": 373193,
+      "days": 200,
+      "sales": 57,
+      "profitable": 42,
+      "avgContribution": 232,
+      "repairSpend": 4396,
+      "packages": {
+        "quick": 49
+      },
+      "netWorth": 6162
+    },
+    {
+      "strategy": "quick",
+      "seed": 381112,
+      "days": 200,
+      "sales": 88,
+      "profitable": 69,
+      "avgContribution": 533,
+      "repairSpend": 7990,
+      "packages": {
+        "quick": 72
+      },
+      "netWorth": 37921
+    },
+    {
+      "strategy": "quick",
+      "seed": 389031,
+      "days": 200,
+      "sales": 88,
+      "profitable": 73,
+      "avgContribution": 778,
+      "repairSpend": 9682,
+      "packages": {
+        "quick": 80
+      },
+      "netWorth": 60502
+    },
+    {
+      "strategy": "quick",
+      "seed": 396950,
+      "days": 200,
+      "sales": 81,
+      "profitable": 70,
+      "avgContribution": 797,
+      "repairSpend": 9398,
+      "packages": {
+        "quick": 71
+      },
+      "netWorth": 56735
+    },
+    {
+      "strategy": "quick",
+      "seed": 404869,
+      "days": 200,
+      "sales": 73,
+      "profitable": 59,
+      "avgContribution": 557,
+      "repairSpend": 7915,
+      "packages": {
+        "quick": 65
+      },
+      "netWorth": 30269
+    },
+    {
+      "strategy": "quick",
+      "seed": 412788,
+      "days": 200,
+      "sales": 84,
+      "profitable": 69,
+      "avgContribution": 648,
+      "repairSpend": 6714,
+      "packages": {
+        "quick": 72
+      },
+      "netWorth": 46209
+    },
+    {
+      "strategy": "quick",
+      "seed": 420707,
+      "days": 200,
+      "sales": 68,
+      "profitable": 56,
+      "avgContribution": 674,
+      "repairSpend": 6426,
+      "packages": {
+        "quick": 57
+      },
+      "netWorth": 34753
+    },
+    {
+      "strategy": "quick",
+      "seed": 428626,
+      "days": 200,
+      "sales": 84,
+      "profitable": 63,
+      "avgContribution": 493,
+      "repairSpend": 11776,
+      "packages": {
+        "quick": 77
+      },
+      "netWorth": 31711
+    },
+    {
+      "strategy": "quick",
+      "seed": 436545,
+      "days": 200,
+      "sales": 87,
+      "profitable": 81,
+      "avgContribution": 738,
+      "repairSpend": 10041,
+      "packages": {
+        "quick": 70
+      },
+      "netWorth": 55402
+    },
+    {
+      "strategy": "quick",
+      "seed": 444464,
+      "days": 200,
+      "sales": 77,
+      "profitable": 73,
+      "avgContribution": 619,
+      "repairSpend": 8701,
+      "packages": {
+        "quick": 60
+      },
+      "netWorth": 39090
+    },
+    {
+      "strategy": "quick",
+      "seed": 452383,
+      "days": 200,
+      "sales": 13,
+      "profitable": 5,
+      "avgContribution": -15,
+      "repairSpend": 1432,
+      "packages": {
+        "quick": 11
+      },
+      "netWorth": -1050
+    },
+    {
+      "strategy": "quick",
+      "seed": 460302,
+      "days": 200,
+      "sales": 80,
+      "profitable": 66,
+      "avgContribution": 685,
+      "repairSpend": 7065,
+      "packages": {
+        "quick": 73
+      },
+      "netWorth": 44382
+    },
+    {
+      "strategy": "quick",
+      "seed": 468221,
+      "days": 200,
+      "sales": 83,
+      "profitable": 72,
+      "avgContribution": 1020,
+      "repairSpend": 8909,
+      "packages": {
+        "quick": 65
+      },
+      "netWorth": 76639
+    },
+    {
+      "strategy": "quick",
+      "seed": 476140,
+      "days": 200,
+      "sales": 34,
+      "profitable": 28,
+      "avgContribution": 138,
+      "repairSpend": 2085,
+      "packages": {
+        "quick": 27
+      },
+      "netWorth": 331
+    },
+    {
+      "strategy": "quick",
+      "seed": 484059,
+      "days": 200,
+      "sales": 77,
+      "profitable": 69,
+      "avgContribution": 823,
+      "repairSpend": 8286,
+      "packages": {
+        "quick": 68
+      },
+      "netWorth": 54399
+    },
+    {
+      "strategy": "quick",
+      "seed": 491978,
+      "days": 200,
+      "sales": 81,
+      "profitable": 65,
+      "avgContribution": 431,
+      "repairSpend": 8021,
+      "packages": {
+        "quick": 71
+      },
+      "netWorth": 25089
+    },
+    {
+      "strategy": "quick",
+      "seed": 499897,
+      "days": 200,
+      "sales": 21,
+      "profitable": 15,
+      "avgContribution": 127,
+      "repairSpend": 1827,
+      "packages": {
+        "quick": 17
+      },
+      "netWorth": -195
+    },
+    {
+      "strategy": "quick",
+      "seed": 507816,
+      "days": 200,
+      "sales": 82,
+      "profitable": 69,
+      "avgContribution": 561,
+      "repairSpend": 7927,
+      "packages": {
+        "quick": 71
+      },
+      "netWorth": 37202
+    },
+    {
+      "strategy": "quick",
+      "seed": 515735,
+      "days": 200,
+      "sales": 31,
+      "profitable": 22,
+      "avgContribution": 92,
+      "repairSpend": 4529,
+      "packages": {
+        "quick": 27
+      },
+      "netWorth": 12
+    },
+    {
+      "strategy": "quick",
+      "seed": 523654,
+      "days": 200,
+      "sales": 34,
+      "profitable": 23,
+      "avgContribution": 79,
+      "repairSpend": 3294,
+      "packages": {
+        "quick": 29
+      },
+      "netWorth": 72
+    },
+    {
+      "strategy": "quick",
+      "seed": 531573,
+      "days": 200,
+      "sales": 90,
+      "profitable": 79,
+      "avgContribution": 731,
+      "repairSpend": 9192,
+      "packages": {
+        "quick": 75
+      },
+      "netWorth": 58829
+    },
+    {
+      "strategy": "quick",
+      "seed": 539492,
+      "days": 200,
+      "sales": 86,
+      "profitable": 76,
+      "avgContribution": 636,
+      "repairSpend": 8504,
+      "packages": {
+        "quick": 72
+      },
+      "netWorth": 44430
+    },
+    {
+      "strategy": "quick",
+      "seed": 547411,
+      "days": 200,
+      "sales": 83,
+      "profitable": 75,
+      "avgContribution": 856,
+      "repairSpend": 8777,
+      "packages": {
+        "quick": 70
+      },
+      "netWorth": 61479
+    },
+    {
+      "strategy": "quick",
+      "seed": 555330,
+      "days": 200,
+      "sales": 91,
+      "profitable": 78,
+      "avgContribution": 618,
+      "repairSpend": 11459,
+      "packages": {
+        "quick": 81
+      },
+      "netWorth": 47035
+    },
+    {
+      "strategy": "quick",
+      "seed": 563249,
+      "days": 200,
+      "sales": 85,
+      "profitable": 67,
+      "avgContribution": 480,
+      "repairSpend": 7833,
+      "packages": {
+        "quick": 65
+      },
+      "netWorth": 32332
+    },
+    {
+      "strategy": "quick",
+      "seed": 571168,
+      "days": 200,
+      "sales": 87,
+      "profitable": 82,
+      "avgContribution": 861,
+      "repairSpend": 13220,
+      "packages": {
+        "quick": 76
+      },
+      "netWorth": 68782
+    },
+    {
+      "strategy": "quick",
+      "seed": 579087,
+      "days": 200,
+      "sales": 78,
+      "profitable": 63,
+      "avgContribution": 794,
+      "repairSpend": 7924,
+      "packages": {
+        "quick": 70
+      },
+      "netWorth": 52402
+    },
+    {
+      "strategy": "quick",
+      "seed": 587006,
+      "days": 200,
+      "sales": 84,
+      "profitable": 74,
+      "avgContribution": 551,
+      "repairSpend": 9308,
+      "packages": {
+        "quick": 78
+      },
+      "netWorth": 36943
+    },
+    {
+      "strategy": "quick",
+      "seed": 594925,
+      "days": 200,
+      "sales": 91,
+      "profitable": 75,
+      "avgContribution": 731,
+      "repairSpend": 9023,
+      "packages": {
+        "quick": 75
+      },
+      "netWorth": 57733
+    },
+    {
+      "strategy": "quick",
+      "seed": 602844,
+      "days": 200,
+      "sales": 82,
+      "profitable": 71,
+      "avgContribution": 619,
+      "repairSpend": 6033,
+      "packages": {
+        "quick": 68
+      },
+      "netWorth": 44555
+    },
+    {
+      "strategy": "quick",
+      "seed": 610763,
+      "days": 200,
+      "sales": 83,
+      "profitable": 79,
+      "avgContribution": 696,
+      "repairSpend": 8234,
+      "packages": {
+        "quick": 70
+      },
+      "netWorth": 47746
+    },
+    {
+      "strategy": "quick",
+      "seed": 618682,
+      "days": 200,
+      "sales": 16,
+      "profitable": 11,
+      "avgContribution": 0,
+      "repairSpend": 904,
+      "packages": {
+        "quick": 13
+      },
+      "netWorth": -1102
+    },
+    {
+      "strategy": "quick",
+      "seed": 626601,
+      "days": 200,
+      "sales": 76,
+      "profitable": 67,
+      "avgContribution": 740,
+      "repairSpend": 7641,
+      "packages": {
+        "quick": 60
+      },
+      "netWorth": 47576
+    },
+    {
+      "strategy": "driver",
+      "seed": 1000,
+      "days": 200,
+      "sales": 59,
+      "profitable": 51,
+      "avgContribution": 800,
+      "repairSpend": 32784,
+      "packages": {
+        "driver": 58
+      },
+      "netWorth": 39464
+    },
+    {
+      "strategy": "driver",
+      "seed": 8919,
+      "days": 200,
+      "sales": 70,
+      "profitable": 65,
+      "avgContribution": 925,
+      "repairSpend": 38267,
+      "packages": {
+        "driver": 68
+      },
+      "netWorth": 58613
+    },
+    {
+      "strategy": "driver",
+      "seed": 16838,
+      "days": 200,
+      "sales": 59,
+      "profitable": 50,
+      "avgContribution": 819,
+      "repairSpend": 34518,
+      "packages": {
+        "driver": 59
+      },
+      "netWorth": 39221
+    },
+    {
+      "strategy": "driver",
+      "seed": 24757,
+      "days": 200,
+      "sales": 13,
+      "profitable": 6,
+      "avgContribution": -23,
+      "repairSpend": 3978,
+      "packages": {
+        "driver": 9
+      },
+      "netWorth": -1157
+    },
+    {
+      "strategy": "driver",
+      "seed": 32676,
+      "days": 200,
+      "sales": 76,
+      "profitable": 66,
+      "avgContribution": 1021,
+      "repairSpend": 47408,
+      "packages": {
+        "driver": 77
+      },
+      "netWorth": 71381
+    },
+    {
+      "strategy": "driver",
+      "seed": 40595,
+      "days": 200,
+      "sales": 66,
+      "profitable": 54,
+      "avgContribution": 874,
+      "repairSpend": 40896,
+      "packages": {
+        "driver": 67
+      },
+      "netWorth": 49261
+    },
+    {
+      "strategy": "driver",
+      "seed": 48514,
+      "days": 200,
+      "sales": 82,
+      "profitable": 69,
+      "avgContribution": 841,
+      "repairSpend": 49413,
+      "packages": {
+        "driver": 81
+      },
+      "netWorth": 64332
+    },
+    {
+      "strategy": "driver",
+      "seed": 56433,
+      "days": 200,
+      "sales": 18,
+      "profitable": 10,
+      "avgContribution": 33,
+      "repairSpend": 6528,
+      "packages": {
+        "driver": 11
+      },
+      "netWorth": -1016
+    },
+    {
+      "strategy": "driver",
+      "seed": 64352,
+      "days": 200,
+      "sales": 77,
+      "profitable": 65,
+      "avgContribution": 920,
+      "repairSpend": 47729,
+      "packages": {
+        "driver": 75
+      },
+      "netWorth": 65002
+    },
+    {
+      "strategy": "driver",
+      "seed": 72271,
+      "days": 200,
+      "sales": 75,
+      "profitable": 65,
+      "avgContribution": 908,
+      "repairSpend": 44452,
+      "packages": {
+        "driver": 75
+      },
+      "netWorth": 60653
+    },
+    {
+      "strategy": "driver",
+      "seed": 80190,
+      "days": 200,
+      "sales": 67,
+      "profitable": 56,
+      "avgContribution": 1365,
+      "repairSpend": 42972,
+      "packages": {
+        "driver": 67
+      },
+      "netWorth": 83701
+    },
+    {
+      "strategy": "driver",
+      "seed": 88109,
+      "days": 200,
+      "sales": 59,
+      "profitable": 50,
+      "avgContribution": 857,
+      "repairSpend": 31827,
+      "packages": {
+        "driver": 58
+      },
+      "netWorth": 39560
+    },
+    {
+      "strategy": "driver",
+      "seed": 96028,
+      "days": 200,
+      "sales": 68,
+      "profitable": 51,
+      "avgContribution": 589,
+      "repairSpend": 36285,
+      "packages": {
+        "driver": 68
+      },
+      "netWorth": 32812
+    },
+    {
+      "strategy": "driver",
+      "seed": 103947,
+      "days": 200,
+      "sales": 10,
+      "profitable": 6,
+      "avgContribution": 102,
+      "repairSpend": 2589,
+      "packages": {
+        "driver": 8
+      },
+      "netWorth": -957
+    },
+    {
+      "strategy": "driver",
+      "seed": 111866,
+      "days": 200,
+      "sales": 75,
+      "profitable": 65,
+      "avgContribution": 1072,
+      "repairSpend": 45586,
+      "packages": {
+        "driver": 74
+      },
+      "netWorth": 73421
+    },
+    {
+      "strategy": "driver",
+      "seed": 119785,
+      "days": 200,
+      "sales": 73,
+      "profitable": 63,
+      "avgContribution": 857,
+      "repairSpend": 47128,
+      "packages": {
+        "driver": 73
+      },
+      "netWorth": 55291
+    },
+    {
+      "strategy": "driver",
+      "seed": 127704,
+      "days": 200,
+      "sales": 64,
+      "profitable": 52,
+      "avgContribution": 1101,
+      "repairSpend": 43940,
+      "packages": {
+        "driver": 64
+      },
+      "netWorth": 61966
+    },
+    {
+      "strategy": "driver",
+      "seed": 135623,
+      "days": 200,
+      "sales": 14,
+      "profitable": 7,
+      "avgContribution": -103,
+      "repairSpend": 3638,
+      "packages": {
+        "driver": 8
+      },
+      "netWorth": -1425
+    },
+    {
+      "strategy": "driver",
+      "seed": 143542,
+      "days": 200,
+      "sales": 70,
+      "profitable": 61,
+      "avgContribution": 991,
+      "repairSpend": 41033,
+      "packages": {
+        "driver": 70
+      },
+      "netWorth": 60081
+    },
+    {
+      "strategy": "driver",
+      "seed": 151461,
+      "days": 200,
+      "sales": 75,
+      "profitable": 57,
+      "avgContribution": 706,
+      "repairSpend": 42879,
+      "packages": {
+        "driver": 72
+      },
+      "netWorth": 46107
+    },
+    {
+      "strategy": "driver",
+      "seed": 159380,
+      "days": 200,
+      "sales": 68,
+      "profitable": 57,
+      "avgContribution": 1165,
+      "repairSpend": 41345,
+      "packages": {
+        "driver": 69
+      },
+      "netWorth": 71753
+    },
+    {
+      "strategy": "driver",
+      "seed": 167299,
+      "days": 200,
+      "sales": 77,
+      "profitable": 64,
+      "avgContribution": 831,
+      "repairSpend": 42970,
+      "packages": {
+        "driver": 79
+      },
+      "netWorth": 56791
+    },
+    {
+      "strategy": "driver",
+      "seed": 175218,
+      "days": 200,
+      "sales": 78,
+      "profitable": 63,
+      "avgContribution": 1179,
+      "repairSpend": 49663,
+      "packages": {
+        "driver": 77
+      },
+      "netWorth": 85337
+    },
+    {
+      "strategy": "driver",
+      "seed": 183137,
+      "days": 200,
+      "sales": 85,
+      "profitable": 73,
+      "avgContribution": 977,
+      "repairSpend": 43203,
+      "packages": {
+        "driver": 84
+      },
+      "netWorth": 76659
+    },
+    {
+      "strategy": "driver",
+      "seed": 191056,
+      "days": 200,
+      "sales": 15,
+      "profitable": 8,
+      "avgContribution": -95,
+      "repairSpend": 7028,
+      "packages": {
+        "driver": 11
+      },
+      "netWorth": -1284
+    },
+    {
+      "strategy": "driver",
+      "seed": 198975,
+      "days": 200,
+      "sales": 8,
+      "profitable": 3,
+      "avgContribution": -121,
+      "repairSpend": 3380,
+      "packages": {
+        "driver": 6
+      },
+      "netWorth": -1195
+    },
+    {
+      "strategy": "driver",
+      "seed": 206894,
+      "days": 200,
+      "sales": 71,
+      "profitable": 59,
+      "avgContribution": 1505,
+      "repairSpend": 44010,
+      "packages": {
+        "driver": 70
+      },
+      "netWorth": 100727
+    },
+    {
+      "strategy": "driver",
+      "seed": 214813,
+      "days": 200,
+      "sales": 13,
+      "profitable": 8,
+      "avgContribution": 59,
+      "repairSpend": 4524,
+      "packages": {
+        "driver": 9
+      },
+      "netWorth": -841
+    },
+    {
+      "strategy": "driver",
+      "seed": 222732,
+      "days": 200,
+      "sales": 77,
+      "profitable": 71,
+      "avgContribution": 1165,
+      "repairSpend": 41555,
+      "packages": {
+        "driver": 76
+      },
+      "netWorth": 82988
+    },
+    {
+      "strategy": "driver",
+      "seed": 230651,
+      "days": 200,
+      "sales": 12,
+      "profitable": 5,
+      "avgContribution": 52,
+      "repairSpend": 4017,
+      "packages": {
+        "driver": 9
+      },
+      "netWorth": -987
+    },
+    {
+      "strategy": "driver",
+      "seed": 238570,
+      "days": 200,
+      "sales": 73,
+      "profitable": 66,
+      "avgContribution": 1070,
+      "repairSpend": 41691,
+      "packages": {
+        "driver": 70
+      },
+      "netWorth": 70005
+    },
+    {
+      "strategy": "driver",
+      "seed": 246489,
+      "days": 200,
+      "sales": 66,
+      "profitable": 56,
+      "avgContribution": 1023,
+      "repairSpend": 41147,
+      "packages": {
+        "driver": 68
+      },
+      "netWorth": 59991
+    },
+    {
+      "strategy": "driver",
+      "seed": 254408,
+      "days": 200,
+      "sales": 73,
+      "profitable": 66,
+      "avgContribution": 960,
+      "repairSpend": 43937,
+      "packages": {
+        "driver": 72
+      },
+      "netWorth": 64054
+    },
+    {
+      "strategy": "driver",
+      "seed": 262327,
+      "days": 200,
+      "sales": 73,
+      "profitable": 60,
+      "avgContribution": 818,
+      "repairSpend": 46397,
+      "packages": {
+        "driver": 74
+      },
+      "netWorth": 51655
+    },
+    {
+      "strategy": "driver",
+      "seed": 270246,
+      "days": 200,
+      "sales": 68,
+      "profitable": 55,
+      "avgContribution": 532,
+      "repairSpend": 36631,
+      "packages": {
+        "driver": 68
+      },
+      "netWorth": 26026
+    },
+    {
+      "strategy": "driver",
+      "seed": 278165,
+      "days": 200,
+      "sales": 66,
+      "profitable": 58,
+      "avgContribution": 927,
+      "repairSpend": 37432,
+      "packages": {
+        "driver": 64
+      },
+      "netWorth": 53605
+    },
+    {
+      "strategy": "driver",
+      "seed": 286084,
+      "days": 200,
+      "sales": 18,
+      "profitable": 9,
+      "avgContribution": 29,
+      "repairSpend": 4999,
+      "packages": {
+        "driver": 10
+      },
+      "netWorth": -710
+    },
+    {
+      "strategy": "driver",
+      "seed": 294003,
+      "days": 200,
+      "sales": 74,
+      "profitable": 55,
+      "avgContribution": 638,
+      "repairSpend": 44738,
+      "packages": {
+        "driver": 75
+      },
+      "netWorth": 40456
+    },
+    {
+      "strategy": "driver",
+      "seed": 301922,
+      "days": 200,
+      "sales": 76,
+      "profitable": 61,
+      "avgContribution": 798,
+      "repairSpend": 46193,
+      "packages": {
+        "driver": 76
+      },
+      "netWorth": 52496
+    },
+    {
+      "strategy": "driver",
+      "seed": 309841,
+      "days": 200,
+      "sales": 70,
+      "profitable": 50,
+      "avgContribution": 507,
+      "repairSpend": 41768,
+      "packages": {
+        "driver": 71
+      },
+      "netWorth": 28820
+    },
+    {
+      "strategy": "driver",
+      "seed": 317760,
+      "days": 200,
+      "sales": 68,
+      "profitable": 57,
+      "avgContribution": 1070,
+      "repairSpend": 40528,
+      "packages": {
+        "driver": 68
+      },
+      "netWorth": 64152
+    },
+    {
+      "strategy": "driver",
+      "seed": 325679,
+      "days": 200,
+      "sales": 66,
+      "profitable": 51,
+      "avgContribution": 1012,
+      "repairSpend": 41041,
+      "packages": {
+        "driver": 66
+      },
+      "netWorth": 57672
+    },
+    {
+      "strategy": "driver",
+      "seed": 333598,
+      "days": 200,
+      "sales": 13,
+      "profitable": 5,
+      "avgContribution": -17,
+      "repairSpend": 7145,
+      "packages": {
+        "driver": 13
+      },
+      "netWorth": -820
+    },
+    {
+      "strategy": "driver",
+      "seed": 341517,
+      "days": 200,
+      "sales": 10,
+      "profitable": 3,
+      "avgContribution": -49,
+      "repairSpend": 4910,
+      "packages": {
+        "driver": 8
+      },
+      "netWorth": -1095
+    },
+    {
+      "strategy": "driver",
+      "seed": 349436,
+      "days": 200,
+      "sales": 69,
+      "profitable": 55,
+      "avgContribution": 855,
+      "repairSpend": 40003,
+      "packages": {
+        "driver": 67
+      },
+      "netWorth": 50324
+    },
+    {
+      "strategy": "driver",
+      "seed": 357355,
+      "days": 200,
+      "sales": 74,
+      "profitable": 62,
+      "avgContribution": 948,
+      "repairSpend": 43751,
+      "packages": {
+        "driver": 74
+      },
+      "netWorth": 63510
+    },
+    {
+      "strategy": "driver",
+      "seed": 365274,
+      "days": 200,
+      "sales": 70,
+      "profitable": 59,
+      "avgContribution": 787,
+      "repairSpend": 39565,
+      "packages": {
+        "driver": 69
+      },
+      "netWorth": 47009
+    },
+    {
+      "strategy": "driver",
+      "seed": 373193,
+      "days": 200,
+      "sales": 64,
+      "profitable": 53,
+      "avgContribution": 513,
+      "repairSpend": 34154,
+      "packages": {
+        "driver": 60
+      },
+      "netWorth": 25115
+    },
+    {
+      "strategy": "driver",
+      "seed": 381112,
+      "days": 200,
+      "sales": 76,
+      "profitable": 58,
+      "avgContribution": 996,
+      "repairSpend": 44652,
+      "packages": {
+        "driver": 74
+      },
+      "netWorth": 68984
+    },
+    {
+      "strategy": "driver",
+      "seed": 389031,
+      "days": 200,
+      "sales": 69,
+      "profitable": 60,
+      "avgContribution": 1253,
+      "repairSpend": 42792,
+      "packages": {
+        "driver": 69
+      },
+      "netWorth": 80254
+    },
+    {
+      "strategy": "driver",
+      "seed": 396950,
+      "days": 200,
+      "sales": 73,
+      "profitable": 63,
+      "avgContribution": 939,
+      "repairSpend": 43796,
+      "packages": {
+        "driver": 73
+      },
+      "netWorth": 59278
+    },
+    {
+      "strategy": "driver",
+      "seed": 404869,
+      "days": 200,
+      "sales": 4,
+      "profitable": 2,
+      "avgContribution": -106,
+      "repairSpend": 1927,
+      "packages": {
+        "driver": 3
+      },
+      "netWorth": -1403
+    },
+    {
+      "strategy": "driver",
+      "seed": 412788,
+      "days": 200,
+      "sales": 65,
+      "profitable": 58,
+      "avgContribution": 942,
+      "repairSpend": 40960,
+      "packages": {
+        "driver": 64
+      },
+      "netWorth": 52844
+    },
+    {
+      "strategy": "driver",
+      "seed": 420707,
+      "days": 200,
+      "sales": 31,
+      "profitable": 23,
+      "avgContribution": 156,
+      "repairSpend": 13775,
+      "packages": {
+        "driver": 24
+      },
+      "netWorth": 364
+    },
+    {
+      "strategy": "driver",
+      "seed": 428626,
+      "days": 200,
+      "sales": 76,
+      "profitable": 57,
+      "avgContribution": 515,
+      "repairSpend": 43026,
+      "packages": {
+        "driver": 76
+      },
+      "netWorth": 32225
+    },
+    {
+      "strategy": "driver",
+      "seed": 436545,
+      "days": 200,
+      "sales": 73,
+      "profitable": 58,
+      "avgContribution": 628,
+      "repairSpend": 42996,
+      "packages": {
+        "driver": 71
+      },
+      "netWorth": 37744
+    },
+    {
+      "strategy": "driver",
+      "seed": 444464,
+      "days": 200,
+      "sales": 74,
+      "profitable": 61,
+      "avgContribution": 848,
+      "repairSpend": 43451,
+      "packages": {
+        "driver": 72
+      },
+      "netWorth": 54467
+    },
+    {
+      "strategy": "driver",
+      "seed": 452383,
+      "days": 200,
+      "sales": 69,
+      "profitable": 56,
+      "avgContribution": 912,
+      "repairSpend": 42226,
+      "packages": {
+        "driver": 67
+      },
+      "netWorth": 56083
+    },
+    {
+      "strategy": "driver",
+      "seed": 460302,
+      "days": 200,
+      "sales": 89,
+      "profitable": 68,
+      "avgContribution": 770,
+      "repairSpend": 51908,
+      "packages": {
+        "driver": 88
+      },
+      "netWorth": 62529
+    },
+    {
+      "strategy": "driver",
+      "seed": 468221,
+      "days": 200,
+      "sales": 14,
+      "profitable": 7,
+      "avgContribution": -22,
+      "repairSpend": 6541,
+      "packages": {
+        "driver": 13
+      },
+      "netWorth": -1042
+    },
+    {
+      "strategy": "driver",
+      "seed": 476140,
+      "days": 200,
+      "sales": 20,
+      "profitable": 13,
+      "avgContribution": 85,
+      "repairSpend": 9864,
+      "packages": {
+        "driver": 16
+      },
+      "netWorth": -415
+    },
+    {
+      "strategy": "driver",
+      "seed": 484059,
+      "days": 200,
+      "sales": 70,
+      "profitable": 58,
+      "avgContribution": 619,
+      "repairSpend": 40036,
+      "packages": {
+        "driver": 69
+      },
+      "netWorth": 34358
+    },
+    {
+      "strategy": "driver",
+      "seed": 491978,
+      "days": 200,
+      "sales": 73,
+      "profitable": 58,
+      "avgContribution": 1111,
+      "repairSpend": 42485,
+      "packages": {
+        "driver": 70
+      },
+      "netWorth": 74719
+    },
+    {
+      "strategy": "driver",
+      "seed": 499897,
+      "days": 200,
+      "sales": 64,
+      "profitable": 58,
+      "avgContribution": 1075,
+      "repairSpend": 38378,
+      "packages": {
+        "driver": 62
+      },
+      "netWorth": 62814
+    },
+    {
+      "strategy": "driver",
+      "seed": 507816,
+      "days": 200,
+      "sales": 71,
+      "profitable": 53,
+      "avgContribution": 1001,
+      "repairSpend": 44394,
+      "packages": {
+        "driver": 71
+      },
+      "netWorth": 65452
+    },
+    {
+      "strategy": "driver",
+      "seed": 515735,
+      "days": 200,
+      "sales": 8,
+      "profitable": 4,
+      "avgContribution": -35,
+      "repairSpend": 3963,
+      "packages": {
+        "driver": 7
+      },
+      "netWorth": -1386
+    },
+    {
+      "strategy": "driver",
+      "seed": 523654,
+      "days": 200,
+      "sales": 15,
+      "profitable": 5,
+      "avgContribution": -47,
+      "repairSpend": 8313,
+      "packages": {
+        "driver": 15
+      },
+      "netWorth": -1067
+    },
+    {
+      "strategy": "driver",
+      "seed": 531573,
+      "days": 200,
+      "sales": 73,
+      "profitable": 59,
+      "avgContribution": 655,
+      "repairSpend": 39797,
+      "packages": {
+        "driver": 74
+      },
+      "netWorth": 39444
+    },
+    {
+      "strategy": "driver",
+      "seed": 539492,
+      "days": 200,
+      "sales": 79,
+      "profitable": 68,
+      "avgContribution": 1226,
+      "repairSpend": 47136,
+      "packages": {
+        "driver": 79
+      },
+      "netWorth": 90905
+    },
+    {
+      "strategy": "driver",
+      "seed": 547411,
+      "days": 200,
+      "sales": 75,
+      "profitable": 64,
+      "avgContribution": 901,
+      "repairSpend": 38744,
+      "packages": {
+        "driver": 72
+      },
+      "netWorth": 60197
+    },
+    {
+      "strategy": "driver",
+      "seed": 555330,
+      "days": 200,
+      "sales": 72,
+      "profitable": 52,
+      "avgContribution": 553,
+      "repairSpend": 40231,
+      "packages": {
+        "driver": 69
+      },
+      "netWorth": 32057
+    },
+    {
+      "strategy": "driver",
+      "seed": 563249,
+      "days": 200,
+      "sales": 75,
+      "profitable": 64,
+      "avgContribution": 970,
+      "repairSpend": 45129,
+      "packages": {
+        "driver": 72
+      },
+      "netWorth": 64960
+    },
+    {
+      "strategy": "driver",
+      "seed": 571168,
+      "days": 200,
+      "sales": 71,
+      "profitable": 61,
+      "avgContribution": 689,
+      "repairSpend": 39124,
+      "packages": {
+        "driver": 68
+      },
+      "netWorth": 42443
+    },
+    {
+      "strategy": "driver",
+      "seed": 579087,
+      "days": 200,
+      "sales": 75,
+      "profitable": 60,
+      "avgContribution": 663,
+      "repairSpend": 46630,
+      "packages": {
+        "driver": 73
+      },
+      "netWorth": 42335
+    },
+    {
+      "strategy": "driver",
+      "seed": 587006,
+      "days": 200,
+      "sales": 74,
+      "profitable": 62,
+      "avgContribution": 1140,
+      "repairSpend": 48845,
+      "packages": {
+        "driver": 72
+      },
+      "netWorth": 76698
+    },
+    {
+      "strategy": "driver",
+      "seed": 594925,
+      "days": 200,
+      "sales": 73,
+      "profitable": 59,
+      "avgContribution": 779,
+      "repairSpend": 44280,
+      "packages": {
+        "driver": 73
+      },
+      "netWorth": 49402
+    },
+    {
+      "strategy": "driver",
+      "seed": 602844,
+      "days": 200,
+      "sales": 79,
+      "profitable": 67,
+      "avgContribution": 1028,
+      "repairSpend": 49476,
+      "packages": {
+        "driver": 78
+      },
+      "netWorth": 74040
+    },
+    {
+      "strategy": "driver",
+      "seed": 610763,
+      "days": 200,
+      "sales": 78,
+      "profitable": 66,
+      "avgContribution": 970,
+      "repairSpend": 44684,
+      "packages": {
+        "driver": 78
+      },
+      "netWorth": 68826
+    },
+    {
+      "strategy": "driver",
+      "seed": 618682,
+      "days": 200,
+      "sales": 7,
+      "profitable": 0,
+      "avgContribution": -251,
+      "repairSpend": 3184,
+      "packages": {
+        "driver": 5
+      },
+      "netWorth": -1737
+    },
+    {
+      "strategy": "driver",
+      "seed": 626601,
+      "days": 200,
+      "sales": 69,
+      "profitable": 58,
+      "avgContribution": 1540,
+      "repairSpend": 43197,
+      "packages": {
+        "driver": 69
+      },
+      "netWorth": 99295
+    },
+    {
+      "strategy": "full",
+      "seed": 1000,
+      "days": 200,
+      "sales": 14,
+      "profitable": 7,
+      "avgContribution": -81,
+      "repairSpend": 4354,
+      "packages": {
+        "full": 4
+      },
+      "netWorth": -988
+    },
+    {
+      "strategy": "full",
+      "seed": 8919,
+      "days": 200,
+      "sales": 28,
+      "profitable": 19,
+      "avgContribution": 126,
+      "repairSpend": 6080,
+      "packages": {
+        "full": 7
+      },
+      "netWorth": 305
+    },
+    {
+      "strategy": "full",
+      "seed": 16838,
+      "days": 200,
+      "sales": 52,
+      "profitable": 40,
+      "avgContribution": 934,
+      "repairSpend": 55801,
+      "packages": {
+        "full": 52
+      },
+      "netWorth": 43246
+    },
+    {
+      "strategy": "full",
+      "seed": 24757,
+      "days": 200,
+      "sales": 13,
+      "profitable": 7,
+      "avgContribution": 0,
+      "repairSpend": 7533,
+      "packages": {
+        "full": 8
+      },
+      "netWorth": -607
+    },
+    {
+      "strategy": "full",
+      "seed": 32676,
+      "days": 200,
+      "sales": 9,
+      "profitable": 2,
+      "avgContribution": -77,
+      "repairSpend": 6689,
+      "packages": {
+        "full": 6
+      },
+      "netWorth": -1176
+    },
+    {
+      "strategy": "full",
+      "seed": 40595,
+      "days": 200,
+      "sales": 55,
+      "profitable": 44,
+      "avgContribution": 1252,
+      "repairSpend": 60384,
+      "packages": {
+        "full": 52
+      },
+      "netWorth": 65170
+    },
+    {
+      "strategy": "full",
+      "seed": 48514,
+      "days": 200,
+      "sales": 11,
+      "profitable": 4,
+      "avgContribution": -92,
+      "repairSpend": 8898,
+      "packages": {
+        "full": 8
+      },
+      "netWorth": -1119
+    },
+    {
+      "strategy": "full",
+      "seed": 56433,
+      "days": 200,
+      "sales": 23,
+      "profitable": 12,
+      "avgContribution": 92,
+      "repairSpend": 8462,
+      "packages": {
+        "full": 9
+      },
+      "netWorth": 141
+    },
+    {
+      "strategy": "full",
+      "seed": 64352,
+      "days": 200,
+      "sales": 52,
+      "profitable": 38,
+      "avgContribution": 1236,
+      "repairSpend": 51350,
+      "packages": {
+        "full": 47
+      },
+      "netWorth": 59532
+    },
+    {
+      "strategy": "full",
+      "seed": 72271,
+      "days": 200,
+      "sales": 13,
+      "profitable": 3,
+      "avgContribution": -97,
+      "repairSpend": 4336,
+      "packages": {
+        "full": 4
+      },
+      "netWorth": -1112
+    },
+    {
+      "strategy": "full",
+      "seed": 80190,
+      "days": 200,
+      "sales": 16,
+      "profitable": 9,
+      "avgContribution": 13,
+      "repairSpend": 5514,
+      "packages": {
+        "full": 6
+      },
+      "netWorth": -394
+    },
+    {
+      "strategy": "full",
+      "seed": 88109,
+      "days": 200,
+      "sales": 55,
+      "profitable": 36,
+      "avgContribution": 433,
+      "repairSpend": 53119,
+      "packages": {
+        "full": 49
+      },
+      "netWorth": 19734
+    },
+    {
+      "strategy": "full",
+      "seed": 96028,
+      "days": 200,
+      "sales": 46,
+      "profitable": 29,
+      "avgContribution": 433,
+      "repairSpend": 38162,
+      "packages": {
+        "full": 36
+      },
+      "netWorth": 14554
+    },
+    {
+      "strategy": "full",
+      "seed": 103947,
+      "days": 200,
+      "sales": 50,
+      "profitable": 38,
+      "avgContribution": 1115,
+      "repairSpend": 51746,
+      "packages": {
+        "full": 47
+      },
+      "netWorth": 52484
+    },
+    {
+      "strategy": "full",
+      "seed": 111866,
+      "days": 200,
+      "sales": 57,
+      "profitable": 42,
+      "avgContribution": 827,
+      "repairSpend": 57925,
+      "packages": {
+        "full": 52
+      },
+      "netWorth": 43962
+    },
+    {
+      "strategy": "full",
+      "seed": 119785,
+      "days": 200,
+      "sales": 43,
+      "profitable": 25,
+      "avgContribution": 354,
+      "repairSpend": 44364,
+      "packages": {
+        "full": 39
+      },
+      "netWorth": 8621
+    },
+    {
+      "strategy": "full",
+      "seed": 127704,
+      "days": 200,
+      "sales": 27,
+      "profitable": 15,
+      "avgContribution": 84,
+      "repairSpend": 10795,
+      "packages": {
+        "full": 11
+      },
+      "netWorth": 284
+    },
+    {
+      "strategy": "full",
+      "seed": 135623,
+      "days": 200,
+      "sales": 5,
+      "profitable": 2,
+      "avgContribution": -218,
+      "repairSpend": 1916,
+      "packages": {
+        "full": 2
+      },
+      "netWorth": -1447
+    },
+    {
+      "strategy": "full",
+      "seed": 143542,
+      "days": 200,
+      "sales": 57,
+      "profitable": 36,
+      "avgContribution": 461,
+      "repairSpend": 55339,
+      "packages": {
+        "full": 49
+      },
+      "netWorth": 19067
+    },
+    {
+      "strategy": "full",
+      "seed": 151461,
+      "days": 200,
+      "sales": 13,
+      "profitable": 6,
+      "avgContribution": -11,
+      "repairSpend": 5518,
+      "packages": {
+        "full": 6
+      },
+      "netWorth": -743
+    },
+    {
+      "strategy": "full",
+      "seed": 159380,
+      "days": 200,
+      "sales": 50,
+      "profitable": 35,
+      "avgContribution": 676,
+      "repairSpend": 49436,
+      "packages": {
+        "full": 45
+      },
+      "netWorth": 27893
+    },
+    {
+      "strategy": "full",
+      "seed": 167299,
+      "days": 200,
+      "sales": 57,
+      "profitable": 47,
+      "avgContribution": 1262,
+      "repairSpend": 58954,
+      "packages": {
+        "full": 52
+      },
+      "netWorth": 68449
+    },
+    {
+      "strategy": "full",
+      "seed": 175218,
+      "days": 200,
+      "sales": 58,
+      "profitable": 42,
+      "avgContribution": 946,
+      "repairSpend": 58645,
+      "packages": {
+        "full": 56
+      },
+      "netWorth": 51218
+    },
+    {
+      "strategy": "full",
+      "seed": 183137,
+      "days": 200,
+      "sales": 53,
+      "profitable": 39,
+      "avgContribution": 689,
+      "repairSpend": 56393,
+      "packages": {
+        "full": 52
+      },
+      "netWorth": 32065
+    },
+    {
+      "strategy": "full",
+      "seed": 191056,
+      "days": 200,
+      "sales": 48,
+      "profitable": 31,
+      "avgContribution": 460,
+      "repairSpend": 45434,
+      "packages": {
+        "full": 41
+      },
+      "netWorth": 18837
+    },
+    {
+      "strategy": "full",
+      "seed": 198975,
+      "days": 200,
+      "sales": 18,
+      "profitable": 11,
+      "avgContribution": 24,
+      "repairSpend": 8454,
+      "packages": {
+        "full": 9
+      },
+      "netWorth": -549
+    },
+    {
+      "strategy": "full",
+      "seed": 206894,
+      "days": 200,
+      "sales": 54,
+      "profitable": 45,
+      "avgContribution": 1240,
+      "repairSpend": 60908,
+      "packages": {
+        "full": 53
+      },
+      "netWorth": 64202
+    },
+    {
+      "strategy": "full",
+      "seed": 214813,
+      "days": 200,
+      "sales": 52,
+      "profitable": 36,
+      "avgContribution": 765,
+      "repairSpend": 53612,
+      "packages": {
+        "full": 48
+      },
+      "netWorth": 36559
+    },
+    {
+      "strategy": "full",
+      "seed": 222732,
+      "days": 200,
+      "sales": 11,
+      "profitable": 7,
+      "avgContribution": 43,
+      "repairSpend": 5217,
+      "packages": {
+        "full": 5
+      },
+      "netWorth": -380
+    },
+    {
+      "strategy": "full",
+      "seed": 230651,
+      "days": 200,
+      "sales": 6,
+      "profitable": 3,
+      "avgContribution": -186,
+      "repairSpend": 6120,
+      "packages": {
+        "full": 5
+      },
+      "netWorth": -1220
+    },
+    {
+      "strategy": "full",
+      "seed": 238570,
+      "days": 200,
+      "sales": 51,
+      "profitable": 43,
+      "avgContribution": 1384,
+      "repairSpend": 48784,
+      "packages": {
+        "full": 43
+      },
+      "netWorth": 66890
+    },
+    {
+      "strategy": "full",
+      "seed": 246489,
+      "days": 200,
+      "sales": 51,
+      "profitable": 38,
+      "avgContribution": 907,
+      "repairSpend": 50626,
+      "packages": {
+        "full": 48
+      },
+      "netWorth": 41442
+    },
+    {
+      "strategy": "full",
+      "seed": 254408,
+      "days": 200,
+      "sales": 58,
+      "profitable": 38,
+      "avgContribution": 443,
+      "repairSpend": 47703,
+      "packages": {
+        "full": 47
+      },
+      "netWorth": 19955
+    },
+    {
+      "strategy": "full",
+      "seed": 262327,
+      "days": 200,
+      "sales": 53,
+      "profitable": 43,
+      "avgContribution": 1115,
+      "repairSpend": 60216,
+      "packages": {
+        "full": 54
+      },
+      "netWorth": 55840
+    },
+    {
+      "strategy": "full",
+      "seed": 270246,
+      "days": 200,
+      "sales": 13,
+      "profitable": 5,
+      "avgContribution": -101,
+      "repairSpend": 8133,
+      "packages": {
+        "full": 8
+      },
+      "netWorth": -1048
+    },
+    {
+      "strategy": "full",
+      "seed": 278165,
+      "days": 200,
+      "sales": 17,
+      "profitable": 10,
+      "avgContribution": -26,
+      "repairSpend": 5894,
+      "packages": {
+        "full": 6
+      },
+      "netWorth": -915
+    },
+    {
+      "strategy": "full",
+      "seed": 286084,
+      "days": 200,
+      "sales": 56,
+      "profitable": 44,
+      "avgContribution": 1239,
+      "repairSpend": 56609,
+      "packages": {
+        "full": 47
+      },
+      "netWorth": 66142
+    },
+    {
+      "strategy": "full",
+      "seed": 294003,
+      "days": 200,
+      "sales": 11,
+      "profitable": 5,
+      "avgContribution": -94,
+      "repairSpend": 5479,
+      "packages": {
+        "full": 6
+      },
+      "netWorth": -1015
+    },
+    {
+      "strategy": "full",
+      "seed": 301922,
+      "days": 200,
+      "sales": 52,
+      "profitable": 37,
+      "avgContribution": 867,
+      "repairSpend": 57886,
+      "packages": {
+        "full": 51
+      },
+      "netWorth": 38552
+    },
+    {
+      "strategy": "full",
+      "seed": 309841,
+      "days": 200,
+      "sales": 10,
+      "profitable": 5,
+      "avgContribution": -83,
+      "repairSpend": 6904,
+      "packages": {
+        "full": 6
+      },
+      "netWorth": -940
+    },
+    {
+      "strategy": "full",
+      "seed": 317760,
+      "days": 200,
+      "sales": 49,
+      "profitable": 36,
+      "avgContribution": 685,
+      "repairSpend": 48987,
+      "packages": {
+        "full": 43
+      },
+      "netWorth": 28797
+    },
+    {
+      "strategy": "full",
+      "seed": 325679,
+      "days": 200,
+      "sales": 53,
+      "profitable": 39,
+      "avgContribution": 524,
+      "repairSpend": 46720,
+      "packages": {
+        "full": 42
+      },
+      "netWorth": 23149
+    },
+    {
+      "strategy": "full",
+      "seed": 333598,
+      "days": 200,
+      "sales": 12,
+      "profitable": 3,
+      "avgContribution": -81,
+      "repairSpend": 7041,
+      "packages": {
+        "full": 7
+      },
+      "netWorth": -955
+    },
+    {
+      "strategy": "full",
+      "seed": 341517,
+      "days": 200,
+      "sales": 6,
+      "profitable": 2,
+      "avgContribution": -207,
+      "repairSpend": 3420,
+      "packages": {
+        "full": 3
+      },
+      "netWorth": -1348
+    },
+    {
+      "strategy": "full",
+      "seed": 349436,
+      "days": 200,
+      "sales": 35,
+      "profitable": 22,
+      "avgContribution": 59,
+      "repairSpend": 17335,
+      "packages": {
+        "full": 17
+      },
+      "netWorth": 954
+    },
+    {
+      "strategy": "full",
+      "seed": 357355,
+      "days": 200,
+      "sales": 22,
+      "profitable": 10,
+      "avgContribution": -27,
+      "repairSpend": 9138,
+      "packages": {
+        "full": 9
+      },
+      "netWorth": -570
+    },
+    {
+      "strategy": "full",
+      "seed": 365274,
+      "days": 200,
+      "sales": 49,
+      "profitable": 40,
+      "avgContribution": 2214,
+      "repairSpend": 65532,
+      "packages": {
+        "full": 49
+      },
+      "netWorth": 101940
+    },
+    {
+      "strategy": "full",
+      "seed": 373193,
+      "days": 200,
+      "sales": 7,
+      "profitable": 2,
+      "avgContribution": -108,
+      "repairSpend": 4257,
+      "packages": {
+        "full": 5
+      },
+      "netWorth": -985
+    },
+    {
+      "strategy": "full",
+      "seed": 381112,
+      "days": 200,
+      "sales": 50,
+      "profitable": 30,
+      "avgContribution": 256,
+      "repairSpend": 35364,
+      "packages": {
+        "full": 33
+      },
+      "netWorth": 8931
+    },
+    {
+      "strategy": "full",
+      "seed": 389031,
+      "days": 200,
+      "sales": 52,
+      "profitable": 38,
+      "avgContribution": 1800,
+      "repairSpend": 58145,
+      "packages": {
+        "full": 46
+      },
+      "netWorth": 87797
+    },
+    {
+      "strategy": "full",
+      "seed": 396950,
+      "days": 200,
+      "sales": 52,
+      "profitable": 37,
+      "avgContribution": 730,
+      "repairSpend": 53604,
+      "packages": {
+        "full": 48
+      },
+      "netWorth": 32219
+    },
+    {
+      "strategy": "full",
+      "seed": 404869,
+      "days": 200,
+      "sales": 10,
+      "profitable": 5,
+      "avgContribution": -21,
+      "repairSpend": 3724,
+      "packages": {
+        "full": 4
+      },
+      "netWorth": -819
+    },
+    {
+      "strategy": "full",
+      "seed": 412788,
+      "days": 200,
+      "sales": 60,
+      "profitable": 36,
+      "avgContribution": 324,
+      "repairSpend": 60819,
+      "packages": {
+        "full": 50
+      },
+      "netWorth": 14378
+    },
+    {
+      "strategy": "full",
+      "seed": 420707,
+      "days": 200,
+      "sales": 38,
+      "profitable": 29,
+      "avgContribution": 446,
+      "repairSpend": 22322,
+      "packages": {
+        "full": 23
+      },
+      "netWorth": 13399
+    },
+    {
+      "strategy": "full",
+      "seed": 428626,
+      "days": 200,
+      "sales": 56,
+      "profitable": 35,
+      "avgContribution": 647,
+      "repairSpend": 55147,
+      "packages": {
+        "full": 51
+      },
+      "netWorth": 33553
+    },
+    {
+      "strategy": "full",
+      "seed": 436545,
+      "days": 200,
+      "sales": 54,
+      "profitable": 39,
+      "avgContribution": 1115,
+      "repairSpend": 54784,
+      "packages": {
+        "full": 51
+      },
+      "netWorth": 55855
+    },
+    {
+      "strategy": "full",
+      "seed": 444464,
+      "days": 200,
+      "sales": 21,
+      "profitable": 11,
+      "avgContribution": 89,
+      "repairSpend": 7742,
+      "packages": {
+        "full": 9
+      },
+      "netWorth": -233
+    },
+    {
+      "strategy": "full",
+      "seed": 452383,
+      "days": 200,
+      "sales": 11,
+      "profitable": 5,
+      "avgContribution": -68,
+      "repairSpend": 6461,
+      "packages": {
+        "full": 6
+      },
+      "netWorth": -1230
+    },
+    {
+      "strategy": "full",
+      "seed": 460302,
+      "days": 200,
+      "sales": 57,
+      "profitable": 46,
+      "avgContribution": 815,
+      "repairSpend": 57391,
+      "packages": {
+        "full": 51
+      },
+      "netWorth": 41899
+    },
+    {
+      "strategy": "full",
+      "seed": 468221,
+      "days": 200,
+      "sales": 52,
+      "profitable": 30,
+      "avgContribution": 283,
+      "repairSpend": 53766,
+      "packages": {
+        "full": 45
+      },
+      "netWorth": 10254
+    },
+    {
+      "strategy": "full",
+      "seed": 476140,
+      "days": 200,
+      "sales": 8,
+      "profitable": 3,
+      "avgContribution": -74,
+      "repairSpend": 4630,
+      "packages": {
+        "full": 4
+      },
+      "netWorth": -946
+    },
+    {
+      "strategy": "full",
+      "seed": 484059,
+      "days": 200,
+      "sales": 54,
+      "profitable": 36,
+      "avgContribution": 996,
+      "repairSpend": 58748,
+      "packages": {
+        "full": 48
+      },
+      "netWorth": 54663
+    },
+    {
+      "strategy": "full",
+      "seed": 491978,
+      "days": 200,
+      "sales": 55,
+      "profitable": 40,
+      "avgContribution": 325,
+      "repairSpend": 36155,
+      "packages": {
+        "full": 35
+      },
+      "netWorth": 13549
+    },
+    {
+      "strategy": "full",
+      "seed": 499897,
+      "days": 200,
+      "sales": 55,
+      "profitable": 37,
+      "avgContribution": 542,
+      "repairSpend": 51411,
+      "packages": {
+        "full": 47
+      },
+      "netWorth": 24565
+    },
+    {
+      "strategy": "full",
+      "seed": 507816,
+      "days": 200,
+      "sales": 9,
+      "profitable": 5,
+      "avgContribution": 0,
+      "repairSpend": 5960,
+      "packages": {
+        "full": 6
+      },
+      "netWorth": -1231
+    },
+    {
+      "strategy": "full",
+      "seed": 515735,
+      "days": 200,
+      "sales": 34,
+      "profitable": 21,
+      "avgContribution": 105,
+      "repairSpend": 19881,
+      "packages": {
+        "full": 19
+      },
+      "netWorth": 974
+    },
+    {
+      "strategy": "full",
+      "seed": 523654,
+      "days": 200,
+      "sales": 52,
+      "profitable": 42,
+      "avgContribution": 1653,
+      "repairSpend": 58091,
+      "packages": {
+        "full": 49
+      },
+      "netWorth": 82110
+    },
+    {
+      "strategy": "full",
+      "seed": 531573,
+      "days": 200,
+      "sales": 18,
+      "profitable": 8,
+      "avgContribution": -19,
+      "repairSpend": 11172,
+      "packages": {
+        "full": 10
+      },
+      "netWorth": -568
+    },
+    {
+      "strategy": "full",
+      "seed": 539492,
+      "days": 200,
+      "sales": 48,
+      "profitable": 41,
+      "avgContribution": 1712,
+      "repairSpend": 57161,
+      "packages": {
+        "full": 48
+      },
+      "netWorth": 77424
+    },
+    {
+      "strategy": "full",
+      "seed": 547411,
+      "days": 200,
+      "sales": 57,
+      "profitable": 44,
+      "avgContribution": 933,
+      "repairSpend": 58471,
+      "packages": {
+        "full": 52
+      },
+      "netWorth": 48218
+    },
+    {
+      "strategy": "full",
+      "seed": 555330,
+      "days": 200,
+      "sales": 24,
+      "profitable": 12,
+      "avgContribution": -2,
+      "repairSpend": 16768,
+      "packages": {
+        "full": 17
+      },
+      "netWorth": -152
+    },
+    {
+      "strategy": "full",
+      "seed": 563249,
+      "days": 200,
+      "sales": 54,
+      "profitable": 41,
+      "avgContribution": 731,
+      "repairSpend": 51606,
+      "packages": {
+        "full": 47
+      },
+      "netWorth": 34917
+    },
+    {
+      "strategy": "full",
+      "seed": 571168,
+      "days": 200,
+      "sales": 57,
+      "profitable": 46,
+      "avgContribution": 1448,
+      "repairSpend": 58581,
+      "packages": {
+        "full": 51
+      },
+      "netWorth": 76630
+    },
+    {
+      "strategy": "full",
+      "seed": 579087,
+      "days": 200,
+      "sales": 14,
+      "profitable": 5,
+      "avgContribution": -94,
+      "repairSpend": 5618,
+      "packages": {
+        "full": 6
+      },
+      "netWorth": -919
+    },
+    {
+      "strategy": "full",
+      "seed": 587006,
+      "days": 200,
+      "sales": 9,
+      "profitable": 4,
+      "avgContribution": -153,
+      "repairSpend": 5910,
+      "packages": {
+        "full": 5
+      },
+      "netWorth": -1480
+    },
+    {
+      "strategy": "full",
+      "seed": 594925,
+      "days": 200,
+      "sales": 57,
+      "profitable": 50,
+      "avgContribution": 1449,
+      "repairSpend": 65651,
+      "packages": {
+        "full": 57
+      },
+      "netWorth": 79469
+    },
+    {
+      "strategy": "full",
+      "seed": 602844,
+      "days": 200,
+      "sales": 57,
+      "profitable": 48,
+      "avgContribution": 1721,
+      "repairSpend": 64549,
+      "packages": {
+        "full": 54
+      },
+      "netWorth": 92973
+    },
+    {
+      "strategy": "full",
+      "seed": 610763,
+      "days": 200,
+      "sales": 9,
+      "profitable": 5,
+      "avgContribution": -45,
+      "repairSpend": 5174,
+      "packages": {
+        "full": 5
+      },
+      "netWorth": -1006
+    },
+    {
+      "strategy": "full",
+      "seed": 618682,
+      "days": 200,
+      "sales": 50,
+      "profitable": 34,
+      "avgContribution": 795,
+      "repairSpend": 51455,
+      "packages": {
+        "full": 44
+      },
+      "netWorth": 34736
+    },
+    {
+      "strategy": "full",
+      "seed": 626601,
+      "days": 200,
+      "sales": 21,
+      "profitable": 11,
+      "avgContribution": 30,
+      "repairSpend": 10939,
+      "packages": {
+        "full": 11
+      },
+      "netWorth": -218
+    },
+    {
+      "strategy": "smart",
+      "seed": 1000,
+      "days": 200,
+      "sales": 77,
+      "profitable": 65,
+      "avgContribution": 984,
+      "repairSpend": 46166,
+      "packages": {
+        "driver": 39,
+        "quick": 4,
+        "full": 16
+      },
+      "netWorth": 70200
+    },
+    {
+      "strategy": "smart",
+      "seed": 8919,
+      "days": 200,
+      "sales": 66,
+      "profitable": 58,
+      "avgContribution": 650,
+      "repairSpend": 31404,
+      "packages": {
+        "driver": 37,
+        "quick": 6,
+        "full": 10
+      },
+      "netWorth": 35324
+    },
+    {
+      "strategy": "smart",
+      "seed": 16838,
+      "days": 200,
+      "sales": 71,
+      "profitable": 62,
+      "avgContribution": 932,
+      "repairSpend": 40700,
+      "packages": {
+        "driver": 37,
+        "quick": 5,
+        "full": 16
+      },
+      "netWorth": 60295
+    },
+    {
+      "strategy": "smart",
+      "seed": 24757,
+      "days": 200,
+      "sales": 57,
+      "profitable": 49,
+      "avgContribution": 351,
+      "repairSpend": 20586,
+      "packages": {
+        "driver": 28,
+        "quick": 8,
+        "full": 5
+      },
+      "netWorth": 14136
+    },
+    {
+      "strategy": "smart",
+      "seed": 32676,
+      "days": 200,
+      "sales": 66,
+      "profitable": 58,
+      "avgContribution": 1473,
+      "repairSpend": 51009,
+      "packages": {
+        "driver": 34,
+        "full": 24,
+        "quick": 2
+      },
+      "netWorth": 91528
+    },
+    {
+      "strategy": "smart",
+      "seed": 40595,
+      "days": 200,
+      "sales": 62,
+      "profitable": 57,
+      "avgContribution": 1046,
+      "repairSpend": 38786,
+      "packages": {
+        "quick": 5,
+        "driver": 29,
+        "full": 17
+      },
+      "netWorth": 58630
+    },
+    {
+      "strategy": "smart",
+      "seed": 48514,
+      "days": 200,
+      "sales": 69,
+      "profitable": 62,
+      "avgContribution": 1619,
+      "repairSpend": 48860,
+      "packages": {
+        "quick": 6,
+        "driver": 36,
+        "full": 20
+      },
+      "netWorth": 106466
+    },
+    {
+      "strategy": "smart",
+      "seed": 56433,
+      "days": 200,
+      "sales": 61,
+      "profitable": 57,
+      "avgContribution": 1205,
+      "repairSpend": 37821,
+      "packages": {
+        "driver": 27,
+        "quick": 6,
+        "full": 20
+      },
+      "netWorth": 65107
+    },
+    {
+      "strategy": "smart",
+      "seed": 64352,
+      "days": 200,
+      "sales": 60,
+      "profitable": 52,
+      "avgContribution": 793,
+      "repairSpend": 33846,
+      "packages": {
+        "driver": 32,
+        "full": 14,
+        "quick": 2
+      },
+      "netWorth": 38877
+    },
+    {
+      "strategy": "smart",
+      "seed": 72271,
+      "days": 200,
+      "sales": 71,
+      "profitable": 61,
+      "avgContribution": 1154,
+      "repairSpend": 40543,
+      "packages": {
+        "quick": 6,
+        "driver": 33,
+        "full": 21
+      },
+      "netWorth": 75493
+    },
+    {
+      "strategy": "smart",
+      "seed": 80190,
+      "days": 200,
+      "sales": 63,
+      "profitable": 59,
+      "avgContribution": 928,
+      "repairSpend": 38942,
+      "packages": {
+        "driver": 26,
+        "quick": 4,
+        "full": 22
+      },
+      "netWorth": 51345
+    },
+    {
+      "strategy": "smart",
+      "seed": 88109,
+      "days": 200,
+      "sales": 63,
+      "profitable": 53,
+      "avgContribution": 1002,
+      "repairSpend": 38769,
+      "packages": {
+        "driver": 27,
+        "full": 20,
+        "quick": 2
+      },
+      "netWorth": 56027
+    },
+    {
+      "strategy": "smart",
+      "seed": 96028,
+      "days": 200,
+      "sales": 65,
+      "profitable": 56,
+      "avgContribution": 988,
+      "repairSpend": 43261,
+      "packages": {
+        "driver": 32,
+        "quick": 4,
+        "full": 21
+      },
+      "netWorth": 57465
+    },
+    {
+      "strategy": "smart",
+      "seed": 103947,
+      "days": 200,
+      "sales": 65,
+      "profitable": 57,
+      "avgContribution": 1124,
+      "repairSpend": 38590,
+      "packages": {
+        "driver": 28,
+        "quick": 7,
+        "full": 17
+      },
+      "netWorth": 66833
+    },
+    {
+      "strategy": "smart",
+      "seed": 111866,
+      "days": 200,
+      "sales": 70,
+      "profitable": 53,
+      "avgContribution": 997,
+      "repairSpend": 47876,
+      "packages": {
+        "driver": 40,
+        "full": 20,
+        "quick": 2
+      },
+      "netWorth": 64504
+    },
+    {
+      "strategy": "smart",
+      "seed": 119785,
+      "days": 200,
+      "sales": 69,
+      "profitable": 56,
+      "avgContribution": 1066,
+      "repairSpend": 39962,
+      "packages": {
+        "driver": 40,
+        "full": 15,
+        "quick": 5
+      },
+      "netWorth": 66451
+    },
+    {
+      "strategy": "smart",
+      "seed": 127704,
+      "days": 200,
+      "sales": 67,
+      "profitable": 58,
+      "avgContribution": 1030,
+      "repairSpend": 48212,
+      "packages": {
+        "driver": 33,
+        "full": 22,
+        "quick": 6
+      },
+      "netWorth": 63783
+    },
+    {
+      "strategy": "smart",
+      "seed": 135623,
+      "days": 200,
+      "sales": 50,
+      "profitable": 45,
+      "avgContribution": 1543,
+      "repairSpend": 35437,
+      "packages": {
+        "driver": 23,
+        "quick": 4,
+        "full": 17
+      },
+      "netWorth": 70063
+    },
+    {
+      "strategy": "smart",
+      "seed": 143542,
+      "days": 200,
+      "sales": 68,
+      "profitable": 52,
+      "avgContribution": 795,
+      "repairSpend": 40073,
+      "packages": {
+        "driver": 36,
+        "full": 17,
+        "quick": 5
+      },
+      "netWorth": 46083
+    },
+    {
+      "strategy": "smart",
+      "seed": 151461,
+      "days": 200,
+      "sales": 61,
+      "profitable": 53,
+      "avgContribution": 732,
+      "repairSpend": 35426,
+      "packages": {
+        "driver": 31,
+        "full": 14,
+        "quick": 2
+      },
+      "netWorth": 37648
+    },
+    {
+      "strategy": "smart",
+      "seed": 159380,
+      "days": 200,
+      "sales": 74,
+      "profitable": 59,
+      "avgContribution": 745,
+      "repairSpend": 43387,
+      "packages": {
+        "driver": 40,
+        "full": 14,
+        "quick": 8
+      },
+      "netWorth": 48683
+    },
+    {
+      "strategy": "smart",
+      "seed": 167299,
+      "days": 200,
+      "sales": 65,
+      "profitable": 58,
+      "avgContribution": 1002,
+      "repairSpend": 46229,
+      "packages": {
+        "driver": 29,
+        "full": 27,
+        "quick": 3
+      },
+      "netWorth": 59018
+    },
+    {
+      "strategy": "smart",
+      "seed": 175218,
+      "days": 200,
+      "sales": 64,
+      "profitable": 58,
+      "avgContribution": 1594,
+      "repairSpend": 51107,
+      "packages": {
+        "driver": 29,
+        "full": 25,
+        "quick": 5
+      },
+      "netWorth": 96349
+    },
+    {
+      "strategy": "smart",
+      "seed": 183137,
+      "days": 200,
+      "sales": 74,
+      "profitable": 61,
+      "avgContribution": 1015,
+      "repairSpend": 48238,
+      "packages": {
+        "driver": 36,
+        "full": 19,
+        "quick": 7
+      },
+      "netWorth": 70812
+    },
+    {
+      "strategy": "smart",
+      "seed": 191056,
+      "days": 200,
+      "sales": 25,
+      "profitable": 17,
+      "avgContribution": 138,
+      "repairSpend": 7025,
+      "packages": {
+        "driver": 13,
+        "quick": 2
+      },
+      "netWorth": -41
+    },
+    {
+      "strategy": "smart",
+      "seed": 198975,
+      "days": 200,
+      "sales": 8,
+      "profitable": 2,
+      "avgContribution": -107,
+      "repairSpend": 466,
+      "packages": {
+        "driver": 2
+      },
+      "netWorth": -1339
+    },
+    {
+      "strategy": "smart",
+      "seed": 206894,
+      "days": 200,
+      "sales": 71,
+      "profitable": 57,
+      "avgContribution": 947,
+      "repairSpend": 43938,
+      "packages": {
+        "driver": 39,
+        "full": 17,
+        "quick": 6
+      },
+      "netWorth": 61757
+    },
+    {
+      "strategy": "smart",
+      "seed": 214813,
+      "days": 200,
+      "sales": 12,
+      "profitable": 9,
+      "avgContribution": 59,
+      "repairSpend": 4032,
+      "packages": {
+        "driver": 7
+      },
+      "netWorth": -775
+    },
+    {
+      "strategy": "smart",
+      "seed": 222732,
+      "days": 200,
+      "sales": 67,
+      "profitable": 59,
+      "avgContribution": 1019,
+      "repairSpend": 32782,
+      "packages": {
+        "driver": 35,
+        "quick": 5,
+        "full": 11
+      },
+      "netWorth": 61618
+    },
+    {
+      "strategy": "smart",
+      "seed": 230651,
+      "days": 200,
+      "sales": 58,
+      "profitable": 47,
+      "avgContribution": 621,
+      "repairSpend": 28459,
+      "packages": {
+        "quick": 4,
+        "driver": 25,
+        "full": 16
+      },
+      "netWorth": 29861
+    },
+    {
+      "strategy": "smart",
+      "seed": 238570,
+      "days": 200,
+      "sales": 10,
+      "profitable": 7,
+      "avgContribution": 64,
+      "repairSpend": 2498,
+      "packages": {
+        "driver": 4,
+        "quick": 2
+      },
+      "netWorth": -1342
+    },
+    {
+      "strategy": "smart",
+      "seed": 246489,
+      "days": 200,
+      "sales": 62,
+      "profitable": 49,
+      "avgContribution": 1518,
+      "repairSpend": 47014,
+      "packages": {
+        "driver": 35,
+        "full": 17,
+        "quick": 2
+      },
+      "netWorth": 88136
+    },
+    {
+      "strategy": "smart",
+      "seed": 254408,
+      "days": 200,
+      "sales": 63,
+      "profitable": 56,
+      "avgContribution": 1149,
+      "repairSpend": 33146,
+      "packages": {
+        "driver": 25,
+        "quick": 9,
+        "full": 16
+      },
+      "netWorth": 65062
+    },
+    {
+      "strategy": "smart",
+      "seed": 262327,
+      "days": 200,
+      "sales": 66,
+      "profitable": 52,
+      "avgContribution": 835,
+      "repairSpend": 38820,
+      "packages": {
+        "driver": 38,
+        "quick": 5,
+        "full": 13
+      },
+      "netWorth": 47684
+    },
+    {
+      "strategy": "smart",
+      "seed": 270246,
+      "days": 200,
+      "sales": 71,
+      "profitable": 56,
+      "avgContribution": 996,
+      "repairSpend": 46814,
+      "packages": {
+        "driver": 31,
+        "quick": 7,
+        "full": 22
+      },
+      "netWorth": 64652
+    },
+    {
+      "strategy": "smart",
+      "seed": 278165,
+      "days": 200,
+      "sales": 66,
+      "profitable": 59,
+      "avgContribution": 1227,
+      "repairSpend": 44185,
+      "packages": {
+        "driver": 34,
+        "full": 19,
+        "quick": 6
+      },
+      "netWorth": 74650
+    },
+    {
+      "strategy": "smart",
+      "seed": 286084,
+      "days": 200,
+      "sales": 61,
+      "profitable": 56,
+      "avgContribution": 1283,
+      "repairSpend": 38091,
+      "packages": {
+        "driver": 30,
+        "quick": 5,
+        "full": 16
+      },
+      "netWorth": 70720
+    },
+    {
+      "strategy": "smart",
+      "seed": 294003,
+      "days": 200,
+      "sales": 65,
+      "profitable": 56,
+      "avgContribution": 1267,
+      "repairSpend": 39213,
+      "packages": {
+        "driver": 33,
+        "quick": 6,
+        "full": 16
+      },
+      "netWorth": 76014
+    },
+    {
+      "strategy": "smart",
+      "seed": 301922,
+      "days": 200,
+      "sales": 68,
+      "profitable": 65,
+      "avgContribution": 1540,
+      "repairSpend": 49989,
+      "packages": {
+        "driver": 26,
+        "full": 27,
+        "quick": 10
+      },
+      "netWorth": 99095
+    },
+    {
+      "strategy": "smart",
+      "seed": 309841,
+      "days": 200,
+      "sales": 18,
+      "profitable": 13,
+      "avgContribution": 119,
+      "repairSpend": 5471,
+      "packages": {
+        "driver": 7,
+        "full": 2,
+        "quick": 1
+      },
+      "netWorth": -209
+    },
+    {
+      "strategy": "smart",
+      "seed": 317760,
+      "days": 200,
+      "sales": 62,
+      "profitable": 55,
+      "avgContribution": 949,
+      "repairSpend": 41612,
+      "packages": {
+        "driver": 32,
+        "full": 19,
+        "quick": 1
+      },
+      "netWorth": 50520
+    },
+    {
+      "strategy": "smart",
+      "seed": 325679,
+      "days": 200,
+      "sales": 64,
+      "profitable": 60,
+      "avgContribution": 1021,
+      "repairSpend": 39640,
+      "packages": {
+        "driver": 30,
+        "full": 20,
+        "quick": 4
+      },
+      "netWorth": 58144
+    },
+    {
+      "strategy": "smart",
+      "seed": 333598,
+      "days": 200,
+      "sales": 72,
+      "profitable": 62,
+      "avgContribution": 1421,
+      "repairSpend": 43702,
+      "packages": {
+        "quick": 6,
+        "driver": 34,
+        "full": 20
+      },
+      "netWorth": 98242
+    },
+    {
+      "strategy": "smart",
+      "seed": 341517,
+      "days": 200,
+      "sales": 67,
+      "profitable": 57,
+      "avgContribution": 942,
+      "repairSpend": 40449,
+      "packages": {
+        "driver": 25,
+        "quick": 6,
+        "full": 22
+      },
+      "netWorth": 57093
+    },
+    {
+      "strategy": "smart",
+      "seed": 349436,
+      "days": 200,
+      "sales": 65,
+      "profitable": 51,
+      "avgContribution": 911,
+      "repairSpend": 42680,
+      "packages": {
+        "quick": 5,
+        "driver": 26,
+        "full": 20
+      },
+      "netWorth": 52845
+    },
+    {
+      "strategy": "smart",
+      "seed": 357355,
+      "days": 200,
+      "sales": 69,
+      "profitable": 62,
+      "avgContribution": 1381,
+      "repairSpend": 41458,
+      "packages": {
+        "quick": 8,
+        "driver": 38,
+        "full": 16
+      },
+      "netWorth": 87252
+    },
+    {
+      "strategy": "smart",
+      "seed": 365274,
+      "days": 200,
+      "sales": 70,
+      "profitable": 55,
+      "avgContribution": 904,
+      "repairSpend": 49751,
+      "packages": {
+        "driver": 25,
+        "full": 28,
+        "quick": 4
+      },
+      "netWorth": 59672
+    },
+    {
+      "strategy": "smart",
+      "seed": 373193,
+      "days": 200,
+      "sales": 63,
+      "profitable": 55,
+      "avgContribution": 734,
+      "repairSpend": 32591,
+      "packages": {
+        "quick": 3,
+        "driver": 35,
+        "full": 10
+      },
+      "netWorth": 39226
+    },
+    {
+      "strategy": "smart",
+      "seed": 381112,
+      "days": 200,
+      "sales": 68,
+      "profitable": 62,
+      "avgContribution": 1359,
+      "repairSpend": 43766,
+      "packages": {
+        "driver": 28,
+        "quick": 10,
+        "full": 19
+      },
+      "netWorth": 86180
+    },
+    {
+      "strategy": "smart",
+      "seed": 389031,
+      "days": 200,
+      "sales": 67,
+      "profitable": 61,
+      "avgContribution": 1074,
+      "repairSpend": 46037,
+      "packages": {
+        "driver": 34,
+        "full": 22,
+        "quick": 5
+      },
+      "netWorth": 65489
+    },
+    {
+      "strategy": "smart",
+      "seed": 396950,
+      "days": 200,
+      "sales": 69,
+      "profitable": 62,
+      "avgContribution": 1314,
+      "repairSpend": 48678,
+      "packages": {
+        "driver": 33,
+        "full": 20,
+        "quick": 6
+      },
+      "netWorth": 83728
+    },
+    {
+      "strategy": "smart",
+      "seed": 404869,
+      "days": 200,
+      "sales": 8,
+      "profitable": 3,
+      "avgContribution": -72,
+      "repairSpend": 1066,
+      "packages": {
+        "quick": 1,
+        "driver": 3
+      },
+      "netWorth": -1560
+    },
+    {
+      "strategy": "smart",
+      "seed": 412788,
+      "days": 200,
+      "sales": 56,
+      "profitable": 49,
+      "avgContribution": 1023,
+      "repairSpend": 39591,
+      "packages": {
+        "driver": 26,
+        "quick": 5,
+        "full": 20
+      },
+      "netWorth": 49326
+    },
+    {
+      "strategy": "smart",
+      "seed": 420707,
+      "days": 200,
+      "sales": 59,
+      "profitable": 52,
+      "avgContribution": 1275,
+      "repairSpend": 42828,
+      "packages": {
+        "driver": 31,
+        "full": 19,
+        "quick": 2
+      },
+      "netWorth": 69091
+    },
+    {
+      "strategy": "smart",
+      "seed": 428626,
+      "days": 200,
+      "sales": 73,
+      "profitable": 64,
+      "avgContribution": 851,
+      "repairSpend": 38460,
+      "packages": {
+        "quick": 6,
+        "full": 12,
+        "driver": 36
+      },
+      "netWorth": 55529
+    },
+    {
+      "strategy": "smart",
+      "seed": 436545,
+      "days": 200,
+      "sales": 65,
+      "profitable": 56,
+      "avgContribution": 1549,
+      "repairSpend": 45711,
+      "packages": {
+        "driver": 26,
+        "quick": 4,
+        "full": 25
+      },
+      "netWorth": 92431
+    },
+    {
+      "strategy": "smart",
+      "seed": 444464,
+      "days": 200,
+      "sales": 73,
+      "profitable": 62,
+      "avgContribution": 980,
+      "repairSpend": 39820,
+      "packages": {
+        "driver": 35,
+        "quick": 7,
+        "full": 15
+      },
+      "netWorth": 64506
+    },
+    {
+      "strategy": "smart",
+      "seed": 452383,
+      "days": 200,
+      "sales": 65,
+      "profitable": 53,
+      "avgContribution": 1148,
+      "repairSpend": 40248,
+      "packages": {
+        "driver": 33,
+        "quick": 7,
+        "full": 14
+      },
+      "netWorth": 65960
+    },
+    {
+      "strategy": "smart",
+      "seed": 460302,
+      "days": 200,
+      "sales": 72,
+      "profitable": 64,
+      "avgContribution": 923,
+      "repairSpend": 45985,
+      "packages": {
+        "driver": 35,
+        "full": 20,
+        "quick": 7
+      },
+      "netWorth": 61300
+    },
+    {
+      "strategy": "smart",
+      "seed": 468221,
+      "days": 200,
+      "sales": 63,
+      "profitable": 51,
+      "avgContribution": 770,
+      "repairSpend": 39847,
+      "packages": {
+        "quick": 1,
+        "driver": 36,
+        "full": 14
+      },
+      "netWorth": 40981
+    },
+    {
+      "strategy": "smart",
+      "seed": 476140,
+      "days": 200,
+      "sales": 64,
+      "profitable": 56,
+      "avgContribution": 1256,
+      "repairSpend": 39338,
+      "packages": {
+        "driver": 30,
+        "full": 16,
+        "quick": 4
+      },
+      "netWorth": 73495
+    },
+    {
+      "strategy": "smart",
+      "seed": 484059,
+      "days": 200,
+      "sales": 67,
+      "profitable": 59,
+      "avgContribution": 1243,
+      "repairSpend": 42326,
+      "packages": {
+        "driver": 36,
+        "full": 17,
+        "quick": 7
+      },
+      "netWorth": 76374
+    },
+    {
+      "strategy": "smart",
+      "seed": 491978,
+      "days": 200,
+      "sales": 71,
+      "profitable": 60,
+      "avgContribution": 1084,
+      "repairSpend": 45074,
+      "packages": {
+        "driver": 39,
+        "full": 21,
+        "quick": 6
+      },
+      "netWorth": 70463
+    },
+    {
+      "strategy": "smart",
+      "seed": 499897,
+      "days": 200,
+      "sales": 68,
+      "profitable": 63,
+      "avgContribution": 719,
+      "repairSpend": 38190,
+      "packages": {
+        "quick": 7,
+        "driver": 37,
+        "full": 12
+      },
+      "netWorth": 41917
+    },
+    {
+      "strategy": "smart",
+      "seed": 507816,
+      "days": 200,
+      "sales": 69,
+      "profitable": 57,
+      "avgContribution": 685,
+      "repairSpend": 47164,
+      "packages": {
+        "quick": 4,
+        "driver": 38,
+        "full": 17
+      },
+      "netWorth": 40200
+    },
+    {
+      "strategy": "smart",
+      "seed": 515735,
+      "days": 200,
+      "sales": 8,
+      "profitable": 3,
+      "avgContribution": -61,
+      "repairSpend": 3089,
+      "packages": {
+        "driver": 5
+      },
+      "netWorth": -1093
+    },
+    {
+      "strategy": "smart",
+      "seed": 523654,
+      "days": 200,
+      "sales": 62,
+      "profitable": 47,
+      "avgContribution": 623,
+      "repairSpend": 33703,
+      "packages": {
+        "quick": 3,
+        "driver": 38,
+        "full": 10
+      },
+      "netWorth": 31275
+    },
+    {
+      "strategy": "smart",
+      "seed": 531573,
+      "days": 200,
+      "sales": 65,
+      "profitable": 59,
+      "avgContribution": 1035,
+      "repairSpend": 48695,
+      "packages": {
+        "driver": 38,
+        "quick": 3,
+        "full": 20
+      },
+      "netWorth": 61756
+    },
+    {
+      "strategy": "smart",
+      "seed": 539492,
+      "days": 200,
+      "sales": 67,
+      "profitable": 57,
+      "avgContribution": 1175,
+      "repairSpend": 46016,
+      "packages": {
+        "driver": 39,
+        "full": 16,
+        "quick": 5
+      },
+      "netWorth": 71635
+    },
+    {
+      "strategy": "smart",
+      "seed": 547411,
+      "days": 200,
+      "sales": 62,
+      "profitable": 50,
+      "avgContribution": 1008,
+      "repairSpend": 45634,
+      "packages": {
+        "driver": 30,
+        "full": 21,
+        "quick": 6
+      },
+      "netWorth": 56530
+    },
+    {
+      "strategy": "smart",
+      "seed": 555330,
+      "days": 200,
+      "sales": 70,
+      "profitable": 58,
+      "avgContribution": 1183,
+      "repairSpend": 47878,
+      "packages": {
+        "driver": 36,
+        "quick": 4,
+        "full": 21
+      },
+      "netWorth": 73666
+    },
+    {
+      "strategy": "smart",
+      "seed": 563249,
+      "days": 200,
+      "sales": 65,
+      "profitable": 53,
+      "avgContribution": 1101,
+      "repairSpend": 48333,
+      "packages": {
+        "driver": 32,
+        "full": 22,
+        "quick": 5
+      },
+      "netWorth": 64111
+    },
+    {
+      "strategy": "smart",
+      "seed": 571168,
+      "days": 200,
+      "sales": 66,
+      "profitable": 61,
+      "avgContribution": 962,
+      "repairSpend": 41382,
+      "packages": {
+        "driver": 29,
+        "full": 19,
+        "quick": 4
+      },
+      "netWorth": 55017
+    },
+    {
+      "strategy": "smart",
+      "seed": 579087,
+      "days": 200,
+      "sales": 64,
+      "profitable": 56,
+      "avgContribution": 672,
+      "repairSpend": 33977,
+      "packages": {
+        "driver": 42,
+        "full": 8,
+        "quick": 2
+      },
+      "netWorth": 33712
+    },
+    {
+      "strategy": "smart",
+      "seed": 587006,
+      "days": 200,
+      "sales": 78,
+      "profitable": 64,
+      "avgContribution": 1188,
+      "repairSpend": 52598,
+      "packages": {
+        "quick": 6,
+        "driver": 37,
+        "full": 23
+      },
+      "netWorth": 87046
+    },
+    {
+      "strategy": "smart",
+      "seed": 594925,
+      "days": 200,
+      "sales": 74,
+      "profitable": 66,
+      "avgContribution": 1331,
+      "repairSpend": 49316,
+      "packages": {
+        "driver": 40,
+        "full": 18,
+        "quick": 9
+      },
+      "netWorth": 93391
+    },
+    {
+      "strategy": "smart",
+      "seed": 602844,
+      "days": 200,
+      "sales": 68,
+      "profitable": 58,
+      "avgContribution": 1059,
+      "repairSpend": 38840,
+      "packages": {
+        "driver": 31,
+        "quick": 5,
+        "full": 19
+      },
+      "netWorth": 66269
+    },
+    {
+      "strategy": "smart",
+      "seed": 610763,
+      "days": 200,
+      "sales": 70,
+      "profitable": 63,
+      "avgContribution": 2131,
+      "repairSpend": 60854,
+      "packages": {
+        "driver": 31,
+        "full": 26,
+        "quick": 3
+      },
+      "netWorth": 144772
+    },
+    {
+      "strategy": "smart",
+      "seed": 618682,
+      "days": 200,
+      "sales": 61,
+      "profitable": 51,
+      "avgContribution": 917,
+      "repairSpend": 37531,
+      "packages": {
+        "quick": 5,
+        "driver": 25,
+        "full": 18
+      },
+      "netWorth": 49415
+    },
+    {
+      "strategy": "smart",
+      "seed": 626601,
+      "days": 200,
+      "sales": 74,
+      "profitable": 69,
+      "avgContribution": 1466,
+      "repairSpend": 44664,
+      "packages": {
+        "driver": 41,
+        "quick": 7,
+        "full": 18
+      },
+      "netWorth": 101662
+    }
+  ]
+}

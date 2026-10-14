@@ -1,13 +1,15 @@
 # Pixel garage assets
 
-Documentation updated 2026-10-10 for v0.11. Initial assets were generated with the built-in ImageGen tool on 2026-10-09; later edits and expansions are recorded below and in the linked notes. All assets are saved with the game and work offline. The garage is the background; cars are independent transparent sprites, not baked into the room. Inspecting the generated artwork is not a browser layout test.
+The garage and car assets are unchanged by the UI redesign. The current interface uses small code-native 16 x 16 SVG pixel icons from `js/ui.js`, styled by `ux.css`; no generated icon atlas or external font is required. Desktop Garage/My Cars/Dealer buttons use icons and hover/focus labels, while mobile retains visible names. HUD icons distinguish cash, capacity, date, XP, reputation and spendable skill points. [Current UI, screenshots and validation](../UX-REDESIGN.md).
+
+Documentation updated 2026-10-12 for v0.13.0 / Run the Lot with Premium Retro UX. Initial assets were generated with the built-in ImageGen tool on 2026-10-09; later edits and expansions are recorded below and in the linked notes. All assets are saved with the game and work offline. The garage is the background; cars are independent transparent sprites, not baked into the room. Inspecting the generated artwork is not a browser layout test.
 
 - `garage-pixel-integrated.png`: the current runtime garage background with painted interaction props. `garage-pixel.png` (1672 x 941) is retained as the original scene.
 - `cars-pixel.png`: 1983 x 793 RGBA, ten vehicles in a 5-column / 2-row atlas. The old percentage crop/row adjustment has been superseded by per-model SVG silhouette masks in `js/sprite-clips.js`.
 
 ## Current car rendering
 
-The 60-model collection uses six transparent atlases plus isolated Delta and Saab repair images. Shared SVG silhouette masks and bounds handle garage, market, inventory and album rendering. Cars remain independent of the room. The current v0.11 capital expansions do not add facility artwork or more car bays.
+The 60-model collection uses six transparent atlases plus isolated Delta and Saab repair images. Shared SVG silhouette masks and bounds handle garage, market, inventory and album rendering. Cars remain independent of the room. The current capital expansions add business activities and shared workshop capacity, without new facility artwork or additional default car bays.
 
 - [v0.5 expansion and original prompts](EXPANSION-V05.md)
 - [v0.6 expansion and correction prompts](EXPANSION-V06.md)
@@ -23,7 +25,7 @@ Use case: stylized-concept. Asset type: production transparent sprite atlas for 
 
 ## Integrated garage prop edit - 2026-10-10
 
-Built-in ImageGen edit of `garage-pixel.png`, saved as `garage-pixel-integrated.png`. The original remains available. The edited backdrop replaces flat CSS artwork for the radio, dealer folder, album, phone and operations clipboard. Interaction is provided by transparent hit areas aligned to the finished artwork. Tools, supplier stock and the advertising poster use existing painted objects; installed state is shown by their tooltips and Dealer File. No new cars are baked into the scene.
+Built-in ImageGen edit of `garage-pixel.png`, saved as `garage-pixel-integrated.png`. The original remains available. The edited backdrop replaces flat CSS artwork for the radio, dealer folder, album, phone and operations clipboard. Interaction is provided by transparent hit areas aligned to the finished artwork. Tools, supplier stock and the advertising poster use existing painted objects; installed state is shown by their tooltips and Dealer / Tools & marketing. No new cars are baked into the scene.
 
 Final prompt:
 

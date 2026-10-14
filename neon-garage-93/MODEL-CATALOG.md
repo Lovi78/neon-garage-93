@@ -1,6 +1,6 @@
-# Modellkatalógus - aktuális v0.11 állomány
+# Modellkatalógus - aktuális v0.13 állomány
 
-Frissítve: 2026. október 10. Az állomány a v0.6 óta 60 modelles; a v0.11 nem adott új autókat. Forrásadatok: `js/cars.js` és `js/catalog-v06.js`; megjelenítés: `js/sprite-clips.js`. A napi kínálat 9 hirdetés, az album mind a 60 modellt mutatja.
+Frissítve: 2026. október 12. Az állomány a v0.6 óta 60 modelles; a v0.13 és a Premium Retro UX nem adott új autókat. Forrásadatok: `js/cars.js` és `js/catalog-v06.js`; megjelenítés: `js/sprite-clips.js`. Új játékban 9 kezdőhirdetés van; később napi 1-3 új hirdetés érkezik a tartós kínálat mellé. Az album mind a 60 modellt mutatja: **Business / Collection** vagy a garázs albuma. A modellek kereshetők és szűrhetők; az album nem az aktuális piaci kínálat.
 
 60 külön modell. A táblázat a játékban használt évjárati tartományt mutatja, nem a teljes gyártási időszakot. Az árak, szervizszorzók, hibakockázatok és collectible tier kategóriák játékegyensúlyozási értékek. A nemzetközi modellek egyszerűsített módon szerepelnek a fiktív város piacán.
 

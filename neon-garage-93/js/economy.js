@@ -15,22 +15,71 @@ NG.baseValue = (car) =>
       (1 - (1993 - car.year) * 0.025) *
       NG.clamp(1 - (car.mileage - 60000) / 500000, 0.65, 1.05),
   );
+/* v0.14: condition grades. Buyers pay by grade, so value steps up at each
+   threshold instead of rising in a straight line. */
+NG.conditionGrades = [
+  // Ids stay stable for saves; labels are dealer slang a player reads at a glance.
+  {
+    id: "rough",
+    label: "Project",
+    min: 0,
+    base: 0.651,
+    slope: 0.004,
+    blurb: "Needs real work. Cheap to buy, hard to sell.",
+  },
+  {
+    id: "driver",
+    label: "Runner",
+    min: 55,
+    base: 0.715,
+    slope: 0.004,
+    blurb: "Runs and drives, shows its age. The everyday used car.",
+  },
+  {
+    id: "clean",
+    label: "Clean",
+    min: 75,
+    base: 0.846,
+    slope: 0.004,
+    blurb: "Tidy and sorted. Buyers pay a clear step more.",
+  },
+  {
+    id: "excellent",
+    label: "Showroom",
+    min: 90,
+    base: 0.945,
+    slope: 0.004,
+    blurb: "Near perfect. Enthusiasts pay a premium for sports cars.",
+  },
+];
+// Buyers knock a known fault off the price at more than its repair bill.
+NG.faultPenalty = 1.1;
+NG.gradeFor = (condition) =>
+  [...NG.conditionGrades].reverse().find((g) => condition >= g.min);
+NG.grade = (car) => NG.gradeFor(NG.condition(car));
+// Project (rough) is anchored at its top (54) and falls away below it.
+NG.conditionFactor = (condition) => {
+  const g = NG.gradeFor(condition);
+  return g.id === "rough"
+    ? g.base - g.slope * (54 - condition)
+    : g.base + g.slope * (condition - g.min);
+};
 NG.value = (state, car) =>
   Math.max(
     200,
     Math.round(
       NG.baseValue(car) *
-        (0.3 + (0.7 * NG.condition(car)) / 100) *
+        NG.conditionFactor(NG.condition(car)) *
         (state.demand[NG.model(car).segment] || 1) -
         car.flaws
           .filter((f) => !f.fixed)
-          .reduce((a, f) => a + f.cost * 0.75, 0),
+          .reduce((a, f) => a + f.cost * NG.faultPenalty, 0),
     ),
   );
 NG.estimate = (state, car) => {
   const claimed =
     NG.baseValue(car) *
-    (0.3 + (0.7 * car.claim) / 100) *
+    NG.conditionFactor(car.claim) *
     (state.demand[NG.model(car).segment] || 1);
   const insight = (state.progress?.market || 0) * 0.25;
   return Math.round(claimed * (1 - insight) + NG.value(state, car) * insight);
@@ -263,6 +312,8 @@ NG.sell = (s, id, offerId) => {
       { buyer: delivery.buyer },
       s.sales[0],
     );
+    if (delivery.rep)
+      NG.changeReputation(s, delivery.rep, "Demanding buyer request delivered");
     delivery.request.status = "fulfilled";
     delivery.request.completedDay = s.day;
     delivery.request.saleId = s.sales[0].id;
@@ -298,7 +349,11 @@ NG.nextDay = (s, rng = Math.random) => {
         s.event.text +
         " Buyers in a hurry are more likely to make offers today.",
     };
-  } else if (r >= 0.52 && r < 0.65) {
+  } else if (
+    r >= 0.52 &&
+    r < 0.65 &&
+    (!NG.advanceListings || s.market.length < 14)
+  ) {
     s.event = {
       kind: "rare",
       title: "A rare listing during a market swing",
@@ -307,8 +362,9 @@ NG.nextDay = (s, rng = Math.random) => {
         " A Nissan 300ZX appears at a 20% asking-price discount.",
     };
   }
-  s.market = NG.market(s, rng);
-  if (s.event.kind === "rare") {
+  if (NG.advanceListings) NG.advanceListings(s, rng);
+  else s.market = NG.market(s, rng);
+  if (!NG.advanceListings && s.event.kind === "rare") {
     s.market[8] = NG.generateCar(s, 5, rng);
     s.market[8].ask = Math.round(s.market[8].ask * 0.8);
   }
@@ -316,6 +372,10 @@ NG.nextDay = (s, rng = Math.random) => {
     if (c.pendingCollectionRepair && !NG.busy(s, c)) {
       NG.trackCollection(s, c, "repaired");
       c.pendingCollectionRepair = false;
+    }
+    if (NG.advanceBuyers) {
+      NG.advanceBuyers(s, c, rng);
+      return;
     }
     c.offers = [];
     c.buyerMessage = null;

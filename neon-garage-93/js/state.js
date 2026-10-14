@@ -23,6 +23,7 @@ NG.newState = () => {
     },
   };
   s.market = NG.market(s);
+  NG.ensureTrading?.(s);
   NG.ensureOpportunities?.(s);
   NG.ensureEnterprise?.(s);
   return NG.ensureCustomers(
@@ -75,6 +76,7 @@ NG.load = () => {
       for (const flaw of car.flaws)
         flaw.label = NG.translateSavedText(flaw.label);
     }
+    NG.ensureTrading?.(s);
     NG.ensureOpportunities?.(s);
     NG.ensureEnterprise?.(s);
     return NG.ensureCustomers(

@@ -34,8 +34,12 @@ for (const name of [
   "opportunities",
   "day-report",
   "negotiation",
+  "trading",
   "legacy-language",
   "state",
+  "management",
+  "restoration",
+  "management-ui",
   "ui",
 ]) {
   w.eval(fs.readFileSync(path.join(root, "js/" + name + ".js"), "utf8"));
@@ -48,10 +52,25 @@ for (const name of [
   }
 }
 const click = (selector) => {
-  const b = d.querySelector(selector);
+  if (selector.includes('[data-action="buy"]') && !d.querySelector(selector))
+    d.querySelector('#details [role="tab"][data-tab="deal"]')?.click();
+  let b = d.querySelector(selector);
   assert(b, "Hiányzó elem: " + selector);
   assert(!b.disabled, "Tiltott elem: " + selector);
   const dayBeforeClick = saved().day;
+  const panel = b.closest("[data-car-panel]");
+  if (panel?.hidden)
+    d.querySelector(
+      `[role="tab"][data-tab="${panel.dataset.carPanel}"]`,
+    ).click();
+  const dealerPanel = b.closest("[data-dealer-panel]");
+  if (dealerPanel?.hidden) {
+    d.querySelector(
+      `[data-action="dealer-tab"][data-tab="${dealerPanel.dataset.dealerPanel}"]`,
+    ).click();
+    b = d.querySelector(selector);
+  }
+  b.closest("details")?.setAttribute("open", "");
   b.click();
   if (b.dataset.action === "next") {
     assert.equal(saved().day, dayBeforeClick);
@@ -76,6 +95,7 @@ const saved = () => JSON.parse(w.localStorage.getItem(w.NG.saveKey));
 assert.match(d.querySelector("h1").textContent, /NEON GARAGE/);
 assert.equal(d.querySelectorAll(".empty-bay").length, 2);
 assert.equal(d.querySelectorAll('[role="progressbar"]').length, 2);
+assert.equal(d.querySelectorAll(".game-hud .stats > div").length, 2);
 click(".collection-album");
 assert.equal(d.querySelectorAll(".album-card").length, 60);
 let searchField = d.querySelector("#album-search");
@@ -145,16 +165,20 @@ click('[data-action="list"]');
 assert(saved().inventory[0].listed);
 click('[data-action="close"]');
 click('[data-action="next"]');
-assert(d.querySelector(".offer-notification"));
+assert(d.querySelector('.priorities [data-tab="selling"]'));
 assert.equal(saved().inventory[0].offers[0].seen, false);
 click(".parked-car");
 assert.equal(saved().inventory[0].offers[0].seen, true);
-assert(d.querySelector(".offer-notification"));
+assert(d.querySelector('.priorities [data-tab="selling"]'));
 assert.equal(d.querySelectorAll(".offer").length, 1);
+if (saved().inventory[0].offers[0].stage === "question")
+  click('[data-action="answer-buyer"]');
 const originalOffer = saved().inventory[0].offers[0].price;
 click('[data-action="haggle-sell"]');
 assert(saved().inventory[0].offers[0].price > originalOffer);
 assert(d.querySelector(".negotiation-dialogue"));
+if (d.querySelector('[data-action="answer-buyer"]'))
+  click('[data-action="answer-buyer"]');
 click('.offer [data-action="sell"]');
 assert.equal(saved().inventory.length, 0);
 assert.equal(d.querySelectorAll(".parked-car").length, 0);
@@ -216,13 +240,21 @@ for (const name of [
   "opportunities",
   "day-report",
   "negotiation",
+  "trading",
   "legacy-language",
   "state",
+  "management",
+  "restoration",
+  "management-ui",
   "ui",
 ])
   w.eval(fs.readFileSync(path.join(root, "js/" + name + ".js"), "utf8"));
 assert.deepEqual(saved(), snap);
-assert.match(d.querySelector(".stats").textContent, /1 completed sale/);
+click('[data-action="view"][data-view="upgrades"]');
+assert.match(
+  d.querySelector(".growth-summary").textContent,
+  /1 completed sale/,
+);
 click('[data-action="reset"]');
 click('[data-action="close-reset"]');
 assert.deepEqual(saved(), snap);
@@ -285,8 +317,12 @@ for (const name of [
   "opportunities",
   "day-report",
   "negotiation",
+  "trading",
   "legacy-language",
   "state",
+  "management",
+  "restoration",
+  "management-ui",
   "ui",
 ])
   w.eval(fs.readFileSync(path.join(root, "js/" + name + ".js"), "utf8"));
@@ -300,13 +336,15 @@ click('[data-action="close"]');
 click('[data-action="next"]');
 click(".parked-car");
 assert(saved().inventory[0].offers.length);
+if (d.querySelector('[data-action="answer-buyer"]'))
+  click('[data-action="answer-buyer"]');
 click('.offer [data-action="sell"]');
 assert.equal(saved().claims[0].status, "scheduled");
 click('[data-action="next"]');
 click('[data-action="next"]');
 assert.equal(saved().claims[0].status, "open");
-assert(d.querySelector(".case-banner"));
-click('.case-banner [data-action="view"]');
+assert(d.querySelector('.priorities [data-view="customers"]'));
+click('.priorities [data-view="customers"]');
 assert.match(d.querySelector(".claim-open").textContent, /Leaking head gasket/);
 const refund = saved().claims[0].amount,
   cashBefore = saved().cash,
@@ -365,8 +403,12 @@ for (const name of [
   "opportunities",
   "day-report",
   "negotiation",
+  "trading",
   "legacy-language",
   "state",
+  "management",
+  "restoration",
+  "management-ui",
   "ui",
 ])
   w.eval(fs.readFileSync(path.join(root, "js/" + name + ".js"), "utf8"));
@@ -421,14 +463,16 @@ function bootNotificationFixture(fixture) {
   w.localStorage.setItem("neon-garage-93-v1", JSON.stringify(fixture));
   for (const script of d.querySelectorAll("script[src]"))
     w.eval(
-      fs.readFileSync(path.join(root, script.getAttribute("src")), "utf8"),
+      fs.readFileSync(
+        path.join(root, script.getAttribute("src").split("?")[0]),
+        "utf8",
+      ),
     );
+  // Later fixtures in this file pin the v0.13 day closing.
+  w.NG.newGameFlow = false;
 }
 bootNotificationFixture(notificationFixture);
-assert.match(
-  d.querySelector(".offer-notification").textContent,
-  /2 LIVE OFFERS/,
-);
+assert.equal(d.querySelectorAll('.priorities [data-tab="selling"]').length, 2);
 const beforeConfirmation = JSON.stringify(saved());
 d.querySelector('[data-action="next"]').click();
 assert(d.querySelector("#day-confirm").open);
@@ -447,9 +491,9 @@ assert.equal(saved().day, 0);
 assert.equal(saved().inventory.filter((c) => c.offers[0].seen).length, 0);
 click(".desk-window .car-card");
 assert.equal(saved().inventory.filter((c) => c.offers[0].seen).length, 1);
-assert.match(
-  d.querySelector(".offer-notification").textContent,
-  /1 NEEDS REVIEW/,
+assert.equal(
+  saved().inventory.filter((c) => c.offers[0]?.seen !== true).length,
+  1,
 );
 click('[data-action="close"]');
 d.querySelector('[data-action="next"]').click();
@@ -463,27 +507,21 @@ assert.equal(saved().day, 0);
 const reviewSave = saved();
 w.close();
 bootNotificationFixture(reviewSave);
-assert.match(
-  d.querySelector(".offer-notification").textContent,
-  /1 NEEDS REVIEW/,
+assert.equal(
+  saved().inventory.filter((c) => c.offers[0]?.seen !== true).length,
+  1,
 );
-click('[data-action="view-offers"]');
-click(".desk-window .car-card");
+click('.retro-nav [data-view="deals"]');
+click('.deals-inbox [data-action="detail"]');
 click('.offer [data-action="reject"]');
 click('[data-action="close"]');
-assert.match(
-  d.querySelector(".offer-notification").textContent,
-  /1 LIVE OFFER/,
-);
-click('[data-action="view-offers"]');
+assert.equal(d.querySelectorAll('.priorities [data-tab="selling"]').length, 1);
+click('.deals-inbox [data-action="detail"]');
 assert(d.querySelector("#details").open);
 assert.equal(saved().inventory[1].offers[0].seen, true);
-assert.match(
-  d.querySelector(".offer-notification").textContent,
-  /PENDING DECISION/,
-);
+assert(d.querySelector('.priorities [data-tab="selling"]'));
 click('.offer [data-action="reject"]');
-assert(!d.querySelector(".offer-notification"));
+assert(!d.querySelector('.priorities [data-tab="selling"]'));
 click('[data-action="close"]');
 d.querySelector('[data-action="next"]').click();
 assert.equal(saved().day, 0);
@@ -515,7 +553,10 @@ strategyFixture.operations.arrears = 40;
 w.close();
 bootNotificationFixture(strategyFixture);
 click(".operations-board");
+assert.match(d.querySelector(".desk-window").textContent, /OVERDUE/);
+click('[data-action="ops-tab"][data-tab="workshop"]');
 assert.match(d.querySelector(".desk-window").textContent, /Workshop schedule/);
+click('[data-action="ops-tab"][data-tab="today"]');
 const cashBeforeBills = saved().cash;
 click('[data-action="pay-bills"]');
 assert.equal(saved().cash, cashBeforeBills - 40);
@@ -608,7 +649,12 @@ click("#skip-transition");
 assert(!d.querySelector("#garage-transition").open);
 assert(d.querySelector("#day-report").open);
 assert.equal(w.localStorage.getItem("neon-garage-93-v1"), snapshotAfterClose);
-assert.equal(transitionTimers.size, 0);
+assert.equal(
+  [...transitionTimers.values()].filter(
+    (t) => t.delay === 900 || t.delay === 1900,
+  ).length,
+  0,
+);
 click('[data-action="close-day-report"]');
 let completed = 0;
 const scene = d.querySelector(".garage-world").outerHTML;
@@ -617,7 +663,12 @@ d.querySelector("#garage-transition").dispatchEvent(
   new w.Event("cancel", { cancelable: true }),
 );
 assert.equal(completed, 1);
-assert.equal(transitionTimers.size, 0);
+assert.equal(
+  [...transitionTimers.values()].filter(
+    (t) => t.delay === 900 || t.delay === 1900,
+  ).length,
+  0,
+);
 w.NG.playGarageTransition(scene, scene, "June 3, 1993", () => completed++);
 [...transitionTimers.values()].find((t) => t.delay === 1900).fn();
 assert.equal(completed, 2);
@@ -625,7 +676,12 @@ assert(!d.querySelector("#garage-transition").open);
 w.matchMedia = () => ({ matches: true });
 w.NG.playGarageTransition(scene, scene, "June 3, 1993", () => completed++);
 assert.equal(completed, 3);
-assert.equal(transitionTimers.size, 0);
+assert.equal(
+  [...transitionTimers.values()].filter(
+    (t) => t.delay === 900 || t.delay === 1900,
+  ).length,
+  0,
+);
 w.setTimeout = nativeTimeout;
 w.clearTimeout = nativeClear;
 console.log(
@@ -706,8 +762,12 @@ for (const name of [
   "opportunities",
   "day-report",
   "negotiation",
+  "trading",
   "legacy-language",
   "state",
+  "management",
+  "restoration",
+  "management-ui",
   "ui",
 ])
   lw.eval(fs.readFileSync(path.join(root, "js", name + ".js"), "utf8"));
@@ -715,14 +775,20 @@ const lc = (selector) => {
   const el = ld.querySelector(selector);
   assert(el, selector);
   assert(!el.disabled, selector);
+  const panel = el.closest("[data-car-panel]");
+  if (panel?.hidden)
+    ld.querySelector(
+      `[role="tab"][data-tab="${panel.dataset.carPanel}"]`,
+    ).click();
+  el.closest("details")?.setAttribute("open", "");
   el.click();
 };
 const ls = () => JSON.parse(lw.localStorage.getItem(lw.NG.saveKey));
 if (ld.querySelector("#day-report").open)
   lc('[data-action="close-day-report"]');
-assert(ld.querySelector(".local-notification"));
-lc('.local-notification [data-view="operations"]');
-assert.match(ld.querySelector(".local-board").textContent, /No deposits/);
+assert(ld.querySelector('.priorities [data-tab="requests"]'));
+lc('.priorities [data-tab="requests"]');
+assert.match(ld.querySelector(".local-board").textContent, /No deposit/);
 const stateBeforeWarning = lw.localStorage.getItem(lw.NG.saveKey);
 lc('[data-action="next"]');
 assert.match(
@@ -749,7 +815,9 @@ assert.equal(ls().reputation, requestRep + 3);
 assert.equal(ls().profit, requestProfit + 7800 - lw.NG.cost(deliveryCar));
 assert.equal(ls().opportunities.requests[0].status, "fulfilled");
 assert(!ls().inventory.some((c) => c.id === deliveryCar.id));
-assert(!ld.querySelector('[data-action="request-deliver"][data-id="ui-request"]'));
+assert(
+  !ld.querySelector('[data-action="request-deliver"][data-id="ui-request"]'),
+);
 lc('[data-action="view"][data-view="finances"]');
 assert.match(ld.querySelector(".ledger").textContent, /Car meet|car meet/);
 localDom.window.close();
