@@ -104,6 +104,8 @@
         "M1 3h9V1h2v2h2v2h1v2h-3v2h-2V7H1Zm14 10H6v2H4v-2H2v-2H1V9h3V7h2v2h9Z",
       business:
         "M5 1h6v3h4v10H1V4h4Zm2 2v1h2V3ZM3 6v2h4V7h2v1h4V6Zm0 4v2h10v-2H9v1H7v-1Z",
+      trophy:
+        "M4 1h8v6h-1v1h-1v1H9v2h2v1h1v3H4v-3h1v-1h2V9H6V8H5V7H4ZM1 2h3v2H2v1h2v2H1Zm11 0h3v5h-3V5h2V4h-2Z",
     };
     return `<svg class="ui-icon icon-${name}" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="${shapes[name]}" fill="currentColor" /></svg>`;
   }
@@ -113,6 +115,7 @@
       ["market", "Market"],
       ["inventory", "My Cars"],
       ["deals", "Deals"],
+      ...(state.season ? [["rankings", "Ranking"]] : []),
       ["upgrades", "Dealer"],
     ];
     const business = (
@@ -141,7 +144,7 @@
             ["collection", "Collection"],
           ]
     ).filter(([, , tab]) => tab !== "staff" || !staffHidden());
-    return `<nav class="retro-nav ${inDialog ? "dialog-nav" : ""}" aria-label="${inDialog ? "Car window navigation" : "Game navigation"}">${entries.map(([key, label]) => `<button class="nav-button nav-icon-only" data-action="view" data-view="${key}" aria-label="${label}" ${view === key ? 'aria-current="page"' : ""}>${icon({ garage: "garage", market: "market", inventory: "car", deals: "deals", upgrades: "dealer" }[key])}<span class="game-nav-label">${label}</span></button>`).join("")}<details class="nav-more nav-business"><summary class="nav-icon-only" aria-label="Business" ${business.some(([key]) => view === key && key !== "upgrades") ? 'aria-current="page"' : ""}>${icon("business")}<span class="game-nav-label">Business</span></summary><div>${business.map(([key, label, tab]) => `<button data-action="view" data-view="${key}" ${tab ? `data-tab="${tab}"` : ""}>${label}</button>`).join("")}</div></details></nav>`;
+    return `<nav class="retro-nav ${inDialog ? "dialog-nav" : ""}" aria-label="${inDialog ? "Car window navigation" : "Game navigation"}">${entries.map(([key, label]) => `<button class="nav-button nav-icon-only" data-action="view" data-view="${key}" aria-label="${label}" ${view === key ? 'aria-current="page"' : ""}>${icon({ garage: "garage", market: "market", inventory: "car", deals: "deals", rankings: "trophy", upgrades: "dealer" }[key])}<span class="game-nav-label">${label}</span></button>`).join("")}<details class="nav-more nav-business"><summary class="nav-icon-only" aria-label="Business" ${business.some(([key]) => view === key && key !== "upgrades") ? 'aria-current="page"' : ""}>${icon("business")}<span class="game-nav-label">Business</span></summary><div>${business.map(([key, label, tab]) => `<button data-action="view" data-view="${key}" ${tab ? `data-tab="${tab}"` : ""}>${label}</button>`).join("")}</div></details></nav>`;
   }
   // Native menus stay keyboard accessible and close without changing game state.
   document.addEventListener("click", (event) => {
@@ -319,6 +322,28 @@
       `<button class="priority-item ${item.rank === 0 ? "urgent" : ""}" ${item.attrs}><b>${item.text}</b><small>${esc(item.detail)}</small></button>`;
     return `<section class="priorities" aria-label="Today's Priorities"><div>${items.slice(0, 4).map(notification).join("")}${items.length > 4 ? `<details class="priority-more"><summary>${items.length - 4} more</summary><div>${items.slice(4).map(notification).join("")}</div></details>` : ""}${points ? `<button class="progress-notice" data-action="view" data-view="upgrades"><span role="status">LEVEL ${state.progress.level} / ${points} skill point${points === 1 ? "" : "s"} available</span></button>` : ""}</div></section>`;
   }
+  // F/4: Silver Palms dealer ranking, unlocks and Season 1 goals.
+  function rankings() {
+    const z = NG.ensureSeason(state),
+      value = NG.businessValue(state),
+      next = NG.nextRival(state),
+      prog = NG.seasonProgress(state),
+      size = z.table.length;
+    const unlock = NG.rankUnlocks.find(
+      (u) => u.rank === z.rank - 1 && !z.unlocked[u.id],
+    );
+    const target = next
+      ? `<p class="rank-target">Next: <b>${esc(next.name)}</b> at ${NG.money(next.value)}. You are at ${NG.money(value)} today${next.gap ? ", " + NG.money(next.gap) + " to go" : ", ahead"}. Ranks lock on ${NG.date(NG.isRentDay(state.day) ? state.day + 7 : NG.nextRentDay(state))}.${unlock ? ` Passing them unlocks <b>${esc(unlock.title)}</b>.` : ""}</p>`
+      : `<p class="rank-target">You lead Silver Palms. Hold it on Friday.</p>`;
+    const rows = z.table
+      .map((t, i) => {
+        const you = t.id === "you",
+          r = NG.rivals.find((r) => r.id === t.id);
+        return `<li class="${you ? "you" : ""}"><span class="rank-pos">${i + 1}</span><div><b>${esc(you ? NG.playerDealer + " (you)" : r.name)}</b><small>${esc(you ? "Value at the last ranking" : r.line)}</small></div><span class="rank-move ${t.move > 0 ? "up" : t.move < 0 ? "down" : ""}" aria-label="${t.move ? (t.move > 0 ? "up " : "down ") + Math.abs(t.move) : "no change"}">${t.move > 0 ? "▲" + t.move : t.move < 0 ? "▼" + -t.move : "-"}</span><strong>${NG.money(t.value)}</strong></li>`;
+      })
+      .join("");
+    return `<div class="season-head"><div><span class="eyebrow">SEASON 1 / SUMMER OF '93</span><h3>${z.final ? `Season over: you finished #${z.final.rank} of ${size}` : z.week ? `Week ${z.week} of ${NG.seasonWeeks}` : "Opening week"}</h3><small>${z.final ? "The table keeps moving until Season 2." : `Final standings ${NG.date(NG.seasonEndDay(state))}.`}</small></div><div class="season-rank"><b>#${z.rank}</b><small>of ${size}</small></div></div>${target}<ol class="rank-table">${rows}</ol><div class="rank-unlocks">${NG.rankUnlocks.map((u) => `<div class="${z.unlocked[u.id] ? "reached" : ""}"><span>${u.rank === 1 ? "#1" : "TOP " + u.rank}${z.unlocked[u.id] ? " ✓" : ""}</span><b>${esc(u.title)}</b><small>${esc(u.text)}</small></div>`).join("")}</div><section class="season-goals"><h3>Season goals <span>${prog.done} / ${prog.total}</span></h3><ul>${NG.seasonGoals.map((g) => `<li class="${z.goals[g.id] ? "done" : ""}"><span>${z.goals[g.id] ? "✓" : "◇"} ${esc(g.title)}</span><small>${esc(g.reward)}</small></li>`).join("")}</ul></section><p class="fine-print">Score is business value: cash, your cars at dealer price and business assets, minus credit and overdue bills. Rivals post their numbers on Fridays and the table locks then; your figure above is live. Rank rewards use the best Friday rank you reach, so a bad week never takes them back.</p>`;
+  }
   function deals() {
     return `${activeDeals()}<section class="deals-inbox"><h3>Buyer conversations</h3>${
       state.inventory
@@ -378,7 +403,20 @@
       tier = NG.repTier(state),
       next = NG.nextRepTier(state);
     const repMax = next ? next.at - tier.at : 1;
-    return `<section class="driver-progress" aria-label="Dealer progression"><button class="hud-xp" data-action="view" data-view="upgrades" data-tab="skills"><span class="progress-label"><b>${icon("star")}<span>Level ${p.level}</span></b><span>${p.xp} / ${NG.xpNeeded(p.level)} XP</span></span><span class="hud-meter" role="progressbar" aria-label="Experience" aria-valuenow="${p.xp}" aria-valuemin="0" aria-valuemax="${NG.xpNeeded(p.level)}"><i style="width:${Math.min(100, (p.xp / NG.xpNeeded(p.level)) * 100)}%"></i></span><small class="${p.points ? "skill-ready" : ""}">${p.points ? `${icon("point")}${p.points} skill point${p.points === 1 ? "" : "s"} available` : "Next level: +1 skill point"}</small></button><button class="hud-rep" data-action="view" data-view="upgrades" data-tab="reputation"><span class="progress-label"><b>${icon("badge")}<span>${tier.name}</span></b><span>${state.reputation} REP</span></span><span class="hud-meter" role="progressbar" aria-label="Reputation milestone" aria-valuenow="${next ? state.reputation - tier.at : 1}" aria-valuemin="0" aria-valuemax="${repMax}"><i style="width:${next ? Math.min(100, ((state.reputation - tier.at) / repMax) * 100) : 100}%"></i></span><small>${next ? `${next.at - state.reputation} REP to ${next.name}` : "Top rank: +18 pp buyer interest"}</small></button></section>`;
+    return `<section class="driver-progress" aria-label="Dealer progression"><button class="hud-xp" data-action="view" data-view="upgrades" data-tab="skills"><span class="progress-label"><b>${icon("star")}<span>Level ${p.level}</span></b><span>${p.xp} / ${NG.xpNeeded(p.level)} XP</span></span><span class="hud-meter" role="progressbar" aria-label="Experience" aria-valuenow="${p.xp}" aria-valuemin="0" aria-valuemax="${NG.xpNeeded(p.level)}"><i style="width:${Math.min(100, (p.xp / NG.xpNeeded(p.level)) * 100)}%"></i></span><small class="${p.points ? "skill-ready" : ""}">${p.points ? `${icon("point")}${p.points} skill point${p.points === 1 ? "" : "s"} available` : "Next level: +1 skill point"}</small></button><button class="hud-rep" data-action="view" data-view="upgrades" data-tab="reputation"><span class="progress-label"><b>${icon("badge")}<span>${tier.name}</span></b><span>${state.reputation} REP</span></span><span class="hud-meter" role="progressbar" aria-label="Reputation milestone" aria-valuenow="${next ? state.reputation - tier.at : 1}" aria-valuemin="0" aria-valuemax="${repMax}"><i style="width:${next ? Math.min(100, ((state.reputation - tier.at) / repMax) * 100) : 100}%"></i></span><small>${next ? `${next.at - state.reputation} REP to ${next.name}` : "Top rank: +18 pp buyer interest"}</small></button>${rankHUD()}</section>`;
+  }
+  // F/4: where you stand in Silver Palms and who is next.
+  function rankHUD() {
+    const z = state.season;
+    if (!z || !NG.nextRival) return "";
+    const next = NG.nextRival(state),
+      pct = next
+        ? Math.max(
+            0,
+            Math.min(100, (NG.businessValue(state) / next.value) * 100),
+          )
+        : 100;
+    return `<button class="hud-rank" data-action="view" data-view="rankings"><span class="progress-label"><b>${icon("trophy")}<span>Rank #${z.rank} of ${z.table.length}</span></b><span>${z.final ? "Season over" : "Wk " + z.week + "/" + NG.seasonWeeks}</span></span><span class="hud-meter" role="progressbar" aria-label="Business value against the next dealer" aria-valuenow="${Math.round(pct)}" aria-valuemin="0" aria-valuemax="100"><i style="width:${pct}%"></i></span><small>${next ? (next.gap ? NG.money(next.gap) + " to pass " + esc(next.name) : "Ahead of " + esc(next.name) + " / locks in Friday") : "Top dealer in town"}</small></button>`;
   }
   function hud(inDialog = false) {
     return `<header class="game-hud ${inDialog ? "modal-hud" : ""}">${inDialog ? "" : `<div class="game-logo"><span class="logo-mark">NG</span><h1>NEON GARAGE <b>'93</b></h1></div>`}<section class="stats" aria-label="Dealership status"><div><span class="hud-symbol" title="Cash">${icon("cash")}<span class="sr-only">Cash</span></span><strong>${NG.money(state.cash)}</strong></div><div><span class="hud-symbol" title="Garage capacity">${icon("garage")}<span class="sr-only">Garage capacity</span></span><strong>${state.inventory.length}<em> / ${state.capacity}</em></strong></div></section>${progressionHUD()}<div class="hud-day"><span class="hud-date">${icon("calendar")}<span>${NG.date(state.day)}</span></span>${inDialog ? "" : `<div class="hud-day-actions"><button class="primary" data-action="next">Next Day &gt;</button>${state.flow ? `<button class="hud-wait" data-action="wait-event" title="Skip quiet days until a buyer, a finished repair, a request or a bill needs you (up to 7 days)." aria-label="Skip to next event">&gt;&gt;</button>` : ""}</div>`}${state.flow?.weeklyRent ? `<small class="hud-rent" title="Daily bills accrue and are paid on Fridays.">Rent ${NG.date(NG.nextRentDay(state)).replace(/, \d{4}$/, "")}: ${NG.money(NG.rentForecast(state))}</small>` : ""}</div></header>`;
@@ -403,9 +441,10 @@
       collection: "CAR COLLECTION",
       customers: "CUSTOMERS",
       operations: "OPERATIONS",
+      rankings: "SILVER PALMS RANKING",
     };
     const alerts = priorities();
-    app.innerHTML = `<div class="game-shell">${hud()}${navigation()}${NG.storageError ? '<div class="storage-warning">Your browser is blocking saves. Enable local storage to keep your progress.</div>' : ""}${state.practice ? `<div class="case-banner"><span>PRACTICE ${esc(state.practice)} / SEPARATE SAVE</span><a href="?">Return to your dealership</a></div>` : ""}<main class="world-frame"><div class="scene-overlay">${morningStrip()}${alerts}${requestTracker()}</div>${NG.garageScene(state, arrival)}${garageGuide()}${view !== "garage" ? `<section class="desk-window" aria-label="${names[view]}" data-window-view="${view}"><header class="window-title"><span><i></i> ${names[view]}</span><button data-action="view" data-view="garage" aria-label="Back to garage">&times;</button></header><div class="window-body" tabindex="-1"><div class="section-heading"><div><span class="eyebrow">NEON GARAGE / ${names[view]}</span><h2>${view === "market" ? "Car market" : view === "deals" ? "Deals" : view === "inventory" ? "Your cars" : view === "upgrades" ? "Dealer file" : view === "collection" ? "Car collection" : view === "customers" ? "Customers" : view === "operations" ? "Operations" : state.flow ? "Books" : "Finances"}</h2></div><button class="text-button" data-action="view-back">&lt; BACK</button></div>${view === "market" ? market() : view === "deals" ? deals() : view === "inventory" ? inventory() : view === "upgrades" ? growth() : view === "collection" ? album() : view === "customers" ? customers() : view === "operations" ? operations() : finances()}</div></section>` : ""}</main><footer class="game-footer">${radioConsole()}<details class="radio-news"><summary><span>MARKET WIRE</span><strong>${esc(state.event.title)}</strong></summary><p>${esc(state.event.text)}</p></details><div class="footer-controls"><span>${NG.storageError ? "SAVING UNAVAILABLE" : "AUTO-SAVED"}</span>${state.dayReport ? '<button data-action="show-day-report">DAY REPORT</button>' : ""}<details class="footer-tools"><summary>Options</summary><div><button data-action="reset">NEW GAME</button>${state.flow || !NG.flowBlockers ? "" : `<button data-action="adopt-flow" ${NG.flowBlockers(state).length ? "disabled" : ""} title="${esc(NG.flowBlockers(state).join(", ") || "Weekly rent, no work-hour limit, staff and side businesses tucked away")}">Switch to v0.14 rules</button>`}<small>v0.14 / CUT & FLOW</small><span class="practice-links">Practice: <a href="?scenario=A">A / Moving seller</a> · <a href="?scenario=B">B / Suspicious car</a> · <a href="?scenario=C">C / Slow stock</a></span></div></details></div></footer></div>`;
+    app.innerHTML = `<div class="game-shell">${hud()}${navigation()}${NG.storageError ? '<div class="storage-warning">Your browser is blocking saves. Enable local storage to keep your progress.</div>' : ""}${state.practice ? `<div class="case-banner"><span>PRACTICE ${esc(state.practice)} / SEPARATE SAVE</span><a href="?">Return to your dealership</a></div>` : ""}<main class="world-frame"><div class="scene-overlay">${morningStrip()}${alerts}${requestTracker()}</div>${NG.garageScene(state, arrival)}${garageGuide()}${view !== "garage" ? `<section class="desk-window" aria-label="${names[view]}" data-window-view="${view}"><header class="window-title"><span><i></i> ${names[view]}</span><button data-action="view" data-view="garage" aria-label="Back to garage">&times;</button></header><div class="window-body" tabindex="-1"><div class="section-heading"><div><span class="eyebrow">NEON GARAGE / ${names[view]}</span><h2>${view === "market" ? "Car market" : view === "deals" ? "Deals" : view === "inventory" ? "Your cars" : view === "upgrades" ? "Dealer file" : view === "collection" ? "Car collection" : view === "customers" ? "Customers" : view === "operations" ? "Operations" : view === "rankings" ? "Dealer ranking" : state.flow ? "Books" : "Finances"}</h2></div><button class="text-button" data-action="view-back">&lt; BACK</button></div>${view === "market" ? market() : view === "deals" ? deals() : view === "inventory" ? inventory() : view === "upgrades" ? growth() : view === "collection" ? album() : view === "customers" ? customers() : view === "operations" ? operations() : view === "rankings" ? rankings() : finances()}</div></section>` : ""}</main><footer class="game-footer">${radioConsole()}<details class="radio-news"><summary><span>MARKET WIRE</span><strong>${esc(state.event.title)}</strong></summary><p>${esc(state.event.text)}</p></details><div class="footer-controls"><span>${NG.storageError ? "SAVING UNAVAILABLE" : "AUTO-SAVED"}</span>${state.dayReport ? '<button data-action="show-day-report">DAY REPORT</button>' : ""}<details class="footer-tools"><summary>Options</summary><div><button data-action="reset">NEW GAME</button>${state.flow || !NG.flowBlockers ? "" : `<button data-action="adopt-flow" ${NG.flowBlockers(state).length ? "disabled" : ""} title="${esc(NG.flowBlockers(state).join(", ") || "Weekly rent, no work-hour limit, staff and side businesses tucked away")}">Switch to v0.14 rules</button>`}<small>v0.14 / CUT & FLOW</small><span class="practice-links">Practice: <a href="?scenario=A">A / Moving seller</a> · <a href="?scenario=B">B / Suspicious car</a> · <a href="?scenario=C">C / Slow stock</a></span></div></details></div></footer></div>`;
     compactHelp(app);
     updateLayout();
     const body = app.querySelector(".window-body");
@@ -460,7 +499,7 @@
         h.accident ? "Accident" : "No accident",
       );
     if (known) chips.push(known + " known fault" + (known === 1 ? "" : "s"));
-    return `<button class="market-row${over ? " over-budget" : ""}" data-action="detail" data-id="${c.id}"><div class="row-art">${NG.carArt(c)}<span>${days ? days + " day" + (days === 1 ? "" : "s") + " listed" : "New today"}</span></div><div class="row-body"><span class="row-seller">${esc(c.seller?.reason || "Private seller")}${c.inspected ? " · inspected" : ""}</span><h3>${esc(m.name)} <small>${c.year} / ${esc(m.trim)}</small></h3><div class="row-chips">${chips.map((x) => `<span>${esc(x)}</span>`).join("")}${gradeChip(shown)}</div><div class="row-price"><strong>${NG.money(ask)}</strong>${cut ? `<em class="price-cut">Price cut</em><s>${NG.money(c.listing.originalAsk)}</s>` : ""}${over ? '<em class="over">Over budget</em>' : ""}</div><div class="row-deal">Est. value ${NG.money(est)} · <b class="${margin >= 0 ? "positive" : "negative"}">${signed(margin)}</b> margin</div></div>${requestTag(c)}</button>`;
+    return `<button class="market-row${over ? " over-budget" : ""}" data-action="detail" data-id="${c.id}"><div class="row-art">${NG.carArt(c)}<span>${days ? days + " day" + (days === 1 ? "" : "s") + " listed" : "New today"}</span></div><div class="row-body"><span class="row-seller">${c.tip ? '<b class="tip-label">DEALER TIP</b> ' : ""}${esc(c.seller?.reason || "Private seller")}${c.inspected ? " · inspected" : ""}</span><h3>${esc(m.name)} <small>${c.year} / ${esc(m.trim)}</small></h3><div class="row-chips">${chips.map((x) => `<span>${esc(x)}</span>`).join("")}${gradeChip(shown)}</div><div class="row-price"><strong>${NG.money(ask)}</strong>${cut ? `<em class="price-cut">Price cut</em><s>${NG.money(c.listing.originalAsk)}</s>` : ""}${over ? '<em class="over">Over budget</em>' : ""}</div><div class="row-deal">Est. value ${NG.money(est)} · <b class="${margin >= 0 ? "positive" : "negative"}">${signed(margin)}</b> margin</div></div>${requestTag(c)}</button>`;
   }
   function market() {
     let cars = state.market.filter(
@@ -656,6 +695,9 @@
     if (r.completedRepairs.length)
       bits.push("Workshop done: " + r.completedRepairs.join(", "));
     if (r.operations) bits.push(r.operations);
+    if (r.ranking) bits.push(r.ranking);
+    if (r.seasonGoals?.length)
+      bits.push("Season goal done: " + r.seasonGoals.join(", "));
     if (!bits.length) bits.push("A quiet night. " + r.event.title);
     return `<section class="morning-strip" role="status" aria-label="Morning summary"><span class="eyebrow">${NG.date(r.day)}</span><p>${bits.map(esc).join(" · ")}</p><button data-action="show-day-report">Full report</button><button data-action="dismiss-morning" aria-label="Dismiss morning summary">×</button></section>`;
   }
@@ -1597,7 +1639,7 @@
           `${esc(q.buyer)} / ${esc(q.car)}: repair contribution ${NG.money(q.amount)}, respond before ${NG.date(q.deadline)}.`,
       ),
       "No new complaints.",
-    )}${r.expiredClaims.length ? `<p class="negative">Unanswered complaints closed: ${r.expiredClaims.map(esc).join(", ")}.</p>` : ""}<h3>Overnight expenses & reputation</h3><p>${esc(r.advertising)}</p>${r.operations ? `<p>${esc(r.operations)}</p>` : ""}<p>Cash: <strong class="${r.overnightCash >= 0 ? "positive" : "negative"}">${signed(r.overnightCash)}</strong> / REP: <strong class="${r.overnightReputation >= 0 ? "positive" : "negative"}">${r.overnightReputation >= 0 ? "+" : ""}${r.overnightReputation}</strong></p></section></div><p class="fine-print">Trading result covers deals closed during the finished day and customer repair contributions paid that day. Cash flow also includes purchases, repairs and business spending. No time passes while this window is open.</p><div class="actions"><button data-action="report-go" data-view="inventory">View offers</button>${r.newClaims.length || state.claims.some((q) => q.status === "open") ? '<button data-action="report-go" data-view="customers">Customer care</button>' : ""}<button class="primary" data-action="close-day-report">Continue to garage</button></div>`;
+    )}${r.expiredClaims.length ? `<p class="negative">Unanswered complaints closed: ${r.expiredClaims.map(esc).join(", ")}.</p>` : ""}<h3>Overnight expenses & reputation</h3><p>${esc(r.advertising)}</p>${r.operations ? `<p>${esc(r.operations)}</p>` : ""}${r.ranking ? `<p>${esc(r.ranking)}</p>` : ""}<p>Cash: <strong class="${r.overnightCash >= 0 ? "positive" : "negative"}">${signed(r.overnightCash)}</strong> / REP: <strong class="${r.overnightReputation >= 0 ? "positive" : "negative"}">${r.overnightReputation >= 0 ? "+" : ""}${r.overnightReputation}</strong></p></section></div><p class="fine-print">Trading result covers deals closed during the finished day and customer repair contributions paid that day. Cash flow also includes purchases, repairs and business spending. No time passes while this window is open.</p><div class="actions"><button data-action="report-go" data-view="inventory">View offers</button>${r.newClaims.length || state.claims.some((q) => q.status === "open") ? '<button data-action="report-go" data-view="customers">Customer care</button>' : ""}<button class="primary" data-action="close-day-report">Continue to garage</button></div>`;
     compactHelp(report);
     if (!report.open) report.showModal();
   }
@@ -1633,7 +1675,11 @@
     const offers = state.inventory
       .flatMap((c) => c.offers)
       .filter((o) => !before.offers.includes(o.id)).length;
+    const goals = (NG.seasonGoals || []).filter(
+      (g) => state.season?.goals[g.id] && !before.goals?.includes(g.id),
+    );
     const text = [
+      ...goals.map((g) => "Season goal: " + g.title + " / " + g.reward),
       ...opened,
       repairs ? `${repairs} repair${repairs === 1 ? "" : "s"} completed` : "",
       offers ? `${offers} incoming offer${offers === 1 ? "" : "s"}` : "",
@@ -1651,7 +1697,7 @@
     return {
       text,
       kind:
-        levels > 0 || milestone
+        levels > 0 || milestone || goals.length
           ? "milestone"
           : rep < 0
             ? "warning"
@@ -1687,6 +1733,7 @@
     rememberDrafts();
     const restoreFocus = document.activeElement === b;
     const beforeProgress = {
+      goals: Object.keys(state.season?.goals || {}),
       level: state.progress.level,
       points: state.progress.points,
       xp: state.progress.xp,

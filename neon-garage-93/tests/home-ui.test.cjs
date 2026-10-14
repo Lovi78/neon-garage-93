@@ -50,7 +50,7 @@ function boot(make = (N) => N.newState()) {
         "#app > .game-shell > .retro-nav > button, #app > .game-shell > .retro-nav > details > summary",
       ),
     ].map((b) => b.textContent),
-    ["Garage", "Market", "My Cars", "Deals", "Dealer", "Business"],
+    ["Garage", "Market", "My Cars", "Deals", "Ranking", "Dealer", "Business"],
   );
   for (const view of [
     "market",

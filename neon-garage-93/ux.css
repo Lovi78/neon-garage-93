@@ -2547,3 +2547,170 @@ main.world-frame {
 .row-art > span {
   z-index: 1;
 }
+
+/* v0.14 F/4: Silver Palms ranking */
+.driver-progress:has(.hud-rank) {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.hud-rank b {
+  color: #ffd166;
+}
+.hud-rank .hud-meter i {
+  background: #ffd166;
+}
+.hud-rank small {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.season-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: linear-gradient(90deg, #ffd16614, transparent);
+}
+.season-head h3 {
+  margin: 4px 0 2px;
+}
+.season-head small {
+  color: var(--muted);
+}
+.season-rank {
+  text-align: center;
+  line-height: 1;
+}
+.season-rank b {
+  display: block;
+  font: 700 40px var(--heading);
+  color: #ffd166;
+}
+.season-rank small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.rank-target {
+  margin: 12px 0;
+}
+.rank-table {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+.rank-table li {
+  display: grid;
+  grid-template-columns: 34px 1fr 44px auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--panel);
+}
+.rank-table li.you {
+  border-color: #ffd166;
+  background: #ffd16618;
+}
+.rank-table small {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+}
+.rank-pos {
+  font: 700 20px var(--heading);
+  color: var(--muted);
+  text-align: center;
+}
+.rank-table li:first-child .rank-pos,
+.rank-table li.you .rank-pos {
+  color: #ffd166;
+}
+.rank-move {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+}
+.rank-move.up {
+  color: var(--teal);
+}
+.rank-move.down {
+  color: var(--pink);
+}
+.rank-unlocks {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.rank-unlocks > div {
+  padding: 10px 12px;
+  border: 1px dashed var(--line);
+  border-radius: 4px;
+  opacity: 0.75;
+}
+.rank-unlocks > div.reached {
+  border: 1px solid #ffd166;
+  opacity: 1;
+}
+.rank-unlocks span {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: #ffd166;
+}
+.rank-unlocks b {
+  display: block;
+  margin: 2px 0 4px;
+}
+.rank-unlocks small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.season-goals h3 span {
+  color: var(--muted);
+  font-size: 14px;
+  margin-left: 6px;
+}
+.season-goals ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 16px;
+}
+.season-goals li {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid #ffffff10;
+}
+.season-goals li small {
+  color: var(--muted);
+  text-align: right;
+}
+.season-goals li.done span {
+  color: var(--teal);
+}
+.tip-label {
+  color: #ffd166;
+  letter-spacing: 0.06em;
+  font-size: 11px;
+}
+@media (max-width: 650px) {
+  .rank-unlocks,
+  .season-goals ul {
+    grid-template-columns: 1fr;
+  }
+  .rank-table li {
+    grid-template-columns: 26px 1fr 34px auto;
+    gap: 6px;
+    padding: 6px 8px;
+  }
+}

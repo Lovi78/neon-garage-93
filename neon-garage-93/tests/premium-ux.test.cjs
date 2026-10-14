@@ -144,11 +144,16 @@ test("Closed negotiated sale shows actual XP, level, point and REP milestone wit
   assert.deepEqual(state(), JSON.parse(JSON.stringify(control)));
   const t = d.querySelector("#toast");
   assert.equal(t.dataset.kind, "milestone");
-  assert.match(t.textContent, /\+25 XP/);
+  // v0.14: the deal's 25 XP plus the season goal's 30 XP, shown once as a total.
+  assert.match(
+    t.textContent,
+    /Season goal: Sell a car for a profit \/ \+30 XP/,
+  );
+  assert.match(t.textContent, /\+55 XP/);
   assert.match(t.textContent, /Level 2! \+1 skill point/);
   assert.match(t.textContent, /Familiar Face/);
-  assert.equal((t.textContent.match(/\+25 XP/g) || []).length, 1);
-  assert.equal(state().progress.xp, 15);
+  assert.equal((t.textContent.match(/\+55 XP/g) || []).length, 1);
+  assert.equal(state().progress.xp, 45);
   dom.window.close();
 });
 test("Reputation loss displays negative feedback; old saves retain progression and finances", () => {

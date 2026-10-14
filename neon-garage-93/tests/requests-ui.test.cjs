@@ -94,7 +94,7 @@ test("Main navigation is icon-only with an accessible name and hover label on ev
       "#app .retro-nav > .nav-button, #app .nav-business > summary",
     ),
   ];
-  assert.equal(entries.length, 6);
+  assert.equal(entries.length, 7);
   for (const e of entries) {
     assert(e.classList.contains("nav-icon-only"), e.outerHTML);
     assert(e.getAttribute("aria-label"));
