@@ -1,0 +1,213 @@
+
+> neon-garage-93@0.14.1 test
+> node tests/economy.test.cjs && node tests/progression.test.cjs && node tests/finance-catalog.test.cjs && node tests/collection.test.cjs && node tests/customers.test.cjs && node tests/day-report.test.cjs && node tests/strategy.test.cjs && node tests/ambience.test.cjs && node tests/opportunities.test.cjs && node tests/enterprise.test.cjs && node tests/trading.test.cjs && node tests/management.test.cjs && node tests/restoration.test.cjs && node tests/requests.test.cjs && node tests/flow.test.cjs && node tests/ranking.test.cjs && node tests/stability.test.cjs
+
+PASS Kezdőtőke, kapacitás, dátum és korhű kínálat
+PASS Vizsgálat egyszer fizethető, vásárlás és kapacitás
+PASS Nincs hitel, nincs ingyenes javítás vagy ismételt eladás
+PASS Rejtett hiba feltárásakor nem történik váratlan levonás
+PASS Hirdetés, ajánlat, elutasítás és érvényesség
+PASS Profit = bevétel - vétel - vizsgálat - javítás
+PASS Piaci hullám több napig él, és valóban módosítja az értéket
+PASS Mentés és újratöltés adatvesztés nélkül
+Üzletek: 304 nyereséges, 696 veszteséges.
+PASS 1000 üzlet: pénzmegmaradás, nyereség és veszteség
+PASS A korábbi magyar mentés angolra vált, a játékállás megmarad
+PASS Vételi alku: elfogadás, pontos ár és profit
+PASS Vételi alku: ellenajánlat és három kör után végső ár
+PASS Az eladó visszaléphet, hibás ajánlat nem használ el kört
+PASS Eladási alku: elfogadott ellenajánlat nem automatikus eladás
+PASS Eladási alku: végső ár, vevő távozása és érvénytelen ajánlat
+PASS Alku mentése: újranyitás nem sorsol új korlátokat
+16 teszt sikeres.
+PASS XP only on closed negotiated deals; no duplicates after reload
+PASS Straight trades, rejected offers and dealer sales grant no XP
+PASS Level thresholds, points, skill caps and perk prerequisite
+PASS Skills improve new limits; One More Shot gives an actual fourth round
+PASS Business purchases, discounted quotes and actual repair cash agree
+PASS Marketing fees and pauses remain separate from operating bills
+PASS Reputation and marketing change real buyer arrival chances
+PASS Legacy v0.3 saves retain money, cars and ongoing negotiations
+8 progression tests passed.
+PASS 60 distinct models, valid years, complete sprite coverage and assets
+PASS Daily markets can produce all 60 while retaining affordable entry cars
+PASS Different new models have different service costs and upgrades still apply
+PASS One daily snapshot updates accurately after purchase, sale and overhead
+PASS Old saves start today; earlier dates and values are not fabricated
+PASS Chart handles losses, zero value, one point and long histories
+PASS Progress bars clamp display values and expose accessible ranges
+PASS Per-model silhouette clips replace percentage-based atlas cuts
+8 finance and catalog tests passed.
+PASS Empty album contains 60 targets without granting progress
+PASS Purchase, finished repairs and sale stamp each vehicle once
+PASS Hidden-fault discovery does not claim a completed repair
+PASS Two vehicles of the same model increase counts, not distinct-model goals
+PASS Failed purchase and repair leave album progress unchanged
+PASS Old saves recover proven purchases and sales without inventing repairs
+PASS Old in-progress repairs are stamped only after their finish day
+PASS Collectible tiers are stable game categories and collection has no cash reward
+8 collection tests passed.
+PASS Listing modes validate inspection and change real offer valuation
+PASS Honest sale with disclosed defects builds trust without complaints
+PASS As-is sale is explicit, earns one reputation and does not claim fault-free
+PASS Broken promises create a delayed complaint and one reputation penalty
+PASS Contributions adjust cash, sale profit, album profit and chart once
+PASS Insufficient cash, rejection and expiry do not charge hidden money
+PASS Returning buyers respect preferences and receive a real loyalty uplift
+PASS Dealer sales and repaired fault-free promises create no complaint
+PASS Old saves keep existing offers and gain no retroactive complaints
+9 customer care tests passed.
+PASS Closing cash flow, trading result and new morning are separate
+PASS Completed workshop jobs, expiring offers and incoming offers are reported
+PASS Daily marketing belongs to overnight cash and is saved without replay
+PASS Complaint arrivals and ignored cases appear with exact reputation changes
+PASS Contributions for earlier sales count on the day they were paid
+5 daily report tests passed.
+PASS Demand waves persist, move value, expire and cannot reroll on reload
+PASS Operating costs are paid once and arrears reduce value and block expansion
+PASS Holding costs, advertising and day report show actual overnight payments
+PASS One normal job occupies the workshop; rush bypasses it at a real premium
+PASS Mechanical ranks lower real costs and shorten work; specialist perks consume points
+PASS Market ranks improve valuation without performing an inspection
+PASS Thirty strategic days preserve accounting and valid market ranges
+PASS Legacy saves keep live values and ongoing jobs; new fields are added safely
+8 strategy tests passed.
+PASS radio: lazy audio, three station patterns, connected instruments, one scheduler, delayed ticks, volume persistence, stop cleanup and pending-play cancellation.
+PASS Eight legacy local choices remain compatible; three buyer request categories stay valid
+PASS Invitations have no cash effects until accepted; decline and stale clicks are lossless
+PASS All eight choices charge their published fee exactly once and survive save/reload
+PASS Insufficient cash, arrears and occupied workshops reject event fees without mutation
+PASS Car meet blocks in-house booking only today and leaves real rush repairs available
+PASS Repair prepay consumes only paid jobs; quotes and hidden faults do not consume uses
+PASS Discounts do not multiply: strongest applicable repair discount wins
+PASS Mechanic, diagnostic and reputation choices change their stated systems
+PASS Legacy event spawning is retired; buyer requests and loading remain stable
+PASS Accepting requests starts a fixed deadline with no cash or inventory mutation
+PASS Each request validates origin, shape, mileage, condition, inspection, faults and repair readiness
+PASS Delivery on the final day is one sale, one bonus, correct profit, reputation and no negotiation XP
+PASS Missing a committed deadline costs reputation once and is included in the morning report
+PASS Declining or ignoring unaccepted requests is free; abandoning accepted requests costs one reputation
+PASS Promotion changes actual buyer arrival probability without guaranteeing offers
+PASS Old saves retain all cash, cars and live trades, with no retroactive invitations
+16 local opportunity tests passed.
+PASS Construction charges once, delays benefits and starts wages only after opening
+PASS Weekly bills and runway include committed construction openings
+PASS Expansion prerequisites and one construction slot reject before charging
+PASS Cancellation and liquidation recover only published fractions and never manufacture value
+PASS Client work advances parts, occupies shared slots and pays once after completion
+PASS External orders genuinely contend with stock repairs and prevent facility shutdown
+PASS Fleet development changes capacity, adds meaningful daily cost and unlocks bigger contracts
+PASS Pause retains 25% fixed cost, removes benefits and reopening restores both
+PASS Wholesale locks capital for five days; downside is real and reloading preserves execution risk
+PASS Wholesale upside respects the cap; allocation limits and affordability prevent extra commitments
+PASS Borrowing and principal repayment are not income or net worth gains; interest is a real daily cost
+PASS Empty cash creates arrears even with valuable committed capital and blocks new work
+PASS Day report, finance history and operating cash flow reflect enterprise settlements without duplication
+PASS Legacy saves preserve cash and trades with zero retroactive expansion costs
+14 enterprise tests passed.
+PASS Persistent listing identities, price history, expiry and outside buyers
+PASS Motivations produce different saved reservation prices and tactical decisions
+PASS Inspection evidence changes the same negotiation; false arguments hurt trust
+PASS Inspections are not perfect, cannot reroll facts or charge twice
+PASS Public estimates never reveal a secret fault or unknown accident history
+PASS Waiting and walking persist; callback resumes without deleting conversation
+PASS Buy, transfer, accrued holding, repair and sale reconcile with cash and margin
+PASS Buyer inquiry is not a sale; answers, counteroffers and deadlines are saved
+PASS Buyer needs, not repeated tactics, determine accepted ceilings
+PASS Old saves migrate once without replacing money, cars, faults or legacy limits
+PASS Liquidity extremes and credit cannot create cash, net worth or repeat rewards
+PASS Regional prices adjust gradually and market plans survive reload
+PASS Overdue holding payments stay out of shared overhead after a sale
+PASS Repeat buyers retain their needs instead of rerolling personalities
+PASS Waiting, skill bonuses, invalid bids and an expired agreement cannot bypass state
+PASS Five percent opening discount gets a real counteroffer despite other interest
+PASS Exhausted calls get a new session without erasing earlier rounds
+PASS Existing stuck competitor saves recover once with all six entries intact
+18 total integrated trading tests passed.
+PASS Old save migration is idempotent and preserves money, inventory and limits
+PASS Solo dealership trades freely while inspections have finite work time
+PASS Hiring respects lot capacity, cash reserve and roles
+PASS Weekly payroll accrues daily and cash is paid once after seven days
+PASS Dismissal settles partial wages and waiting tasks return to owner
+PASS Overdue wages persist and block unpaid employee work
+PASS Mechanic repairs use the existing bay and retain assigned worker and quality
+PASS Queued repairs wait for a bay, can be reprioritized and charge only at start
+PASS Outsourced rush still works after owner time runs out
+PASS Sales associate performs callbacks using public evidence and never closes sales
+PASS Sales preparation is real work and publication still requires approval
+PASS Facility labor replacement prevents double counting without deleting facility costs
+PASS Cash flow, unsold inventory, accrued wages and interest remain separate
+PASS Preparation delegates the two-hour first listing and relisting stays free
+PASS Rejected market inspection is expensed then reclassified on acquisition
+PASS Invalid work cannot consume time or cash
+PASS Client work shares capacity and skilled mechanics shorten actual completion
+17 management tests passed.
+PASS Grades follow the published thresholds
+PASS Value jumps at a grade threshold more than inside a grade
+PASS Packages raise the right parts and cost less than part-by-part work
+PASS Restoring a cheap car loses money; restoring a desirable car pays
+PASS Recommendation weighs days: Driver-ready can beat a bigger but slower Full
+PASS A package is one booking: cash, ledger, parts, faults and owner time
+PASS Quick fix is a same-day job that can be listed at once
+PASS Hidden faults in the parts being worked on are found and fixed at parts cost
+PASS Rush packages skip the bay and owner time but cost more
+PASS Blocked bookings charge nothing
+PASS Buyers react to grades: budget shoppers cap at Runner, enthusiasts pay for Showroom
+PASS Real v0.13 save loads and plays 30 days with packages: v013-solo-save.json
+PASS Real v0.13 save loads and plays 30 days with packages: v013-staff-save.json
+13 restoration tests passed.
+PASS Generated requests are varied and always fit at least one catalog model
+PASS Single-model requests name a model that is on the market or in the garage
+PASS Collector requests need 5 REP; capacity rises to three active at 10 REP
+PASS Payout is the estimate plus the tier premium, capped by the buyer's budget
+PASS Checklist names every missing step with a hint, and fixed facts end the fit
+PASS Delivery: hidden fault is found at handover, then the fixed car sells once
+PASS Old fixed-price requests keep their promised payout and rules
+PASS New invitations arrive more often, up to two at a time, and save cleanly
+PASS A named model is never missing: accept adds a lead, and the lead stays listed
+PASS Market supply is broad: no two models make up most of a region
+10 buyer request tests passed.
+PASS New games use v0.14 rules; v0.13 tests can still switch them off
+PASS June 1, 1993 is a Tuesday: rent is paid on Fridays
+PASS Weekly rent: same bills, one payment on Friday, cash reconciles
+PASS Unpaid rent becomes overdue and blocks purchases like before
+PASS Bill forecast: nothing leaves cash before Friday; Friday shows the rent
+PASS Solo owner has no daily work-hour limit
+PASS Closing needs confirmation only when an unseen offer or a due request would be lost
+PASS Skip to next event stops on a finished repair, at most seven days
+PASS Skip stops when a buyer makes contact
+PASS Only complaints and request news open the full morning report
+PASS Old save keeps v0.13 rules until switched: v013-solo-save.json
+PASS Old save keeps v0.13 rules until switched: v013-staff-save.json
+PASS F/3: buyer questions are answered with the best answer you can prove
+13 day rhythm tests passed.
+PASS A new game starts 6th of 7 in Silver Palms, season ends Friday August 27
+PASS Rivals are deterministic and never touch the game's random stream
+PASS Ranks lock on Fridays only, with movement and history
+PASS Top 5 unlocks auction tips: pricier TIP cars arrive on the market
+PASS Without the unlock the market never carries TIP cars
+PASS Top 3 opens collector requests and a $25,000 credit line
+PASS #1 wins the season once: +5 REP, best rank is kept after a fall
+PASS Season goals pay their reward once
+PASS Selling a Showroom car completes its goal; dealer dumps do not
+PASS The season ends after 13 Fridays with a final standing; the table keeps moving
+PASS Old save joins the ranking from today: v013-solo-save.json
+PASS Old save joins the ranking from today: v013-staff-save.json
+12 ranking tests passed.
+PASS driver: booking leaves condition and asset value unchanged; completion once after reload
+PASS full: booking leaves condition and asset value unchanged; completion once after reload
+PASS Old bookings without a pending plan keep their already applied result
+PASS Hidden fault with insufficient funds stays revealed and unfixed at completion
+PASS Skip preserves existing offers, seen=true
+PASS Skip preserves existing offers, seen=false
+PASS Skip stops at seller callback, agreement, claim, due request and cash shortage
+PASS Skip checks again after each day; a seller callback arriving tomorrow is retained
+PASS Unreadable startup save survives automatic writes and rejected imports
+PASS Save backup restores exact cash and preserves original valid snapshot
+PASS Buyer local interest is applied once at the arrival threshold
+PASS Dev log counts first purchase, profitable sale, goals and day modes without changing state
+PASS Employee Quick fix keeps the original condition until its scheduled completion
+PASS Malformed nested data and numbers are rejected before replacing a valid save
+PASS v0.11 and v0.12 schema reconstructions migrate without changing cash, cars or parts
+PASS A same-day Quick fix also stops skipping until the car is listed
+16 stability regression tests passed.

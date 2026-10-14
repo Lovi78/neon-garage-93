@@ -164,14 +164,16 @@ test("A package is one booking: cash, ledger, parts, faults and owner time", () 
   assert.equal(s.cash, before - q.cost);
   assert.equal(c.repairCost, q.cost);
   assert.equal(s.ledger[0].type, "repair");
-  assert(Object.values(c.parts).every((p) => p >= 75));
-  assert(c.flaws[0].fixed);
-  assert.equal(N.grade(c).label, "Clean");
+  assert(Object.values(c.parts).every((p) => p === 60));
+  assert(!c.flaws[0].fixed);
+  assert.equal(N.grade(c).label, "Runner");
   assert.equal(s.management.ownerUsed, hours + 3);
   assert(N.busy(s, c));
   assert.throws(() => N.repairPackage(s, c.id, "full"), /workshop/);
   N.nextDay(s, random(3));
   assert(!N.busy(s, c));
+  assert(Object.values(c.parts).every(p => p >= 75));
+  assert(c.flaws[0].fixed);
 });
 test("Quick fix is a same-day job that can be listed at once", () => {
   const { N, s } = setup();
@@ -192,7 +194,9 @@ test("Hidden faults in the parts being worked on are found and fixed at parts co
   const msg = N.repairPackage(s, c.id, "driver");
   assert.match(msg, /Found during the job: Worn transmission synchro/);
   assert.equal(s.cash, before - q.cost - c.flaws[0].cost);
-  assert(c.flaws[0].fixed && c.flaws[0].revealed);
+  assert(!c.flaws[0].fixed && c.flaws[0].revealed);
+  N.nextDay(s, random(3));
+  assert(c.flaws[0].fixed);
   // Quick fix does not open the gearbox, so it cannot find a gearbox fault.
   const d = owned(N, s, even(60));
   d.flaws = [{ ...N.flaws[1], fixed: false, revealed: false }];

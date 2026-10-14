@@ -134,7 +134,13 @@ window.NG = window.NG || {};
       .sort((a, b) => NG.packageScore(b) - NG.packageScore(a))[0] || null;
 
   // Core work. Validation mirrors part repairs; time accounting lives in management.js.
-  NG.applyRepairPackage = (s, id, pkg, mode = "standard") => {
+  NG.applyRepairPackage = (
+    s,
+    id,
+    pkg,
+    mode = "standard",
+    deferCompletion = false,
+  ) => {
     const c = s.inventory.find((c) => c.id === id);
     if (!c) throw Error("Invalid repair.");
     pkgById(pkg);
@@ -161,6 +167,7 @@ window.NG = window.NG || {};
       throw Error("You do not have enough cash for this package.");
     let cost = q.cost,
       found = [];
+    c.pendingRepair = { parts: {}, faults: [] };
     s.cash -= cost;
     // Faults hidden in the parts the crew opens up are found and fixed now.
     const touched = new Set(q.plan.map((w) => w.part));
@@ -171,13 +178,13 @@ window.NG = window.NG || {};
       if (s.cash >= f.cost) {
         s.cash -= f.cost;
         cost += f.cost;
-        f.fixed = true;
+        c.pendingRepair.faults.push(c.flaws.indexOf(f));
         found.push(f.label + " (+" + NG.money(f.cost) + ")");
       } else found.push(f.label + " (not fixed: not enough cash)");
     }
     for (const w of q.plan) {
-      c.parts[w.part] = w.to;
-      w.faults.forEach((f) => (f.fixed = true));
+      c.pendingRepair.parts[w.part] = w.to;
+      w.faults.forEach((f) => c.pendingRepair.faults.push(c.flaws.indexOf(f)));
     }
     c.repairCost += cost;
     c.repairMode = mode;
@@ -185,13 +192,14 @@ window.NG = window.NG || {};
     c.readyDay = s.day + q.days;
     c.pendingCollectionRepair = true;
     c.offers = [];
+    if (!deferCompletion && !q.days) NG.completeRepair(s, c);
     NG.record(s, "repair", -cost, NG.model(c).name + " - " + q.label);
     return (
       q.label +
       " booked. Ready in " +
       q.days +
       " day(s). Expected grade: " +
-      NG.grade(c).label +
+      q.gradeAfter.label +
       "." +
       (found.length ? " Found during the job: " + found.join(", ") + "." : "")
     );

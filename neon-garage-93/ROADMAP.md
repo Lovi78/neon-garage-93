@@ -1,17 +1,25 @@
 # Neon Garage '93 - aktuális fejlesztési roadmap
 
-Frissítve: 2026. október 14. Jelenlegi változat: v0.14.0 / Cut & Flow a `main` ágon (2026. október 14-én beolvasztva; a v0.12, Premium Retro UX, v0.13 és v0.14 ágak mind benne vannak). Irány: [AUDIT-2026-10.md](AUDIT-2026-10.md).
+Frissítve: 2026. október 14. Jelenlegi fejlesztői változat: v0.14.1 / Stability & UX Improvement a `codex/v0.14.1-stability-ux` ágon. A main: v0.14.0 / Cut & Flow (2026. október 14-én beolvasztva; a v0.12, Premium Retro UX, v0.13 és v0.14 ágak mind benne vannak). Irány: [AUDIT-2026-10.md](AUDIT-2026-10.md).
 
 A jelenlegi működés szabályai a [README-ben](README.md), az eredeti javaslatok és verziónkénti feljegyzések a [DEVELOPMENT-HISTORY.md](DEVELOPMENT-HISTORY.md) dokumentumban vannak. Az előzmények megmaradtak; az ottani régi státuszok nem a mai állapotot jelentik.
 
 **Státuszok:** kész = megvalósult működés; nyitott = még szükséges ellenőrzés vagy döntés; terv = felhasználói cél, még nincs kész; javaslat = ajánlott következő lépés, nem új fejlesztési vállalás. A tesztek nem bizonyítják önmagukban a vizuális minőséget vagy a tartós játékélményt.
+
+## v0.14.1 - Stability & UX Improvement
+
+Megvalósult és automatizáltan ellenőrzött: gyors napátugrás döntésvédelme, késleltetett javítási eredmény és régi foglalások kompatibilitása, vevőbónusz duplikációjának javítása, védett betöltés/export/import/backup, semleges javítási címkék, tudatos alkuválasztás, kompakt ranglista és ismételt navigáció nélküli autólap. Opt-in Development Session Log JSON/CSV exporttal.
+
+192 szabályteszt, 50 UI-teszt, 50 400 szimulált nap; Chromium 1440/1280/390/375 px, valódi import-export és helyreállítás. Egy friss játékos scripted flip: 10 kattintás, $104 profit. [Teljes bizonyíték és korlátok](STABILITY-V0141.md).
+
+Nyitott: 20-30 perces emberi próba, első vétel/eladás ideje, 3 Season-cél 30 perc alatt, a következő lépés megértése és két eltérő stratégia tudatos indoklása. A fejlesztői ág nincs automatikusan mainbe merge-elve.
 
 ## v0.14 - Cut & Flow
 
 Az audit M1 mérföldköve. Szabályok: [README](README.md#v014---cut--flow).
 
 Kész:
-- **F/1 javítási gazdaság:** Project / Runner / Clean / Showroom fokozatok, három javítási csomag, BEST RETURN napi profit alapján, értéklétra, 80 magos balanszszimuláció (Driver-ready +19% a "soha ne javíts"-hoz képest).
+- **F/1 javítási gazdaság:** Project / Runner / Clean / Showroom fokozatok, három javítási csomag, v0.14.1-től semleges költség/idő/érték címkék, értéklétra, 80 magos balanszszimuláció (Driver-ready +19% a "soha ne javíts"-hoz képest).
 - **Vevői kérések:** 6 archetípus, 3 szint, értékalapú prémium, lead-ek, tracker minden képernyőn.
 - **F/2 napritmus:** egy kattintásos Next Day, reggeli sáv chipekkel, ">>" ugrás, heti bérleti díj péntekenként.
 - **F/3 egyképernyős autólap:** eladó oka megnyitáskor, vétel az alsó sávból, automatikus vevőválasz, Market információs sorok.
@@ -23,7 +31,7 @@ Döntések: a 3. beálló nem szezoncél és most nem készül; a választás a 
 
 Nyitott:
 - Emberi játékteszt az audit elfogadási kritériumai szerint (első vétel < 3 perc, flip <= 12 kattintás, 30 percen belül 3 szezoncél).
-- M0 session log (kattintás/perc mérés) még nincs.
+- M0 session log megvalósult v0.14.1-ben; emberi session-export még nincs.
 - A vevői kérések bevétele nincs a bot-szimulációban; a ranglista kalibrációja kérések nélküli botokon alapul.
 - Rivális értékek finomhangolása játékteszt alapján; Season 2 tartalma.
 - 4 férőhelyes v0.13 mentésben a garage-guide panel eltakarja a 3. autót.

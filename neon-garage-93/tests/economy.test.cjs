@@ -98,6 +98,8 @@ test("Rejtett hiba feltárásakor nem történik váratlan levonás", () => {
   const quote = NG.repairQuote(c, "engine");
   NG.repair(s, c.id, "engine");
   assert.equal(s.cash, before - quote);
+  assert(!c.flaws[0].fixed);
+  while (NG.busy(s, c)) NG.nextDay(s, () => 0.99);
   assert(c.flaws[0].fixed);
 });
 test("Hirdetés, ajánlat, elutasítás és érvényesség", () => {

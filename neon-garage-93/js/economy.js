@@ -108,6 +108,16 @@ NG.repairQuote = (car, part, state, mode = "standard") => {
   return NG.discountedLocalRepair?.(state, part, full).price ?? full;
 };
 NG.busy = (state, car) => car.readyDay > state.day;
+// Legacy bookings already contain their result. Only new bookings have a plan.
+NG.completeRepair = (s, c) => {
+  if (!c.pendingRepair || NG.busy(s, c)) return false;
+  Object.assign(c.parts, c.pendingRepair.parts);
+  c.pendingRepair.faults.forEach((i) => {
+    c.flaws[i].fixed = true;
+  });
+  delete c.pendingRepair;
+  return true;
+};
 NG.generateCar = (state, modelIndex, rng = Math.random) => {
   const m = NG.catalog[modelIndex],
     parts = {};
@@ -236,10 +246,12 @@ NG.repair = (s, id, part, mode = "standard") => {
   if (discount?.event?.uses > 0) discount.event.uses--;
   s.cash -= cost;
   car.repairCost += cost;
-  car.parts[part] = 95;
-  car.flaws
-    .filter((f) => f.part === part && f.revealed)
-    .forEach((f) => (f.fixed = true));
+  car.pendingRepair = {
+    parts: { [part]: 95 },
+    faults: car.flaws.flatMap((f, i) =>
+      f.part === part && f.revealed && !f.fixed ? [i] : [],
+    ),
+  };
   car.repairMode = mode;
   const days = NG.repairDuration(s, part, mode);
   car.readyDay = s.day + days;
@@ -369,6 +381,7 @@ NG.nextDay = (s, rng = Math.random) => {
     s.market[8].ask = Math.round(s.market[8].ask * 0.8);
   }
   s.inventory.forEach((c) => {
+    NG.completeRepair(s, c);
     if (c.pendingCollectionRepair && !NG.busy(s, c)) {
       NG.trackCollection(s, c, "repaired");
       c.pendingCollectionRepair = false;

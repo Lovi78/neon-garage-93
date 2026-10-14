@@ -103,6 +103,18 @@ window.NG = window.NG || {};
       return "A buyer request is due today.";
     if ((s.claims || []).some((c) => !before.claims.includes(c.id)))
       return "A customer complaint needs an answer.";
+    if (s.market.some((c) => c.negotiation?.status === "callback"))
+      return "A seller is calling back.";
+    if (
+      s.ledger.some(
+        (l) =>
+          l.day === s.day &&
+          ["overhead", "payroll", "interest", "service", "wholesale"].includes(
+            l.type,
+          ),
+      )
+    )
+      return "A financial event occurred.";
     if (s.operations.arrears > 0) return "Bills are overdue.";
     if ((s.progress?.level || 0) > before.level) return "You levelled up.";
     return "";
@@ -114,15 +126,56 @@ window.NG = window.NG || {};
     claims: (s.claims || []).map((c) => c.id),
     level: s.progress?.level || 0,
   });
+  // Run before EVERY skipped day, even for decisions the player has seen.
+  NG.waitBeforeDay = (s) => {
+    if (
+      s.inventory.some((c) =>
+        c.offers.some((o) => (o.expiresDay ?? s.day) >= s.day),
+      )
+    )
+      return "Review the pending buyer offers first.";
+    if (
+      s.market.some((c) =>
+        ["callback", "agreed"].includes(c.negotiation?.status),
+      )
+    )
+      return "A seller call or agreement needs your decision.";
+    if (
+      (s.opportunities?.requests || []).some(
+        (q) =>
+          ["active", "offered"].includes(q.status) && q.deadline <= s.day + 1,
+      )
+    )
+      return "A buyer request deadline is approaching.";
+    if ((s.claims || []).some((c) => c.status === "open"))
+      return "A customer complaint needs an answer.";
+    if (
+      s.inventory.some(
+        (c) =>
+          !c.listed &&
+          (c.pendingCollectionRepair || c.readyDay > 0) &&
+          !NG.busy(s, c),
+      )
+    )
+      return "A repair is finished.";
+    if (s.operations.arrears > 0 || (s.management?.unpaid || 0) > 0)
+      return "Bills are overdue.";
+    if (NG.knownDailyBills(s, s.day + 1) > s.cash)
+      return "Tomorrow's bills exceed your cash. Review finances first.";
+    return "";
+  };
   NG.waitForEvent = (s, rng = Math.random, max = 7) => {
     let days = 0,
       reason = "",
       report = null;
     const start = s.day;
     while (days < max && !reason) {
+      reason = NG.waitBeforeDay(s);
+      if (reason) break;
       const before = NG.waitSnapshot(s);
       report = NG.nextDay(s, rng);
       days++;
+      NG.sessionLog?.day(report, "automatic");
       reason = NG.waitStop(s, before);
     }
     if (s.dayReport) s.dayReport.skippedFrom = start;

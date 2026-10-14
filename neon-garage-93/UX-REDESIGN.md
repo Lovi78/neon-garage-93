@@ -1,3 +1,5 @@
+> Aktuális v0.14.1 felület és ellenőrzés: [STABILITY-V0141.md](STABILITY-V0141.md). Az alábbi v0.13 képek és leírások történeti bizonyítékok; a jelenlegi kétoszlopos autólap, kompakt ranglista és ismételt navigáció nélküli ablak friss képei az új jelentésben vannak.
+
 # Premium Retro UX - audit, megvalósítás és ellenőrzés
 
 2026. október 12. A feladatban kért v0.12 UI/UX-csomag a ténylegesen elérhető v0.13.0 / Run the Lot játékra készült. Alap: `fe84539`, `codex/v0.13-run-the-lot`. Forráság: `codex/premium-retro-ux`. A [PR #1](https://github.com/Lovi78/neon-garage-93/pull/1) 2026. október 12-én beolvadt a `codex/v0.13-run-the-lot` ágba, merge-commit: `23b8a5f`; utolsó ikonos forráscommit: `5963790`. A jelenlegi játékot a v0.13-as célágból kell letölteni. A main külön v0.11.0 állapot, éles publikálás nem történt.

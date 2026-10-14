@@ -1,14 +1,20 @@
-# Neon Garage '93 - v0.14 / Cut & Flow
+# Neon Garage '93 - v0.14.1 / Stability & UX Improvement
 
 Játszható, körökre osztott autókereskedő-játék. Angol játékfelület, fiktív kaliforniai város, 1993. június 1., $5,000 kezdőtőke, két férőhely.
 
 A teljes játékfelület angol. A korábbi mentések eseményei, hibaleírásai és pénzügyi bejegyzései betöltéskor angolra váltanak, a játékállás megtartásával.
 
-Dokumentáció frissítve: 2026. október 14. Játékverzió: 0.14.0, a `main` ágon (beolvasztva 2026. október 14-én a `codex/v0.14-cut-and-flow` ágból). Az irányt az [AUDIT-2026-10.md](AUDIT-2026-10.md) adja; az F/1-F/5 pontok elkészültek. A v0.13-as leírások lent változatlanul a régi mentésekre és a v0.13 szabályokra vonatkoznak.
+Dokumentáció frissítve: 2026. október 14. Fejlesztői verzió: 0.14.1, a `codex/v0.14.1-stability-ux` ágon. A main jelenleg v0.14.0. Az irányt az [AUDIT-2026-10.md](AUDIT-2026-10.md) adja; az F/1-F/5 pontok elkészültek. A v0.13-as leírások lent változatlanul a régi mentésekre és a v0.13 szabályokra vonatkoznak.
 
 A teljes fejlesztési irány, a következő szakaszok és a nyitott döntések a [ROADMAP.md](ROADMAP.md) dokumentumban vannak rögzítve.
 
 A kattintható tárgyakat állandó, finom mentazöld pixel sarokjelölés emeli ki. Rámutatáskor vagy billentyűzetes kijelöléskor aranyszínű lesz és megjelenik a funkció neve. A saját autók sziluettje is enyhe jelölést kap. Az alsó súgó a számítógéphez irányítja az első játékost; a napváltási jelenetben a jelölések nem látszanak.
+
+## v0.14.1 - Stability & UX Improvement
+
+Biztonságos gyors napátugrás, javítási állapotváltozás csak elkészüléskor, egyszer alkalmazott helyi vevőbónusz, védett mentésbetöltés és Options alatti export/import/előző mentés. Kompakt ranglista, látható XP/REP, ismételt autóablak-navigáció nélkül, tudatos taktikaválasztás és semleges javítási címkék. Javítás és hirdetés után közvetlen várakozás az alsó döntési sávból. A régi mentések szabályai megmaradnak.
+
+Fejlesztői mérés: `?dev=1`, majd Options / Session JSON vagy Session CSV. [Változások, tesztek, képernyőképek és korlátok](STABILITY-V0141.md). Egy automatizált új játékos útvonal: 10 érdemi kattintás, $104 profit. Az emberi idő- és élménycélok még nem elfogadottak.
 
 ## v0.14 - Cut & Flow
 
@@ -17,7 +23,7 @@ Az irány az [AUDIT-2026-10.md](AUDIT-2026-10.md) F/1 pontja. A javítás eddig 
 - **Állapotfokozatok:** Project (<55), Runner (55-74), Clean (75-89), Showroom (90+). Az érték a küszöböknél ugrik; a fokozatok közepén a régi értékgörbén marad.
 - **Három csomag a Workshop fülön, egy foglalás (3 munkaóra):** Quick fix (ismert hibák + detailing, aznap), Driver-ready (minden alkatrész 75+, Clean, 1 nap), Full restoration (minden 95, Showroom, 3 nap). A csomagok fölött értéklétra mutatja, mit érne az autó az egyes fokozatokon; a fokozatjelvényeken rámutatásra tartomány és jelentés. Kártyánként költség, idő, fokozat előtte/utána, várható eladási ár és profitváltozás. Az alkatrészenkénti javítás lenyitható haladó opció.
 - **Vevők:** a rajongó +7%-ot fizet Showroom sportautóért/roadsterért; a budget vevő Runner felett nem fizet többet.
-- **Mérés:** `node tests/repair-simulation.cjs` (80 mag x 100 nap, nettó érték). v0.13: soha ne javíts $15,079, Driver-ready $432. v0.14 (rangsor-feloldásokkal, 2026-10-14): soha ne javíts $18,802, Quick $19,951, Driver-ready $22,436 (+19%), Full mindenre $11,428, a "BEST RETURN" jelölést követő bot $23,536 (+25%). Balanszcél assertként: Driver-ready lift 10-30%, Full < Driver-ready, több nyerő stratégia. A jelölés napi profit alapján dönt (műhelynapok + kb. 2 nap eladás). Előtte/utána adatok: `reports/repair-*.json`.
+- **Mérés:** `node tests/repair-simulation.cjs` (80 mag x 100 nap, nettó érték). v0.13: soha ne javíts $15,079, Driver-ready $432. v0.14 (rangsor-feloldásokkal, 2026-10-14): soha ne javíts $18,802, Quick $19,951, Driver-ready $22,436 (+19%), Full mindenre $11,428, a belső smart bot $23,536 (+25%). Balanszcél assertként: Driver-ready lift 10-30%, Full < Driver-ready, több nyerő stratégia. A bot napi profit alapján választ; v0.14.1-ben a felület semleges költség/idő/érték címkéket ad. Előtte/utána adatok: `reports/repair-*.json`.
 - **Buyer requestek:** 6 típus 3 szinten (Everyday / Specific / Collector 5 REP-től), a katalógus valódi modelljeiből generálva; a modellre szóló kérés mindig olyan modellt kér, ami épp a piacon vagy a garázsban van. A fizetés a leszállított autó becsült értéke +12 / 18 / 25%, a Specific/Collector +1/+2 REP. Az aktív kérések minden képernyőn látszanak (egy kattintásos átadás), a piaci és garázs autókon "FOR <vevő>" jelvény, az autólapon ellenőrzőlista. Átadáskor a vevő szerelője megtalálja a rejtett hibát. 10 REP-től 3 aktív kérés. Ha a vevő egy konkrét modellt kér, és az nincs a piacon, elfogadáskor (és később naponta 40% eséllyel) küld egy "lead"-et: egy ilyen autót, ami a kérés idejére a piacon marad. A régi fix árú kérések a régi szabályokkal futnak ki.
 - **Piac:** a hirdetések 8-20 napig élnek (eddig 18-41), így naponta több új autó jön. Az olcsó kínálat mind a ~15 olcsó modellből jön (eddig 40% csak Golf/Volvo/CRX).
 - **Napritmus (F/2):** a Next Day egy kattintás; megerősítést csak akkor kér, ha egy meg nem nézett ajánlat vagy egy határidős kérés elveszne. A reggeli összefoglaló egy sáv a menü alatt, a teljes jelentés ablakként csak panasznál vagy kérés-hírnél jön (különben "Full report"). Új **>>** gomb: átugorja a csendes napokat, amíg vevő jelentkezik, kész a javítás, kérés érkezik vagy lejár, panasz jön vagy számla késik (max 7 nap). A napi számlák **péntekenként, heti bérleti díjként** mennek le (ugyanannyi pénz, egy fizetés), a HUD mutatja: "Rent June 4: $60".

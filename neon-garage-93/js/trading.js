@@ -808,7 +808,6 @@ window.NG = window.NG || {};
         ratio * 0.65 +
         NG.interestBonus(s) +
         (NG.localEffect?.(s, "interest") || 0) +
-        (NG.localEffect?.(s, "interest") || 0) +
         (s.event.kind === "rush" ? 0.12 : 0),
       0.01,
       0.9,
