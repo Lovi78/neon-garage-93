@@ -2472,3 +2472,21 @@ main.world-frame {
 .row-price strong {
   font-size: 21px;
 }
+/* v0.14 one-screen file: a bigger car (sprite sits in the 30-84% band of its square). */
+.single-car [data-car-panel="overview"] .detail-visual {
+  height: 320px;
+  min-height: 0;
+  max-height: none;
+}
+.single-car [data-car-panel="overview"] .detail-visual .car-art {
+  width: min(92%, 560px);
+  max-height: none;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -56.6%);
+}
+@media (max-width: 650px) {
+  .single-car [data-car-panel="overview"] .detail-visual {
+    height: 200px;
+  }
+}
