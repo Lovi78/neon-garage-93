@@ -2278,3 +2278,47 @@ main.world-frame {
   color: var(--muted);
   font-size: 13px;
 }
+
+/* v0.14: status strips float over the garage instead of shrinking it. */
+.scene-overlay {
+  display: grid;
+  gap: 6px;
+}
+.scene-overlay:empty {
+  display: none;
+}
+@media (min-width: 651px) {
+  .scene-overlay {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 6;
+    width: min(560px, calc(100% - 20px));
+    pointer-events: none;
+  }
+  .scene-overlay > * {
+    pointer-events: auto;
+    margin: 0;
+    box-shadow: 0 8px 24px #000a;
+  }
+  .scene-overlay .priorities {
+    padding: 0;
+    border: 0;
+  }
+  .scene-overlay .request-tracker {
+    margin: 0;
+  }
+  .scene-overlay .request-chip,
+  .scene-overlay .morning-strip {
+    max-width: none;
+    background: #18222bf2;
+  }
+  main.world-frame:has(.desk-window) .scene-overlay {
+    display: none;
+  }
+}
+.seller-answer {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+}
